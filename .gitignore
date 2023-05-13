@@ -34,3 +34,6 @@ results/koi_gyro_X_lithium_posteriors*
 results/koi_lithium_posteriors*
 results/koi_gyro_posteriors_20230208/
 results/rp_agebins_KS_test/
+gyrojohann/data/interim/Li_EW_HIRES_all/
+doc*
+results*
