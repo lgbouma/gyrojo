@@ -29,8 +29,11 @@ from glob import glob
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
 from numpy import array as nparr
 
-from agetools.paths import DATADIR, RESULTSDIR, LOCALDIR
-from agetools.getters import get_gyro_data, get_li_data, get_joint_results
+from astropy.table import Table
+from astropy.io import fits
+
+from gyrojo.paths import DATADIR, RESULTSDIR, LOCALDIR
+from gyrojo.getters import get_gyro_data, get_li_data, get_joint_results
 
 from gyrointerp.models import (
     reference_cluster_slow_sequence
@@ -921,4 +924,24 @@ def plot_age_comparison(outdir, logscale=1, iso_v_gyroli=0, ratio_v_gyroli=0,
         s += '_hist_age_unc_ratio'
 
     outpath = os.path.join(outdir, f'age_comparison{s}.png')
+    savefig(fig, outpath)
+
+
+def plot_reinhold_2015(outdir):
+
+    fitspath = join(DATADIR, "literature",
+                    "Reinhold_2015_20934_stars.fits")
+    hl = fits.open(fitspath)
+    df = Table(hl[1].data).to_pandas()
+
+    bins = np.arange(0,5e3+1e2,1e2)
+
+    fig, ax = plt.subplots()
+    set_style("clean")
+
+    ax.hist(df.tMH08, bins=bins)
+    ax.set_xlabel("t MH08 [myr]")
+    ax.set_ylabel('count')
+
+    outpath = os.path.join(outdir, "Reinhold_2015_t_MH08_hist.png")
     savefig(fig, outpath)
