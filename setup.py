@@ -49,7 +49,7 @@ EXTRAS_REQUIRE = {
 ###############
 
 # run setup.
-version = 0.0.0
+version = "0.0.0"
 setup(
     name='gyrojo',
     version=version,
@@ -72,7 +72,7 @@ setup(
     author_email='bouma.luke@gmail.com',
     license='MIT',
     packages=[
-        'gyrojohann',
+        'gyrojo',
     ],
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
