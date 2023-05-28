@@ -3,6 +3,7 @@ Catch-all file for plotting scripts.  Contents:
 
     plot_li_vs_teff
     plot_mean_prot_teff
+    plot_star_Prot_Teff
 
     plot_koi_gyro_posteriors
     plot_li_gyro_posteriors
@@ -33,7 +34,10 @@ from astropy.table import Table
 from astropy.io import fits
 
 from gyrojo.paths import DATADIR, RESULTSDIR, LOCALDIR
-from gyrojo.getters import get_gyro_data, get_li_data, get_joint_results
+from gyrojo.getters import (
+    get_gyro_data, get_li_data, get_joint_results,
+    get_kicstar_data
+)
 
 from gyrointerp.models import (
     reference_cluster_slow_sequence
@@ -104,14 +108,15 @@ def get_planet_class_labels(df):
 ############
 # plotters #
 ############
-def plot_mean_prot_teff(outdir, Nprot_color=0):
+def plot_mean_prot_teff(outdir, sampleid):
+    # For KOIs
 
     df = get_gyro_data('all')
 
     n_pl = len(np.unique(df.kepoi_name))
     n_st = len(np.unique(df.kepid))
 
-    Teffs = nparr(df.adopted_Teff)
+    Teffs = nparr(df.b20t2_Teff)
     Teff_errs = nparr(df.adopted_Teff_err)
     Prots = np.round(nparr(df.mean_period), 4)
     Prot_errs = nparr(df.Prot_err)
@@ -166,7 +171,6 @@ def plot_mean_prot_teff(outdir, Nprot_color=0):
         markersize=1, zorder=4
     )
 
-
     txt = (
         "$N_\mathrm{p}$ = " + f"{n_pl}\n"
         "$N_\mathrm{s}$ = " + f"{n_st}"
@@ -179,6 +183,109 @@ def plot_mean_prot_teff(outdir, Nprot_color=0):
     ax.set_xlim([ 6300, 3700 ])
 
     outpath = os.path.join(outdir, f'koi_mean_prot_teff.png')
+    savefig(fig, outpath)
+
+
+def plot_star_Prot_Teff(outdir, sampleid):
+    # For KIC / all Santos stars
+
+    assert sampleid in [
+        'Santos19_Santos21_all', 'Santos19_Santos21_logg',
+        'Santos19_Santos21_gyro', 'teff_age_prot_seed42_nstar20000'
+    ]
+
+    if "Santos" in sampleid:
+        df = get_kicstar_data(sampleid)
+        n_st = len(np.unique(df.kepid))
+
+    elif "seed" in sampleid:
+        csvdir = (
+            '/Users/luke/Dropbox/proj/gyro-interp/results/period_bimodality'
+        )
+        df = pd.read_csv(
+            join(csvdir, 'teff_age_prot_seed42_nstar20000.csv')
+        )
+        df['adopted_Teff'] = df.teff
+        df['adopted_Teff_err'] = 1
+        df['Prot'] = df.prot_mod
+        df['Prot_err'] = 1
+        n_st = len(df)
+
+    Teffs = nparr(df.adopted_Teff)
+    Teff_errs = nparr(df.adopted_Teff_err)
+    Prots = np.round(nparr(df.Prot), 4)
+    if sampleid == 'Santos19_Santos21_all':
+        # as reported; probably underestimated?
+        Prot_errs = nparr(df.E_Prot)
+    elif sampleid == 'Santos19_Santos21_gyro':
+        # empirical uncs
+        Prot_errs = nparr(df.Prot_err)
+    elif sampleid == 'teff_age_prot_seed42_nstar20000':
+        Prot_errs = nparr(df.Prot_err)
+
+    set_style("clean")
+    fig, ax = plt.subplots(figsize=(4,3))
+
+    model_ids = ['120-Myr', 'Praesepe', 'NGC-6811', '2.6-Gyr', 'M67']
+    ages = ['120 My', '670 My', '1 Gy', '2.6 Gy', '4 Gy']
+    yvals = [9.8,14.8,16.7,20,28]
+
+    _Teff = np.linspace(3800, 6200, int(1e3))
+    linestyles = ['solid', 'dotted', 'dashed', 'dashdot', 'solid']
+    for model_id, ls, age, yval in zip(model_ids, linestyles, ages, yvals):
+        color = 'k'
+        poly_order = 7
+        _Prot = reference_cluster_slow_sequence(
+            _Teff, model_id, poly_order=poly_order
+        )
+        if model_id == 'M67':
+            print(
+                reference_cluster_slow_sequence( nparr([5800]), model_id,
+                                                poly_order=poly_order)
+            )
+
+        ax.plot(
+            _Teff, _Prot, color=color, linewidth=1, zorder=10, alpha=0.4, ls=ls
+        )
+
+        bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
+        ax.text(3680, yval, age, ha='right', va='center', fontsize='x-small',
+                bbox=bbox, zorder=49)
+
+    print(f"Mean Teff error is {np.nanmean(Teff_errs):.1f} K")
+
+    #N_reported_periods = df['N_reported_periods']
+    #sel = (N_reported_periods >= 2)
+
+    ax.errorbar(
+        Teffs, Prots, #xerr=Teff_errs,
+        yerr=Prot_errs,
+        marker='o', elinewidth=0., capsize=0, lw=0, mew=0., color='k',
+        markersize=0.5, zorder=5
+    )
+    ## only one reported period
+    #sel = (N_reported_periods == 1)
+    #ax.errorbar(
+    #    Teffs[sel], Prots[sel], #xerr=Teff_errs,
+    #    yerr=Prot_errs[sel],
+    #    marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='lightgray',
+    #    markersize=1, zorder=4
+    #)
+
+    txt = (
+        #"$N_\mathrm{p}$ = " + f"{n_pl}\n"
+        "$N_\mathrm{s}$ = " + f"{n_st}"
+    )
+    bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
+    ax.text(0.03, 0.97, txt, transform=ax.transAxes,
+            ha='left',va='top', color='k', zorder=6, bbox=bbox)
+
+    ax.set_xlabel("Effective Temperature [K]")
+    ax.set_ylabel("Rotation Period [days]")
+    ax.set_xlim([ 6300, 3700 ])
+    ax.set_ylim([ -1, 46 ])
+
+    outpath = os.path.join(outdir, f'prot_teff_{sampleid}.png')
     savefig(fig, outpath)
 
 
