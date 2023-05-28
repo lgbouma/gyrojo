@@ -22,6 +22,7 @@ from agetools.paths import DATADIR, LOCALDIR, RESULTSDIR
 from agetools.plotting import plot_sub_praesepe_selection_cut
 
 from gyrointerp.helpers import prepend_colstr, left_merge
+from gyrojo.getters import get_cleaned_gaiadr3_X_kepler_dataframe
 
 from astroquery.vizier import Vizier
 
@@ -43,73 +44,7 @@ def build_koi_table(overwrite=0):
     )
     koi_df = pd.read_csv(koipath, comment='#', sep=',')
 
-    # Kepler-Gaia DR3 crossmatch from https://gaia-kepler.fun/, downloaded to
-    # the ~/local/ directory.  Use the 4 arcsecond match (will go by brightest
-    # match below).
-    # For KIC stars with multiple potential Gaia matches within the 4 arcsecond
-    # search radius, we adopted the brightest star as the actual match.  This
-    # is typically unambiguous, since in most such cases there is a large
-    # brightness difference between the primary and any apparent neighbors.  We
-    # mark cases where the $G$-band difference in magnitudes is less than $0.5$
-    # with a quality flag, $\texttt{n\_gaia\_nbhr}$, which denotes the number
-    # of sources within 4 arcseconds and 0.5 $G$-band magnitudes of the
-    # primary.  NOTE: narrower search radii (e.g., the 1 arcsecond match)
-    # exclude a larger fraction of stars -- e.g., 91 of KOI's are omitted in
-    # the 1 arcsecond match, and 23 of these have either "candidate" or
-    # "confirmed" status.  The overwhelming majority of these 23 are M-dwarfs
-    # with high proper motions.  Performing the same crossmatch at 4
-    # arcseconds, only two KOIs (KOI-3993 and KOI-6531), both known false
-    # positives, fail to yield Gaia DR3 crossmatches.
-
-    kepler_dr3_path = os.path.join(LOCALDIR, "kepler_dr3_4arcsec.fits")
-    hdul = fits.open(kepler_dr3_path)
-    gk_df = Table(hdul[1].data).to_pandas()
-    hdul.close()
-
-    gk_df = gk_df.sort_values(by=['kepid','phot_g_mean_mag'])
-    udupkepids = np.unique(
-        gk_df[gk_df.duplicated('kepid', keep=False)]['kepid']
-    )
-    idcache = {}
-    for ukepid in udupkepids:
-        g_mags = np.array(gk_df.loc[gk_df.kepid==ukepid, 'phot_g_mean_mag'])
-        n_gaia_nbhr = np.sum(g_mags - min(g_mags) < 0.5) - 1
-        idcache[ukepid] = n_gaia_nbhr
-
-    cgk_df = gk_df[~gk_df.duplicated('kepid', keep='first')]
-    n_gaia_nbhr = np.zeros(len(cgk_df))
-    for ix, kepid in enumerate(cgk_df.kepid):
-        if kepid in idcache:
-            if idcache[kepid] >= 1:
-                n_gaia_nbhr[ix] = idcache[kepid]
-
-    cgk_df['flag_n_gaia_nbhr'] = n_gaia_nbhr.astype(int)
-
-    okcols = ['kepid', 'nconfp', 'nkoi', 'ntce', 'jmag', 'hmag', 'kmag',
-              'planet?', 'flag_n_gaia_nbhr']
-    colstr = 'dr3_'
-    cgk_df = cgk_df.rename({c:colstr+c for c in cgk_df.columns
-                            if c not in okcols}, axis='columns')
-    selcols = ['kepid', 'dr3_source_id', 'dr3_ra', 'dr3_dec', 'dr3_parallax',
-               'dr3_parallax_error', 'dr3_parallax_over_error', 'dr3_pmra',
-               'dr3_pmra_error', 'dr3_pmdec', 'dr3_pmdec_error', 'dr3_ruwe',
-               'dr3_phot_g_mean_flux_over_error', 'dr3_phot_g_mean_mag',
-               'dr3_phot_bp_mean_flux_over_error', 'dr3_phot_bp_mean_mag',
-               'dr3_phot_rp_mean_flux_over_error', 'dr3_phot_rp_mean_mag',
-               'dr3_phot_bp_rp_excess_factor', 'dr3_bp_rp',
-               'dr3_radial_velocity', 'dr3_radial_velocity_error',
-               'dr3_rv_nb_transits', 'dr3_rv_renormalised_gof',
-               'dr3_rv_chisq_pvalue', 'dr3_phot_variable_flag', 'dr3_l',
-               'dr3_b', 'dr3_non_single_star', 'dr3_teff_gspphot',
-               'dr3_logg_gspphot', 'dr3_mh_gspphot', 'dr3_distance_gspphot',
-               'dr3_ag_gspphot', 'dr3_ebpminrp_gspphot',
-               'dr3_kepler_gaia_ang_dist', 'dr3_pm_corrected', 'nconfp',
-               'nkoi', 'ntce', 'planet?', 'flag_n_gaia_nbhr']
-    # "cleaned" Gaia-Kepler dataframe.  duplicates accounted for; dud columns
-    # dropped (most columns kept).
-    cgk_df = cgk_df[selcols]
-    cgk_df['dr3_source_id'] = cgk_df['dr3_source_id'].astype(str)
-    assert np.all(~pd.isnull(cgk_df.dr3_source_id))
+    cgk_df = get_cleaned_gaiadr3_X_kepler_dataframe()
 
     Vizier.ROW_LIMIT = -1
 
