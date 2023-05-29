@@ -1,0 +1,467 @@
+\documentclass[12pt,twocolumn,tighten]{aastex63}
+% upon AAS submission
+%\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
+%\documentclass[12pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
+% drafting / arxiv
+%\turnoffedit
+
+\usepackage{apjfonts}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{amsmath,amstext,amssymb}
+\usepackage[caption=false]{subfig} % for subfloat
+\usepackage{bm} % for bold hat accents
+\usepackage{xcolor, fontawesome}
+\usepackage{color}
+
+\newcommand{\rprs}{{$R_p/R_{\star}$}}
+\newcommand{\teff}{T$_{\textrm{eff}}$}
+\newcommand{\gcc}{{g\,cm$^{-3}$}}
+\newcommand{\rstar}{{$R_\star$}}
+\newcommand{\mearth}{{M$_\oplus$}}
+\newcommand{\rearth}{{R$_\oplus$}}
+\newcommand{\rsun}{{R$_\odot$}}
+\newcommand{\msun}{{M$_\odot$}}
+
+\newcommand{\minus}{\scalebox{0.5}[1.0]{$-$}}
+
+\newcommand{\berkeley}{Astronomy Department, University of California, Berkeley, CA 94720, USA}
+\newcommand{\caltech}{Department of Astronomy, MC 249-17, California Institute of Technology, Pasadena, CA 91125, USA}
+
+%
+% ms specific numbers
+%
+\newcommand{\nstarwithages}{NNN}
+
+\defcitealias{McQuillan_2014}{M14}
+\defcitealias{Mazeh_2015}{M15}
+\defcitealias{Santos_2019}{S19}
+\defcitealias{Santos_2021}{S21}
+
+
+\begin{document}
+
+\title{gyro-johannes}
+
+\correspondingauthor{Luke G. Bouma}
+\email{luke@astro.caltech.edu}
+
+\received{---}
+\revised{---}
+\accepted{---}
+\shorttitle{gyro-johannes} 
+
+\shortauthors{Bouma et al.}
+
+\input{authors.tex}
+
+\begin{abstract}
+  We report rotation- and lithium-based ages for stars observed by
+  the primary Kepler mission.  Stellar rotation periods are collected from
+  previous work; lithium is measured using both new and archival HIRES
+  spectra.
+  For the \nstarwithages\ FGK stars with reported ages, the relative statistical
+  precisions $\sigma_t / t$ are XX +YY -ZZ\%, which is a factor of X.X
+  +Y.Y -Z.Z more precise than state-of-the-art isochronal ages for the
+  same stars.  The results include XXX planets younger than 1\,Gyr,
+  and YYY planets younger than 0.5\,Gyr.
+  In the base sample of dwarf FGK stars observed by
+  Kepler, we find that the intrinsic age distribution is(/not)
+  consistent with a uniform distribution between X and Y billion years
+  (Gyr).  In the planet sample, we find a consistent(/inconsistent)
+  distribution at $N$-sigma.  Analyzing the completeness of the Kepler
+  detection pipeline, we interpret the majority of the change to be
+  caused by selection effects (or astrophysics).  We also comment on a
+  few previously reported evolutionary trends in the size evolution of
+  close-in mini-Neptunes (2-4\,\rearth) and super-Earths
+  (1-2\,\rearth), a few of which we recover at comparable
+  ($\sim$3$\sigma$) significance to previous work, and one of which
+  we note for the first time.
+\end{abstract}
+
+\keywords{Exoplanet evolution (491), Stellar ages (1581)}
+
+\section{Introduction}
+\label{sec:intro}
+
+Discovering a young planet requires solving two problems: find the
+planet, and measure the star's age.  Each problem can be
+solved in different ways, yielding many possible permutations for
+discovery.  In this manuscript, we will focus on the transit method
+for planet discovery, and rotation and lithium-based methods for stellar age
+measurement.  Rotation-based age-dating, also known as
+gyrochronology, will provide the most information for the largest
+number of stars.  The lithium-based technique will provide an
+important sanity check for the subset of stars younger than a few
+hundred million years.
+
+To help build intuition, it is useful to assume that the age
+distribution of stars within the nearest few hundred parsecs of the
+Sun (i.e.~in the Solar Neighborhood) is uniform between 0 and 10\,Gyr
+\citep{Nordstrom_2004}.  We will revisit this assumption later in the
+manuscript.  While the youngest 0.1\% of stars ($\lesssim$10\,million
+years; Myr) are perhaps the most constraining for studies of planet
+formation, they are extremely challenging targets for close-in
+exoplanet detection 
+\citep[see e.g.][]{Damasso_2020,Bouma_2020_ptfo,Donati_2020}.  Studies of
+the early orbital, structural, and atmospheric evolution of exoplanets
+are perhaps most technically feasible for the $\approx$1\% of stars
+with ages between 10 and 100\,Myr, or perhaps even the 10\% of stars
+younger than 1\,Gyr.  However, since stellar ages are roughly
+uniformly distributed in the solar neighborhood, there is a limit on
+the sample size of young planets that will be detectable in these age
+regimes, particularly relative to their older breathren.
+
+%TODO mention the RV approach?  at least the Hyades etc work...
+A wide range of approaches have, over the past ten years, begun to
+establish the subfield of young, close-in planet discovery.
+Pioneering discoveries with the prime Kepler mission (hereafter,
+``Kepler'') focused on stars with known ages---stars in clusters---and
+searched them for transiting planets \citep{Meibom_2013}.  Planets
+discovered in this way are assumed to have the same age as the host
+cluster, which are the standards for the current astrophysical age
+scale.  The resulting ages are precise at the $\approx$10\% level.  K2
+and TESS have yielded larger numbers of young planets in clusters than
+Kepler, because each of these missions has observed a larger fraction
+of the sky, and therefore more stars with known ages
+\citep[e.g.][]{Mann_K2_25_2016,Mann_2017,Curtis_2018,Livingston_2018,David_2019,Bouma_2020_toi837,Rizzuto_2020,Plavchan_2020,Newton_2021,Nardiello_2022,Tofflemire_2021,Zhou_2022,Zakhozhay_2022,Wood_2023}.
+
+An important limitation of the ``cluster-first'' approach is that only
+$\approx$1\% of stars within the nearest few hundred parsecs can
+currently be associated with their birth cluster
+\citep[e.g.][]{Zari_2018,CantatGaudin_2020,Kounkel_2020,Kerr_2021}.
+This means that there are many ``young'' 0.05-1\,Gyr stars in the
+field that were not part of the selection function of these searches.
+Roughly 40 transiting planets are currently known to be younger than
+1\,Gyr, with an age precision $t/\sigma_t > 3$ (see
+Figure~\ref{fig:rp_period_age}).  However, Kepler discovered
+$\approx$4{,}000 planets; and so barring a major discovery bias
+against young planets, we would expect a significant portion of the
+Kepler planets---perhaps 10\%, or 400 planets---to be younger than
+1\,Gyr.  If one is willing to compromise on age precision, those
+planets might be identifiable.
+
+\begin{figure}[!t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.49\textwidth]{f1.pdf}
+	\end{center}
+	\vspace{-0.6cm}
+	\caption{
+		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
+    Planets younger than 1\,Gyr with ages more precise than a
+    factor of three are emphasized. 
+    ({\bf cite relevant papers?})
+    Parameters are from the \citet{PSCompPars}.
+		\label{fig:rp_period_age}
+	}
+\end{figure}
+
+Have these young Kepler planets already been found?  If they have, the
+most likely studies to have found them would be those by
+\citet{Berger_2020b_rpage}, \citet{David_2021} or
+\citet{Petigura_2022}.  The Berger and Petigura studies focused on
+isochronal age-dating of individual stars, which is most precise in
+the context of Kepler for stars that are beginning to evolve off the
+main-sequence.  The \citet{David_2021} study leveraged both isochronal
+ages from an earlier analogous study
+\citep{Fulton_Petigura_2018_cks_vii}, and (in their core analysis) a
+relative gyrochronal age-ranking approach that sorted stars based on
+whether they rotated faster or slower than a gyrochrone age of
+$\approx$2.6\,Gyr \citep{Meibom_2015,Curtis_2020}.
+
+Theoretical predictions for planet evolution in the Kepler sample are
+most important in the context of mini-Neptunes and super-Earths, since
+these are the most abundant planets.  Pertinent predictions include:
+{\it a)} that mini-Neptunes should cool and contract, roughly
+following a $R_p \propto t^{-0.1}$ scaling \citep{Gupta_2019}; {\it
+b)} that large and close-in mini-Neptunes at the edge of the
+photoevaporation desert should shrink over the atmospheric loss
+timescale, $t_{\rm loss}$ \citep{Owen_Lai_2018}; {\it c)} that the
+abundance of 4-8\,R$_\oplus$ planets with masses of 5-30\,M$_\oplus$
+should decrease over $t_{\rm loss}$---the upper-envelope of the
+mini-Neptune size distribution should corresponding decrease,
+e.g.~from $\approx$4.5\,R$_\oplus$ at $\approx$200\,Myr to
+$\approx$3.5\,R$_\oplus$ at $\approx$700\,Myr
+\citep[e.g.][]{Rogers_2021}; {\it d)} that the super-Earth to
+mini-Neptune ratio, $\theta$, should increase over $t_{\rm loss}$
+\citep[e.g.][]{Rogers_2021} {\bf BY HOW MUCH?}); {\it e)} that the
+upper boundary of the super-Earth population should increase over the
+same timescale as $\theta$ is increasing, since more massive
+super-Earth cores should be able to retain their envelopes for longer
+than less massive cores.
+
+The details of the predictions are flexible, in that they depend on
+the distributions of planetary core masses, initial atmospheric mass
+fractions, and initial entropies of the atmospheres after disk
+dispersal.  For instance, different sources of heating---from the star
+\citep{Owen_Wu_2013,Lopez_Fortney_2014,Jin_2014}, planetary interior
+\citep{Gupta_2019}, or even giant impacts
+\citep{Biersteker_Schlichting_2019}---can produce very different
+histories for the size evolution of planets at these early times
+\citep[e.g.][]{Owen_2020}.  The generic prediction that the ``upper
+envelope'' of the mini-Neptune size distribution should shrink due to
+Kelvin-Helmholtz cooling is likely hard to avoid; predictions however
+concerning the ``radius valley'' and movement of planets across it are
+dependent on the timescales and prevalence of atmospheric mass loss.
+In specific scenarios for initial atmospheric accretion, the radius
+gap might form without needing to invoke mass loss at all
+\citep{Lee_2022}, in which case there could be very little evolution
+of the planetary size distribution between 1 and 4\,\rearth\ over the
+first gigayear.
+
+Can stellar age measurements provide lines of evidence for or against
+the different models?  Neither {\it (a)} nor {\it (b)} has yet had a
+convincing---or even suggestive--- detection reported (see
+\citealt{Petigura_2022}).  While the apparent over-abundance of large
+very young planets ({\it (c)}) has been noted by multiple authors
+\citep[e.g.][]{Bouma_2020,Mann_2022}, its presence is almost certainly
+exacerbated by a selection effect against sub-Neptune sized planet
+detection at $<$100\,Myr \citep{Zhou_2021,Bouma_2022}.  And finally,
+{\it (d)} and {\it (e)} have been explored by
+\citet{Berger_2020b_rpage} and the twin \citet{David_2021} and
+\citet{Sandoval_2021} studies.  Both \citet{Berger_2020b_rpage} and
+\citet{Sandoval_2021} reported that $\theta$ increases with time, at a
+statistical significance of $\approx$2-3$\sigma$.  For
+\citet{Berger_2020b_rpage}, this conclusion was reached by comparing
+the sizes of 85 planets with median isochronal ages younger than
+1\,Gyr with a property-matched sample of planets older than 1\,Gyr.
+In \citet{Sandoval_2021}, the conclusion was reached by computing the
+ratio while performing a Monte Carlo re-sampling procedure from the
+isochronal ages and planetary sizes computed by
+\citet{Fulton_Petigura_2018_cks_vii}.  Finally, effect {\it (e)} was
+reported by \citet{David_2021}, who found that the average location of
+the radius valley shifted from $\approx$1.8\,R$_\oplus$ to
+$\approx$2.0\,R$_\oplus$ between 1.8 and 3.2\,Gyr.
+
+The fact that stellar ages---and especially isochronal ages---are
+correlated with stellar masses and metallicities is a source of stress
+for many in this subfield.  \citet{Sandoval_2021} for instance noted a
+strong trend in $\theta$ as a function of stellar metallicity in
+addition to the trend they noted in age, and cautioned that this could
+also explain their observations.  Independently, \citet{Petigura_2018}
+and \citet{Petigura_2022} have reported trends between small-planet
+occurrence and both stellar metallicity and mass; these parameters
+seem, at first glance, to be more important predictors of bulk changes
+in the planetary population than age.  Given these known correlations,
+it would be interesting to consider population models in which
+variables such as metallicity, mass, and age were added in succession
+\citep[e.g.][]{Thorngren_2021}.  For such an analysis to be effective,
+the measurement precision of these different parameters would ideally
+be as high as possible.
+
+Gyrochronology offers ages precise to $\lesssim$30\% for FGK stars
+between 0.5-2.5\,Gyr, and can also provide useful age limits at
+earlier times \citep{Bouma_2023}.  The idea of using a star's
+spin-down as a clock is quite old
+\citep{Skumanich_1972,Noyes_1984,Kawaler_1989,Barnes03,Mamajek_2008,Angus_2015},
+and physics-based models for the spin-down itself can clarify many
+aspects of how the stellar winds, internal structure, and magnetic
+dynamo all evolve
+\citep[e.g.][]{Matt_2015,Gallet_Bouvier_2015,Spada_2020}.  Key
+for the present analysis is the fact that we can empirically calibrate
+rotation-based ages using measured sequences of rotation periods
+in open clusters
+(\citealt{Bouma_2023}, and references therein).  This approach
+ultimately ties the rotation age scale to the cluster age scale, and
+is limited in precision by the intrisic scatter in the $P_{\rm rot}$
+sequences, and in accuracy by systematic uncertainties in the evolving
+spin-down rates, and in the cluster ages themselves.
+
+Lithium-based age-dating includes two qualitatively distinct regimes:
+depletion boundary ages derived for M-dwarfs in star clusters, and the
+less precise decline-based ages for individual field FGK stars
+\citep{Soderblom_2010}.  Here we focus on the latter approach, which
+relies on the gradual empirical observation that the Li abundances of
+FGK stars decline as a function of time, for reasons different from
+the standard convective mixing and burning scenario (CITE, CITE).
+Empirically, this decline has recently been documented by
+\citet{Jeffries_2023}, who built a model for how the equivalent width
+(EW) of the \ion{Li}{1} 6708\,\AA\ doublet evolves as a function of
+stellar effective temperature and age for a set of 6{,}200 stars in 52
+open clusters.  Two-sided lithium ages are useful for Kepler (FGK)
+stars between $\approx$0.03-0.5\,Gyr, with a strong dependence on
+spectral type since the K-dwarfs lose their surface lithium much
+faster than G-dwarfs.  The precision of the ages reported by the
+\citet{Jeffries_2023} method in this regime are in the range of
+0.3-0.5~dex.
+
+The methods by which we select the stellar and planet samples are 
+discussed in Section~\ref{sec:selection}.
+The age-dating methods are described and validated in
+Section~\ref{sec:agemethod}.
+The population-level trends for both the parent stellar sample and
+the planet sample are discussed in Section~\ref{sec:results}.
+A few conclusions are offered in Section~\ref{sec:conclusions}.
+
+
+\section{Sample Selection}
+\label{sec:selection}
+
+This work is focused on stars surveyed by Kepler for which ages can be
+inferred using either stellar rotation, lithium, or both.  These
+``age-dateable stars'', $\mathcal{S}$, are a relatively small subset
+of the $\approx$160{,}000 Kepler targets.  Rotation periods provide
+the majority of the information, since they have been reported for
+$\approx$55{,}000 Kepler stars
+\citep[e.g.][]{McQuillan_2014,Santos_2021}.  Measurements of the
+\ion{Li}{1} 6708\,\AA\ doublet require high-resolution
+($R\gtrsim$10{,}000) spectra, and are only available for a few
+thousand Kepler objects of interest (KOIs).  We therefore choose to
+define our selection function as Kepler stars with measured
+rotation periods ($\mathcal{S}$; Section~\ref{subsec:starsel}), and
+Kepler planets whose host stars have measured rotation periods
+($\mathcal{P}$; Section~\ref{subsec:planetsel}).
+
+
+\subsection{Star Selection}
+\label{subsec:starsel}
+
+We select stars with rotation periods as determined by previous
+investigators.  Studies of stellar rotation across the entire Kepler field
+include those by \citet{McQuillan_2014} (\citetalias{McQuillan_2014}),
+\citet{Reinhold_2015},
+\citet{Santos_2019} (\citetalias{Santos_2019}), and
+\citet{Santos_2021} (\citetalias{Santos_2021}).
+\citetalias{McQuillan_2014} used an approach
+based on the autocorrelation function to detect 34{,}030 rotation
+periods for main-sequence Kepler targets cooler than 6500\,K, and excluded
+known eclipsing binaries and KOIs.  
+\citet{Reinhold_2015} used an iterative Lomb-Scargle based approach to
+analyze $\approx$40{,}000 stars with a variability range $R_{\rm
+	var}>0.3$\% that were not known EBs, planet candidates, or pulsators,
+and reported primary rotation periods for 24{,}124 of these stars.
+\citet{Reinhold_2015} also reported secondary periods for two thirds
+of the stars with primary periods, which could be caused by
+differential rotation or finite spot lifetimes.  
+Finally,
+\citetalias{Santos_2019} and
+\citetalias{Santos_2021} combined a wavelet analysis and
+autocorrelation-based approach, and cumulatively reported rotation
+periods for 55{,}232 main-sequence and subgiant FGKM stars.
+\citetalias{Santos_2019} and \citetalias{Santos_2021} included known
+KOIs and binaries, and assigned them specific quality flags.  
+The rotation periods of KOIs have received considerable additional
+scrutiny
+\citep[e.g.][]{Walkowicz_2013,Mazeh_2015,Angus_2018,David_2021}.
+
+%After reviewing the relevant literature and considering the nature of
+%the rotation period detection problem,
+We ultimately chose to adopt
+the results of \citetalias{Santos_2019} and \citetalias{Santos_2021}
+as our default rotation periods.  \citetalias{Santos_2021} provides a
+detailed comparison against \citetalias{McQuillan_2014}; the brief
+summary is that the periods agree for 99.0\% of the 31{,}038 period
+detections in common between the two studies.
+\citetalias{Santos_2021} classified the 2{,}992 remaining stars from
+\citetalias{McQuillan_2014} as ``non-periodic'' based on updated
+knowledge of contaminants (e.g.~giant stars and eclipsing binaries)
+and visual inspection.  
+In addition, 
+\citetalias{Santos_2021} report rotation periods for 24{,}182
+main-sequence and subgiant FGKM stars that were not reported as
+periodic by \citetalias{McQuillan_2014}.
+Our interpretation is that these detections are likely more challenging than
+those from \citetalias{McQuillan_2014}, perhaps due to a lower
+variability amplitude, or a longer rotation period.
+A relevant flag for stars missing \citetalias{McQuillan_2014} periods
+is included in Table~\ref{tab:stars}.
+
+
+
+
+\subsection{Planet Selection}
+\label{subsec:planetsel}
+
+\subsection{The Stellar Samples}
+We will refer in this manuscript to a few samples, defined in detail
+below.  The gist of each is as follows.
+\begin{itemize}
+  \item Kepler objects of interest: as defined in the Cumulative KOI
+    table at the NASA Exoplanet Archive from 2022 June 27, which is
+    distinct from the \texttt{q1\_q17\_dr25} table
+    \citep{Thompson_2018}.
+\end{itemize}
+
+
+\subsection{Stellar Properties}
+
+\paragraph{Temperatures}
+\paragraph{Surface Gravities}
+
+\subsection{Rotation Periods}
+
+% TODO: add that plot showing differences btwn authors
+
+\subsection{Lithium}
+
+
+\section{Age Measurement}
+\label{sec:agemethod}
+
+
+\section{Results}
+\label{sec:results}
+
+\section{Discussion}
+\label{sec:disc}
+
+\subsection{Isochrone Age Comparison}
+
+\subsection{Lithium Age Comparison}
+
+\subsection{Gyrochronal Age Comparison}
+Searching the literature for gyrochronal analyses of the Kepler field,
+the most relevant studies seemed to be those of
+\citet{Walkowicz_2013}, \citet{Reinhold_2015}, and 
+\citet{David_2021}.
+
+\subsection{Asteroseismic Age Comparison}
+T Ceillier, J Van Saders et al 2016 MNRAS...
+
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+\acknowledgements
+This work was supported by the 
+Heising-Simons 51~Pegasi~b Fellowship (LGB)
+and the Arthur R.~Adams SURF Fellowship (EKP).
+
+L.G.B.~conceived the project, collected HIRES spectra, executed the
+rotation- and lithium-based age analyses, and drafted the manuscript.
+E.K.P.~contributed to the rotation-based age analysis.
+L.A.H.~contributed to project design.
+H.I. and A.W.H~contributed to acquisition, reduction, and analysis of
+the HIRES data.
+All authors assisted in manuscript revision.
+
+
+\facilities{
+  Gaia \citep{Gaia_DR3_2022},
+  Kepler \citep{Borucki10},
+  TESS \citep{ricker_transiting_2015},
+  NGTS \citep{Wheatley_2018}
+}
+
+\software{
+    astropy \citep{Astropy18},
+    matplotlib \citep{matplotlib},
+    numpy \citep{numpy},
+    scipy \citep{scipy},
+}
+
+%\clearpage
+
+\bibliographystyle{aasjournal}
+\bibliography{bibliography}
+
+%\appendix
+%\section{Can you avoid appendices?}
+%\label{app:interp}
+
+\clearpage
+\listofchanges
+
+\end{document}
