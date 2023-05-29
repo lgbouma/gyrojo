@@ -38,3 +38,5 @@ gyrojohann/data/interim/Li_EW_HIRES_all/
 doc*
 results*
 gyrojo/data/interim/Li_EW_HIRES_all/
+gyrojo/data/interim/S19_S21_merged_X_GDR3_X_B20.csv
+gyrojo/data/models
