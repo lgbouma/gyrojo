@@ -57,6 +57,11 @@ a merged file with all the gyro, lithium, and joint summary statistics, at
 `koi_gyro_X_lithium_posteriors_20230116/{sampleid}_merged_joint_age_posteriors.csv`
 
 --------------------
+To run the field star gyro analysis:
+
+1. `calc_field_gyro_posteriors.py`
+
+--------------------
 Other plots that will probably go into a manuscript:
 
 * `plot_rp_vs_age.py`

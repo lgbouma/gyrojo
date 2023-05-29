@@ -12,7 +12,7 @@ import os, pickle
 from os.path import join
 from numpy import array as nparr
 
-from agetools.paths import DATADIR, LOCALDIR, RESULTSDIR
+from gyrojo.paths import DATADIR, LOCALDIR, RESULTSDIR
 
 from gyrointerp.helpers import prepend_colstr, left_merge
 from gyrointerp.gyro_posterior import gyro_age_posterior_list
