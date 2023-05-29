@@ -284,7 +284,7 @@ def get_joint_results(COMPARE_AGE_UNCS=0):
 
 def get_kicstar_data(sampleid):
 
-    assert sampleid in ['Santos19_Santos21_all', 'Santos19_Santos21_gyro',
+    assert sampleid in ['Santos19_Santos21_all', 'Santos19_Santos21_clean0',
                         'Santos19_Santos21_logg']
 
     csvpath = join(DATADIR, 'interim', 'S19_S21_merged_X_GDR3_X_B20.csv')
@@ -301,11 +301,13 @@ def get_kicstar_data(sampleid):
         catalogs = Vizier.get_catalogs("J/ApJS/244/21")
         s19_df = catalogs[0].to_pandas()
         s19_df = s19_df.rename(
-            {'Fl1':'flag1', 'Fl2':'flag2', 'Fl3':'flag3', 'Fl4':'flag4',
-             'Fl5':'flag5'},
+            {'Fl1':'s19_flag1', 'Fl2':'s19_flag2', 'Fl3':'s19_flag3', 'Fl4':'s19_flag4',
+             'Fl5':'s19_flag5'},
             axis='columns'
         )
         s19_df['Provenance'] = 'Santos2019'
+        for ix in range(1,6):
+            s19_df[f"s21_flag{ix}"] = np.nan
 
         # Santos+2021: G+F stars
         # https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJS/255/17
@@ -315,11 +317,20 @@ def get_kicstar_data(sampleid):
         catalogs = Vizier.get_catalogs("J/ApJS/255/17")
         s21_df = catalogs[0].to_pandas()
         s21_df['Provenance'] = 'Santos2021'
+        s21_df = s21_df.rename(
+            {'flag1':'s21_flag1', 'flag2':'s21_flag2', 'flag3':'s21_flag3',
+             'flag4':'s21_flag4', 'flag5':'s21_flag5'},
+            axis='columns'
+        )
+        for ix in range(1,6):
+            s21_df[f"s19_flag{ix}"] = np.nan
 
         selcols = [
             'KIC', 'Kpmag', 'Q', 'Teff', 'E_Teff', 'e_Teff', 'logg', 'E_logg',
             'e_logg', 'Mass', 'E_Mass', 'e_Mass', 'Prot', 'E_Prot', 'Sph', 'E_Sph',
-            'flag1', 'flag2', 'flag3', 'flag4', 'flag5'
+            'Provenance',
+            's19_flag1', 's19_flag2', 's19_flag3', 's19_flag4', 's19_flag5',
+            's21_flag1', 's21_flag2', 's21_flag3', 's21_flag4', 's21_flag5'
         ]
 
         _df = pd.concat((s19_df[selcols], s21_df[selcols]))
@@ -383,18 +394,82 @@ def get_kicstar_data(sampleid):
     sel = df.Prot < 45
     if sampleid == 'Santos19_Santos21_logg':
         sel &= df.logg > 4.2
-    if sampleid == 'Santos19_Santos21_gyro':
+    if sampleid == 'Santos19_Santos21_clean0':
+        # S21 flags:
+        #
+        # s21_flag1: CP/CB candidate flag: 
+        #   [0 == "no rotation modulation" (6 occurrences)
+        #   [1 == "type 1 CP/CB classical pulsator / close-in binary) candidate (2251 occurrences)
+        #
+        # s21_flag2: Subsample
+        #
+        #   	Note (G1): Flag as follows:
+        #   			1 = main-sequence or subgiant solar-like targets in
+        #   					DR25 Mathur+ (2017, J/ApJS/229/30) and Berger+ (2020, J/AJ/159/280);
+        #   			2 = main-sequence or subgiant solar-like targets only in
+        #   					DR25 Mathur et al. (2017, J/ApJS/229/30);
+        #   			3 = main-sequence or subgiant solar-like targets only in
+        #   					DR25 Berger et al. (2020, J/AJ/159/280).
+        #
+        # s21_flag3: binarity flag
+        #
+        #   0 = single stars in Berger+ (2018, J/ApJ/866/99) and/or in
+        #       Simonian+ (2019, J/ApJ/871/174);
+        #   1 = binary candidates in Berger+ (2018, J/ApJ/866/99);
+        #   2 = binary candidates in Simonian+ (2019, J/ApJ/871/174)
+        #   3 = binary candidates in Berger+ (2018, J/ApJ/866/99) and in
+        #       Simonian+ (2019, J/ApJ/871/174).
+        #
+        # s21_flag4: KOI flag
+        #
+        #   	Flag as follows:
+        #   		0 = confirmed;
+        #   		1 = candidate;
+        #   		2 = false positive.	
+        #
+        # s21_flag5: stellar property source flag
+        #   
+        #   	Flag as follows:
+        #   0 = Berger et al. (2020, J/AJ/159/280);
+        #   1 = Mathur et al. (2017, J/ApJS/229/30)
+        #
+        # S19 flags:
+        #
+        # s19_flag1: CP/CB candidate flag: 
+        #    (1): We distinguish between three types of classical pulsator (CP)
+        #        candidates. Type-1 candidates show a behavior somewhat similar to RR
+        #        Lyrae and Cepheids: high-amplitude and stable flux variations, beating
+        #        patterns, and a large number of harmonics. Interestingly, a
+        #        significant fraction of these targets were identified as Gaia binary
+        #        candidates. Therefore, it is possible that these targets are not CPs
+        #        but close-in binaries (CB). If that is the case, the signal may still
+        #        be related to rotation, but may be distinct from the rotational
+        #        behavior of single stars. We refer to these targets (350) as Type-1
+        #        CP/CB candidates.
+        #
+        # s19_flag2: Gaia binary flag
+        #
+        # s19_flag3: Gaia subgiant flag
+        #   Gaia binary (Gaia Bin.) and subgiant (Gaia Subg.) candidate flags from Berger
+        #   et al. (2018), where 0 corresponds to single star and main-sequence star,
+        #   respectively, and 1 corresponds to binary system and subgiant star,
+        #   respectively
+        #
+        # s19_flag4: KOI flag
+        #
+        # s19_flag5: FlipPer Class flag
+        #   FliPerClass (FPC) indicates targets that are possibly solar-type stars (0),
+        #   classical pulsators (1), and binary systems/photometric pollution (2).
+
         sel &= df.logg > 4.2
-        #FIXME need to recreate because the flags are different in S19 and
-        #S21...
-        #TODO
-        sel &= (
-            (df.flag1 != 1) # what exactly does this mean?
-        )
+
         sel &= (
             df.Sph >= 500
         )
-        #FIXME gotta reconstruct
+
+        not_CP_CB = pd.isnull(df.s21_flag1) & pd.isnull(df.s19_flag1)
+
+        sel &= not_CP_CB
 
     df = df[sel]
 

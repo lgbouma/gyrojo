@@ -4,6 +4,7 @@ Catch-all file for plotting scripts.  Contents:
     plot_li_vs_teff
     plot_mean_prot_teff
     plot_star_Prot_Teff
+    plot_reinhold_2015
 
     plot_koi_gyro_posteriors
     plot_li_gyro_posteriors
@@ -191,12 +192,12 @@ def plot_star_Prot_Teff(outdir, sampleid):
 
     assert sampleid in [
         'Santos19_Santos21_all', 'Santos19_Santos21_logg',
-        'Santos19_Santos21_gyro', 'teff_age_prot_seed42_nstar20000'
+        'Santos19_Santos21_clean0', 'teff_age_prot_seed42_nstar20000'
     ]
 
     if "Santos" in sampleid:
         df = get_kicstar_data(sampleid)
-        n_st = len(np.unique(df.kepid))
+        n_st = len(np.unique(df.KIC))
 
     elif "seed" in sampleid:
         csvdir = (
@@ -217,7 +218,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
     if sampleid == 'Santos19_Santos21_all':
         # as reported; probably underestimated?
         Prot_errs = nparr(df.E_Prot)
-    elif sampleid == 'Santos19_Santos21_gyro':
+    elif sampleid == 'Santos19_Santos21_clean0':
         # empirical uncs
         Prot_errs = nparr(df.Prot_err)
     elif sampleid == 'teff_age_prot_seed42_nstar20000':
@@ -1035,6 +1036,7 @@ def plot_age_comparison(outdir, logscale=1, iso_v_gyroli=0, ratio_v_gyroli=0,
 
 
 def plot_reinhold_2015(outdir):
+    # histogram of t_MH08 from ReinholdGizon2015
 
     fitspath = join(DATADIR, "literature",
                     "Reinhold_2015_20934_stars.fits")
