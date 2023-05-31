@@ -374,12 +374,22 @@ def get_kicstar_data(sampleid):
     else:
         df = pd.read_csv(csvpath)
 
+    # default Teffs
     df['adopted_Teff'] = df['b20t2_Teff']
-
+    df['adopted_Teff_provenance'] = 'Berger2020_table2'
     df['adopted_Teff_err'] = np.nanmean([
         np.array(df['b20t2_E_Teff']),
         np.array(np.abs(df['b20t2_e_Teff']))
     ], axis=0)
+
+    # else, take Santos 19/21 Teffs
+    _sel = pd.isnull(df['adopted_Teff'])
+    df.loc[_sel, 'adopted_Teff'] = df.loc[_sel, 'Teff']
+    df.loc[_sel, 'adopted_Teff_err'] = df.loc[_sel, 'e_Teff']
+    df.loc[_sel, 'adopted_Teff_provenance'] = df.loc[_sel, 'Provenance']
+
+    assert np.sum(pd.isnull(df['adopted_Teff'])) == 0
+    assert np.sum(pd.isnull(df['adopted_Teff_err'])) == 0
 
     Prots = df['Prot']
     Prot_errs = np.ones(len(Prots))
@@ -390,6 +400,9 @@ def get_kicstar_data(sampleid):
     Prot_errs[Prots>30] = 0.05*Prots[Prots>30]
 
     df['Prot_err'] = Prot_errs
+
+    assert np.sum(pd.isnull(df['Prot'])) == 0
+    assert np.sum(pd.isnull(df['Prot_err'])) == 0
 
     sel = df.Prot < 45
     if sampleid == 'Santos19_Santos21_logg':
