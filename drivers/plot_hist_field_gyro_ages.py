@@ -1,0 +1,10 @@
+import os
+import gyrojo.plotting as ap
+from gyrojo.paths import RESULTSDIR
+
+cache_id = "hist_field_gyro_ages_20230529"
+
+outdir = os.path.join(RESULTSDIR, cache_id)
+if not os.path.exists(outdir): os.mkdir(outdir)
+
+ap.plot_hist_field_gyro_ages(outdir, cache_id)
