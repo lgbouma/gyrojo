@@ -27,7 +27,6 @@ def calc_field_gyro_posteriors():
     # _valid_ for will follow afterward.  This means stars outside the
     # 3800-6200K range, subgiants, and known binaries are INCLUDED at this
     # stage.
-
     Teffs = nparr(df.adopted_Teff)
     Teff_errs = nparr(df.adopted_Teff_err)
     Prots = np.round(nparr(df.Prot), 4)
@@ -52,11 +51,11 @@ def calc_field_gyro_posteriors():
         ax.errorbar(
             Teffs, Prots, xerr=Teff_errs, yerr=Prot_errs,
             marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='k',
-            markersize=3, zorder=5
+            markersize=1, zorder=5
         )
         ax.update({
             'xlabel': 'Adopted Teff [K; mostly B+20]',
-            'ylabel': '<Prot> [day]',
+            'ylabel': 'Prot [day]',
             'title': (
                 f'{sampleid} Prot vs Teff, no cleaning'
             ),
