@@ -415,6 +415,16 @@ def plot_rp_vs_age(outdir, xscale='linear', elinewidth=0.1, shortylim=0,
     _outpath = join(outdir, "temp.csv")
     df.to_csv(_outpath, index=False)
 
+    plt.close("all")
+    fig, ax = plt.subplots(figsize=(3.3, 2.5))
+    AGE_MAX = 4e9
+    bins = np.linspace(0, AGE_MAX, 26)
+    ax.hist(df.age, bins=bins, color='darkgray')
+    ax.hlines(len(df)/len(bins), 0, AGE_MAX, zorder=99, color='k', ls=':')
+    ax.update({'xlim':[0,4e9], 'xlabel': 'Age [yr]', 'ylabel': 'Count'})
+    outpath = os.path.join(outdir, f'age_hist_nocleaning.png')
+    savefig(fig, outpath)
+
     # >25% radii
     sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
     # adopted age < 2.5 gyr
@@ -431,8 +441,11 @@ def plot_rp_vs_age(outdir, xscale='linear', elinewidth=0.1, shortylim=0,
     ax.hist(df.age, bins=bins, color='darkgray')
     ax.hlines(len(df)/len(bins), 0, AGE_MAX, zorder=99, color='k', ls=':')
     ax.update({'xlabel': 'Age [yr]', 'ylabel': 'Count'})
-    outpath = os.path.join(outdir, f'age_hist.png')
+    outpath = os.path.join(outdir, f'age_hist_lt2gyr_25pctradii_singlesidedok.png')
     savefig(fig, outpath)
+
+    ##TODO: what if you sampled instead?
+    #import IPython; IPython.embed()
 
 
     plt.close("all")
@@ -529,6 +542,7 @@ def plot_rp_vs_age(outdir, xscale='linear', elinewidth=0.1, shortylim=0,
 
         agemin_myr = int(agemin/1e6)
         outdir = join(RESULTSDIR, "rp_agebins_KS_test")
+        if not os.path.exists(outdir): os.mkdir(outdir)
         outpath = os.path.join(outdir, f'rp_agebins_KS_test_agemin{agemin_myr}.png')
         if os.path.exists(outpath):
             continue
@@ -684,8 +698,6 @@ def plot_rp_vs_porb_binage(outdir):
         s = f'_{ix}_{lo_age:.2e}_{hi_age:.2e}'
         outpath = os.path.join(outdir, f'rp_vs_porb_binage{s}.png')
         savefig(fig, outpath)
-
-
 
 
 def plot_sub_praesepe_selection_cut(mdf5, poly_order=7):
@@ -844,101 +856,6 @@ def plot_koi_gyro_posteriors(outdir, cache_id):
 
     cols = ['kepoi_name', 'kepler_name', 'median', '+1sigma', '-1sigma',
             '+2sigma', '-2sigma', "+1sigmapct", "-1sigmapct", "koi_prad"]
-    sel_2s = mdf['median'] + mdf['+2sigma'] < 1000
-
-    print(mdf[sel_2s][cols])
-
-
-def plot_field_gyro_posteriors(outdir, cache_id):
-
-    from gyrointerp.helpers import get_summary_statistics
-
-    from gyrointerp.paths import CACHEDIR
-    csvdir = join(CACHEDIR, cache_id)
-    writedir = join(CACHEDIR, "samples_"+cache_id)
-    if not os.path.exists(writedir): os.mkdir(writedir)
-    csvpaths = glob(join(csvdir, "*posterior.csv"))
-    assert len(csvpaths) > 0
-    N_post = len(csvpaths)
-    print(f"Got {N_post} posteriors...")
-
-    # plot all stars
-    plt.close("all")
-    set_style('clean')
-    fig, ax = plt.subplots()
-
-    kic_names = []
-    summaries = []
-
-    for ix, csvpath in enumerate(csvpaths):
-
-        if ix % 100 == 0:
-            print(f"{datetime.utcnow().isoformat()}: {ix}/{N_post}")
-
-        kic_name = os.path.basename(csvpath).split("_")[0]
-        kic_names.append(kic_name)
-
-        df = pd.read_csv(csvpath)
-        t_post = np.array(df.age_post)
-        age_grid = np.array(df.age_grid)
-
-        d = get_summary_statistics(age_grid, t_post)
-
-        # draw 10 samples from each posterior, and write them...
-        N = 10
-        df = pd.DataFrame({'age':age_grid, 'p':t_post})
-        try:
-            sample_df = df.sample(n=N, replace=True, weights=df.p)
-            outcsv = join(
-                writedir,
-                os.path.basename(csvpath).replace('posterior','posterior_samples')
-            )
-            sample_df.age.to_csv(outcsv, index=False)
-        except ValueError:
-            # some stars had adopted_teff>6200, adopted_teff<3800, or nan adopted_teff.
-            pass
-        if ix % 100 == 0:
-            print(f"{datetime.utcnow().isoformat()}: wrote {outcsv}")
-
-        summaries.append(d)
-
-        zorder = ix
-        ax.plot(age_grid, 1e3*t_post/np.trapz(t_post, age_grid), alpha=0.1,
-                lw=0.3, c='k', zorder=zorder)
-
-    xmin = 0
-    xmax = 4000
-    ax.update({
-        'xlabel': 'Age [Myr]',
-        'ylabel': 'Probability ($10^{-3}\,$Myr$^{-1}$)',
-        'xlim': [xmin, xmax],
-        'ylim': [-0.5, 10.5]
-    })
-    outpath = os.path.join(outdir, f'posteriors_verification.png')
-    savefig(fig, outpath, writepdf=1, dpi=400)
-
-    df = pd.DataFrame(summaries, index=kic_names)
-    df['KIC'] = kic_names
-    df['KIC'] = df['KIC'].astype(str)
-    csvpath = os.path.join(outdir, f"{cache_id}_gyro_ages.csv")
-    df.to_csv(csvpath, index=False)
-    print(f"Wrote {csvpath}")
-
-    sampleid = 'Santos19_Santos21_all'
-    kdf = get_kicstar_data(sampleid)
-    kdf['KIC'] = kdf['KIC'].astype(str)
-
-    mdf = df.merge(kdf, how='inner', on='KIC')
-    assert len(mdf) == len(df)
-
-    csvpath = os.path.join(outdir, f"{cache_id}_gyro_ages_X_GDR3_S19_S21_B20.csv")
-    mdf = mdf.sort_values(by='median')
-    mdf.to_csv(csvpath, index=False)
-    print(f"Wrote {csvpath}")
-
-    cols = ['KIC', 'median', '+1sigma', '-1sigma',
-            '+2sigma', '-2sigma', "+1sigmapct", "-1sigmapct", "Prot",
-            "adopted_Teff"]
     sel_2s = mdf['median'] + mdf['+2sigma'] < 1000
 
     print(mdf[sel_2s][cols])
@@ -1151,3 +1068,64 @@ def plot_reinhold_2015(outdir):
 
     outpath = os.path.join(outdir, "Reinhold_2015_t_MH08_hist.png")
     savefig(fig, outpath)
+
+
+def plot_hist_field_gyro_ages(outdir, cache_id):
+
+    from gyrointerp.paths import CACHEDIR
+    csvdir = join(CACHEDIR, "samples_field_gyro_posteriors_20230529")
+
+    mergedcsv = join(csvdir, f'merged_{cache_id}_samples_20230531.csv')
+    if not os.path.exists(mergedcsv):
+
+        csvpaths = glob(join(csvdir, "*samples.csv"))
+        assert len(csvpaths) > 0
+        N_post_samples = 10*len(csvpaths)
+
+        mdf = pd.concat((pd.read_csv(f) for f in csvpaths))
+        mdf.to_csv(mergedcsv, index=False)
+    else:
+        mdf = pd.read_csv(mergedcsv)
+        N_post_samples = len(mdf)
+
+    print(f"Got {N_post_samples} posterior samples...")
+
+    # SAMPLES from the age posteriors
+    plt.close("all")
+    set_style('clean')
+    fig, ax = plt.subplots()
+
+    bins = np.linspace(0, 4000+50, 50)
+    ax.hist(mdf.age, bins=bins, color='lightgray', density=True)
+
+    xmin = 0
+    xmax = 4000
+    ax.update({
+        'xlabel': 'Age [Myr]',
+        'ylabel': 'Fraction',
+        'xlim': [xmin, xmax],
+    })
+    outpath = os.path.join(outdir, f'hist_samples_field_gyro_ages_{cache_id}.png')
+    savefig(fig, outpath, writepdf=1, dpi=400)
+
+    # ok, now just plot the histogram of the median values...
+    csvpath = join(RESULTSDIR, "field_gyro_posteriors_20230529",
+                   "field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv")
+    df = pd.read_csv(csvpath)
+
+    plt.close("all")
+    set_style('clean')
+    fig, ax = plt.subplots()
+
+    bins = np.linspace(0, 4000+50, 50)
+    ax.hist(df['median'], bins=bins, color='lightgray', density=True)
+
+    xmin = 0
+    xmax = 4000
+    ax.update({
+        'xlabel': 'Age [Myr]',
+        'ylabel': 'Fraction',
+        'xlim': [xmin, xmax],
+    })
+    outpath = os.path.join(outdir, f'hist_medianvals_field_gyro_ages_{cache_id}.png')
+    savefig(fig, outpath, writepdf=1, dpi=400)
