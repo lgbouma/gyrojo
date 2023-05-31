@@ -65,6 +65,8 @@ To run the field star gyro analysis:
 
 Makes `field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv`
 
+3. `plot_hist_field_gyro_ages.py`
+
 --------------------
 Other plots that will probably go into a manuscript:
 
