@@ -32,6 +32,33 @@
 %
 % ms specific numbers
 %
+
+%%%%%%%%%
+% STARS %
+%%%%%%%%%
+% number of stars monitored by Kepler (quoting Santos19/21)
+\newcommand{\nkeplerstars}{$\approx$160{,}000}
+% fraction of kepler stars w/ rotation periods
+\newcommand{\nstarswithprot}{{\bf $\sim$50{,}000}}
+% fraction of stars with rotation periods, with teff/logg in Berger+20
+\newcommand{\fracstarswithprotwithbtwenty}{{\bf $\sim$94\%}}
+% complement of above
+\newcommand{\fracstarswithprotwithoutbtwenty}{{\bf $\sim$6\%}}
+
+%%%%%%%%%%%
+% PLANETS %
+%%%%%%%%%%%
+% number of KOIs in Q1-Q17 DR25 table
+\newcommand{\nkois}{{\bf $\sim$8{,}000}} %FIXME precise
+% number of KOIs in Q1-Q17 DR25 table that are not known false positives
+\newcommand{\nkoisnofp}{{\bf $\sim$4{,}000}} %FIXME precise
+% number of KOIs in Q1-Q17 DR25 table that have rotation periods
+\newcommand{\nkoiswithprot}{{\bf $\sim$2{,}000}}
+% number of KOIs in Q1-Q17 DR25 table that are not known false positives that have rotation periods
+\newcommand{\nkoisnofpwithprot}{{\bf $\sim$1{,}000}}
+
+\newcommand{\fracplanetswithprotwithbtwenty}{{\bf $\sim$94\%}}
+
 \newcommand{\nstarwithages}{NNN}
 
 \defcitealias{McQuillan_2014}{M14}
@@ -302,7 +329,7 @@ A few conclusions are offered in Section~\ref{sec:conclusions}.
 This work is focused on stars surveyed by Kepler for which ages can be
 inferred using either stellar rotation, lithium, or both.  These
 ``age-dateable stars'', $\mathcal{S}$, are a relatively small subset
-of the $\approx$160{,}000 Kepler targets.  Rotation periods provide
+of the \nkeplerstars\ Kepler targets.  Rotation periods provide
 the majority of the information, since they have been reported for
 $\approx$55{,}000 Kepler stars
 \citep[e.g.][]{McQuillan_2014,Santos_2021}.  Measurements of the
@@ -315,7 +342,7 @@ Kepler planets whose host stars have measured rotation periods
 ($\mathcal{P}$; Section~\ref{subsec:planetsel}).
 
 
-\subsection{Star Selection}
+\subsection{Stars}
 \label{subsec:starsel}
 
 We select stars with rotation periods as determined by previous
@@ -348,53 +375,83 @@ scrutiny
 
 %After reviewing the relevant literature and considering the nature of
 %the rotation period detection problem,
-We ultimately chose to adopt
-the results of \citetalias{Santos_2019} and \citetalias{Santos_2021}
-as our default rotation periods.  \citetalias{Santos_2021} provides a
-detailed comparison against \citetalias{McQuillan_2014}; the brief
-summary is that the periods agree for 99.0\% of the 31{,}038 period
-detections in common between the two studies.
-\citetalias{Santos_2021} classified the 2{,}992 remaining stars from
-\citetalias{McQuillan_2014} as ``non-periodic'' based on updated
-knowledge of contaminants (e.g.~giant stars and eclipsing binaries)
-and visual inspection.  
-In addition, 
+We chose to adopt the results of \citetalias{Santos_2019} and
+\citetalias{Santos_2021} as our default rotation periods.
+\citetalias{Santos_2021} provides a detailed comparison against
+\citetalias{McQuillan_2014}; the brief summary is that the periods
+agree for 99.0\% of the 31{,}038 period detections in common between
+the two studies.  \citetalias{Santos_2021} classified the 2{,}992
+remaining stars from \citetalias{McQuillan_2014} as ``non-periodic''
+based on updated knowledge of contaminants (e.g.~giant stars and
+eclipsing binaries) and visual inspection.  In addition,
 \citetalias{Santos_2021} report rotation periods for 24{,}182
 main-sequence and subgiant FGKM stars that were not reported as
-periodic by \citetalias{McQuillan_2014}.
-Our interpretation is that these detections are likely more challenging than
-those from \citetalias{McQuillan_2014}, perhaps due to a lower
-variability amplitude, or a longer rotation period.
-A relevant flag for stars missing \citetalias{McQuillan_2014} periods
-is included in Table~\ref{tab:stars}.
+periodic by \citetalias{McQuillan_2014}.  Our interpretation is that
+these detections are likely more challenging than those from
+\citetalias{McQuillan_2014}, perhaps due to a lower variability
+amplitude, or a longer rotation period.  A relevant flag for stars
+missing \citetalias{McQuillan_2014} periods is included in
+Table~\ref{tab:stars}.
 
+Concatenating the results of \citetalias{Santos_2019} and
+\citetalias{Santos_2021} yields \nstarswithprot\ Kepler stars with
+rotation periods.
+%FIXME
 
-
-
-\subsection{Planet Selection}
+\subsection{Planets}
 \label{subsec:planetsel}
 
-\subsection{The Stellar Samples}
-We will refer in this manuscript to a few samples, defined in detail
-below.  The gist of each is as follows.
-\begin{itemize}
-  \item Kepler objects of interest: as defined in the Cumulative KOI
-    table at the NASA Exoplanet Archive from 2022 June 27, which is
-    distinct from the \texttt{q1\_q17\_dr25} table
-    \citep{Thompson_2018}.
-\end{itemize}
+We considered two different samples of planets: those in the fully
+automated Q1-Q17 DR25 KOI Table \citep{Thompson_2018}, which are
+suitable for planet occurrence rate calculations, and also those in
+the cumulative KOI table, which includes the best knowledge available
+on any given planet candidate, but incorporates human-based vetting
+\footnote{See
+\url{https://exoplanetarchive.ipac.caltech.edu/docs/PurposeOfKOITable.html}}.
+For the main body of this work, we will refer to the former
+homogeneous sample, which includes \nkois\ KOIs, \nkoisnofp\ that are
+not known false positives;
+Appendix~\ref{app:cumulativekoi} highlights some additional young
+planets that are omitted in this approach.
 
+%FIXME: add a sentence or two describing the numbers after
+%crossmatching against S19/S21 -- 
+
+Crossmatching the Q1-Q17 DR25 KOI table against our stars with
+rotation periods yields \nkoiswithprot\ KOIs with rotation periods, of which \nkoisnofpwithprot\ 
+are not known false postives.
 
 \subsection{Stellar Properties}
 
-\paragraph{Temperatures}
-\paragraph{Surface Gravities}
+% https://gea.esac.esa.int/archive/documentation/GDR3/Data_analysis/chap_cu8par/sec_cu8par_apsis/ssec_cu8par_apsis_gspphot.html
 
-\subsection{Rotation Periods}
+As our default source for stellar temperatures and surface gravities, we adopt
+the values from the Gaia-Kepler Stellar Properties Catalog (GKSP;
+\citealt{Berger_2020a_catalog}).
+The GKSP parameters are available for stars with ``AAA'' 2MASS photometry,
+measured parallaxes in Gaia DR2,  and g-band photometry from either the KIC or
+the Kepler-INT survey.
+The parameters themselves were derived using \texttt{isoclassify} (CITE
+Huber2017) to interpolate over the MIST isochrone grids (CITE Choi2016,
+Dotter2016), given the SDSS $g$ and 2MASS $K_{\rm s}$ photometry, the Gaia DR2
+parallexes, and $V$-band extinction from the (CITE) Green2019 reddening map.
+The resulting stellar parameters are available for
+\fracstarswithprotwithbtwenty\ of the \nstarswithprot\ Kepler stars with
+rotation periods.
+For the remaining \fracstarswithprotwithoutbtwenty\ of stars that lack
+temperatures and surface gravities, we adopt the values 
+from the Gaia DR3 General Stellar Parametrizer from Photometry (GSP-Phot; CITE).
+GSP-Phot uses the low-resolution Gaia BP and RP spectra, mean $G$ magnitudes,
+and parallaxes, in concert with the PARSEC isochrones (CITE Tang2014, Chen2015,
+Pastorelli2020) to infer the stellar effective temperatures, surface gravities,
+metallicities, and line-of-sight extinctions.
+TODO: plot uncertainties in teff/logg for both parameter sets.
 
 % TODO: add that plot showing differences btwn authors
 
 \subsection{Lithium}
+
+%FIXME: left off here for discussion of HIRES spectra.
 
 
 \section{Age Measurement}
@@ -464,4 +521,4 @@ All authors assisted in manuscript revision.
 \clearpage
 \listofchanges
 
-\end{document}
+
