@@ -1,24 +1,25 @@
-\documentclass[12pt,twocolumn,tighten]{aastex63}
 % upon AAS submission
 %\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 % drafting / arxiv
-%\turnoffedit
+\documentclass[11pt,twocolumn,tighten]{aastex63}
+\turnoffedit
 
 \usepackage{apjfonts}
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage{natbib}
 \usepackage{amsmath,amstext,amssymb}
-\usepackage[caption=false]{subfig} % for subfloat
-\usepackage{bm} % for bold hat accents
 \usepackage{xcolor, fontawesome}
 \usepackage{color}
 
 \newcommand{\rprs}{{$R_p/R_{\star}$}}
+\newcommand{\vsini}{{$V \sin i$}}
 \newcommand{\teff}{T$_{\textrm{eff}}$}
+\newcommand{\kms}{{km\,s$^{-1}$}}
 \newcommand{\gcc}{{g\,cm$^{-3}$}}
 \newcommand{\rstar}{{$R_\star$}}
+\newcommand{\rhostar}{{$\rho_\star$}}
 \newcommand{\mearth}{{M$_\oplus$}}
 \newcommand{\rearth}{{R$_\oplus$}}
 \newcommand{\rsun}{{R$_\odot$}}
@@ -26,8 +27,20 @@
 
 \newcommand{\minus}{\scalebox{0.5}[1.0]{$-$}}
 
-\newcommand{\berkeley}{Astronomy Department, University of California, Berkeley, CA 94720, USA}
+\newcommand{\eg}{e.g.,} 
+
+\newcommand{\mstype}{letter}
+
+%%%%%%%%%%%%%%%%
+% INSTITUTIONS %
+%%%%%%%%%%%%%%%%
 \newcommand{\caltech}{Department of Astronomy, MC 249-17, California Institute of Technology, Pasadena, CA 91125, USA}
+\newcommand{\mitkavli}{MIT Kavli Institute and Department of Physics, 77 Massachusetts Avenue, Cambridge, MA 02139}
+\newcommand{\berkeley}{Astronomy Department, University of California, Berkeley, CA 94720, USA}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %
 % ms specific numbers
@@ -39,37 +52,56 @@
 % number of stars monitored by Kepler (quoting Santos19/21)
 \newcommand{\nkeplerstars}{$\approx$160{,}000}
 % fraction of kepler stars w/ rotation periods
-\newcommand{\nstarswithprot}{{\bf $\sim$50{,}000}}
+\newcommand{\nstarswithprot}{{$\sim$50{,}000}}
 % fraction of stars with rotation periods, with teff/logg in Berger+20
-\newcommand{\fracstarswithprotwithbtwenty}{{\bf $\sim$94\%}}
+\newcommand{\fracstarswithprotwithbtwenty}{{$\sim$94\%}}
 % complement of above
-\newcommand{\fracstarswithprotwithoutbtwenty}{{\bf $\sim$6\%}}
+\newcommand{\fracstarswithprotwithoutbtwenty}{{$\sim$6\%}}
 
 %%%%%%%%%%%
 % PLANETS %
 %%%%%%%%%%%
 % number of KOIs in Q1-Q17 DR25 table
-\newcommand{\nkois}{{\bf $\sim$8{,}000}} %FIXME precise
+\newcommand{\nkois}{{$\sim$8{,}000}} %FIXME precise
 % number of KOIs in Q1-Q17 DR25 table that are not known false positives
-\newcommand{\nkoisnofp}{{\bf $\sim$4{,}000}} %FIXME precise
+\newcommand{\nkoisnofp}{{$\sim$4{,}000}} %FIXME precise
 % number of KOIs in Q1-Q17 DR25 table that have rotation periods
-\newcommand{\nkoiswithprot}{{\bf $\sim$2{,}000}}
+\newcommand{\nkoiswithprot}{{$\sim$2{,}000}}
 % number of KOIs in Q1-Q17 DR25 table that are not known false positives that have rotation periods
-\newcommand{\nkoisnofpwithprot}{{\bf $\sim$1{,}000}}
+\newcommand{\nkoisnofpwithprot}{{$\sim$1{,}000}}
+% fraction of KOIs that are not FPs with B+20 parameters
+\newcommand{\frackoisnofpwithprotwithbtwenty}{{$\sim$92\%}}
 
-\newcommand{\fracplanetswithprotwithbtwenty}{{\bf $\sim$94\%}}
+%%%%%%%%%%%
+% LITHIUM %
+%%%%%%%%%%%
+% number of KOIs that are not known FPs that have a HIRES spectrum
+\newcommand{\nkoiswithhires}{{1{,}500}}
+% number of KOIs for which this work and Berger2018 overlap
+\newcommand{\nbergeroverlap}{{500}}
 
-\newcommand{\nstarwithages}{NNN}
+%%%%%%%%
+% AGES %
+%%%%%%%%
+\newcommand{\nkepstarswithages}{NNN}
+\newcommand{\nkoisnofpwithages}{NNN}
+\newcommand{\nkoisgoldwithages}{NNN}
 
+%%%%%%%%%%%%%
+% OFT-CITED %
+%%%%%%%%%%%%%
 \defcitealias{McQuillan_2014}{M14}
 \defcitealias{Mazeh_2015}{M15}
 \defcitealias{Santos_2019}{S19}
 \defcitealias{Santos_2021}{S21}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
-\title{gyro-johannes}
+\title{Gyrochronal and Lithium Ages for Stars and Planets Observed by Kepler}
 
 \correspondingauthor{Luke G. Bouma}
 \email{luke@astro.caltech.edu}
@@ -81,15 +113,37 @@
 
 \shortauthors{Bouma et al.}
 
-\input{authors.tex}
+\author[0000-0002-0514-5538]{Luke~G.~Bouma}
+\altaffiliation{51 Pegasi b Fellow}
+\affiliation{\caltech}
+
+\author{Authors to include (ORDER AFTER LGB NOT YET ASSIGNED MEANING)}
+
+\author[0000-0001-7967-1795]{Elsa~K.~Palumbo}
+\affiliation{\caltech}
+
+\author{Lynne~A.~Hillenbrand}
+\affiliation{\caltech}
+
+%
+% HIRES Collaborators
+%
+\author[0000-0002-0531-1073]{H. Isaacson}
+\affiliation{\berkeley}
+%
+\author[0000-0001-8638-0320]{A. W. Howard}
+\affiliation{\caltech}
+%
+\author{HIRES observers to be named}
+\affiliation{Various}
 
 \begin{abstract}
-  We report rotation- and lithium-based ages for stars observed by
+  We report rotation- and lithium-based ages for stars and planets observed by
   the primary Kepler mission.  Stellar rotation periods are collected from
-  previous work; lithium is measured using both new and archival HIRES
+  previous analyses of the Kepler light curves; lithium is assessed directly from HIRES
   spectra.
-  For the \nstarwithages\ FGK stars with reported ages, the relative statistical
-  precisions $\sigma_t / t$ are XX +YY -ZZ\%, which is a factor of X.X
+  wWe report ages for \nkoisgoldwithages\ FGK stars with transiting planets, with relative statistical
+  precisions $\sigma_t / t$ of XX +YY -ZZ\%; a factor of X.X
   +Y.Y -Z.Z more precise than state-of-the-art isochronal ages for the
   same stars.  The results include XXX planets younger than 1\,Gyr,
   and YYY planets younger than 0.5\,Gyr.
@@ -342,7 +396,7 @@ Kepler planets whose host stars have measured rotation periods
 ($\mathcal{P}$; Section~\ref{subsec:planetsel}).
 
 
-\subsection{Stars}
+\subsection{Kepler stars with rotation periods}
 \label{subsec:starsel}
 
 We select stars with rotation periods as determined by previous
@@ -398,7 +452,7 @@ Concatenating the results of \citetalias{Santos_2019} and
 rotation periods.
 %FIXME
 
-\subsection{Planets}
+\subsection{Kepler objects of interest}
 \label{subsec:planetsel}
 
 We considered two different samples of planets: those in the fully
@@ -414,14 +468,35 @@ not known false positives;
 Appendix~\ref{app:cumulativekoi} highlights some additional young
 planets that are omitted in this approach.
 
-%FIXME: add a sentence or two describing the numbers after
-%crossmatching against S19/S21 -- 
-
 Crossmatching the Q1-Q17 DR25 KOI table against our stars with
 rotation periods yields \nkoiswithprot\ KOIs with rotation periods, of which \nkoisnofpwithprot\ 
 are not known false postives.
+These objects will comprise the core data for our gyrochronology analysis.
 
-\subsection{Stellar Properties}
+\subsection{Lithium sample}
+A final subcomponent of our analysis involves an age assessment based on
+the equivalent width of the \ion{Li}{1} 6708\,\AA\ doublet.  For this
+component of the work, we primarily rely on spectra acquired with the
+High Resolution Echelle Spectrometer (HIRES;
+\citealt{vogt_hires_1994}) on the Keck I 10m telescope.
+The majority of these spectra are archival, and were acquired
+as part of the California Keck Survey (CKS).
+A subset were acquired by our team in our own observing programs.
+%TODO quantify.
+%TODO compare to berger2018?
+
+These HIRES spectra are available for \nkoiswithhires\ of the
+\nkoisnofp\ non-false-positive KOIs.
+In the broader stellar sample, they are available for a much smaller 
+fraction of the stars observed by Kepler, because they were generally only
+acquired due to the presence of a transiting planet candidate.
+Given this selection function,
+we leverage these spectra in our analysis as a way to scrutinize the
+ages of just the planet sample.
+
+
+
+\section{Stellar Properties}
 
 % https://gea.esac.esa.int/archive/documentation/GDR3/Data_analysis/chap_cu8par/sec_cu8par_apsis/ssec_cu8par_apsis_gspphot.html
 
@@ -436,8 +511,8 @@ Huber2017) to interpolate over the MIST isochrone grids (CITE Choi2016,
 Dotter2016), given the SDSS $g$ and 2MASS $K_{\rm s}$ photometry, the Gaia DR2
 parallexes, and $V$-band extinction from the (CITE) Green2019 reddening map.
 The resulting stellar parameters are available for
-\fracstarswithprotwithbtwenty\ of the \nstarswithprot\ Kepler stars with
-rotation periods.
+\fracstarswithprotwithbtwenty\ of the \nstarswithprot\ Kepler stars
+with rotation periods.
 For the remaining \fracstarswithprotwithoutbtwenty\ of stars that lack
 temperatures and surface gravities, we adopt the values 
 from the Gaia DR3 General Stellar Parametrizer from Photometry (GSP-Phot; CITE).
@@ -445,17 +520,153 @@ GSP-Phot uses the low-resolution Gaia BP and RP spectra, mean $G$ magnitudes,
 and parallaxes, in concert with the PARSEC isochrones (CITE Tang2014, Chen2015,
 Pastorelli2020) to infer the stellar effective temperatures, surface gravities,
 metallicities, and line-of-sight extinctions.
-TODO: plot uncertainties in teff/logg for both parameter sets.
+In the planet sample,
+\frackoisnofpwithprotwithbtwenty\ of the
+the non-false-positive KOIs with rotation periods have parameters from
+\citet{Berger_2020a_catalog}.
 
-% TODO: add that plot showing differences btwn authors
+As a sanity check on our effective temperature scale, we then used the 
+the CITE Green2019 reddening map, combined with the Gaia DR2 $G_{\rm
+BP}-G_{\rm RP}$ color, to calculate effective temperatures using the
+relation suggested by \citet{Curtis_2020}.
+This latter effective temperature scale was demonstrated to have a 
+scatter of $\approx$50\,K for stars near the main-sequence.
+We find {\bf X, Y, Z.}
+We ultimately favor the \citet{Berger_2020a_catalog} scale
+because it uses 2MASS $K_{\rm s}$ photometry, and is tied to an actual
+isochronal fit.
 
-\subsection{Lithium}
+%TODO: plot uncertainties in teff/logg for both parameter sets.
 
-%FIXME: left off here for discussion of HIRES spectra.
+% TODO: add that plot showing differences btwn the two teff scales?
 
 
 \section{Age Measurement}
 \label{sec:agemethod}
+
+\subsection{Gyrochrone ages}
+To calculate gyrochrone ages, we use \texttt{gyro-interp}
+\citep{Bouma_2023}.  This framework was built to statistically address
+the issue that, especially over the first gigayear of stellar
+spin-down, stars with the same mass and same rotation period can have
+very different ages \citep[e.g.][]{Curtis_2019_ngc6811}.  The
+gyrochrone age posterior should therefore incorporate this intrinsic
+population-level scatter into the precision with which the age can be
+measured.  The three main assumptions behind the \texttt{gyro-interp}
+framework are as follows.  {\it 1)} The stars are on the main
+sequence, {\it 2)} they do not have any binary companions,
+and {\it 3)} the rotation period distribution
+for field stars of a given mass and age is identical to that of
+the calibration open clusters (metallicity differences, for instance, are
+ignored).  
+Regarding the former two assumptions:
+pre-main-sequence and post-main-sequence evolution introduce
+variations in the stellar angular momentum budget.  Similarly, tidal
+effects might systematically spin up (or down) stars in binaries.
+
+Using our adopted effective temperatures and rotation periods, we ran 
+\texttt{gyro-interp} over an age grid of 0 to 5\,Gyr, linearly spaced
+over 500 grid points.
+\texttt{gyro-interp} itself is only calibrated out to 4\,Gyr, the
+adopted age of the M67 cluster \citep[see][]{Dungee_2022,Gruner_2023}.
+We used the spin-down law between the reference open clusters by
+interpolating using piecewise cubic hermite interpolating polynomials,
+and integrated Equation~1 of \citep{Bouma_2023} at the default grid
+resolution.
+This yielded age posterior probabilities over our requested age grid
+for \nkepstarswithages\ Kepler stars, and \nkoisnofpwithages\
+non-false-positive KOIs.
+
+
+\subsection{Lithium ages}
+To measure the lithium equivalent widths for the \nkoiswithhires\ KOIs
+with HIRES spectra, we use the procedure described by
+\citet{Bouma_2021}.
+The stars of interest for this work are FGK stars, and so the
+continuum in the vicinity of the
+\ion{Li}{1} 6708\,\AA\ feature is well-defined.
+We therefore numerically integrate a single best-fit Gaussian over a
+local window, and estimate the uncertainties on the line width through
+a Monte Carlo procedure that bootstraps against the local scatter in the
+continuum.
+Generally speaking, this approach does not correct for the neighboring
+\ion{Fe}{1} 6707.44\,\AA\ blend.
+
+To evaluate the accuracy and precision of this approach, after
+applying an initial iteration of this method on the \nkoiswithhires\
+KOIs with HIRES spectra, we compared our lithium equivalent widths
+with those reported by \citet{Berger_2018}.
+For the \nbergeroverlap\ stars in both samples, 
+we found {\bf X, Y, Z.}
+
+To calculate lithium ages, we then use EAGLES \citep{Jeffries_2023}.
+{\bf TODO: explain why}
+%TODO: explain why.
+
+
+
+\subsection{Quality flags}
+In our core gyrochrone analysis, we calculate gyrochrone age
+posteriors for all the stars with reported rotation periods and
+effective temperatures.  To select the stars for which we expect the
+gyrochronal age to be valid, we then build a set of quality flags, and
+apply them in the sub-analyses that follow.  We defined these filters
+as follows, each of which is included in Tables~\ref{tab:stars}
+and~\ref{tab:planets}.
+
+{\it Subgiants}---We flagged stars as possible subgiants if they had
+$\log g < 4.2$.  We determined this threshold by examining the
+relevant flag from \citet{berger_2018_radii_evolnstates},
+cross-matched against \citet{Berger_2020a_catalog}.
+\citet{berger_2018_radii_evolnstates} performed this classification
+using the PARSEC evolutionary models, stellar radii, and DR25 stellar
+properties catalog effective temperatures \citep{Mathur_2017}.
+
+{\it Photometric binaries}---We plotted color--absolute magnitude
+diagrams using the Gaia DR2 photometry, in $M_{\rm G}$ vs. $(G_{\rm
+BP} - G_{\rm RP})_0$, and $(G - G_{\rm RP})_0$.  We then manually drew
+loci to flag over or under-luminous stars in each diagram, typically
+more than $\approx$0.5 magnitudes above or below the main sequence.
+%TODO refer to a figure!!!
+
+{\it RUWE}---Following recommendations in the Gaia DR3
+documentation\footnote{\url{https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_ruwe.html}},
+we flagged stars with a Gaia DR3 renormalized unit weight error (RUWE)
+exceeding 1.4 as possible binaries.  Such astrometric outliers can be
+either bonafide astrometric binaries, or more often are marginally
+resolved point sources for which the single-source PSF model used in
+the Gaia pipeline induces spurious astrometric scatter.
+
+{\it Crowding}---We searched the Gaia DR3 point source catalog for
+stars within 1 Kepler pixel (4$''$) of every target star.
+While many such companions are not physically associated with the
+target star, their presence can bias stellar parameters and stellar
+rotation period measurements.
+We therefore flag any stars with neighbors down to 10$|times$ the 
+brightness of the target star within this region ($\Delta G < 2.5$).
+
+{\it Gaia DR3 Non-Single-Stars}---The Gaia DR3
+\texttt{non\_single\_star} column in the \texttt{gaia\_source} table
+flags known eclipsing, astrometric, and spectroscopic binaries.  We
+directly include this column.
+
+{\it Final calibration sample}---{\bf todo: mention any extra flags
+from Berger2020, or perhaps in the KOI catalog itself, or perhaps the
+amplitude cuts you might want to apply to the rotation period catalog}
+%The combination of the filters
+%described above yields the set of stars that show no evidence for
+%binarity or crowding.  However, some of the rotation period analyses
+%in Table~\ref{tab:clusters} include additional relevant quality flags.
+%For instance, light curves showing multiple photometric periods can
+%indicate unresolved binarity.  We used all relevant filters available
+%from the original authors if they were designed to select single stars
+%with reliable rotation periods.  The final combination of these
+%filters with our own flag for possible binarity yields our sample of
+%benchmark rotators.
+
+
+
+
 
 
 \section{Results}
@@ -521,4 +732,4 @@ All authors assisted in manuscript revision.
 \clearpage
 \listofchanges
 
-
+\end{document}
