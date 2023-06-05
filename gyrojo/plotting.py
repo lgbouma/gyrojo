@@ -1129,3 +1129,98 @@ def plot_hist_field_gyro_ages(outdir, cache_id):
     })
     outpath = os.path.join(outdir, f'hist_medianvals_field_gyro_ages_{cache_id}.png')
     savefig(fig, outpath, writepdf=1, dpi=400)
+
+
+def plot_field_gyro_posteriors(outdir, cache_id):
+
+    from gyrointerp.helpers import get_summary_statistics
+
+    from gyrointerp.paths import CACHEDIR
+    csvdir = join(CACHEDIR, cache_id)
+    writedir = join(CACHEDIR, "samples_"+cache_id)
+    if not os.path.exists(writedir): os.mkdir(writedir)
+    csvpaths = glob(join(csvdir, "*posterior.csv"))
+    assert len(csvpaths) > 0
+    N_post = len(csvpaths)
+    print(f"Got {N_post} posteriors...")
+
+    # plot all stars
+    plt.close("all")
+    set_style('clean')
+    fig, ax = plt.subplots()
+
+    kic_names = []
+    summaries = []
+
+    for ix, csvpath in enumerate(csvpaths):
+
+        if ix % 100 == 0:
+            print(f"{datetime.utcnow().isoformat()}: {ix}/{N_post}")
+
+        kic_name = os.path.basename(csvpath).split("_")[0]
+        kic_names.append(kic_name)
+
+        df = pd.read_csv(csvpath)
+        t_post = np.array(df.age_post)
+        age_grid = np.array(df.age_grid)
+
+        d = get_summary_statistics(age_grid, t_post)
+
+        # draw 10 samples from each posterior, and write them...
+        N = 10
+        df = pd.DataFrame({'age':age_grid, 'p':t_post})
+        try:
+            sample_df = df.sample(n=N, replace=True, weights=df.p)
+            outcsv = join(
+                writedir,
+                os.path.basename(csvpath).replace('posterior','posterior_samples')
+            )
+            sample_df.age.to_csv(outcsv, index=False)
+        except ValueError:
+            # some stars had adopted_teff>6200, adopted_teff<3800, or nan adopted_teff.
+            pass
+        if ix % 100 == 0:
+            print(f"{datetime.utcnow().isoformat()}: wrote {outcsv}")
+
+        summaries.append(d)
+
+        zorder = ix
+        ax.plot(age_grid, 1e3*t_post/np.trapz(t_post, age_grid), alpha=0.1,
+                lw=0.3, c='k', zorder=zorder)
+
+    xmin = 0
+    xmax = 4000
+    ax.update({
+        'xlabel': 'Age [Myr]',
+        'ylabel': 'Probability ($10^{-3}\,$Myr$^{-1}$)',
+        'xlim': [xmin, xmax],
+        'ylim': [-0.5, 10.5]
+    })
+    outpath = os.path.join(outdir, f'posteriors_verification.png')
+    savefig(fig, outpath, writepdf=1, dpi=400)
+
+    df = pd.DataFrame(summaries, index=kic_names)
+    df['KIC'] = kic_names
+    df['KIC'] = df['KIC'].astype(str)
+    csvpath = os.path.join(outdir, f"{cache_id}_gyro_ages.csv")
+    df.to_csv(csvpath, index=False)
+    print(f"Wrote {csvpath}")
+
+    sampleid = 'Santos19_Santos21_all'
+    kdf = get_kicstar_data(sampleid)
+    kdf['KIC'] = kdf['KIC'].astype(str)
+
+    mdf = df.merge(kdf, how='inner', on='KIC')
+    assert len(mdf) == len(df)
+
+    csvpath = os.path.join(outdir, f"{cache_id}_gyro_ages_X_GDR3_S19_S21_B20.csv")
+    mdf = mdf.sort_values(by='median')
+    mdf.to_csv(csvpath, index=False)
+    print(f"Wrote {csvpath}")
+
+    cols = ['KIC', 'median', '+1sigma', '-1sigma',
+            '+2sigma', '-2sigma', "+1sigmapct", "-1sigmapct", "Prot",
+            "adopted_Teff"]
+    sel_2s = mdf['median'] + mdf['+2sigma'] < 1000
+
+    print(mdf[sel_2s][cols])
