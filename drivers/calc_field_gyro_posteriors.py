@@ -19,7 +19,12 @@ from gyrointerp.gyro_posterior import gyro_age_posterior_list
 
 def calc_field_gyro_posteriors():
 
+    ################
+    # update these #
+    ################
     sampleid = 'Santos19_Santos21_all'
+    cache_id = "field_gyro_posteriors_20230529"
+    ################
 
     df = get_kicstar_data(sampleid)
 
@@ -72,7 +77,6 @@ def calc_field_gyro_posteriors():
     DO_CALCULATION = 1
 
     if DO_CALCULATION:
-        cache_id = "field_gyro_posteriors_20230529"
         gyro_age_posterior_list(
             cache_id, Prots, Teffs, Prot_errs=Prot_errs, Teff_errs=Teff_errs,
             star_ids=object_ids, age_grid=np.linspace(0, 4000, 500),
