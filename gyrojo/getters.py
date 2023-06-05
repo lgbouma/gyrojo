@@ -375,7 +375,11 @@ def get_kicstar_data(sampleid):
         print(f"Wrote {csvpath}")
 
     else:
-        df = pd.read_csv(csvpath)
+        df = pd.read_csv(
+            csvpath, dtype={
+                'dr3_source_id':str, 'KIC':str, 'kepid':str
+            }
+        )
 
     #############
     # get Teffs #
@@ -454,8 +458,10 @@ def get_kicstar_data(sampleid):
     ##################################
 
     sel = df.Prot < 45
+
     if sampleid == 'Santos19_Santos21_logg':
         sel &= df.logg > 4.2
+
     if sampleid == 'Santos19_Santos21_clean0':
         # S21 flags:
         #
@@ -522,6 +528,9 @@ def get_kicstar_data(sampleid):
         # s19_flag5: FlipPer Class flag
         #   FliPerClass (FPC) indicates targets that are possibly solar-type stars (0),
         #   classical pulsators (1), and binary systems/photometric pollution (2).
+        #
+        #   Counter({0.0: 14056, 2.0: 799, 1.0: 191})
+        #   ...rest nan
 
         sel &= df.logg > 4.2
 
