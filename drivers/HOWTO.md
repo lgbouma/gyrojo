@@ -6,7 +6,7 @@ To run the KOI gyrochronology analysis:
 Takes the cumulative KOI table, and left-joins it against Gaia DR3, the
 Berger+20 stellar parameter catalog, and all relevant rotation period catalogs
 (McQuillan+14, Mazeh+15, Santos+19, Santos+21).  The output is written to
-`/data/interim/koi_table_X_GDR3_B20_S19_S21_M14_M15.csv`
+`DATADIR/interim/koi_table_X_GDR3_B20_S19_S21_M14_M15.csv`
 
 2. `calc_koi_gyro_posteriors.py`
 
@@ -65,7 +65,12 @@ To run the field star gyro analysis:
 
 Makes `field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv`
 
-3. `plot_hist_field_gyro_ages.py`
+3. `construct_field_star_gyro_quality_flags.py`
+
+Given output from #2, build
+`field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_dquality.csv`
+
+4. `plot_hist_field_gyro_ages.py`
 
 --------------------
 Other plots that will probably go into a manuscript:
