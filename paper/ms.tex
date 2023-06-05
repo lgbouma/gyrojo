@@ -267,7 +267,9 @@ e.g.~from $\approx$4.5\,R$_\oplus$ at $\approx$200\,Myr to
 $\approx$3.5\,R$_\oplus$ at $\approx$700\,Myr
 \citep[e.g.][]{Rogers_2021}; {\it d)} that the super-Earth to
 mini-Neptune ratio, $\theta$, should increase over $t_{\rm loss}$
-\citep[e.g.][]{Rogers_2021} {\bf BY HOW MUCH?}); {\it e)} that the
+\citep[e.g.][]{Rogers_2021}, with the mini-Neptune abundance
+decreasing by at least a factor of two or three, and the super-Earth
+abundance correspondingly increasing {\bf BY HOW MUCH?}); {\it e)} that the
 upper boundary of the super-Earth population should increase over the
 same timescale as $\theta$ is increasing, since more massive
 super-Earth cores should be able to retain their envelopes for longer
@@ -513,17 +515,28 @@ parallexes, and $V$-band extinction from the (CITE) Green2019 reddening map.
 The resulting stellar parameters are available for
 \fracstarswithprotwithbtwenty\ of the \nstarswithprot\ Kepler stars
 with rotation periods.
+
+%For the remaining \fracstarswithprotwithoutbtwenty\ of stars that lack
+%temperatures and surface gravities, we adopt the values 
+%from the Gaia DR3 General Stellar Parametrizer from Photometry (GSP-Phot; CITE).
+%GSP-Phot uses the low-resolution Gaia BP and RP spectra, mean $G$ magnitudes,
+%and parallaxes, in concert with the PARSEC isochrones (CITE Tang2014, Chen2015,
+%Pastorelli2020) to infer the stellar effective temperatures, surface gravities,
+%metallicities, and line-of-sight extinctions.
+%In the planet sample,
+%\frackoisnofpwithprotwithbtwenty\ of the
+%the non-false-positive KOIs with rotation periods have parameters from
+%\citet{Berger_2020a_catalog}.
+
 For the remaining \fracstarswithprotwithoutbtwenty\ of stars that lack
-temperatures and surface gravities, we adopt the values 
-from the Gaia DR3 General Stellar Parametrizer from Photometry (GSP-Phot; CITE).
-GSP-Phot uses the low-resolution Gaia BP and RP spectra, mean $G$ magnitudes,
-and parallaxes, in concert with the PARSEC isochrones (CITE Tang2014, Chen2015,
-Pastorelli2020) to infer the stellar effective temperatures, surface gravities,
-metallicities, and line-of-sight extinctions.
-In the planet sample,
-\frackoisnofpwithprotwithbtwenty\ of the
-the non-false-positive KOIs with rotation periods have parameters from
-\citet{Berger_2020a_catalog}.
+temperatures and surface gravities, we adopt the values reported by
+\citet{Santos2019} and \citet{Santos2021}, which for these cases
+primarily derive from the \citet{Mathur_2017} DR25 Kepler Stellar
+Properties Catalog, and are mostly derived from photometry.  In the
+planet sample, \frackoisnofpwithprotwithbtwenty\ of the the
+non-false-positive KOIs with rotation periods have parameters from
+\citet{Berger_2020a_catalog}, and the remainder similarly are drawn
+from DR25. 
 
 As a sanity check on our effective temperature scale, we then used the 
 the CITE Green2019 reddening map, combined with the Gaia DR2 $G_{\rm
@@ -671,6 +684,24 @@ amplitude cuts you might want to apply to the rotation period catalog}
 
 \section{Results}
 \label{sec:results}
+
+\subsection{Evolutionary trends in time}
+
+{\it Kelvin-Helmholtz cooling}
+$R_p \propto t^{-0.1}$ scaling \citep{Gupta_2019}
+
+{\it Early carving of the photoevaporation desert}
+\citep{Owen_Lai_2018}
+
+{\it Rapidly decreasing abundance of big puffy planets}
+Kepler not enough?
+
+{\it Mini-Neptunes turning into Super-Earths}
+\citep[e.g.][]{Rogers_2021}
+
+{\it Boundary of the Super-Earth population moving up in time}
+\citep{David_2021}
+
 
 \section{Discussion}
 \label{sec:disc}
