@@ -283,6 +283,9 @@ def get_joint_results(COMPARE_AGE_UNCS=0):
 
 
 def get_kicstar_data(sampleid):
+    """
+    Get Kepler field star Prot, Teff, and stellar information.
+    """
 
     assert sampleid in ['Santos19_Santos21_all', 'Santos19_Santos21_clean0',
                         'Santos19_Santos21_logg']
@@ -374,6 +377,10 @@ def get_kicstar_data(sampleid):
     else:
         df = pd.read_csv(csvpath)
 
+    #############
+    # get Teffs #
+    #############
+
     # default Teffs
     df['adopted_Teff'] = df['b20t2_Teff']
     df['adopted_Teff_provenance'] = 'Berger2020_table2'
@@ -382,7 +389,14 @@ def get_kicstar_data(sampleid):
         np.array(np.abs(df['b20t2_e_Teff']))
     ], axis=0)
 
-    # else, take Santos 19/21 Teffs
+    # else, take Gaia DR3 Teff and logg, and assume σ_Teff = 200 K
+    _sel = pd.isnull(df['adopted_Teff'])
+    df.loc[_sel, 'adopted_Teff'] = df.loc[_sel, 'dr3_teff_gspphot']
+    df.loc[_sel, 'adopted_Teff_err'] = 200
+    df.loc[_sel, 'adopted_Teff_provenance'] = 'Gaia DR3 GSP-Phot'
+
+    # else, take Santos+19 or Santos+21 Teff and logg, which are
+    # mostly Mathur+17 (DR25) in this case.
     _sel = pd.isnull(df['adopted_Teff'])
     df.loc[_sel, 'adopted_Teff'] = df.loc[_sel, 'Teff']
     df.loc[_sel, 'adopted_Teff_err'] = df.loc[_sel, 'e_Teff']
@@ -390,6 +404,36 @@ def get_kicstar_data(sampleid):
 
     assert np.sum(pd.isnull(df['adopted_Teff'])) == 0
     assert np.sum(pd.isnull(df['adopted_Teff_err'])) == 0
+
+    #############
+    # get loggs #
+    #############
+
+    # default Teffs
+    df['adopted_logg'] = df['b20t2_logg']
+    df['adopted_logg_provenance'] = 'Berger2020_table2'
+    df['adopted_logg_err'] = np.nanmean([
+        np.array(df['b20t2_E_logg']),
+        np.array(np.abs(df['b20t2_e_logg']))
+    ], axis=0)
+
+    # else, take Gaia DR3 Teff and logg, assume σ_logg = 0.3 dex
+    _sel = pd.isnull(df['adopted_logg'])
+    df.loc[_sel, 'adopted_logg'] = df.loc[_sel, 'dr3_logg_gspphot']
+    df.loc[_sel, 'adopted_logg_err'] = 0.3
+    df.loc[_sel, 'adopted_logg_provenance'] = 'Gaia DR3 GSP-Phot'
+
+    _sel = pd.isnull(df['adopted_logg'])
+    df.loc[_sel, 'adopted_logg'] = df.loc[_sel, 'logg']
+    df.loc[_sel, 'adopted_logg_err'] = df.loc[_sel, 'e_logg']
+    df.loc[_sel, 'adopted_logg_provenance'] = df.loc[_sel, 'Provenance']
+
+    assert np.sum(pd.isnull(df['adopted_logg'])) == 0
+    assert np.sum(pd.isnull(df['adopted_logg_err'])) == 0
+
+    ######################
+    # get prots and errs #
+    ######################
 
     Prots = df['Prot']
     Prot_errs = np.ones(len(Prots))
@@ -399,10 +443,15 @@ def get_kicstar_data(sampleid):
     Prot_errs[(Prots>25) & (Prots<=30)] = 0.04*Prots[(Prots>25) & (Prots<=30)]
     Prot_errs[Prots>30] = 0.05*Prots[Prots>30]
 
+    df['Prot'] = Prots
     df['Prot_err'] = Prot_errs
 
     assert np.sum(pd.isnull(df['Prot'])) == 0
     assert np.sum(pd.isnull(df['Prot_err'])) == 0
+
+    ##################################
+    # Return the requested subsample #
+    ##################################
 
     sel = df.Prot < 45
     if sampleid == 'Santos19_Santos21_logg':
