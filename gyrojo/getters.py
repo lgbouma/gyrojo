@@ -389,11 +389,11 @@ def get_kicstar_data(sampleid):
         np.array(np.abs(df['b20t2_e_Teff']))
     ], axis=0)
 
-    # else, take Gaia DR3 Teff and logg, and assume σ_Teff = 200 K
-    _sel = pd.isnull(df['adopted_Teff'])
-    df.loc[_sel, 'adopted_Teff'] = df.loc[_sel, 'dr3_teff_gspphot']
-    df.loc[_sel, 'adopted_Teff_err'] = 200
-    df.loc[_sel, 'adopted_Teff_provenance'] = 'Gaia DR3 GSP-Phot'
+    ## else, take Gaia DR3 Teff and logg, and assume σ_Teff = 200 K
+    #_sel = pd.isnull(df['adopted_Teff'])
+    #df.loc[_sel, 'adopted_Teff'] = df.loc[_sel, 'dr3_teff_gspphot']
+    #df.loc[_sel, 'adopted_Teff_err'] = 200
+    #df.loc[_sel, 'adopted_Teff_provenance'] = 'Gaia DR3 GSP-Phot'
 
     # else, take Santos+19 or Santos+21 Teff and logg, which are
     # mostly Mathur+17 (DR25) in this case.
@@ -417,11 +417,11 @@ def get_kicstar_data(sampleid):
         np.array(np.abs(df['b20t2_e_logg']))
     ], axis=0)
 
-    # else, take Gaia DR3 Teff and logg, assume σ_logg = 0.3 dex
-    _sel = pd.isnull(df['adopted_logg'])
-    df.loc[_sel, 'adopted_logg'] = df.loc[_sel, 'dr3_logg_gspphot']
-    df.loc[_sel, 'adopted_logg_err'] = 0.3
-    df.loc[_sel, 'adopted_logg_provenance'] = 'Gaia DR3 GSP-Phot'
+    ## else, take Gaia DR3 Teff and logg, assume σ_logg = 0.3 dex
+    #_sel = pd.isnull(df['adopted_logg'])
+    #df.loc[_sel, 'adopted_logg'] = df.loc[_sel, 'dr3_logg_gspphot']
+    #df.loc[_sel, 'adopted_logg_err'] = 0.3
+    #df.loc[_sel, 'adopted_logg_provenance'] = 'Gaia DR3 GSP-Phot'
 
     _sel = pd.isnull(df['adopted_logg'])
     df.loc[_sel, 'adopted_logg'] = df.loc[_sel, 'logg']
