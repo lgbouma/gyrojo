@@ -1144,67 +1144,71 @@ def plot_field_gyro_posteriors(outdir, cache_id):
     N_post = len(csvpaths)
     print(f"Got {N_post} posteriors...")
 
-    # plot all stars
-    plt.close("all")
-    set_style('clean')
-    fig, ax = plt.subplots()
+    cachecsvpath = os.path.join(outdir, f"{cache_id}_gyro_ages.csv")
+    if os.path.exists(cachecsvpath):
+        df = pd.read_csv(cachecsvpath, dtype={'KIC':str})
 
-    kic_names = []
-    summaries = []
+    else:
+        # plot all stars
+        plt.close("all")
+        set_style('clean')
+        fig, ax = plt.subplots()
 
-    for ix, csvpath in enumerate(csvpaths):
+        kic_names = []
+        summaries = []
 
-        if ix % 100 == 0:
-            print(f"{datetime.utcnow().isoformat()}: {ix}/{N_post}")
+        for ix, csvpath in enumerate(csvpaths):
 
-        kic_name = os.path.basename(csvpath).split("_")[0]
-        kic_names.append(kic_name)
+            if ix % 100 == 0:
+                print(f"{datetime.utcnow().isoformat()}: {ix}/{N_post}")
 
-        df = pd.read_csv(csvpath)
-        t_post = np.array(df.age_post)
-        age_grid = np.array(df.age_grid)
+            kic_name = os.path.basename(csvpath).split("_")[0]
+            kic_names.append(kic_name)
 
-        d = get_summary_statistics(age_grid, t_post)
+            df = pd.read_csv(csvpath)
+            t_post = np.array(df.age_post)
+            age_grid = np.array(df.age_grid)
 
-        # draw 10 samples from each posterior, and write them...
-        N = 10
-        df = pd.DataFrame({'age':age_grid, 'p':t_post})
-        try:
-            sample_df = df.sample(n=N, replace=True, weights=df.p)
-            outcsv = join(
-                writedir,
-                os.path.basename(csvpath).replace('posterior','posterior_samples')
-            )
-            sample_df.age.to_csv(outcsv, index=False)
-        except ValueError:
-            # some stars had adopted_teff>6200, adopted_teff<3800, or nan adopted_teff.
-            pass
-        if ix % 100 == 0:
-            print(f"{datetime.utcnow().isoformat()}: wrote {outcsv}")
+            d = get_summary_statistics(age_grid, t_post)
 
-        summaries.append(d)
+            # draw 10 samples from each posterior, and write them...
+            N = 10
+            df = pd.DataFrame({'age':age_grid, 'p':t_post})
+            try:
+                outcsv = join(
+                    writedir,
+                    os.path.basename(csvpath).replace('posterior','posterior_samples')
+                )
+                sample_df = df.sample(n=N, replace=True, weights=df.p)
+                sample_df.age.to_csv(outcsv, index=False)
+            except ValueError:
+                # some stars had adopted_teff>6200, adopted_teff<3800, or nan adopted_teff.
+                pass
+            if ix % 100 == 0:
+                print(f"{datetime.utcnow().isoformat()}: wrote {outcsv}")
 
-        zorder = ix
-        ax.plot(age_grid, 1e3*t_post/np.trapz(t_post, age_grid), alpha=0.1,
-                lw=0.3, c='k', zorder=zorder)
+            summaries.append(d)
 
-    xmin = 0
-    xmax = 4000
-    ax.update({
-        'xlabel': 'Age [Myr]',
-        'ylabel': 'Probability ($10^{-3}\,$Myr$^{-1}$)',
-        'xlim': [xmin, xmax],
-        'ylim': [-0.5, 10.5]
-    })
-    outpath = os.path.join(outdir, f'posteriors_verification.png')
-    savefig(fig, outpath, writepdf=1, dpi=400)
+            zorder = ix
+            ax.plot(age_grid, 1e3*t_post/np.trapz(t_post, age_grid), alpha=0.1,
+                    lw=0.3, c='k', zorder=zorder)
 
-    df = pd.DataFrame(summaries, index=kic_names)
-    df['KIC'] = kic_names
-    df['KIC'] = df['KIC'].astype(str)
-    csvpath = os.path.join(outdir, f"{cache_id}_gyro_ages.csv")
-    df.to_csv(csvpath, index=False)
-    print(f"Wrote {csvpath}")
+        xmin = 0
+        xmax = 4000
+        ax.update({
+            'xlabel': 'Age [Myr]',
+            'ylabel': 'Probability ($10^{-3}\,$Myr$^{-1}$)',
+            'xlim': [xmin, xmax],
+            'ylim': [-0.5, 10.5]
+        })
+        outpath = os.path.join(outdir, f'posteriors_verification.png')
+        savefig(fig, outpath, writepdf=1, dpi=400)
+
+        df = pd.DataFrame(summaries, index=kic_names)
+        df['KIC'] = kic_names
+        df['KIC'] = df['KIC'].astype(str)
+        df.to_csv(cachecsvpath, index=False)
+        print(f"Wrote {cachecsvpath}")
 
     sampleid = 'Santos19_Santos21_all'
     kdf = get_kicstar_data(sampleid)
