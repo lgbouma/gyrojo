@@ -17,7 +17,7 @@ from astropy.table import Table
 
 from gyrointerp.helpers import prepend_colstr, left_merge
 
-from gyrojo.paths import LOCALDIR, DATADIR, RESULTSDIR
+from gyrojo.paths import LOCALDIR, DATADIR, RESULTSDIR, TABLEDIR
 
 
 def get_gyro_data(sampleid):
@@ -288,9 +288,21 @@ def get_kicstar_data(sampleid):
     """
 
     assert sampleid in ['Santos19_Santos21_all', 'Santos19_Santos21_clean0',
-                        'Santos19_Santos21_logg']
+                        'Santos19_Santos21_logg', 'Santos19_Santos21_dquality']
 
     csvpath = join(DATADIR, 'interim', 'S19_S21_merged_X_GDR3_X_B20.csv')
+
+    if sampleid == 'Santos19_Santos21_dquality':
+        # made by construct_field_star_gyro_quality_flags.py driver
+        csvpath = join(
+            TABLEDIR,
+            'field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
+        )
+        return pd.read_csv(
+            csvpath, dtype={
+                'dr3_source_id':str, 'KIC':str, 'kepid':str
+            }
+        )
 
     if not os.path.exists(csvpath):
         from astroquery.vizier import Vizier
