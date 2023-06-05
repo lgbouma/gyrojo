@@ -73,8 +73,8 @@ gdf = given_source_ids_get_gaia_data(
 #    • bit 2 is set to 1 in case of a spectroscopic binary
 #    • bit 3 is set to 1 in case of an eclisping binary
 # Counter({0: 52914, 1: 974, 2: 151, 3: 109})
-df['flag_dr3_non_single_star'] = np.array(gdf.non_single_star)
-
+df['dr3_non_single_star'] = np.array(gdf.non_single_star)
+df['flag_dr3_non_single_star'] = (df.dr3_non_single_star > 0)
 
 ############################################################
 # get the neighbor count via Gaia DR3 source catalog query #
@@ -85,7 +85,7 @@ sep_arcsec = 4
 runid = 'field_gyro_20230529_neighbors'
 n_max = 60000
 count_df, ndf = given_source_ids_get_neighbor_counts(
-    source_ids, dGmag, sep_arcsec, runid, n_max=n_max, overwrite=True,
+    source_ids, dGmag, sep_arcsec, runid, n_max=n_max, overwrite=False,
     enforce_all_sourceids_viable=True, gaia_datarelease='gaiadr3'
 )
 
@@ -104,7 +104,9 @@ manual_path = join(
     "glue_interactive_viz",
     "field_gyro_posteriors_20230529_GDR3_S19_S21_B20_phot_single.csv"
 )
-manual_phot_single_df = pd.read_csv(manual_path)
+manual_phot_single_df = pd.read_csv(manual_path, dtype={'KIC':str})
+
+df['KIC'] = df.KIC.astype(str)
 
 df['flag_camd_outlier'] = ~(df.KIC.isin(manual_phot_single_df.KIC))
 
