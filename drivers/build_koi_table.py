@@ -7,10 +7,6 @@ The output is written to /data/interim/koi_table_X_GDR3_B20_S19_S21_M14_M15.csv
 
 Usage:
     $ python build_koi_table.py
-
-TODO:
-    2023.01.10: When cleaning up, can just remove all the DO_PRAESEPE_FLAGS
-    stuff (since it is totally deprecated).
 """
 import numpy as np, matplotlib.pyplot as plt, pandas as pd
 import os, pickle
@@ -215,88 +211,6 @@ def build_koi_table(overwrite=0):
     # Begin stellar quality flags
     #
 
-    DO_PRAESEPE_FLAGS = False
-
-    if DO_PRAESEPE_FLAGS:
-
-        # Evaluate whether the quoted rotation periods are below the Praesepe
-        # sequence.  This requires them to have 3800 >= Teff >= 6200.  (otherwise,
-        # NaN is returned)
-        period_cols = ['s19_Prot', 's21_Prot', 'm14_Prot', 'm15_Prot']
-        for period_col in period_cols:
-
-            period_val = mdf5[period_col]
-            teff_val = mdf5["adopted_Teff"]
-
-            sel_below_Praesepe = period_val < PraesepeInterpModel(
-                teff_val, bounds_error=False, polynominal_order=5
-            )
-
-            flag_key = f"flag_{period_col}_below_Praesepe"
-            mdf5[flag_key] = sel_below_Praesepe
-
-        mdf5['flag_any_Prot_below_Praesepe'] = (
-            mdf5['flag_s19_Prot_below_Praesepe']
-            |
-            mdf5['flag_s21_Prot_below_Praesepe']
-            |
-            mdf5['flag_m14_Prot_below_Praesepe']
-            |
-            mdf5['flag_m15_Prot_below_Praesepe']
-        )
-
-        N_KOIs = len(mdf5[(mdf5["adopted_Teff"]>=3800) & (mdf5["adopted_Teff"]<=6200)])
-        N_KOIs_below_Praesepe = mdf5.flag_any_Prot_below_Praesepe.sum()
-        print(f"{N_KOIs_below_Praesepe}/{N_KOIs} KOIs in 3800-6200K range below Praesepe")
-        print(f"(not accounting for other flags!)")
-
-        DEBUG = 1
-        if DEBUG:
-            for poly_order in [5,6,7]:
-                plot_sub_praesepe_selection_cut(mdf5, poly_order=poly_order)
-
-        # Evaluate whether the rotation amplitudes are consistent with the Praesepe
-        # floor from Rebull+2020, Figure 10: 0.001 mag ~= 0.1%.  Convert the scales
-        # of "S_ph", "R_var", "R_per" appropriately to match Luisa Rebull's scale,
-        # per doc/20220902_amplitude_measurements.txt
-        def Sph_to_Rebull(Sph):
-            return Sph * 2.56
-
-        def Rvar_to_Rebull(Rvar):
-            return Rvar * (2.56/3.28)
-
-        def Rper_to_Rebull(Rper):
-            return Rper * (2.56/3.28)
-
-        amplitude_cols = ["s19_Sph", "s21_Sph", "m14_Rper", "m15_Rvar"]
-        CUTOFF = 1e-3
-
-        mdf5["flag_s19_Ampl_below_cutoff"] = (
-            (Sph_to_Rebull(mdf5["s19_Sph"]/1e6) < CUTOFF)
-        )
-        mdf5["flag_s21_Ampl_below_cutoff"] = (
-            (Sph_to_Rebull(mdf5["s21_Sph"]/1e6) < CUTOFF)
-        )
-        mdf5["flag_m14_Ampl_below_cutoff"] = (
-            (Rper_to_Rebull(mdf5["m14_Rper"]/1e6) < CUTOFF)
-        )
-        mdf5["flag_m15_Ampl_below_cutoff"] = (
-            (Rvar_to_Rebull(mdf5["m15_Rvar"]/1e6) < CUTOFF)
-        )
-
-        # This flag is the generalization of "flag_any_Prot_below_Praesepe" to
-        # include the condition that the paper-specific amplitudes must also be
-        # _above_ the Praesepe amplitude floor of 0.1%.
-        mdf5['flag_any_Prot_Ampl_below_Praesepe'] = (
-            (mdf5['flag_s19_Prot_below_Praesepe'] & (~mdf5["flag_s19_Ampl_below_cutoff"]))
-            |
-            (mdf5['flag_s21_Prot_below_Praesepe'] & (~mdf5["flag_s21_Ampl_below_cutoff"]))
-            |
-            (mdf5['flag_m14_Prot_below_Praesepe'] & (~mdf5["flag_m14_Ampl_below_cutoff"]))
-            |
-            (mdf5['flag_m15_Prot_below_Praesepe'] & (~mdf5["flag_m15_Ampl_below_cutoff"]))
-        )
-
     # Flag to account for Mazeh+2015 quality flag specifics.  Santos+19,21 and
     # McQuillan+2014 did not have any analogous flags.  See
     # doc/20220902_quality_flag_accounting.txt for explanation.
@@ -422,34 +336,10 @@ def build_koi_table(overwrite=0):
         (~mdf5['flag_koi_is_low_snr'])
     )
 
-    if DO_PRAESEPE_FLAGS:
-        raise AssertionError("DEPRECATED!") # but here for posterity
-        mdf5['flag_selected_step1'] = (
-            (mdf5['flag_any_Prot_Ampl_below_Praesepe'])
-            &
-            (~mdf5['flag_m15_combined'])
-            &
-            (~mdf5['flag_st_toohot_toocold'])
-            &
-            (~mdf5['flag_st_is_low_logg'])
-            &
-            (~mdf5['flag_koi_is_fp'])
-            &
-            (~mdf5['flag_koi_is_grazing'])
-            &
-            (~mdf5['flag_koi_is_low_snr'])
-        )
-        N_KOIs_step1 = mdf5.flag_selected_step1.sum()
-        assert np.all(mdf5[mdf5['flag_selected_step1']]['flag_selected_step0'])
-
     N_KOIs_step0 = mdf5.flag_selected_step0.sum()
     print(f"{N_KOIs_step0} KOIs meet 'step 0' "
           "(3800-6200K, logg>4, not FP, not grazing, finite MES, MES>10, "
           "not flagged by Mazeh+15)")
-    if DO_PRAESEPE_FLAGS:
-        print(f"{N_KOIs_step1} KOIs meet 'step 1' "
-              "(below Praesepe in Prot/ampl, 3800-6200K, logg>4, not FP, "
-              "not grazing, finite MES, MES>10, not flagged by Mazeh+15)")
 
     print(f"Writing {outcsvpath}")
     mdf5['dr3_source_id'] = mdf5['dr3_source_id'].astype(str)
