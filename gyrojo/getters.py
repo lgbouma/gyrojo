@@ -42,12 +42,8 @@ def get_gyro_data(sampleid):
         kdf = kdf[sel_2s]
 
     Prots = kdf['mean_period']
-    Prot_errs = np.ones(len(Prots))
-    Prot_errs[Prots<=15] = 0.01*Prots[Prots<=15]
-    Prot_errs[(Prots>15) & (Prots<=20)] = 0.02*Prots[(Prots>15) & (Prots<=20)]
-    Prot_errs[(Prots>20) & (Prots<=25)] = 0.03*Prots[(Prots>20) & (Prots<=25)]
-    Prot_errs[(Prots>25) & (Prots<=30)] = 0.04*Prots[(Prots>25) & (Prots<=30)]
-    Prot_errs[Prots>30] = 0.05*Prots[Prots>30]
+    from gyrojo.prot_uncertainties import get_empirical_prot_uncertainties
+    Prot_errs = get_empirical_prot_uncertainties(np.array(Prots))
 
     kdf['Prot_err'] = Prot_errs
 
@@ -285,6 +281,11 @@ def get_joint_results(COMPARE_AGE_UNCS=0):
 def get_kicstar_data(sampleid):
     """
     Get Kepler field star Prot, Teff, and stellar information.
+
+    Most common will be sampleid == "Santos19_Santos21_all", which
+    concatenates Santos19 and Santos21, and then crossmatches against
+    Berger20.
+    Adopted Teffs and adopted loggs are then assigned, 
     """
 
     assert sampleid in ['Santos19_Santos21_all', 'Santos19_Santos21_clean0',
@@ -452,12 +453,8 @@ def get_kicstar_data(sampleid):
     ######################
 
     Prots = df['Prot']
-    Prot_errs = np.ones(len(Prots))
-    Prot_errs[Prots<=15] = 0.01*Prots[Prots<=15]
-    Prot_errs[(Prots>15) & (Prots<=20)] = 0.02*Prots[(Prots>15) & (Prots<=20)]
-    Prot_errs[(Prots>20) & (Prots<=25)] = 0.03*Prots[(Prots>20) & (Prots<=25)]
-    Prot_errs[(Prots>25) & (Prots<=30)] = 0.04*Prots[(Prots>25) & (Prots<=30)]
-    Prot_errs[Prots>30] = 0.05*Prots[Prots>30]
+    from gyrojo.prot_uncertainties import get_empirical_prot_uncertainties
+    Prot_errs = get_empirical_prot_uncertainties(np.array(Prots))
 
     df['Prot'] = Prots
     df['Prot_err'] = Prot_errs
