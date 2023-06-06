@@ -41,7 +41,7 @@ from astropy.io import fits
 from gyrojo.paths import DATADIR, RESULTSDIR, LOCALDIR, CACHEDIR
 from gyrojo.getters import (
     get_gyro_data, get_li_data, get_joint_results,
-    get_kicstar_data
+    get_kicstar_data, get_koi_data
 )
 
 from gyrointerp.models import (
@@ -1109,6 +1109,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id):
     skdf = kdf[kdf.flag_is_gyro_applicable]
     skdf['KIC'] = skdf.KIC.astype(str)
     mdf['KIC'] = mdf.KIC.astype(str)
+    sel_gyro_ok = mdf.KIC.isin(skdf.KIC)
 
     # SAMPLES from the age posteriors
     plt.close("all")
@@ -1120,7 +1121,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id):
     ax.hist(mdf.age, bins=bins, color='lightgray', density=False, zorder=1,
             label='all')
 
-    ax.hist(mdf[mdf.KIC.isin(skdf.KIC)].age, bins=bins, color='C0',
+    ax.hist(mdf[sel_gyro_ok].age, bins=bins, color='C0',
             density=False, zorder=2, label='gyro applicable')
 
     ax.legend(loc='best', fontsize='small')
@@ -1133,6 +1134,57 @@ def plot_hist_field_gyro_ages(outdir, cache_id):
         'xlim': [xmin, xmax],
     })
     outpath = os.path.join(outdir, f'hist_samples_field_gyro_ages_{cache_id}.png')
+    savefig(fig, outpath, writepdf=1, dpi=400)
+
+    # ok... now how about the subset that are (good) KOIs?
+    plt.close("all")
+    set_style('clean')
+    fig, axs = plt.subplots(ncols=2, figsize=(5,2.5), constrained_layout=True)
+
+    koi_df = get_koi_data('cumulative-KOI')
+    koi_df['kepid'] = koi_df['kepid'].astype(str)
+    skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
+    sel_planets = mdf.KIC.isin(skoi_df.kepid)
+
+    bins = np.linspace(0, 4000+50, 50)
+
+    N = int(len(mdf)/10)
+    axs[0].hist(mdf.age, bins=bins, color='lightgray',
+                histtype='step',
+                density=True, zorder=1, label=f'{N} field w/ Prot')
+    N = int(len(mdf[sel_gyro_ok])/10)
+    axs[0].hist(mdf[sel_gyro_ok].age, bins=bins, color='C0',
+                histtype='step',
+                density=True, zorder=2, alpha=0.5,
+                label=f'{N} field & gyro "applicable"')
+
+    axs[0].legend(loc='best', fontsize='small')
+
+    N = int(len(mdf[sel_planets])/10)
+    axs[1].hist(mdf[sel_planets].age, bins=bins, color='lightgray',
+                histtype='step',
+                density=True, zorder=1,
+                label=f'{N} planet cands w/ Prot')
+    N = int(len(mdf[sel_gyro_ok & sel_planets])/10)
+    axs[1].hist(mdf[sel_gyro_ok & sel_planets].age, bins=bins,
+                histtype='step',
+                color='C0', alpha=0.5, density=True, zorder=2,
+                label=f'{N} planet cands & gyro "applicable"')
+
+    axs[1].legend(loc='best', fontsize='small')
+
+    xmin = 0
+    xmax = 4000
+    axs[0].update({
+        'xlabel': 'Age [Myr]',
+        'ylabel': 'Fraction',
+        'xlim': [xmin, xmax],
+    })
+    axs[1].update({
+        'xlabel': 'Age [Myr]',
+        'xlim': [xmin, xmax],
+    })
+    outpath = os.path.join(outdir, f'hist_samples_koi_gyro_ages_{cache_id}.png')
     savefig(fig, outpath, writepdf=1, dpi=400)
 
     # ok, now just plot the histogram of the median values...
