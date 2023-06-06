@@ -40,7 +40,7 @@ from astropy.io import fits
 
 from gyrojo.paths import DATADIR, RESULTSDIR, LOCALDIR, CACHEDIR
 from gyrojo.getters import (
-    get_gyro_data, get_li_data, get_joint_results,
+    get_gyro_data, get_li_data, get_age_results,
     get_kicstar_data, get_koi_data
 )
 
@@ -586,34 +586,36 @@ def plot_rp_vs_age(outdir, xscale='linear', elinewidth=0.1, shortylim=0,
 def plot_rp_vs_porb_binage(outdir):
 
     # get data
-    _df, d = get_joint_results()
+    _df, d, st_ages = get_age_results(whichtype='gyro')
     df = pd.DataFrame(d)
 
+    # >33% radii
+    sel = (df['rp']/df['rp_err1'] > 3) & (df['rp']/df['rp_err2'] > 3)
     # >25% radii
-    sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
+    #sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
     # >20% radii
     #sel = (df['rp']/df['rp_err1'] > 5) & (df['rp']/df['rp_err2'] > 5)
-    # adopted age < 2.5 gyr
-    AGE_MAX = 2e9
+    AGE_MAX = 10**9.5 #(3.2 gyr)
     sel &= df['age'] < AGE_MAX
 
     df = df[sel]
+    st_ages = st_ages[st_ages < AGE_MAX]
     #import IPython; IPython.embed()
 
     age_bins = [
         (0, AGE_MAX),
         # duo
-        (0, np.nanpercentile(df.age, 100/2)),
-        (np.nanpercentile(df.age, 100/2), AGE_MAX),
+        #(0, np.nanpercentile(st_ages, 100/2)),
+        #(np.nanpercentile(st_ages, 100/2), AGE_MAX),
         # triple
-        #(0, np.nanpercentile(df.age, 100/3)),
-        #(np.nanpercentile(df.age, 100/3), np.nanpercentile(df.age, 2*100/3)),
-        #(np.nanpercentile(df.age, 2*100/3), AGE_MAX),
+        (0, np.nanpercentile(st_ages, 100/3)),
+        (np.nanpercentile(st_ages, 100/3), np.nanpercentile(st_ages, 2*100/3)),
+        (np.nanpercentile(st_ages, 2*100/3), AGE_MAX),
         # quad
-        #(0, np.nanpercentile(df.age, 100/4)),
-        #(np.nanpercentile(df.age, 100/4), np.nanpercentile(df.age, 2*100/4)),
-        #(np.nanpercentile(df.age, 2*100/4), np.nanpercentile(df.age, 3*100/4)),
-        #(np.nanpercentile(df.age, 3*100/4), AGE_MAX),
+        #(0, np.nanpercentile(st_ages, 100/4)),
+        #(np.nanpercentile(st_ages, 100/4), np.nanpercentile(st_ages, 2*100/4)),
+        #(np.nanpercentile(st_ages, 2*100/4), np.nanpercentile(st_ages, 3*100/4)),
+        #(np.nanpercentile(st_ages, 3*100/4), AGE_MAX),
     ]
 
     for ix, age_bin in enumerate(age_bins):
@@ -662,7 +664,10 @@ def plot_rp_vs_porb_binage(outdir):
 
         n_sn = int(np.sum( df[sel].pl_class == 'Mini-Neptunes' ))
         n_se = int(np.sum( df[sel].pl_class == 'Super-Earths' ))
-        θ = n_se / n_sn
+        try:
+            θ = n_se / n_sn
+        except ZeroDivisionError:
+            θ = np.nan
 
         txt = "$N_\mathrm{p}$ = " + f"{n_pl}/{len(df)}; θ=SE/SN={n_se}/{n_sn}={θ:.2f}\n"
         if ix == 0:
