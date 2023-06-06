@@ -5,6 +5,7 @@ Getters:
     | get_joint_results
     | get_kicstar_data
     | get_cleaned_gaiadr3_X_kepler_dataframe
+    | get_koi_data
 """
 import os
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
@@ -284,8 +285,8 @@ def get_kicstar_data(sampleid):
 
     Most common will be sampleid == "Santos19_Santos21_all", which
     concatenates Santos19 and Santos21, and then crossmatches against
-    Berger20.
-    Adopted Teffs and adopted loggs are then assigned, 
+    Berger20.  Adopted Teffs and adopted loggs are then assigned, as
+    are period uncertainties.
     """
 
     assert sampleid in ['Santos19_Santos21_all', 'Santos19_Santos21_clean0',
@@ -628,3 +629,56 @@ def get_cleaned_gaiadr3_X_kepler_dataframe():
     assert np.all(~pd.isnull(cgk_df.dr3_source_id))
 
     return cgk_df
+
+
+def get_koi_data(sampleid):
+    """
+    Get the KOI tables from the NASA exoplanet archive -- either the
+    cumulative KOI table, or the homogeneous DR25 table.
+
+    Supplement them with specific flags of interest.
+
+    https://exoplanetarchive.ipac.caltech.edu/docs/PurposeOfKOITable.html
+    """
+
+    assert sampleid in ['cumulative-KOI', 'DR25-KOI']
+
+    if sampleid == 'cumulative-KOI':
+        # note: the cumulative table evolves!
+        koipath = os.path.join(
+            DATADIR, 'raw',
+            'cumulative_2023.06.06_10.54.24.csv'
+        )
+
+    if sampleid == 'DR25-KOI':
+        koipath = os.path.join(
+            DATADIR, 'raw',
+            'q1_q17_dr25_koi_2023.06.06_10.54.36.csv'
+        )
+
+    koi_df = pd.read_csv(koipath, comment='#', sep=',')
+
+    koi_df['flag_koi_is_fp'] = (
+        (koi_df.koi_disposition == "FALSE POSITIVE")
+    ).astype(bool)
+
+    koi_df['flag_koi_is_grazing'] = (
+        koi_df.koi_impact > 0.9
+    ).astype(bool)
+
+    koi_df['flag_koi_is_low_snr'] = (
+        (koi_df.koi_max_mult_ev < 10)
+        |
+        (pd.isnull(koi_df.koi_max_mult_ev))
+    ).astype(bool)
+
+    flag_is_ok_planetcand = (
+        (~koi_df['flag_koi_is_fp'])
+        &
+        (~koi_df['flag_koi_is_grazing'])
+        &
+        (~koi_df['flag_koi_is_low_snr'])
+    )
+    koi_df['flag_is_ok_planetcand'] = flag_is_ok_planetcand
+
+    return koi_df
