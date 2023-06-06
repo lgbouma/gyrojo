@@ -1,4 +1,20 @@
 --------------------
+To run the field star gyro analysis:
+
+1. `calc_field_gyro_posteriors.py`
+
+2. `plot_field_gyro_posteriors.py`
+
+Makes `field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv`
+
+3. `construct_field_star_gyro_quality_flags.py`
+
+Given output from #2, build
+`field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_dquality.csv`
+
+4. `plot_hist_field_gyro_ages.py`
+
+--------------------
 To run the KOI gyrochronology analysis:
 
 1. `build_koi_table.py`:
@@ -55,22 +71,6 @@ unjustified procedure:
 Given the gyro and lithium posteriors, multiply them.  Saves output, including
 a merged file with all the gyro, lithium, and joint summary statistics, at 
 `koi_gyro_X_lithium_posteriors_20230116/{sampleid}_merged_joint_age_posteriors.csv`
-
---------------------
-To run the field star gyro analysis:
-
-1. `calc_field_gyro_posteriors.py`
-
-2. `plot_field_gyro_posteriors.py`
-
-Makes `field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv`
-
-3. `construct_field_star_gyro_quality_flags.py`
-
-Given output from #2, build
-`field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_dquality.csv`
-
-4. `plot_hist_field_gyro_ages.py`
 
 --------------------
 Other plots that will probably go into a manuscript:

@@ -10,6 +10,8 @@ Catch-all file for plotting scripts.  Contents:
     plot_li_gyro_posteriors
     plot_field_gyro_posteriors
 
+    plot_hist_field_gyro_ages
+
     plot_rp_vs_age
     plot_rp_vs_porb_binage
     plot_rp_ks_test
@@ -1082,13 +1084,31 @@ def plot_hist_field_gyro_ages(outdir, cache_id):
         assert len(csvpaths) > 0
         N_post_samples = 10*len(csvpaths)
 
-        mdf = pd.concat((pd.read_csv(f) for f in csvpaths))
+        df_list = []
+        for f in csvpaths:
+
+            bn = os.path.basename(f)
+            kic_id = bn.split("_")[0]
+
+            this_df = pd.read_csv(f)
+            this_df['KIC'] = kic_id
+
+            df_list.append(this_df)
+
+        mdf = pd.concat(df_list)
         mdf.to_csv(mergedcsv, index=False)
+        print(f"Wrote {mergedcsv}")
+
     else:
         mdf = pd.read_csv(mergedcsv)
         N_post_samples = len(mdf)
 
     print(f"Got {N_post_samples} posterior samples...")
+
+    kdf = get_kicstar_data('Santos19_Santos21_dquality')
+    skdf = kdf[kdf.flag_is_gyro_applicable]
+    skdf['KIC'] = skdf.KIC.astype(str)
+    mdf['KIC'] = mdf.KIC.astype(str)
 
     # SAMPLES from the age posteriors
     plt.close("all")
@@ -1096,13 +1116,20 @@ def plot_hist_field_gyro_ages(outdir, cache_id):
     fig, ax = plt.subplots()
 
     bins = np.linspace(0, 4000+50, 50)
-    ax.hist(mdf.age, bins=bins, color='lightgray', density=True)
+
+    ax.hist(mdf.age, bins=bins, color='lightgray', density=False, zorder=1,
+            label='all')
+
+    ax.hist(mdf[mdf.KIC.isin(skdf.KIC)].age, bins=bins, color='C0',
+            density=False, zorder=2, label='gyro applicable')
+
+    ax.legend(loc='best', fontsize='small')
 
     xmin = 0
     xmax = 4000
     ax.update({
         'xlabel': 'Age [Myr]',
-        'ylabel': 'Fraction',
+        'ylabel': 'Count (10x over-rep)',
         'xlim': [xmin, xmax],
     })
     outpath = os.path.join(outdir, f'hist_samples_field_gyro_ages_{cache_id}.png')
