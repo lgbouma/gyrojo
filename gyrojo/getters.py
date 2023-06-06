@@ -2,7 +2,7 @@
 Getters:
     | get_gyro_data
     | get_li_data
-    | get_joint_results
+    | get_age_results
     | get_kicstar_data
     | get_cleaned_gaiadr3_X_kepler_dataframe
     | get_koi_data
@@ -25,6 +25,13 @@ def get_gyro_data(sampleid):
     """
     sample_id (str): in ['all', 'sel_2s']
     """
+
+    msg = (
+        'get_gyro_data is deprecated; call should pull from '
+        'field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
+        'and then xmatch the koi table'
+    )
+    raise AssertionError(msg)
 
     # 864 rows: step0, +requiring consisting rotation period measurements
     csvpath = join(
@@ -114,23 +121,67 @@ def get_li_data(sampleid):
 
 
 
-def get_joint_results(COMPARE_AGE_UNCS=0):
+def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
+    """
+    Get age results for the planet hosts.
 
-    csvpath = join(RESULTSDIR, 'koi_gyro_X_lithium_posteriors_20230208',
-                   'all_merged_joint_age_posteriors.csv')
-    df = pd.read_csv(csvpath)
+    "gyro" results are from Santos19_Santos21_dquality, stars for which gyro is
+    applicable, and planets (currently) from the cumulative-KOI table, which
+    are "OK" planet candidates.
 
-    # Take the adopted age as the joint (gyro+li) age.
-    # If the join age is NaN (only the case for one interesting system,
-    # Kepler-1939/800myr/1Rearth), take the adopted age as the gyro age.
-    df['adopted_age_median'] = df['joint_median']
-    df['adopted_age_+1sigma'] = df['joint_+1sigma']
-    df['adopted_age_-1sigma'] = df['joint_-1sigma']
+    "joint" results are currently defunct
+    """
 
-    _sel = pd.isnull(df['adopted_age_median'])
-    df.loc[_sel, 'adopted_age_median'] = df.loc[_sel, 'gyro_median']
-    df.loc[_sel, 'adopted_age_+1sigma'] = df.loc[_sel, 'gyro_+1sigma']
-    df.loc[_sel, 'adopted_age_-1sigma'] = df.loc[_sel, 'gyro_-1sigma']
+    assert whichtype in ['joint', 'gyro', 'li']
+
+    if whichtype == 'joint':
+
+        raise DeprecationWarning(
+            'joint age posteriors need to be assessed start-to-finish'
+        )
+        raise NotImplementedError
+
+        csvpath = join(RESULTSDIR, 'koi_gyro_X_lithium_posteriors_20230208',
+                       'all_merged_joint_age_posteriors.csv')
+        df = pd.read_csv(csvpath)
+
+        # Take the adopted age as the joint (gyro+li) age.
+        # If the join age is NaN (only the case for one interesting system,
+        # Kepler-1939/800myr/1Rearth), take the adopted age as the gyro age.
+        df['adopted_age_median'] = df['joint_median']
+        df['adopted_age_+1sigma'] = df['joint_+1sigma']
+        df['adopted_age_-1sigma'] = df['joint_-1sigma']
+
+        _sel = pd.isnull(df['adopted_age_median'])
+        df.loc[_sel, 'adopted_age_median'] = df.loc[_sel, 'gyro_median']
+        df.loc[_sel, 'adopted_age_+1sigma'] = df.loc[_sel, 'gyro_+1sigma']
+        df.loc[_sel, 'adopted_age_-1sigma'] = df.loc[_sel, 'gyro_-1sigma']
+
+    elif whichtype == 'gyro':
+
+        kic_df = get_kicstar_data('Santos19_Santos21_dquality')
+        skic_df = kic_df[kic_df['flag_is_gyro_applicable']]
+        skic_df['KIC'] = skic_df['KIC'].astype(str)
+
+        # parent sample ages
+        st_ages = 1e6*nparr(skic_df['median'])
+
+        koi_df = get_koi_data('cumulative-KOI')
+        koi_df['kepid'] = koi_df['kepid'].astype(str)
+        skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
+
+        df = skoi_df.merge(skic_df, how='inner', left_on='kepid', right_on='KIC')
+
+        df['gyro_median'] = df['median']
+        df['gyro_+1sigma'] = df['+1sigma']
+        df['gyro_-1sigma'] = df['-1sigma']
+
+        df['adopted_age_median'] = df['gyro_median']
+        df['adopted_age_+1sigma'] = df['gyro_+1sigma']
+        df['adopted_age_-1sigma'] = df['gyro_-1sigma']
+
+    elif whichtype == 'li':
+        raise NotImplementedError
 
     GET_BERGER20_RADII = 0
     GET_BEST_RADII = 1
@@ -276,7 +327,7 @@ def get_joint_results(COMPARE_AGE_UNCS=0):
     paramdict['pl_name'] = nparr(a_pl_name)
     paramdict['mes'] = nparr(mes)
 
-    return df, paramdict
+    return df, paramdict, st_ages
 
 
 def get_kicstar_data(sampleid):
