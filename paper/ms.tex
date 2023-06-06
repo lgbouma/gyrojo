@@ -140,9 +140,9 @@
 \begin{abstract}
   We report rotation- and lithium-based ages for stars and planets observed by
   the primary Kepler mission.  Stellar rotation periods are collected from
-  previous analyses of the Kepler light curves; lithium is assessed directly from HIRES
-  spectra.
-  wWe report ages for \nkoisgoldwithages\ FGK stars with transiting planets, with relative statistical
+  previous analyses of the Kepler light curves; lithium content is assessed
+  using HIRES spectra.
+  We report ages for \nkoisgoldwithages\ FGK stars with transiting planets, with relative statistical
   precisions $\sigma_t / t$ of XX +YY -ZZ\%; a factor of X.X
   +Y.Y -Z.Z more precise than state-of-the-art isochronal ages for the
   same stars.  The results include XXX planets younger than 1\,Gyr,
@@ -452,17 +452,19 @@ Table~\ref{tab:stars}.
 Concatenating the results of \citetalias{Santos_2019} and
 \citetalias{Santos_2021} yields \nstarswithprot\ Kepler stars with
 rotation periods.
+
+
 %FIXME
 
 \subsection{Kepler objects of interest}
 \label{subsec:planetsel}
 
 We considered two different samples of planets: those in the fully
-automated Q1-Q17 DR25 KOI Table \citep{Thompson_2018}, which are
+automated Q1-Q17 DR25 KOI Table \citep{Thompson_2018}, which is
 suitable for planet occurrence rate calculations, and also those in
-the cumulative KOI table, which includes the best knowledge available
-on any given planet candidate, but incorporates human-based vetting
-\footnote{See
+the cumulative KOI table, which included the best knowledge available
+on any given planet candidate as of 2023 Jun 6, but incorporated
+human-based vetting \footnote{See
 \url{https://exoplanetarchive.ipac.caltech.edu/docs/PurposeOfKOITable.html}}.
 For the main body of this work, we will refer to the former
 homogeneous sample, which includes \nkois\ KOIs, \nkoisnofp\ that are
@@ -474,6 +476,24 @@ Crossmatching the Q1-Q17 DR25 KOI table against our stars with
 rotation periods yields \nkoiswithprot\ KOIs with rotation periods, of which \nkoisnofpwithprot\ 
 are not known false postives.
 These objects will comprise the core data for our gyrochronology analysis.
+
+As a sanity check on the statistical uncertainties of these rotation
+periods, we compared our adopted \citetalias{Santos_2019} and
+\citetalias{Santos_2021} periods with those reported by
+\citet{McQuillan_2014} and \citet{Mazeh_2015}.
+We found that for $P_{\rm rot}\lesssim$15\,days, the two 
+datasets at a precision of $\lesssim$0.01$P_{\rm rot}$.  At longer periods of 
+$P_{\rm rot}\approx$30\,days, the agreement was typically at the
+$\lesssim$0.03$P_{\rm rot}$ level, and
+the upper envelope of the period difference tended to increase
+linearly with period.
+Based on this comparison, we adopted a simple prescription for the
+period uncertainties,
+such that there are 1\% relative uncertainties below $P_{\rm
+rot}=15$\,days, and a linear increase thereafter, with slope set to
+guarantee 3\% $P_{\rm rot}$ uncertainties at 30 days.
+
+
 
 \subsection{Lithium sample}
 A final subcomponent of our analysis involves an age assessment based on
