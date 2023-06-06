@@ -662,8 +662,11 @@ def get_koi_data(sampleid):
         (koi_df.koi_disposition == "FALSE POSITIVE")
     ).astype(bool)
 
+    # NOTE: Petigura+22 and Petigura+20 describe how, since b is nearly
+    # unconstrained, T/Tmax,circ is a better way to perform this cut.  However
+    # computing Tmax,circ requires rho_star,iso which is not readily available.
     koi_df['flag_koi_is_grazing'] = (
-        koi_df.koi_impact > 0.9
+        koi_df.koi_impact > 0.8
     ).astype(bool)
 
     koi_df['flag_koi_is_low_snr'] = (
