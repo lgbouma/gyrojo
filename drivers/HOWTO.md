@@ -17,6 +17,10 @@ Given output from #2, build
 --------------------
 To run the KOI gyrochronology analysis:
 
+(NOTE: mostly deprecated after the field star gyro analysis approach?  NB.
+though that the "fully inclusive" aspect of this, which includes
+M14/M15 knowledge, might be beneficial)
+
 1. `build_koi_table.py`:
 
 Takes the cumulative KOI table, and left-joins it against Gaia DR3, the
