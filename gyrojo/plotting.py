@@ -412,7 +412,7 @@ def plot_rp_vs_age(outdir, xscale='linear', elinewidth=0.1, shortylim=0,
     # and plot_rp_ks_test
 
     # get data
-    _df, d = get_joint_results()
+    _df, d, _ = get_age_results('gyro')
     df = pd.DataFrame(d)
     _outpath = join(outdir, "temp.csv")
     df.to_csv(_outpath, index=False)
@@ -430,7 +430,7 @@ def plot_rp_vs_age(outdir, xscale='linear', elinewidth=0.1, shortylim=0,
     # >25% radii
     sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
     # adopted age < 2.5 gyr
-    AGE_MAX = 2.0e9
+    AGE_MAX = 10**9.5
     sel &= df['age'] < AGE_MAX
     # non-crap age in at least one direction
     sel &= ((df['age']/df['age_err1'] > 1) | (df['age']/df['age_err2'] > 1))
@@ -590,9 +590,9 @@ def plot_rp_vs_porb_binage(outdir):
     df = pd.DataFrame(d)
 
     # >33% radii
-    sel = (df['rp']/df['rp_err1'] > 3) & (df['rp']/df['rp_err2'] > 3)
+    #sel = (df['rp']/df['rp_err1'] > 3) & (df['rp']/df['rp_err2'] > 3)
     # >25% radii
-    #sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
+    sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
     # >20% radii
     #sel = (df['rp']/df['rp_err1'] > 5) & (df['rp']/df['rp_err2'] > 5)
     AGE_MAX = 10**9.5 #(3.2 gyr)
@@ -1077,7 +1077,7 @@ def plot_reinhold_2015(outdir):
     savefig(fig, outpath)
 
 
-def plot_hist_field_gyro_ages(outdir, cache_id):
+def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
 
     from gyrointerp.paths import CACHEDIR
     csvdir = join(CACHEDIR, "samples_field_gyro_posteriors_20230529")
@@ -1118,10 +1118,11 @@ def plot_hist_field_gyro_ages(outdir, cache_id):
 
     # SAMPLES from the age posteriors
     plt.close("all")
-    set_style('clean')
+    set_style('science')
     fig, ax = plt.subplots()
 
-    bins = np.linspace(0, 4000+50, 50)
+    bw = 200
+    bins = np.arange(0, MAXAGE+2*bw, bw)
 
     ax.hist(mdf.age, bins=bins, color='lightgray', density=False, zorder=1,
             label='all')
@@ -1132,64 +1133,84 @@ def plot_hist_field_gyro_ages(outdir, cache_id):
     ax.legend(loc='best', fontsize='small')
 
     xmin = 0
-    xmax = 4000
+    xmax = MAXAGE
     ax.update({
         'xlabel': 'Age [Myr]',
         'ylabel': 'Count (10x over-rep)',
         'xlim': [xmin, xmax],
     })
-    outpath = os.path.join(outdir, f'hist_samples_field_gyro_ages_{cache_id}.png')
+    outpath = os.path.join(outdir, f'hist_samples_field_gyro_ages_{cache_id}_maxage{MAXAGE}.png')
     savefig(fig, outpath, writepdf=1, dpi=400)
 
     # ok... now how about the subset that are (good) KOIs?
     plt.close("all")
-    set_style('clean')
-    fig, axs = plt.subplots(ncols=2, figsize=(5,2.5), constrained_layout=True)
+    set_style('science')
+    fig, axs = plt.subplots(ncols=2, figsize=(1.2*5,1.2*2.5), constrained_layout=True)
 
     koi_df = get_koi_data('cumulative-KOI')
     koi_df['kepid'] = koi_df['kepid'].astype(str)
     skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
     sel_planets = mdf.KIC.isin(skoi_df.kepid)
 
-    bins = np.linspace(0, 4000+50, 50)
-
     N = int(len(mdf)/10)
+    l0_0 = f'{N} field w/ Prot'
     axs[0].hist(mdf.age, bins=bins, color='lightgray',
                 histtype='step',
-                density=True, zorder=1, label=f'{N} field w/ Prot')
+                weights=np.ones(len(mdf))/len(mdf),
+                zorder=1, label=l0_0)
     N = int(len(mdf[sel_gyro_ok])/10)
+    l0_1 = f'{N} field & gyro applicable'
     axs[0].hist(mdf[sel_gyro_ok].age, bins=bins, color='C0',
                 histtype='step',
-                density=True, zorder=2, alpha=0.5,
-                label=f'{N} field & gyro "applicable"')
+                weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]),
+                zorder=2, alpha=0.5,
+                label=l0_1)
 
-    axs[0].legend(loc='best', fontsize='small')
+    axs[0].legend(loc='best', fontsize='xx-small')
 
     N = int(len(mdf[sel_planets])/10)
+    l1_0 = f'{N} planet cands w/ Prot'
     axs[1].hist(mdf[sel_planets].age, bins=bins, color='lightgray',
                 histtype='step',
-                density=True, zorder=1,
-                label=f'{N} planet cands w/ Prot')
+                weights=np.ones(len(mdf[sel_planets]))/len(mdf[sel_planets]),
+                zorder=1,
+                label=l1_0)
     N = int(len(mdf[sel_gyro_ok & sel_planets])/10)
+    l1_1 = f'{N} planet cands & gyro applicable'
     axs[1].hist(mdf[sel_gyro_ok & sel_planets].age, bins=bins,
                 histtype='step',
-                color='C0', alpha=0.5, density=True, zorder=2,
-                label=f'{N} planet cands & gyro "applicable"')
+                weights=np.ones(len(mdf[sel_planets & sel_gyro_ok]))/len(mdf[sel_planets & sel_gyro_ok]),
+                color='C0', alpha=0.5, zorder=2,
+                label=l1_1)
 
-    axs[1].legend(loc='best', fontsize='small')
+    #axs[1].legend(loc='best', fontsize='xx-small')
 
     xmin = 0
-    xmax = 4000
+    xmax = MAXAGE
     axs[0].update({
-        'xlabel': 'Age [Myr]',
-        'ylabel': 'Fraction',
+        'xlabel': 'Gyro Age [Myr]',
+        'ylabel': f'Fraction per {bw} Myr bin',
         'xlim': [xmin, xmax],
+        'ylim': [0, 0.065],
+        'title': 'Field stars'
     })
     axs[1].update({
-        'xlabel': 'Age [Myr]',
+        'xlabel': 'Gyro Age [Myr]',
         'xlim': [xmin, xmax],
+        'ylim': [0, 0.065],
+        'title': 'KOIs'
     })
-    outpath = os.path.join(outdir, f'hist_samples_koi_gyro_ages_{cache_id}.png')
+    axs[1].set_yticklabels([])
+
+    from matplotlib.lines import Line2D
+    custom_lines = [Line2D([0], [0], color='lightgray', lw=1),
+                    Line2D([0], [0], color='C0', alpha=0.5, lw=1) ]
+    axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='xx-small')
+    axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='xx-small')
+
+
+    outpath = os.path.join(outdir, f'hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}.png')
+    fig.tight_layout()
     savefig(fig, outpath, writepdf=1, dpi=400)
 
     # ok, now just plot the histogram of the median values...
@@ -1201,17 +1222,19 @@ def plot_hist_field_gyro_ages(outdir, cache_id):
     set_style('clean')
     fig, ax = plt.subplots()
 
-    bins = np.linspace(0, 4000+50, 50)
     ax.hist(df['median'], bins=bins, color='lightgray', density=True)
 
     xmin = 0
-    xmax = 4000
+    xmax = MAXAGE
     ax.update({
         'xlabel': 'Age [Myr]',
         'ylabel': 'Fraction',
         'xlim': [xmin, xmax],
     })
-    outpath = os.path.join(outdir, f'hist_medianvals_field_gyro_ages_{cache_id}.png')
+    outpath = os.path.join(
+        outdir,
+        f'hist_medianvals_field_gyro_ages_{cache_id}_maxage{MAXAGE}.png'
+    )
     savefig(fig, outpath, writepdf=1, dpi=400)
 
 

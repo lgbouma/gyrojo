@@ -7,4 +7,5 @@ cache_id = "hist_field_gyro_ages_20230529"
 outdir = os.path.join(RESULTSDIR, cache_id)
 if not os.path.exists(outdir): os.mkdir(outdir)
 
-ap.plot_hist_field_gyro_ages(outdir, cache_id)
+ap.plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=3200)
+ap.plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000)

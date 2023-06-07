@@ -163,7 +163,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
         skic_df = kic_df[kic_df['flag_is_gyro_applicable']]
         skic_df['KIC'] = skic_df['KIC'].astype(str)
 
-        # parent sample ages
+        # parent sample age distribution
         st_ages = 1e6*nparr(skic_df['median'])
 
         koi_df = get_koi_data('cumulative-KOI')
@@ -179,6 +179,10 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
         df['adopted_age_median'] = df['gyro_median']
         df['adopted_age_+1sigma'] = df['gyro_+1sigma']
         df['adopted_age_-1sigma'] = df['gyro_-1sigma']
+
+        sel = df['median'] + df['+2sigma'] < 1000
+        N_lt1gyr = len(df[sel])
+        print(f'N lt 1gyr: {N_lt1gyr}')
 
     elif whichtype == 'li':
         raise NotImplementedError
