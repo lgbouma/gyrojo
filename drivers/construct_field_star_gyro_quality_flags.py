@@ -46,12 +46,14 @@ df['flag_not_CP_CB'] = (
     pd.isnull(df.s21_flag1)
     &
     pd.isnull(df.s19_flag1)
-    &
-    (
-        (df.s19_flag5 == 1)
-        |
-        (pd.isnull(df.s19_flag5))
-    )
+    # NOTE: this latter idea was tied to the "FliPerClass" which seems not
+    # needed here
+#    &
+#    (
+#        (df.s19_flag5 == 1)
+#        |
+#        (pd.isnull(df.s19_flag5))
+#    )
 )
 
 ###################################################
@@ -122,8 +124,8 @@ df['flag_is_gyro_applicable'] = (
     (~df['flag_dr3_non_single_star'])
     &
     (~df['flag_camd_outlier'])
-    &
-    (df['flag_not_CP_CB'])
+    #&
+    #(df['flag_not_CP_CB'])
     &
     (df['adopted_Teff'] > 3800)
     &
