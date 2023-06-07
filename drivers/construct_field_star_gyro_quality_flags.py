@@ -46,15 +46,25 @@ df['flag_not_CP_CB'] = (
     pd.isnull(df.s21_flag1)
     &
     pd.isnull(df.s19_flag1)
-    # NOTE: this latter idea was tied to the "FliPerClass" which seems not
-    # needed here
-#    &
-#    (
-#        (df.s19_flag5 == 1)
-#        |
-#        (pd.isnull(df.s19_flag5))
-#    )
 )
+
+#################################
+# check if in Kepler EB catalog #
+#################################
+
+from astropy.io import fits
+from astropy.table import Table
+
+fitspath = join(DATADIR, 'literature', 'Kirk_2016_KEBC_2876_rows.fits')
+hdul = fits.open(fitspath)
+kebc_df = Table(hdul[1].data).to_pandas()
+kebc_df['KIC'] = kebc_df['KIC'].astype(str)
+df['KIC'] = df['KIC'].astype(str)
+
+df['flag_in_KEBC'] = (
+    df.KIC.isin(kebc_df.KIC)
+)
+
 
 ###################################################
 # get the nonsingle star flag via Gaia DR3 xmatch #
@@ -126,6 +136,8 @@ df['flag_is_gyro_applicable'] = (
     (~df['flag_camd_outlier'])
     #&
     #(df['flag_not_CP_CB'])
+    &
+    (~df['flag_in_KEBC'])
     &
     (df['adopted_Teff'] > 3800)
     &
