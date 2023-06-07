@@ -592,9 +592,9 @@ def plot_rp_vs_porb_binage(outdir):
     # >33% radii
     #sel = (df['rp']/df['rp_err1'] > 3) & (df['rp']/df['rp_err2'] > 3)
     # >25% radii
-    sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
+    #sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
     # >20% radii
-    #sel = (df['rp']/df['rp_err1'] > 5) & (df['rp']/df['rp_err2'] > 5)
+    sel = (df['rp']/df['rp_err1'] > 5) & (df['rp']/df['rp_err2'] > 5)
     AGE_MAX = 10**9.5 #(3.2 gyr)
     sel &= df['age'] < AGE_MAX
 
@@ -1142,7 +1142,9 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     outpath = os.path.join(outdir, f'hist_samples_field_gyro_ages_{cache_id}_maxage{MAXAGE}.png')
     savefig(fig, outpath, writepdf=1, dpi=400)
 
-    # ok... now how about the subset that are (good) KOIs?
+    ########################################################
+    # ok... now how about the subset that are (good) KOIs? #
+    ########################################################
     plt.close("all")
     set_style('science')
     fig, axs = plt.subplots(ncols=2, figsize=(1.2*5,1.2*2.5), constrained_layout=True)
@@ -1183,8 +1185,6 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
                 color='C0', alpha=0.5, zorder=2,
                 label=l1_1)
 
-    #axs[1].legend(loc='best', fontsize='xx-small')
-
     xmin = 0
     xmax = MAXAGE
     axs[0].update({
@@ -1212,6 +1212,24 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     outpath = os.path.join(outdir, f'hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}.png')
     fig.tight_layout()
     savefig(fig, outpath, writepdf=1, dpi=400)
+
+    from scipy import stats
+    sel_age = mdf.age < 3.2e9
+    D, p_value = stats.ks_2samp(
+        mdf.loc[sel_gyro_ok & sel_age, 'age'],
+        mdf.loc[sel_gyro_ok & sel_planets & sel_age, 'age']
+    )
+
+    txt = f'D={D:.2f}, p={p_value:.4f} 2-sample KS'
+    print(42*'-')
+    print(txt)
+    print(42*'-')
+
+    import IPython; IPython.embed()
+
+    ##########################################
+    # end the interesting plot               #
+    ##########################################
 
     # ok, now just plot the histogram of the median values...
     csvpath = join(RESULTSDIR, "field_gyro_posteriors_20230529",
