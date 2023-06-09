@@ -79,7 +79,7 @@ def _given_ax_append_spectral_types(ax):
     tax.get_yaxis().set_tick_params(which='both', direction='in')
 
 
-def get_planet_class_labels(df):
+def get_planet_class_labels(df, OFFSET=0):
     # given a dataframe with keys "rp" and "period", return a dataframe with a
     # "pl_class" key 
 
@@ -99,7 +99,7 @@ def get_planet_class_labels(df):
     a = 0.37
     fn_Rmod = lambda log10Pmod: 10**(m*log10Pmod + a)
 
-    R_mod = fn_Rmod(np.log10(df['period']))
+    R_mod = fn_Rmod(np.log10(df['period'])) + OFFSET
 
     sel = (df['rp'] < 6) & (df['rp'] > R_mod)
     df.loc[sel, 'pl_class'] = 'Mini-Neptunes'
@@ -592,10 +592,11 @@ def plot_rp_vs_porb_binage(outdir):
     # >33% radii
     #sel = (df['rp']/df['rp_err1'] > 3) & (df['rp']/df['rp_err2'] > 3)
     # >25% radii
-    #sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
+    sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
     # >20% radii
-    sel = (df['rp']/df['rp_err1'] > 5) & (df['rp']/df['rp_err2'] > 5)
+    #sel = (df['rp']/df['rp_err1'] > 5) & (df['rp']/df['rp_err2'] > 5)
     AGE_MAX = 10**9.5 #(3.2 gyr)
+    #AGE_MAX = 2e9
     sel &= df['age'] < AGE_MAX
 
     df = df[sel]
@@ -608,9 +609,12 @@ def plot_rp_vs_porb_binage(outdir):
         #(0, np.nanpercentile(st_ages, 100/2)),
         #(np.nanpercentile(st_ages, 100/2), AGE_MAX),
         # triple
-        (0, np.nanpercentile(st_ages, 100/3)),
-        (np.nanpercentile(st_ages, 100/3), np.nanpercentile(st_ages, 2*100/3)),
-        (np.nanpercentile(st_ages, 2*100/3), AGE_MAX),
+        (0, 1e9),
+        (1e9, 2e9),
+        (2e9, 3e9),
+        #(0, np.nanpercentile(st_ages, 100/3)),
+        #(np.nanpercentile(st_ages, 100/3), np.nanpercentile(st_ages, 2*100/3)),
+        #(np.nanpercentile(st_ages, 2*100/3), AGE_MAX),
         # quad
         #(0, np.nanpercentile(st_ages, 100/4)),
         #(np.nanpercentile(st_ages, 100/4), np.nanpercentile(st_ages, 2*100/4)),
@@ -647,7 +651,8 @@ def plot_rp_vs_porb_binage(outdir):
         m = -0.09
         a = 0.37
         log10Rmod = m*log10Pmod + a
-        Rmod = 10**log10Rmod
+        OFFSET = -0.25
+        Rmod = 10**log10Rmod + OFFSET
 
         ax.plot(
             10**log10Pmod, Rmod, c='lightgray', alpha=1, zorder=-2, lw=2
@@ -658,7 +663,7 @@ def plot_rp_vs_porb_binage(outdir):
         #    linestyles='-', zorder=-2, linewidths=2
         #)
 
-        df = get_planet_class_labels(df)
+        df = get_planet_class_labels(df, OFFSET=OFFSET)
 
         n_pl = len(df.loc[sel, 'period'])
 

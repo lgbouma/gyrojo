@@ -188,9 +188,10 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
         raise NotImplementedError
 
     GET_BERGER20_RADII = 0
-    GET_BEST_RADII = 1
+    GET_PETIGURA22_RADII = 1
+    GET_BEST_RADII = 0
     assert np.sum([
-        GET_BEST_RADII, GET_BERGER20_RADII
+        GET_BEST_RADII, GET_BERGER20_RADII, GET_PETIGURA22_RADII
     ]) == 1
 
     if GET_BERGER20_RADII:
@@ -226,7 +227,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
         a_rp_err1 = df['B20_E_Radius']
         a_rp_err2 = df['B20_e_radius_lc']
 
-    elif GET_BEST_RADII:
+    elif GET_BEST_RADII or GET_PETIGURA22_RADII:
 
         # Petigura+2022 radii
         d1 = join(DATADIR, 'literature')
@@ -262,17 +263,18 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
         df['E_Rp'] = df['P22_E_Rp']
         df['e_Rp'] = np.abs(df['P22_e_rp_lc'])
 
-        # else, take Berger+20
-        _sel = pd.isnull(df['Rp'])
-        df.loc[_sel, 'Rp'] = df.loc[_sel, 'B20_Radius']
-        df.loc[_sel, 'E_Rp'] = df.loc[_sel, 'B20_E_Radius']
-        df.loc[_sel, 'e_Rp'] = np.abs(df.loc[_sel, 'B20_e_radius_lc'])
+        if GET_BEST_RADII:
+            # else, take Berger+20
+            _sel = pd.isnull(df['Rp'])
+            df.loc[_sel, 'Rp'] = df.loc[_sel, 'B20_Radius']
+            df.loc[_sel, 'E_Rp'] = df.loc[_sel, 'B20_E_Radius']
+            df.loc[_sel, 'e_Rp'] = np.abs(df.loc[_sel, 'B20_e_radius_lc'])
 
-        # else, take KOI radii(?)
-        _sel = pd.isnull(df['Rp'])
-        df.loc[_sel, 'Rp'] = df.loc[_sel, 'koi_prad']
-        df.loc[_sel, 'E_Rp'] = df.loc[_sel, 'koi_prad_err1']
-        df.loc[_sel, 'e_Rp'] = np.abs(df.loc[_sel, 'koi_prad_err2'])
+            # else, take KOI radii(?)
+            _sel = pd.isnull(df['Rp'])
+            df.loc[_sel, 'Rp'] = df.loc[_sel, 'koi_prad']
+            df.loc[_sel, 'E_Rp'] = df.loc[_sel, 'koi_prad_err1']
+            df.loc[_sel, 'e_Rp'] = np.abs(df.loc[_sel, 'koi_prad_err2'])
 
         a_rp = df['Rp']
         a_rp_err1 = df['E_Rp']
