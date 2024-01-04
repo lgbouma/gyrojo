@@ -592,11 +592,11 @@ def plot_rp_vs_porb_binage(outdir):
     # >33% radii
     #sel = (df['rp']/df['rp_err1'] > 3) & (df['rp']/df['rp_err2'] > 3)
     # >25% radii
-    sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
+    #sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
     # >20% radii
-    #sel = (df['rp']/df['rp_err1'] > 5) & (df['rp']/df['rp_err2'] > 5)
-    AGE_MAX = 10**9.5 #(3.2 gyr)
-    #AGE_MAX = 2e9
+    sel = (df['rp']/df['rp_err1'] > 5) & (df['rp']/df['rp_err2'] > 5)
+    #AGE_MAX = 10**9.5 #(3.2 gyr)
+    AGE_MAX = 2e9
     sel &= df['age'] < AGE_MAX
 
     df = df[sel]
@@ -609,9 +609,12 @@ def plot_rp_vs_porb_binage(outdir):
         #(0, np.nanpercentile(st_ages, 100/2)),
         #(np.nanpercentile(st_ages, 100/2), AGE_MAX),
         # triple
-        (0, 1e9),
-        (1e9, 2e9),
-        (2e9, 3e9),
+        #(0, 1e9),
+        #(1e9, 2e9)
+        #(2e9, 3e9),
+        (0, 667e6),
+        (667e6, 1333e6),
+        (1333e6, 2000e6)
         #(0, np.nanpercentile(st_ages, 100/3)),
         #(np.nanpercentile(st_ages, 100/3), np.nanpercentile(st_ages, 2*100/3)),
         #(np.nanpercentile(st_ages, 2*100/3), AGE_MAX),
@@ -632,8 +635,8 @@ def plot_rp_vs_porb_binage(outdir):
         ax.errorbar(
             df['period'], df['rp'],
             yerr=nparr([df['rp_err2'], df['rp_err1']]),
-            marker='o', elinewidth=elw, capsize=0, lw=0, mew=0.5,
-            color='darkgray', markersize=1.5, zorder=5
+            marker='o', elinewidth=elw, capsize=0, lw=0, mew=0.,
+            color='darkgray', markersize=1.5, zorder=5, alpha=0.5
         )
 
         lo_age, hi_age = age_bin[0], age_bin[1]
@@ -655,7 +658,8 @@ def plot_rp_vs_porb_binage(outdir):
         Rmod = 10**log10Rmod + OFFSET
 
         ax.plot(
-            10**log10Pmod, Rmod, c='lightgray', alpha=1, zorder=-2, lw=2
+            10**log10Pmod, Rmod, c='lightgray', alpha=1, zorder=-2, lw=1,
+            ls=':'
         )
 
         #ax.hlines(
