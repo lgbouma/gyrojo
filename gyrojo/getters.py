@@ -121,7 +121,7 @@ def get_li_data(sampleid):
 
 
 
-def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
+def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1):
     """
     Get age results for the planet hosts.
 
@@ -166,7 +166,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
         # parent sample age distribution
         st_ages = 1e6*nparr(skic_df['median'])
 
-        koi_df = get_koi_data('cumulative-KOI')
+        koi_df = get_koi_data('cumulative-KOI', drop_grazing=drop_grazing)
         koi_df['kepid'] = koi_df['kepid'].astype(str)
         skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
 
@@ -175,10 +175,14 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
         df['gyro_median'] = df['median']
         df['gyro_+1sigma'] = df['+1sigma']
         df['gyro_-1sigma'] = df['-1sigma']
+        df['gyro_+1sigmapct'] = df['+1sigmapct']
+        df['gyro_-1sigmapct'] = df['-1sigmapct']
 
         df['adopted_age_median'] = df['gyro_median']
         df['adopted_age_+1sigma'] = df['gyro_+1sigma']
         df['adopted_age_-1sigma'] = df['gyro_-1sigma']
+        df['adopted_age_+1sigmapct'] = df['gyro_+1sigmapct']
+        df['adopted_age_-1sigmapct'] = df['gyro_-1sigmapct']
 
         sel = df['median'] + df['+2sigma'] < 1000
         N_lt1gyr = len(df[sel])
@@ -188,10 +192,10 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
         raise NotImplementedError
 
     GET_BERGER20_RADII = 0
-    GET_PETIGURA22_RADII = 1
-    GET_BEST_RADII = 0
+    GET_PETIGURA22_RADII = 0
+    GET_BESTGUESS_RADII = 1
     assert np.sum([
-        GET_BEST_RADII, GET_BERGER20_RADII, GET_PETIGURA22_RADII
+        GET_BESTGUESS_RADII, GET_BERGER20_RADII, GET_PETIGURA22_RADII
     ]) == 1
 
     if GET_BERGER20_RADII:
@@ -227,7 +231,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
         a_rp_err1 = df['B20_E_Radius']
         a_rp_err2 = df['B20_e_radius_lc']
 
-    elif GET_BEST_RADII or GET_PETIGURA22_RADII:
+    elif GET_BESTGUESS_RADII or GET_PETIGURA22_RADII:
 
         # Petigura+2022 radii
         d1 = join(DATADIR, 'literature')
@@ -263,7 +267,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
         df['E_Rp'] = df['P22_E_Rp']
         df['e_Rp'] = np.abs(df['P22_e_rp_lc'])
 
-        if GET_BEST_RADII:
+        if GET_BESTGUESS_RADII:
             # else, take Berger+20
             _sel = pd.isnull(df['Rp'])
             df.loc[_sel, 'Rp'] = df.loc[_sel, 'B20_Radius']
@@ -287,7 +291,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
         a_rp_err1 = df['koi_prad_err1'] # upper
         a_rp_err2 = np.abs(df['koi_prad_err2']) # lower
 
-    if GET_BEST_RADII and COMPARE_AGE_UNCS:
+    if GET_BESTGUESS_RADII and COMPARE_AGE_UNCS:
 
         # Petigura+2022 star info
         d1 = join(DATADIR, 'literature')
@@ -314,6 +318,8 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
     a_age = 1e6*(df['adopted_age_median'])
     a_age_err1 = 1e6*(df['adopted_age_+1sigma'])
     a_age_err2 = 1e6*(df['adopted_age_-1sigma'])
+    a_age_pcterr1 = df['adopted_age_+1sigmapct']
+    a_age_pcterr2 = df['adopted_age_-1sigmapct']
 
     df['pl_name'] = df['kepler_name']
     _sel = pd.isnull(df['pl_name'])
@@ -322,7 +328,10 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
 
     mes = df['koi_max_mult_ev']
 
+    adopted_Teff = df['adopted_Teff']
+
     paramdict = {}
+    paramdict['adopted_Teff'] = nparr(adopted_Teff)
     paramdict['rp'] = nparr(a_rp)
     paramdict['rp_err1'] = nparr(a_rp_err1)
     paramdict['rp_err2'] = nparr(a_rp_err2)
@@ -330,6 +339,8 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0):
     paramdict['age'] = nparr(a_age)
     paramdict['age_err1'] = nparr(a_age_err1)
     paramdict['age_err2'] = nparr(a_age_err2)
+    paramdict['age_pcterr1'] = nparr(a_age_pcterr1)
+    paramdict['age_pcterr2'] = nparr(a_age_pcterr2)
     paramdict['pl_name'] = nparr(a_pl_name)
     paramdict['mes'] = nparr(mes)
 
@@ -688,7 +699,7 @@ def get_cleaned_gaiadr3_X_kepler_dataframe():
     return cgk_df
 
 
-def get_koi_data(sampleid):
+def get_koi_data(sampleid, drop_grazing=1):
     """
     Get the KOI tables from the NASA exoplanet archive -- either the
     cumulative KOI table, or the homogeneous DR25 table.
@@ -735,10 +746,11 @@ def get_koi_data(sampleid):
     flag_is_ok_planetcand = (
         (~koi_df['flag_koi_is_fp'])
         &
-        (~koi_df['flag_koi_is_grazing'])
-        &
         (~koi_df['flag_koi_is_low_snr'])
     )
+    if drop_grazing:
+        flag_is_ok_planetcand &= (~koi_df['flag_koi_is_grazing'])
+
     koi_df['flag_is_ok_planetcand'] = flag_is_ok_planetcand
 
     return koi_df
