@@ -18,6 +18,8 @@ Catch-all file for plotting scripts.  Contents:
 
     plot_age_comparison
 
+    plot_multis_vs_age
+
     plot_sub_praesepe_selection_cut
 
 Helpers:
@@ -33,6 +35,8 @@ from glob import glob
 from datetime import datetime
 
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
+import matplotlib as mpl
+import matplotlib.transforms as transforms
 from numpy import array as nparr
 
 from astropy.table import Table
@@ -583,7 +587,7 @@ def plot_rp_vs_age(outdir, xscale='linear', elinewidth=0.1, shortylim=0,
         savefig(fig, outpath)
 
 
-def plot_rp_vs_porb_binage(outdir):
+def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
 
     # get data
     _df, d, st_ages = get_age_results(whichtype='gyro')
@@ -597,11 +601,25 @@ def plot_rp_vs_porb_binage(outdir):
     sel = (df['rp']/df['rp_err1'] > 5) & (df['rp']/df['rp_err2'] > 5)
     #AGE_MAX = 10**9.5 #(3.2 gyr)
     AGE_MAX = 2e9
+
     sel &= df['age'] < AGE_MAX
+    if teffcondition == 'allteff':
+        pass
+    elif teffcondition == 'teffgt5000':
+        sel &= df['adopted_Teff'] >= 5000
+    elif teffcondition == 'tefflt5000':
+        sel &= df['adopted_Teff'] < 5000
 
     df = df[sel]
     st_ages = st_ages[st_ages < AGE_MAX]
-    #import IPython; IPython.embed()
+
+    df['age_pcterravg'] = np.nanmean(
+        [df['age_pcterr1'], df['age_pcterr2']], axis=0
+    )
+    df['age_pcterrmax'] = np.max(
+        [df['age_pcterr1'], df['age_pcterr2']], axis=0
+    )
+    print(df.describe())
 
     age_bins = [
         (0, AGE_MAX),
@@ -609,12 +627,12 @@ def plot_rp_vs_porb_binage(outdir):
         #(0, np.nanpercentile(st_ages, 100/2)),
         #(np.nanpercentile(st_ages, 100/2), AGE_MAX),
         # triple
-        #(0, 1e9),
-        #(1e9, 2e9)
+        (0, 1e9),
+        (1e9, 2e9)
         #(2e9, 3e9),
-        (0, 667e6),
-        (667e6, 1333e6),
-        (1333e6, 2000e6)
+        #(0, 667e6),
+        #(667e6, 1333e6),
+        #(1333e6, 2000e6)
         #(0, np.nanpercentile(st_ages, 100/3)),
         #(np.nanpercentile(st_ages, 100/3), np.nanpercentile(st_ages, 2*100/3)),
         #(np.nanpercentile(st_ages, 2*100/3), AGE_MAX),
@@ -657,10 +675,12 @@ def plot_rp_vs_porb_binage(outdir):
         OFFSET = -0.25
         Rmod = 10**log10Rmod + OFFSET
 
-        ax.plot(
-            10**log10Pmod, Rmod, c='lightgray', alpha=1, zorder=-2, lw=1,
-            ls=':'
-        )
+        SHOW_VE2018 = 0
+        if SHOW_VE2018:
+            ax.plot(
+                10**log10Pmod, Rmod, c='lightgray', alpha=1, zorder=-2, lw=1,
+                ls=':'
+            )
 
         #ax.hlines(
         #    1.8, 1, 100, colors='lightgray', alpha=1,
@@ -678,13 +698,24 @@ def plot_rp_vs_porb_binage(outdir):
         except ZeroDivisionError:
             θ = np.nan
 
-        txt = "$N_\mathrm{p}$ = " + f"{n_pl}/{len(df)}; θ=SE/SN={n_se}/{n_sn}={θ:.2f}\n"
-        if ix == 0:
-            txt += f'$t$ < {hi_age:.1e} yr'
-        elif ix == len(age_bins):
-            txt += f'$t$ > {lo_age:.1e} yr'
+        DO_KEYNOTE_LABEL = 1
+        if teffcondition == 'teffgt5000':
+            tstr = ', Teff $\geq$ 5000 K'
+        elif teffcondition == 'tefflt5000':
+            tstr = ', Teff $<$ 5000 K'
         else:
-            txt += f'$t$ = {lo_age:.1e} - {hi_age:.1e} yr'
+            tstr = ''
+
+        if DO_KEYNOTE_LABEL:
+            txt = f'{int(lo_age/1e9)} to {int(hi_age/1e9)} Gyr{tstr}\n'
+        else:
+            txt = f'$t$ = {lo_age:.1e} to {hi_age:.1e} yr\n'
+
+        txt += (
+            "$N_\mathrm{p}$ = " + f"{n_pl}/{len(df)}; "
+            "$N_\mathrm{SE}/N_\mathrm{MN}$ = "
+            f"{n_se}/{n_sn}={θ:.2f}"
+        )
 
         ax.text(0.97, 0.03, txt, transform=ax.transAxes,
                 ha='right', va='bottom', color='k', fontsize='small')
@@ -693,6 +724,7 @@ def plot_rp_vs_porb_binage(outdir):
         ax.set_yscale('log')
 
         ax.set_ylim([0.3, 10])
+        ax.set_xlim([0.38, 230])
 
         # Hide the right and top spines
         ax.spines['right'].set_visible(False)
@@ -711,7 +743,7 @@ def plot_rp_vs_porb_binage(outdir):
         ax.set_xlabel('Orbital period [days]', fontsize='medium')
         ax.set_ylabel('Planet radius [Earths]', fontsize='medium')
 
-        s = f'_{ix}_{lo_age:.2e}_{hi_age:.2e}'
+        s = f'_{ix}_{lo_age:.2e}_{hi_age:.2e}_{teffcondition}'
         outpath = os.path.join(outdir, f'rp_vs_porb_binage{s}.png')
         savefig(fig, outpath)
 
@@ -1127,7 +1159,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
 
     # SAMPLES from the age posteriors
     plt.close("all")
-    set_style('science')
+    set_style('clean')
     fig, ax = plt.subplots()
 
     bw = 200
@@ -1155,8 +1187,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     # ok... now how about the subset that are (good) KOIs? #
     ########################################################
     plt.close("all")
-    set_style('science')
-    fig, axs = plt.subplots(ncols=2, figsize=(1.2*5,1.2*2.5), constrained_layout=True)
+    set_style('clean')
+    fig, axs = plt.subplots(ncols=2, figsize=(0.5*8,0.5*4.5), constrained_layout=True)
 
     koi_df = get_koi_data('cumulative-KOI')
     koi_df['kepid'] = koi_df['kepid'].astype(str)
@@ -1198,7 +1230,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     xmax = MAXAGE
     axs[0].update({
         'xlabel': 'Gyro Age [Myr]',
-        'ylabel': f'Fraction per {bw} Myr bin',
+        'ylabel': f'Relative Fraction',
         'xlim': [xmin, xmax],
         'ylim': [0, 0.065],
         'title': 'Field stars'
@@ -1211,11 +1243,21 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     })
     axs[1].set_yticklabels([])
 
+    # AESTHETIC HAD WEIRD ISSUES...
+    # Hide the right and top spines
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    # Only show ticks on the left and bottom spines
+    ax.yaxis.set_ticks_position('left')
+    ax.xaxis.set_ticks_position('bottom')
+
     from matplotlib.lines import Line2D
     custom_lines = [Line2D([0], [0], color='lightgray', lw=1),
                     Line2D([0], [0], color='C0', alpha=0.5, lw=1) ]
-    axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='xx-small')
-    axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='xx-small')
+    axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='xx-small',
+                  borderaxespad=2.0, borderpad=0.8, framealpha=0)
+    axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='xx-small',
+                  borderaxespad=2.0, borderpad=0.8, framealpha=0)
 
 
     outpath = os.path.join(outdir, f'hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}.png')
@@ -1233,8 +1275,6 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     print(42*'-')
     print(txt)
     print(42*'-')
-
-    import IPython; IPython.embed()
 
     ##########################################
     # end the interesting plot               #
@@ -1362,3 +1402,138 @@ def plot_field_gyro_posteriors(outdir, cache_id):
     sel_2s = mdf['median'] + mdf['+2sigma'] < 1000
 
     print(mdf[sel_2s][cols])
+
+
+def get_starnames(koi_ids):
+    starnames = []
+    for koi_id in koi_ids:
+        if " " in koi_id:
+            starname = koi_id.split(" ")[0]
+        if "." in koi_id:
+            starname = koi_id.split(".")[0]
+        starnames.append(starname)
+    return starnames
+
+def find_duplicates(arr):
+    seen = set()
+    duplicates = set()
+
+    for item in arr:
+        if item in seen:
+            duplicates.add(item)
+        else:
+            seen.add(item)
+
+    result = np.array([item in duplicates for item in arr])
+    return result
+
+def plot_multis_vs_age(outdir, teffcondition='allteff'):
+
+    # get data
+    _df, d, st_ages = get_age_results(whichtype='gyro', drop_grazing=0)
+    df = pd.DataFrame(d)
+
+    sel = np.ones(len(df)).astype(bool)
+    #sel = (df['rp']/df['rp_err1'] > 0.1) & (df['rp']/df['rp_err2'] > 0.1)
+    # >33% radii
+    #sel = (df['rp']/df['rp_err1'] > 3) & (df['rp']/df['rp_err2'] > 3)
+    # >25% radii
+    #sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
+    # >20% radii
+    #sel = (df['rp']/df['rp_err1'] > 5) & (df['rp']/df['rp_err2'] > 5)
+    #AGE_MAX = 10**9.5 #(3.2 gyr)
+    AGE_MAX = 3e9
+
+    sel &= df['age'] < AGE_MAX
+
+    if teffcondition == 'allteff':
+        pass
+    elif teffcondition == 'teffgt5000':
+        sel &= df['adopted_Teff'] >= 5000
+    elif teffcondition == 'tefflt5000':
+        sel &= df['adopted_Teff'] < 5000
+
+    df = df[sel]
+    st_ages = st_ages[st_ages < AGE_MAX]
+
+    df['age_pcterravg'] = np.nanmean(
+        [df['age_pcterr1'], df['age_pcterr2']], axis=0
+    )
+    df['age_pcterrmax'] = np.max(
+        [df['age_pcterr1'], df['age_pcterr2']], axis=0
+    )
+    df['age_errmean'] = np.nanmean(
+        [df['age_err1'], df['age_err2']], axis=0
+    )
+    print(df.describe())
+
+    df['starname'] = get_starnames(np.array(df['pl_name']))
+    df['ismulti'] = find_duplicates(np.array(df['starname']))
+
+    multidf = df[df.ismulti]
+    multidf = multidf.sort_values(by=['age','pl_name'])
+    import IPython; IPython.embed()
+
+    N = len(np.unique(multidf.starname))
+
+    plt.close("all")
+    set_style("clean")
+    fig, ax = plt.subplots(figsize=(3.3, 0.1*N))
+
+    for ix, starname in enumerate(list(multidf.starname.drop_duplicates())):
+
+        sel = (multidf.starname == starname)
+        sdf = multidf[sel]
+
+        min_period = np.min(sdf.period)
+        norm_periods = nparr(sdf.period) / min_period
+
+        sizes = nparr(sdf.rp)
+
+        age = nparr(sdf.age)[0]
+        age_errmean = nparr(sdf.age_errmean)[0]
+
+        cmap = mpl.cm.viridis
+        ax.scatter(
+            norm_periods, -ix*np.ones_like(norm_periods),
+            c=age*np.ones_like(norm_periods), cmap=cmap, linewidths=0.1,
+            s=sizes
+        )
+
+        props = dict(boxstyle='square', facecolor='white', alpha=0.95, pad=0.15,
+                     linewidth=0)
+        # plot the observed ticks. x coords are axes, y coords are data
+        trans = transforms.blended_transform_factory(ax.transAxes, ax.transData)
+
+        txt = (
+            f'{starname.replace("ler","")}, '+'$P_{\mathrm{i}}$='+f'{min_period:.1f} d, '+
+            '$t_\mathrm{g}$=' + f"{age/1e9:.2f} "+"$\pm$"+f"{age_errmean/1e9:.2f} Gy"
+        )
+        ax.text(
+            0.99, -ix, txt, transform=trans, bbox=props, ha='right',
+            va='center', fontsize='xx-small'
+        )
+
+        #bounds = np.arange(-0.5, 3.5, 1)
+        #ticks = (np.arange(-1,3)+1)
+        #norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
+
+    ymin, ymax = ax.get_ylim()
+    vlines = [3/2, 4/2, 3]
+    for vline in vlines:
+        ax.vlines(
+            vline, ymin, ymax, colors='darkgray', alpha=1,
+            linestyles=':', zorder=-2, linewidths=0.6
+        )
+    ax.set_ylim((ymin, ymax))
+
+    ax.set_xlabel("P/P_inner")
+    ax.set_ylabel("")
+    #ax.set_xlim([ 6300, 3700 ])
+    #ax.set_xlim([0.5,10.5])
+    ax.set_xscale('log')
+    ax.set_yticklabels([])
+
+    outpath = os.path.join(outdir, f'multis_age_sorted.png')
+    savefig(fig, outpath)
+
