@@ -17,7 +17,7 @@ Makes `field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv`
 3. `construct_field_star_gyro_quality_flags.py`
 
 Given output from #2, build
-`field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_dquality.csv`
+`field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv`
 
 4. `plot_hist_field_gyro_ages.py`
 
