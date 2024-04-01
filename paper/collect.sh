@@ -1,5 +1,9 @@
-resultsdir="/Users/luke/Dropbox/proj/gyro-interp/results"
-cp $resultsdir/prot_vs_teff/prot_vs_teff_α_Per_Pleiades_Blanco-1_Psc-Eri_NGC-3532_Group-X_Praesepe_NGC-6811_NGC-6819_Ruprecht-147_slowseq_poly7__100_to_2600_interpmethodpchip_m67.pdf f1a.pdf
+rdir="/Users/luke/Dropbox/proj/gyrojo/results"
+
+cp $rdir/star_Prot_Teff/prot_teff_Santos19_Santos21_clean0.pdf .
+
+cp $rdir/koi_mean_prot_teff/koi_mean_prot_teff.pdf .
+
 cp $resultsdir/prot_vs_teff/prot_vs_teff_α_Per_Pleiades_Blanco-1_Psc-Eri_NGC-3532_Group-X_Praesepe_NGC-6811_models_poly7_α_Per_120-Myr_300-Myr_Praesepe_NGC-6811_interpmethodpchip_m67.pdf f1b.pdf
 
 cp $resultsdir/data_vs_model_prot/data_vs_model_α_Per_Pleiades_Blanco-1_Psc-Eri_NGC-3532_Group-X_Praesepe_NGC-6811_models_poly7_α_Per_120-Myr_300-Myr_Praesepe.pdf f2.pdf

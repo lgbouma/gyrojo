@@ -10,26 +10,26 @@
 \usepackage{hyperref}
 \usepackage{natbib}
 \usepackage{amsmath,amstext,amssymb}
+\usepackage[caption=false]{subfig} % for subfloat
 \usepackage{xcolor, fontawesome}
 \usepackage{color}
+\usepackage{enumitem}
+
+\newcommand{\red}{\color{red}}
 
 \newcommand{\rprs}{{$R_p/R_{\star}$}}
 \newcommand{\vsini}{{$V \sin i$}}
-\newcommand{\teff}{T$_{\textrm{eff}}$}
 \newcommand{\kms}{{km\,s$^{-1}$}}
 \newcommand{\gcc}{{g\,cm$^{-3}$}}
 \newcommand{\rstar}{{$R_\star$}}
 \newcommand{\rhostar}{{$\rho_\star$}}
 \newcommand{\mearth}{{M$_\oplus$}}
 \newcommand{\rearth}{{R$_\oplus$}}
-\newcommand{\rsun}{{R$_\odot$}}
-\newcommand{\msun}{{M$_\odot$}}
+\newcommand{\rsun}{{$R_\odot$}}
+\newcommand{\msun}{{$M_\odot$}}
+\newcommand{\bprp}{G_{\rm BP} - G_{\rm RP}}
 
 \newcommand{\minus}{\scalebox{0.5}[1.0]{$-$}}
-
-\newcommand{\eg}{e.g.,} 
-
-\newcommand{\mstype}{letter}
 
 %%%%%%%%%%%%%%%%
 % INSTITUTIONS %
@@ -749,6 +749,29 @@ amplitude cuts you might want to apply to the rotation period catalog}
 
 \section{Results}
 \label{sec:results}
+
+\begin{figure*}[!t]
+	\begin{center}
+		\subfloat{
+			\includegraphics[width=0.8\textwidth]{prot_teff_Santos19_Santos21_clean0.pdf}
+		}
+		\vspace{-0.62cm}
+		\subfloat{
+			\includegraphics[width=0.66\textwidth]{koi_mean_prot_teff.pdf}
+		}
+	\end{center}
+	\vspace{-0.5cm}
+	\caption{
+    {\bf Rotation periods for Kepler stars (left) and planets (right)}.
+    These periods are from \citet{Santos_2019}
+    (\citetalias{Santos_2019}) and \citet{Santos_2021}
+    (\citetalias{Santos_2021}).
+    The gray models... %TODO FIXME
+	}
+	\label{fig:prot_vs_teff}
+\end{figure*}
+
+
 
 \subsection{Ages for stars in the Kepler field}
 %TODO: show parameter distributions?
