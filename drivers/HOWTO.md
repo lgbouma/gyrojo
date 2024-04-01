@@ -1,5 +1,12 @@
+Contents
+_0_ Run the field star gyro analysis
+_1_ Run the KOI gyrochronology analysis
+_2_ Run the KOI lithium analysis
+_3_ Multiply the gyro and lithium age posteriors, an entirely statistically unjustified procedure
+_4_ Other plots that will probably go into a manuscript
+
 --------------------
-To run the field star gyro analysis:
+_0_ Run the field star gyro analysis:
 
 1. `calc_field_gyro_posteriors.py`
 
@@ -15,7 +22,7 @@ Given output from #2, build
 4. `plot_hist_field_gyro_ages.py`
 
 --------------------
-To run the KOI gyrochronology analysis:
+_1_ Run the KOI gyrochronology analysis
 
 (NOTE: mostly deprecated after the field star gyro analysis approach?  NB.
 though that the "fully inclusive" aspect of this, which includes
@@ -39,7 +46,7 @@ statistics joined against the GDR3/B20/etc data:
 `/results/koi_gyro_posteriors_{DATESTR}/step0_koi_gyro_ages_X_GDR3_B20_S19_S21_M14_M15.csv`
 
 --------------------
-To run the KOI lithium analysis:
+_2_ Run the KOI lithium analysis
 
 1. Run `kepler_lithium_sample_getter.sql` on JUMP
 
@@ -67,8 +74,7 @@ the lithium posteriors and cache them to disk.
 6. `plot_koi_lithium_posteriors.py`
 
 --------------------
-To multiply the gyro and lithium age posteriors, and entirely statistically
-unjustified procedure:
+_3_ Multiply the gyro and lithium age posteriors, an entirely statistically unjustified procedure
 
 1. `calc_koi_joint_posteriors.py`
 
@@ -77,7 +83,7 @@ a merged file with all the gyro, lithium, and joint summary statistics, at
 `koi_gyro_X_lithium_posteriors_20230116/{sampleid}_merged_joint_age_posteriors.csv`
 
 --------------------
-Other plots that will probably go into a manuscript:
+_4_ Other plots that will probably go into a manuscript
 
 * `plot_rp_vs_age.py`
 
