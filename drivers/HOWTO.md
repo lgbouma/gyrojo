@@ -3,7 +3,7 @@ _0_ Run the field star gyro analysis
 _1_ Run the KOI gyrochronology analysis
 _2_ Run the KOI lithium analysis
 _3_ Multiply the gyro and lithium age posteriors, an entirely statistically unjustified procedure
-_4_ Other plots that will probably go into a manuscript
+_4_ Build everything needed for the manuscript
 
 --------------------
 _0_ Run the field star gyro analysis:
@@ -12,38 +12,39 @@ _0_ Run the field star gyro analysis:
 
 2. `plot_field_gyro_posteriors.py`
 
-Makes `field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv`
+  Makes `field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv`
 
 3. `construct_field_star_gyro_quality_flags.py`
 
-Given output from #2, build
-`field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv`
+  Given output from #2, builds
+  `field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv`
 
 4. `plot_hist_field_gyro_ages.py`
 
 --------------------
 _1_ Run the KOI gyrochronology analysis
 
-(NOTE: mostly deprecated after the field star gyro analysis approach?  NB.
-though that the "fully inclusive" aspect of this, which includes
-M14/M15 knowledge, might be beneficial)
+  (NOTE: this is deprecated after the field star gyro analysis approach. 
+  However the "fully inclusive" aspect of this alternative approach, which includes
+  M14/M15 knowledge, might be beneficial.  Sph>500 as a cut is also kind of
+  reasonable.)
 
-1. `build_koi_table.py`:
+  1. `build_koi_table.py`:
 
-Takes the cumulative KOI table, and left-joins it against Gaia DR3, the
-Berger+20 stellar parameter catalog, and all relevant rotation period catalogs
-(McQuillan+14, Mazeh+15, Santos+19, Santos+21).  The output is written to
-`DATADIR/interim/koi_table_X_GDR3_B20_S19_S21_M14_M15.csv`
+  Takes the cumulative KOI table, and left-joins it against Gaia DR3, the
+  Berger+20 stellar parameter catalog, and all relevant rotation period catalogs
+  (McQuillan+14, Mazeh+15, Santos+19, Santos+21).  The output is written to
+  `DATADIR/interim/koi_table_X_GDR3_B20_S19_S21_M14_M15.csv`
 
-2. `calc_koi_gyro_posteriors.py`
+  2. `calc_koi_gyro_posteriors.py`
 
-Using the above table, calculate gyro the posteriors.
+  Using the above table, calculate gyro the posteriors.
 
-3. `plot_koi_gyro_posteriors.py`
+  3. `plot_koi_gyro_posteriors.py`
 
-Plot the resulting gyro posteriors, and write a table of their summary
-statistics joined against the GDR3/B20/etc data:
-`/results/koi_gyro_posteriors_{DATESTR}/step0_koi_gyro_ages_X_GDR3_B20_S19_S21_M14_M15.csv`
+  Plot the resulting gyro posteriors, and write a table of their summary
+  statistics joined against the GDR3/B20/etc data:
+  `/results/koi_gyro_posteriors_{DATESTR}/step0_koi_gyro_ages_X_GDR3_B20_S19_S21_M14_M15.csv`
 
 --------------------
 _2_ Run the KOI lithium analysis
@@ -83,12 +84,18 @@ a merged file with all the gyro, lithium, and joint summary statistics, at
 `koi_gyro_X_lithium_posteriors_20230116/{sampleid}_merged_joint_age_posteriors.csv`
 
 --------------------
-_4_ Other plots that will probably go into a manuscript
+_4_ Build everything needed for the manuscript
 
+Plots:
+* `plot_star_Prot_Teff.py`
+* `plot_koi_mean_prot_teff.py`
+
+Values:
+* `get_values_for_manuscript.py`
+
+todo's:
 * `plot_rp_vs_age.py`
-
 * `plot_rp_vs_porb_binage.py`
-
-* `plot_koi_mean_prot_vs_teff.py` 
-
 * `plot_li_vs_teff.py`
+
+
