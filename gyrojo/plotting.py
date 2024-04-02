@@ -219,11 +219,14 @@ def plot_star_Prot_Teff(outdir, sampleid):
 
     assert sampleid in [
         'Santos19_Santos21_all', 'Santos19_Santos21_logg',
-        'Santos19_Santos21_clean0', 'teff_age_prot_seed42_nstar20000'
+        'Santos19_Santos21_clean0', 'teff_age_prot_seed42_nstar20000',
+        'Santos19_Santos21_dquality'
     ]
 
     if "Santos" in sampleid:
         df = get_kicstar_data(sampleid)
+        if sampleid == 'Santos19_Santos21_dquality':
+            df = df[df['flag_is_gyro_applicable']]
         n_st = len(np.unique(df.KIC))
 
     elif "seed" in sampleid:
@@ -287,10 +290,11 @@ def plot_star_Prot_Teff(outdir, sampleid):
 
     ax.errorbar(
         Teffs, Prots, #xerr=Teff_errs,
-        yerr=Prot_errs,
+        yerr=np.zeros(len(Prots)),
         marker='o', elinewidth=0., capsize=0, lw=0, mew=0., color='k',
         markersize=0.5, zorder=5
     )
+
     ## only one reported period
     #sel = (N_reported_periods == 1)
     #ax.errorbar(
