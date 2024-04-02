@@ -2,6 +2,7 @@ import os
 import gyrojo.plotting as ap
 from gyrojo.paths import RESULTSDIR
 
+# calculated in calc_field_gyro_posteriors.py
 cache_id = "hist_field_gyro_ages_20230529"
 
 outdir = os.path.join(RESULTSDIR, cache_id)

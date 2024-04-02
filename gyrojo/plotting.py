@@ -47,6 +47,7 @@ from gyrojo.getters import (
     get_gyro_data, get_li_data, get_age_results,
     get_kicstar_data, get_koi_data
 )
+from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 
 from gyrointerp.models import (
     reference_cluster_slow_sequence
@@ -1174,7 +1175,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
 
     print(f"Got {N_post_samples} posterior samples...")
 
-    kdf = get_kicstar_data('Santos19_Santos21_dquality')
+    kdf = get_gyro_data("Santos19_Santos21_dquality", drop_grazing=0)
     skdf = kdf[kdf.flag_is_gyro_applicable]
     skdf['KIC'] = skdf.KIC.astype(str)
     mdf['KIC'] = mdf.KIC.astype(str)
@@ -1186,7 +1187,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     fig, ax = plt.subplots()
 
     bw = 200
-    bins = np.arange(0, MAXAGE+2*bw, bw)
+    bins = np.arange(0, (MAXAGE+2*bw)/1e3, bw/1e3)
 
     ax.hist(mdf.age, bins=bins, color='lightgray', density=False, zorder=1,
             label='all')
@@ -1206,63 +1207,95 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     outpath = os.path.join(outdir, f'hist_samples_field_gyro_ages_{cache_id}_maxage{MAXAGE}.png')
     savefig(fig, outpath, writepdf=1, dpi=400)
 
-    ########################################################
-    # ok... now how about the subset that are (good) KOIs? #
-    ########################################################
+    #################################################
+    # ok... now how about the subset that are good? #
+    #################################################
     plt.close("all")
     set_style('clean')
     fig, axs = plt.subplots(ncols=2, figsize=(0.5*8,0.5*4.5), constrained_layout=True)
 
-    koi_df = get_koi_data('cumulative-KOI')
+    koi_df = get_koi_data('cumulative-KOI', drop_grazing=0)
     koi_df['kepid'] = koi_df['kepid'].astype(str)
     skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
     sel_planets = mdf.KIC.isin(skoi_df.kepid)
 
     N = int(len(mdf)/10)
-    l0_0 = f'{N} field w/ Prot'
-    axs[0].hist(mdf.age, bins=bins, color='lightgray',
+    l0_0 = f'{N} w/ '+'P$_{\mathrm{rot}}$'
+    axs[0].hist(mdf.age/1e3, bins=bins, color='lightgray',
                 histtype='step',
                 weights=np.ones(len(mdf))/len(mdf),
-                zorder=1, label=l0_0)
+                zorder=1, label=l0_0, alpha=0.6)
     N = int(len(mdf[sel_gyro_ok])/10)
-    l0_1 = f'{N} field & gyro applicable'
-    axs[0].hist(mdf[sel_gyro_ok].age, bins=bins, color='C0',
+    l0_1 = f'{N} w/ '+'P$_{\mathrm{rot}}$ & gyro applicable'
+    axs[0].hist(mdf[sel_gyro_ok].age/1e3, bins=bins, color='C0',
                 histtype='step',
                 weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]),
-                zorder=2, alpha=0.5,
+                zorder=2, alpha=0.81,
                 label=l0_1)
+
+    ##########################################
+    # calculate ratios of "middle" and "old" bins to young bin for all stars.
+    n_yb = len(mdf[sel_gyro_ok][
+        (mdf[sel_gyro_ok].age > 0) & (mdf[sel_gyro_ok].age <= 1000)
+    ])/10
+    n_mb = len(mdf[sel_gyro_ok][
+        (mdf[sel_gyro_ok].age > 1000) & (mdf[sel_gyro_ok].age <= 2000)
+    ])/10
+    n_ob = len(mdf[sel_gyro_ok][
+        (mdf[sel_gyro_ok].age > 2000) & (mdf[sel_gyro_ok].age <= 3000)
+    ])/10
+    ulkvp('ratiombtoybstars', np.round(n_mb/n_yb, 1))
+    ulkvp('ratioobtoybstars', np.round(n_ob/n_yb, 1))
+    ##########################################
 
     axs[0].legend(loc='best', fontsize='xx-small')
 
     N = int(len(mdf[sel_planets])/10)
-    l1_0 = f'{N} planet cands w/ Prot'
-    axs[1].hist(mdf[sel_planets].age, bins=bins, color='lightgray',
+    l1_0 = f'{N} w/ '+'P$_{\mathrm{rot}}$'
+    axs[1].hist(mdf[sel_planets].age/1e3, bins=bins, color='lightgray',
                 histtype='step',
                 weights=np.ones(len(mdf[sel_planets]))/len(mdf[sel_planets]),
                 zorder=1,
-                label=l1_0)
-    N = int(len(mdf[sel_gyro_ok & sel_planets])/10)
-    l1_1 = f'{N} planet cands & gyro applicable'
-    axs[1].hist(mdf[sel_gyro_ok & sel_planets].age, bins=bins,
+                label=l1_0, alpha=0.6)
+    psel = sel_gyro_ok & sel_planets
+    N = int(len(mdf[psel])/10)
+    l1_1 = f'{N} w/ '+'P$_{\mathrm{rot}}$ & gyro applicable'
+    axs[1].hist(mdf[psel].age/1e3, bins=bins,
                 histtype='step',
-                weights=np.ones(len(mdf[sel_planets & sel_gyro_ok]))/len(mdf[sel_planets & sel_gyro_ok]),
-                color='C0', alpha=0.5, zorder=2,
+                weights=np.ones(len(mdf[psel]))/len(mdf[psel]),
+                color='C0', alpha=0.81, zorder=2,
                 label=l1_1)
+
+    ##########################################
+    # calculate ratios of "middle" and "old" bins to young bin for all selected
+    # planets.
+    n_yb = len(mdf[psel][
+        (mdf[psel].age > 0) & (mdf[psel].age <= 1000)
+    ])/10
+    n_mb = len(mdf[psel][
+        (mdf[psel].age > 1000) & (mdf[psel].age <= 2000)
+    ])/10
+    n_ob = len(mdf[psel][
+        (mdf[psel].age > 2000) & (mdf[psel].age <= 3000)
+    ])/10
+    ulkvp('ratiombtoybplanets', np.round(n_mb/n_yb, 1))
+    ulkvp('ratioobtoybplanets', np.round(n_ob/n_yb, 1))
+    ##########################################
 
     xmin = 0
     xmax = MAXAGE
     axs[0].update({
-        'xlabel': 'Gyro Age [Myr]',
-        'ylabel': f'Relative Fraction',
-        'xlim': [xmin, xmax],
+        'xlabel': 'Gyro Age [Gyr]',
+        'ylabel': f'Fraction',
+        'xlim': [xmin/1e3, (xmax-20)/1e3],
         'ylim': [0, 0.065],
-        'title': 'Field stars'
+        'title': 'Kepler stars'
     })
     axs[1].update({
-        'xlabel': 'Gyro Age [Myr]',
-        'xlim': [xmin, xmax],
+        'xlabel': 'Gyro Age [Gyr]',
+        'xlim': [xmin/1e3, (xmax-20)/1e3],
         'ylim': [0, 0.065],
-        'title': 'KOIs'
+        'title': 'KOI host stars'
     })
     axs[1].set_yticklabels([])
 
@@ -1275,8 +1308,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     ax.xaxis.set_ticks_position('bottom')
 
     from matplotlib.lines import Line2D
-    custom_lines = [Line2D([0], [0], color='lightgray', lw=1),
-                    Line2D([0], [0], color='C0', alpha=0.5, lw=1) ]
+    custom_lines = [Line2D([0], [0], color='lightgray', lw=1, alpha=0.6),
+                    Line2D([0], [0], color='C0', alpha=0.81, lw=1) ]
     axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='xx-small',
                   borderaxespad=2.0, borderpad=0.8, framealpha=0)
     axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='xx-small',
@@ -1286,6 +1319,9 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     outpath = os.path.join(outdir, f'hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}.png')
     fig.tight_layout()
     savefig(fig, outpath, writepdf=1, dpi=400)
+
+    ###########################################
+    ###########################################
 
     from scipy import stats
     sel_age = mdf.age < 3.2e9
