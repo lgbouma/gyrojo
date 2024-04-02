@@ -636,17 +636,24 @@ post-main-sequence evolution introduce variations in the stellar
 angular momentum budget.  Similarly, tidal effects might
 systematically spin up (or down) stars in binaries.
 
-Using our adopted effective temperatures and rotation periods, we ran 
-\texttt{gyro-interp} over an age grid of 0 to 5\,Gyr, linearly spaced
-over 500 grid points.
-\texttt{gyro-interp} itself is only calibrated out to 4\,Gyr, the
-adopted age of the M67 cluster \citep[see][]{Dungee_2022,Gruner_2023}.
-We used the spin-down law between the reference open clusters by
-interpolating using piecewise cubic hermite interpolating polynomials,
-and integrated Equation~1 of \citep{Bouma_2023} at the default grid
-resolution.
+Using our adopted effective temperatures and rotation periods, we ran
+\texttt{gyro-interp} over an age grid of 0 to 4\,Gyr, linearly spaced
+over 500 grid points.  \texttt{gyro-interp} itself is only calibrated
+out to 4\,Gyr, the adopted age of the M67 cluster
+\citep[see][]{Dungee_2022,Gruner_2023}.  To estimate the stellar
+spin-down rate as a function of time and stellar temperature, this
+framework interpolates between reference open clusters using smooth
+cubic hermite polynomials.  We calculate the probability of the
+rotation-based age $t_{\rm gyro}$, given the observed rotation
+periods, effective temperatures, and their uncertainties by
+integrating Equation~1 of \citep{Bouma_2023} at the default grid
+resolution.  This procedure marginalizes over the intrinsic age and
+temperature dependent scatter that is observed in the cluster
+sequences to yield statistical age uncertainties.
+
 
 \subsection{Star Filters}
+\label{subsec:filters}
 We calculated gyrochrone age posteriors for all \nuniqstarsantosrot\
 stars with reported rotation periods and effective temperatures.  To
 select the subset stars for which we expect these age to in fact be
@@ -728,14 +735,43 @@ do not exclude them from our analysis; this is because...{\bf justify}.
 
 \subsection{Tally}
 
+\begin{figure*}[!t]
+	\begin{center}
+		\subfloat{
+			\includegraphics[width=0.5\textwidth]{prot_teff_Santos19_Santos21_clean0.pdf}
+		}
+		\subfloat{
+			\includegraphics[width=0.5\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf}
+		}
+	\end{center}
+	\vspace{-0.5cm}
+	\caption{
+    {\bf Rotation periods for Kepler stars (left) and planets (right)}.
+    The periods are from \citet{Santos_2019} and \citet{Santos_2021}
+    (\citetalias{Santos_2019} and \citetalias{Santos_2021}), and the
+    temperatures are primarily from \citet{Berger_2020a_catalog}.  The
+    gray lines are ``mean fits'' from \citet{Bouma_2023} to the slow
+    rotation sequences of open clusters.  The stellar sample shows
+    only apparently single stars near the main sequence with $\log
+    g$$>$4.2, RUWE$<$1.4, 3800$<$$T_{\rm eff}$/K$<$6200, that are not
+    flagged as eclipsing binaries.  The planet sample has the same
+    stellar cuts, and shows confirmed and candidate planets from the
+    cumulative KOI table, requiring them to have a MES$>$10.
+	}
+	\label{fig:prot_vs_teff}
+\end{figure*}
+
 The rotation periods for the stellar and planetary samples are shown
-in Figure~\ref{fig:prot_vs_teff}.
-Out of the \nkeplerstars\ stars observed by Kepler, requiring reported
-rotation periods yielded \nuniqstarsantosrotgyroappl.  Further
-requiring these rotating stars to be apparently single, near the main
-sequence, with $\log g$$>$4.2, RUWE$<$1.4, 3800$<$$T_{\rm
-eff}$/K$<$6200, and not flagged as eclipsing binaries yielded
-\nuniqstarsantosrotgyroappl\ rotators amenable for gyrochronology.
+in Figure~\ref{fig:prot_vs_teff}.  Out of the \nkeplerstars\ stars
+observed by Kepler, requiring reported rotation periods yielded
+\nuniqstarsantosrotgyroappl.  Further requiring these rotating stars
+to have temperatures 3800$<$$T_{\rm eff}$/K$<$6200, which is the range
+over which \texttt{gyro-interp} returns finite age posteriors,
+yields \nuniqstarsantosrotteffcut\ stars.
+Further requiring them to be apparently single, near the main
+sequence, with $\log g$$>$4.2, RUWE$<$1.4, and not flagged as
+eclipsing binaries yielded \nuniqstarsantosrotgyroappl\ rotators
+amenable for gyrochronology.
 
 In the planet sample, the cumulative KOI table included
 \nnonfpcumkois\ confirmed and candidate planets, orbiting
@@ -787,42 +823,45 @@ To calculate lithium ages, we then use EAGLES \citep{Jeffries_2023}.
 \section{Results}
 \label{sec:results}
 
+
+\subsection{Age distribution}
+
 \begin{figure*}[!t]
 	\begin{center}
-		\subfloat{
-			\includegraphics[width=0.5\textwidth]{prot_teff_Santos19_Santos21_clean0.pdf}
-		}
-		\subfloat{
-			\includegraphics[width=0.5\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf}
-		}
+		\leavevmode
+		\includegraphics[width=0.9\textwidth]{hist_samples_koi_gyro_ages_hist_field_gyro_ages_20230529_maxage3200.pdf}
 	\end{center}
-	\vspace{-0.5cm}
+	\vspace{-0.6cm}
 	\caption{
-    {\bf Rotation periods for Kepler stars (left) and planets (right)}.
-    The periods are from \citet{Santos_2019} and \citet{Santos_2021}
-    (\citetalias{Santos_2019} and \citetalias{Santos_2021}), and the
-    temperatures are primarily from \citet{Berger_2020a_catalog}.  The
-    gray lines are ``mean fits'' from \citet{Bouma_2023} to the slow
-    rotation sequences of open clusters.
-    The stellar sample shows only apparently single stars near the
-    main sequence with $\log g$$>$4.2, RUWE$<$1.4, 3800$<$$T_{\rm
-    eff}$/K$<$6200, that are not flagged as eclipsing binaries.  The
-    planet sample has the same stellar cuts, and shows confirmed and
-    candidate planets from the cumulative KOI table, requiring them to
-    have a MES$>$10.
-    % koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.png
-    % minus
-    % koi_mean_prot_teff_koi_X_S19S21dquality_dropgrazing.png
-    %Grazing objects ($b$>0.8) include 213 of the planet candidates
-    %displayed, and 136 of the host stars.
+		{\bf Age distribution of stars and planet-hosts in the Kepler field
+    inferred from rotation periods}.
+    A histogram of samples from the age posteriors for all Kepler
+    stars with reported rotation periods and temperatures is shown in
+    light gray;
+    the age calculation was actually valid for stars that meet the criteria
+    discussed in Section~\ref{subsec:filters} (dark blue).
+		\label{fig:hist_tgyro}
 	}
-	\label{fig:prot_vs_teff}
 \end{figure*}
 
+Figure~\ref{fig:hist_tgyro} shows the gyrochone age distributions
+of stars and planet-hosts in the Kepler field.
+We truncated the plots near $3$\,Gyr due to arguments that suggest the
+detectability of rotation signals is near-unity up to this age for Sun-like
+stars, and decreases for older ages \citep{2022ApJ...937...94M}.
+Both the stellar and planetary samples point toward a star
+formation rate in the Kepler field that has slowed over the past
+few gigayears.
+Imagine we were to group stars between 0-1\,Gyr, 1-2\,Gyr, and 2-3\,Gyr, and 
+label them ``young'', ``intermediate-age'', and ``old''.
+A simple counting exercise from these distributions tells us that there are \ratioobtoybstars\ times as many 
+old stars in the Kepler field as young stars.
+Similarly, there are \ratioobtoybplanets\ times as many old planet hosts as
+young planet hosts. 
 
+{\it LGB pending words: touch on findings on MW SFH from chemistry,
+isochrones, and asteroseismology}.
 
-\subsection{Ages for stars in the Kepler field}
-%TODO: show parameter distributions?
 
 %e.g. hist_samples_field_gyro_ages_hist_field_gyro_ages_20230529.pdf
 
