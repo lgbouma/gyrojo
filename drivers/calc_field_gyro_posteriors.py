@@ -13,7 +13,6 @@ from gyrojo.getters import (
     get_kicstar_data
 )
 
-
 from gyrointerp.helpers import prepend_colstr, left_merge
 from gyrointerp.gyro_posterior import gyro_age_posterior_list
 

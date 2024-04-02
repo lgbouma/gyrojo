@@ -117,17 +117,25 @@ def get_planet_class_labels(df, OFFSET=0):
 ############
 # plotters #
 ############
-def plot_mean_prot_teff(outdir, sampleid):
+def plot_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality', drop_grazing=1):
     # For KOIs
 
-    df = get_gyro_data('all')
+    df = get_gyro_data(sampleid, drop_grazing=drop_grazing)
+
+    if 'deprecated' not in sampleid:
+        assert len(df) == df['flag_is_gyro_applicable'].sum()
+        assert len(df) == df['flag_is_ok_planetcand'].sum()
 
     n_pl = len(np.unique(df.kepoi_name))
-    n_st = len(np.unique(df.kepid))
+    if 'deprecated' not in sampleid:
+        n_st = len(np.unique(df.KIC))
+        Prots = np.round(nparr(df.Prot), 4)
+    else:
+        n_st = len(np.unique(df.kepid))
+        Prots = np.round(nparr(df.mean_period), 4)
 
     Teffs = nparr(df.b20t2_Teff)
     Teff_errs = nparr(df.adopted_Teff_err)
-    Prots = np.round(nparr(df.mean_period), 4)
     Prot_errs = nparr(df.Prot_err)
 
     set_style("clean")
@@ -159,24 +167,29 @@ def plot_mean_prot_teff(outdir, sampleid):
         ax.text(3680, yval, age, ha='right', va='center', fontsize='x-small',
                 bbox=bbox, zorder=49)
 
-
     print(f"Mean Teff error is {np.nanmean(Teff_errs):.1f} K")
 
-    N_reported_periods = df['N_reported_periods']
-    sel = (N_reported_periods >= 2)
+    if 'deprecated' in sampleid:
+        N_reported_periods = df['N_reported_periods']
+        sel = (N_reported_periods >= 2)
 
-    ax.errorbar(
-        Teffs[sel], Prots[sel], #xerr=Teff_errs,
-        yerr=Prot_errs[sel],
-        marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='k',
-        markersize=1, zorder=5
-    )
+        ax.errorbar(
+            Teffs[sel], Prots[sel], #xerr=Teff_errs,
+            yerr=Prot_errs[sel],
+            marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='k',
+            markersize=1, zorder=5
+        )
+
     # only one reported period
-    sel = (N_reported_periods == 1)
+    sel = np.ones(len(df)).astype(bool)
+    c = 'k'
+    if 'deprecated' in sampleid:
+        c = 'lightgray'
+        sel = N_reported_periods == 1
     ax.errorbar(
         Teffs[sel], Prots[sel], #xerr=Teff_errs,
         yerr=Prot_errs[sel],
-        marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='lightgray',
+        marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color=c,
         markersize=1, zorder=4
     )
 
@@ -190,8 +203,14 @@ def plot_mean_prot_teff(outdir, sampleid):
     ax.set_xlabel("Effective Temperature [K]")
     ax.set_ylabel("Rotation Period [days]")
     ax.set_xlim([ 6300, 3700 ])
+    ax.set_ylim([ -1, 48 ])
 
-    outpath = os.path.join(outdir, f'koi_mean_prot_teff.png')
+    s = ''
+    if drop_grazing:
+        s += "dropgrazing"
+    else:
+        s += "keepgrazing"
+    outpath = os.path.join(outdir, f'koi_mean_prot_teff_{sampleid}_{s}.png')
     savefig(fig, outpath)
 
 

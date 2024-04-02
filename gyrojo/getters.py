@@ -1,9 +1,9 @@
 """
 Getters:
+    | get_kicstar_data
     | get_gyro_data
     | get_li_data
     | get_age_results
-    | get_kicstar_data
     | get_cleaned_gaiadr3_X_kepler_dataframe
     | get_koi_data
 """
@@ -21,49 +21,90 @@ from gyrointerp.helpers import prepend_colstr, left_merge
 from gyrojo.paths import LOCALDIR, DATADIR, RESULTSDIR, TABLEDIR
 
 
-def get_gyro_data(sampleid):
+def get_gyro_data(sampleid, koisampleid='cumulative-KOI', drop_grazing=1):
     """
-    sampleid (str): in ['all', 'sel_2s']
+    Args:
+        sampleid (str): the dataframe of either stars or planets to return.
+        Specified as:
+
+            "Santos19_Santos21_dquality": stars from KIC, x Santos19 and Santos21,
+            with gyro ages calculated.  "flag_is_gyro_applicable" has been
+            calculated.
+
+            "koi_X_S19S21dquality": planets, as above.
+
+        koisampleid (str): if you're getting planets, which slice of the KOI
+        tables do you want?  "cumulative-KOI" or "DR25-KOI".
+
+        drop_grazing (bool): whether you want "flag_is_ok_planetcand" to drop
+        grazing planets, or not.  The "flag_koi_is_grazing" will be true no
+        matter what.
     """
 
-    msg = (
-        'get_gyro_data is deprecated; call should pull from '
-        'field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
-        'and then xmatch the koi table'
-    )
-    raise AssertionError(msg)
+    assert sampleid in [
+        'Santos19_Santos21_dquality',
+        'koi_X_S19S21dquality',
+        'deprecated_all',
+        'deprecated_sel_2s'
+    ]
 
-    # 864 rows: step0, +requiring consisting rotation period measurements
-    csvpath = join(
-        RESULTSDIR, "koi_gyro_posteriors_20230110",
-        "step0_koi_gyro_ages_X_GDR3_B20_S19_S21_M14_M15.csv"
-    )
+    if sampleid in ['Santos19_Santos21_dquality', 'koi_X_S19S21dquality']:
+        # made by construct_field_star_gyro_quality_flags.py driver
+        csvpath = join(
+            TABLEDIR,
+            'field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
+        )
+        fdf = pd.read_csv(
+            csvpath, dtype={
+                'dr3_source_id':str, 'KIC':str, 'kepid':str
+            }
+        )
 
-    # merge against the sel_2s sample.
-    # NOTE TODO: might want to just check the entire sample once this is fully
-    # automated.  but for now, this is where the good science is at.
-    kdf = pd.read_csv(csvpath)
-    if sampleid == 'all':
-        pass
-    elif sampleid == 'sel_2s':
-        sel_2s = kdf['median'] + kdf['+2sigma'] < 1000
-        kdf = kdf[sel_2s]
+        if sampleid == 'Santos19_Santos21_dquality':
+            # return dataframe of stars only
+            return fdf
 
-    Prots = kdf['mean_period']
-    from gyrojo.prot_uncertainties import get_empirical_prot_uncertainties
-    Prot_errs = get_empirical_prot_uncertainties(np.array(Prots))
+        else:
+            assert sampleid == 'koi_X_S19S21dquality'
 
-    kdf['Prot_err'] = Prot_errs
+        df, paramdict, st_ages = get_age_results(
+            whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=drop_grazing
+        )
+        return df
 
-    # manual hard drop.
-    bad = (
-        (kdf.kepler_name == 'Kepler-1563 b') # Teff=5873, Prot=46.4 days. >5sigma outlier.
-        |
-        (kdf.kepler_name == 'Kepler-1676 b') # Teff=6165, Prot=32.4 days. >5sigma outlier.
-    )
-    kdf = kdf[~bad]
 
-    # yields 862 planets, for 638 stars.
+    if sampleid in ['deprecated_all', 'deprecated_sel_2s']:
+        # 864 rows: step0, +requiring consisting rotation period measurements
+        csvpath = join(
+            RESULTSDIR, "koi_gyro_posteriors_20230110",
+            "step0_koi_gyro_ages_X_GDR3_B20_S19_S21_M14_M15.csv"
+        )
+
+        # merge against the sel_2s sample.
+        # NOTE TODO: might want to just check the entire sample once this is fully
+        # automated.  but for now, this is where the good science is at.
+        kdf = pd.read_csv(csvpath)
+        if sampleid == 'deprecated_all':
+            pass
+        elif sampleid == 'deprecated_sel_2s':
+            sel_2s = kdf['median'] + kdf['+2sigma'] < 1000
+            kdf = kdf[sel_2s]
+
+        Prots = kdf['mean_period']
+        from gyrojo.prot_uncertainties import get_empirical_prot_uncertainties
+        Prot_errs = get_empirical_prot_uncertainties(np.array(Prots))
+
+        kdf['Prot_err'] = Prot_errs
+
+        # manual hard drop.
+        bad = (
+            (kdf.kepler_name == 'Kepler-1563 b') # Teff=5873, Prot=46.4 days. >5sigma outlier.
+            |
+            (kdf.kepler_name == 'Kepler-1676 b') # Teff=6165, Prot=32.4 days. >5sigma outlier.
+        )
+        kdf = kdf[~bad]
+
+        # yields 862 planets, for 638 stars.
 
     return kdf
 
@@ -159,7 +200,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1):
 
     elif whichtype == 'gyro':
 
-        kic_df = get_kicstar_data('Santos19_Santos21_dquality')
+        kic_df = get_gyro_data('Santos19_Santos21_dquality')
         skic_df = kic_df[kic_df['flag_is_gyro_applicable']]
         skic_df['KIC'] = skic_df['KIC'].astype(str)
 
