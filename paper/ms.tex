@@ -49,10 +49,10 @@
 %%%%%%%%%
 % STARS %
 %%%%%%%%%
+\input{vals_manuscript}
+
 % number of stars monitored by Kepler (quoting Santos19/21)
 \newcommand{\nkeplerstars}{$\approx$160{,}000}
-% fraction of kepler stars w/ rotation periods
-\newcommand{\nstarswithprot}{{$\sim$50{,}000}}
 % fraction of stars with rotation periods, with teff/logg in Berger+20
 \newcommand{\fracstarswithprotwithbtwenty}{{$\sim$94\%}}
 % complement of above
@@ -415,7 +415,7 @@ discussed in Section~\ref{sec:selection}.
 We summarize the origin of stellar parameters other than the ages in
 Section~\ref{sec:stellarprops}, 
 and describe and validate our age-dating methods in
-Section~\ref{sec:agemethod}.
+Sections~\ref{sec:rotage} and~\ref{sec:liage}.
 The population-level trends for both the parent stellar sample and
 the planet sample are discussed in Section~\ref{sec:results}.
 A few conclusions are offered in Section~\ref{sec:conclusions}.
@@ -440,35 +440,32 @@ have measured rotation periods ($\mathcal{P}$;
 Section~\ref{subsec:planetsel}).
 
 
-\subsection{Kepler stars with rotation periods}
+\subsection{Rotation periods}
 \label{subsec:starsel}
 
-We select stars with rotation periods as determined by previous
-investigators.  Studies of stellar rotation across the entire Kepler field
-include those by \citet{McQuillan_2014} (\citetalias{McQuillan_2014}),
-\citet{Reinhold_2015},
+We select stars with rotation periods that have been measured by
+previous investigators.  Studies of stellar rotation across the entire
+Kepler field include those by \citet{McQuillan_2014}
+(\citetalias{McQuillan_2014}), \citet{Reinhold_2015},
 \citet{Santos_2019} (\citetalias{Santos_2019}), and
 \citet{Santos_2021} (\citetalias{Santos_2021}).
-\citetalias{McQuillan_2014} used an approach
-based on the autocorrelation function to detect 34{,}030 rotation
-periods for main-sequence Kepler targets cooler than 6500\,K, and excluded
-known eclipsing binaries and KOIs.  
-\citet{Reinhold_2015} used an iterative Lomb-Scargle based approach to
-analyze $\approx$40{,}000 stars with a variability range $R_{\rm
-	var}>0.3$\% that were not known EBs, planet candidates, or
-  pulsators;
-they reported primary rotation periods for 24{,}124 of these stars.
-\citet{Reinhold_2015} also reported secondary periods for two thirds
-of the stars with primary periods, which could be caused by
-differential rotation or finite spot lifetimes.  
-Finally,
-\citetalias{Santos_2019} and
+\citetalias{McQuillan_2014} used an approach based on the
+autocorrelation function to detect 34{,}030 rotation periods for
+main-sequence Kepler targets cooler than 6500\,K, and excluded known
+eclipsing binaries and KOIs.  \citet{Reinhold_2015} used an iterative
+Lomb-Scargle based approach to analyze $\approx$40{,}000 stars with a
+variability range $R_{\rm var}>0.3$\% that were not known EBs, planet
+candidates, or pulsators; they reported primary rotation periods for
+24{,}124 of these stars.  \citet{Reinhold_2015} also reported
+secondary periods for two thirds of the stars with primary periods,
+which could be caused by differential rotation or finite spot
+lifetimes.  Finally, \citetalias{Santos_2019} and
 \citetalias{Santos_2021} combined a wavelet analysis and
 autocorrelation-based approach, and cumulatively reported rotation
 periods for 55{,}232 main-sequence and subgiant FGKM stars.
 \citetalias{Santos_2019} and \citetalias{Santos_2021} included known
-KOIs and binaries, and assigned them specific quality flags.  
-The rotation periods of KOIs have received considerable additional
+KOIs and binaries, and assigned them specific quality flags.  The
+rotation periods of KOIs have received considerable additional
 scrutiny
 \citep[e.g.][]{Walkowicz_2013,Mazeh_2015,Angus_2018,David_2021}.
 
@@ -489,15 +486,15 @@ these reported detections are more challenging than those from
 amplitude, or a longer rotation period.  A relevant flag for stars
 missing \citetalias{McQuillan_2014} periods is included in
 Table~\ref{tab:stars}.
+%TODO is it?
 We verified that the main conclusions of our analysis do not change if
 we were to adopt only the periods from \citetalias{McQuillan_2014}.
+%TODO have you?
 
 Concatenating the results of \citetalias{Santos_2019} and
-\citetalias{Santos_2021} yields \nstarswithprot\ Kepler stars with
+\citetalias{Santos_2021} yields \nuniqstarsantosrot\ Kepler stars with
 rotation periods.
 
-
-%FIXME
 
 \subsection{Kepler objects of interest}
 \label{subsec:planetsel}
@@ -511,9 +508,8 @@ human-based vetting \footnote{See
 \url{https://exoplanetarchive.ipac.caltech.edu/docs/PurposeOfKOITable.html}}.
 For the main body of this work, we will refer to the former
 homogeneous sample, which includes \nkois\ KOIs, \nkoisnofp\ that are
-not known false positives;
-Appendix~\ref{app:cumulativekoi} highlights some additional young
-planets that are omitted in this approach.
+not known false positives; Appendix~\ref{app:cumulativekoi} highlights
+some additional young planets that are omitted in this approach.
 
 Crossmatching the Q1-Q17 DR25 KOI table against our stars with
 rotation periods yields \nkoiswithprot\ KOIs with rotation periods, of which \nkoisnofpwithprot\ 
@@ -578,8 +574,8 @@ the MIST isochrone grids
 and 2MASS $K_{\rm s}$ photometry, the Gaia DR2 parallaxes, and
 $V$-band extinction from the \citet{2018MNRAS.478..651G} reddening
 map.  The resulting stellar parameters are available for
-\fracstarswithprotwithbtwenty\ of the \nstarswithprot\ Kepler stars
-with rotation periods.
+\fracstarswithprotwithbtwenty\ of the \nuniqstarsantosrot\ Kepler
+stars with rotation periods.
 
 %For the remaining \fracstarswithprotwithoutbtwenty\ of stars that lack
 %temperatures and surface gravities, we adopt the values 
@@ -619,12 +615,11 @@ isochronal fit.
 % TODO: add that plot showing differences btwn the two teff scales?
 
 
-\section{Age Measurement}
-\label{sec:agemethod}
+\section{Ages From Rotation}
+\label{sec:rotage}
 
-\subsection{Gyrochrone ages}
-To calculate gyrochrone ages, we use \texttt{gyro-interp}
-\citep{Bouma_2023}.  This framework was built to statistically address
+We calculate gyrochrone ages using \texttt{gyro-interp}
+\citep{Bouma_2023}.  We built this statistical framework to address
 the issue that, especially over the first gigayear of stellar
 spin-down, stars with the same mass and same rotation period can have
 very different ages \citep[e.g.][]{Curtis_2019_ngc6811}.  The
@@ -632,15 +627,14 @@ gyrochrone age posterior should therefore incorporate this intrinsic
 population-level scatter into the precision with which the age can be
 measured.  The three main assumptions behind the \texttt{gyro-interp}
 framework are as follows.  {\it 1)} The stars are on the main
-sequence, {\it 2)} they do not have any binary companions,
-and {\it 3)} the rotation period distribution
-for field stars of a given mass and age is identical to that of
-the calibration open clusters (metallicity differences, for instance, are
-ignored).  
-Regarding the former two assumptions:
-pre-main-sequence and post-main-sequence evolution introduce
-variations in the stellar angular momentum budget.  Similarly, tidal
-effects might systematically spin up (or down) stars in binaries.
+sequence, {\it 2)} their spindown is not influenced by binary
+companions, and {\it 3)} the rotation period distribution for field
+stars of a given mass and age is identical to that of the calibration
+open clusters (metallicity differences, for instance, are ignored).  
+Regarding the former two assumptions: pre-main-sequence and
+post-main-sequence evolution introduce variations in the stellar
+angular momentum budget.  Similarly, tidal effects might
+systematically spin up (or down) stars in binaries.
 
 Using our adopted effective temperatures and rotation periods, we ran 
 \texttt{gyro-interp} over an age grid of 0 to 5\,Gyr, linearly spaced
@@ -651,45 +645,14 @@ We used the spin-down law between the reference open clusters by
 interpolating using piecewise cubic hermite interpolating polynomials,
 and integrated Equation~1 of \citep{Bouma_2023} at the default grid
 resolution.
-This yielded age posterior probabilities over our requested age grid
-for \nkepstarswithages\ Kepler stars, and \nkoisnofpwithages\
-non-false-positive KOIs.
 
-
-\subsection{Lithium ages}
-To measure the lithium equivalent widths for the \nkoiswithhires\ KOIs
-with HIRES spectra, we use the procedure described by
-\citet{Bouma_2021}.
-The stars of interest for this work are FGK stars, and so the
-continuum in the vicinity of the
-\ion{Li}{1} 6708\,\AA\ feature is well-defined.
-We therefore numerically integrate a single best-fit Gaussian over a
-local window, and estimate the uncertainties on the line width through
-a Monte Carlo procedure that bootstraps against the local scatter in the
-continuum.
-Generally speaking, this approach does not correct for the neighboring
-\ion{Fe}{1} 6707.44\,\AA\ blend.
-
-To evaluate the accuracy and precision of this approach, after
-applying an initial iteration of this method on the \nkoiswithhires\
-KOIs with HIRES spectra, we compared our lithium equivalent widths
-with those reported by \citet{Berger_2018}.
-For the \nbergeroverlap\ stars in both samples, 
-we found {\bf X, Y, Z.}
-
-To calculate lithium ages, we then use EAGLES \citep{Jeffries_2023}.
-{\bf TODO: explain why}
-%TODO: explain why.
-
-
-
-\subsection{Quality flags}
-In our core gyrochrone analysis, we calculate gyrochrone age
-posteriors for all the stars with reported rotation periods and
-effective temperatures.  To select the stars for which we expect the
-gyrochronal age to be valid, we then build a set of quality flags, and
-apply them in the sub-analyses that follow.  We defined these filters
-as follows, each of which is included in Tables~\ref{tab:stars}
+\subsection{Star Filters}
+We calculated gyrochrone age posteriors for all \nuniqstarsantosrot\
+stars with reported rotation periods and effective temperatures.  To
+select the subset stars for which we expect these age to in fact be
+valid, we then build a set of filters and quality flags, and apply
+them in the sub-analyses that follow.  We defined these filters as
+follows, each of which is included in Tables~\ref{tab:stars}
 and~\ref{tab:planets}.
 
 {\it Subgiants}---We flagged stars as possible subgiants if they had
@@ -742,6 +705,80 @@ amplitude cuts you might want to apply to the rotation period catalog}
 %filters with our own flag for possible binarity yields our sample of
 %benchmark rotators.
 
+\subsection{Planet Filters}
+For the subset of our analysis that focuses on the properties of
+planets, we use the following additional filters.
+
+% see Erik's 2022 discussion; might want to shift to include a cut on
+% disposition score.
+{\it Candidate reliability}---no false positives; only ``planet
+candidates'' and ``confirmed planets''.
+
+{\it Candidate S/N}---the false positive rate increases greatly toward
+Kepler's noise floor for planet detection (CITE).  We required a S/N
+in excess of the usual floor, through a cut on the ``multiple event
+statistic'' (MES): we required ${\rm MES}$$>$10.
+
+{\it Grazing planets}---grazing objects ($b$>0.8) often provide
+non-robust planetary sizes due to the size-impact parameter
+degeneracy.  Particularly for large planets, they can also include
+astrophysical false positives at higher rates (due to the same
+degeneracy).  While we include a flag for such objects, we by default
+do not exclude them from our analysis; this is because...{\bf justify}.
+
+\subsection{Tally}
+
+The rotation periods for the stellar and planetary samples are shown
+in Figure~\ref{fig:prot_vs_teff}.
+Out of the \nkeplerstars\ stars observed by Kepler, requiring reported
+rotation periods yielded \nuniqstarsantosrotgyroappl.  Further
+requiring these rotating stars to be apparently single, near the main
+sequence, with $\log g$$>$4.2, RUWE$<$1.4, 3800$<$$T_{\rm
+eff}$/K$<$6200, and not flagged as eclipsing binaries yielded
+\nuniqstarsantosrotgyroappl\ rotators amenable for gyrochronology.
+
+In the planet sample, the cumulative KOI table included
+\nnonfpcumkois\ confirmed and candidate planets, orbiting
+\nnonfpcumkoihosts\ stars.  Applying all the same stellar cuts, and
+requiring these confirmed and candidate planets to have MES$>$10,
+yields \nplwgyroage\ planets with rotation-based ages orbiting
+\nplhoststarwgyroage\ stars.  If we additionally require the planets
+to be non-grazing ($b<0.8$) based on the Markov Chain Monte Carlo
+(MCMC) fits from \citet{Thompson_2018}, we are left with
+\nplwgyroagenograzing\ and \nplhoststarwgyroagenograzing\ planets and
+stars, respectively.
+
+
+
+
+\section{Ages From Lithium}
+\label{sec:liage}
+
+To measure the lithium equivalent widths for the \nkoiswithhires\ KOIs
+with HIRES spectra, we use the procedure described by
+\citet{Bouma_2021}.
+The stars of interest for this work are FGK stars, and so the
+continuum in the vicinity of the
+\ion{Li}{1} 6708\,\AA\ feature is well-defined.
+We therefore numerically integrate a single best-fit Gaussian over a
+local window, and estimate the uncertainties on the line width through
+a Monte Carlo procedure that bootstraps against the local scatter in the
+continuum.
+Generally speaking, this approach does not correct for the neighboring
+\ion{Fe}{1} 6707.44\,\AA\ blend.
+
+To evaluate the accuracy and precision of this approach, after
+applying an initial iteration of this method on the \nkoiswithhires\
+KOIs with HIRES spectra, we compared our lithium equivalent widths
+with those reported by \citet{Berger_2018}.
+For the \nbergeroverlap\ stars in both samples, 
+we found {\bf X, Y, Z.}
+
+To calculate lithium ages, we then use EAGLES \citep{Jeffries_2023}.
+{\bf TODO: explain why}
+%TODO: explain why.
+
+
 
 
 
@@ -762,22 +799,22 @@ amplitude cuts you might want to apply to the rotation period catalog}
 	\vspace{-0.5cm}
 	\caption{
     {\bf Rotation periods for Kepler stars (left) and planets (right)}.
-    The periods are from \citet{Santos_2019}
-    (\citetalias{Santos_2019}) and \citet{Santos_2021}
-    (\citetalias{Santos_2021}), and the temperatures are primarily
-    from \citet{Berger_2020a_catalog}.
-    The gray models are fits from \citet{Bouma_2023} to open clusters;
-    stars of the same mass and age can have many possible rotation
-    periods, which sets the empirical precision limit of
-    rotation-based age dating.
+    The periods are from \citet{Santos_2019} and \citet{Santos_2021}
+    (\citetalias{Santos_2019} and \citetalias{Santos_2021}), and the
+    temperatures are primarily from \citet{Berger_2020a_catalog}.  The
+    gray lines are ``mean fits'' from \citet{Bouma_2023} to the slow
+    rotation sequences of open clusters.
     The stellar sample shows only apparently single stars near the
     main sequence with $\log g$$>$4.2, RUWE$<$1.4, 3800$<$$T_{\rm
-    eff}$$<$6200, that are not flagged as eclipsing binaries.
-    The planet sample has the same stellar cuts, 
-    and shows confirmed and candidate planets from the cumulative KOI table, 
-    requiring them to have a MES$>$10.
-    Grazing objects ($b$>0.8) include 213 of the planet candidates
-    displayed, and 136 of the host stars.
+    eff}$/K$<$6200, that are not flagged as eclipsing binaries.  The
+    planet sample has the same stellar cuts, and shows confirmed and
+    candidate planets from the cumulative KOI table, requiring them to
+    have a MES$>$10.
+    % koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.png
+    % minus
+    % koi_mean_prot_teff_koi_X_S19S21dquality_dropgrazing.png
+    %Grazing objects ($b$>0.8) include 213 of the planet candidates
+    %displayed, and 136 of the host stars.
 	}
 	\label{fig:prot_vs_teff}
 \end{figure*}
