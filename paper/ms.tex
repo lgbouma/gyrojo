@@ -753,20 +753,31 @@ amplitude cuts you might want to apply to the rotation period catalog}
 \begin{figure*}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.8\textwidth]{prot_teff_Santos19_Santos21_clean0.pdf}
+			\includegraphics[width=0.5\textwidth]{prot_teff_Santos19_Santos21_clean0.pdf}
 		}
-		\vspace{-0.62cm}
 		\subfloat{
-			\includegraphics[width=0.66\textwidth]{koi_mean_prot_teff.pdf}
+			\includegraphics[width=0.5\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
 	\caption{
     {\bf Rotation periods for Kepler stars (left) and planets (right)}.
-    These periods are from \citet{Santos_2019}
+    The periods are from \citet{Santos_2019}
     (\citetalias{Santos_2019}) and \citet{Santos_2021}
-    (\citetalias{Santos_2021}).
-    The gray models... %TODO FIXME
+    (\citetalias{Santos_2021}), and the temperatures are primarily
+    from \citet{Berger_2020a_catalog}.
+    The gray models are fits from \citet{Bouma_2023} to open clusters;
+    stars of the same mass and age can have many possible rotation
+    periods, which sets the empirical precision limit of
+    rotation-based age dating.
+    The stellar sample shows only apparently single stars near the
+    main sequence with $\log g$$>$4.2, RUWE$<$1.4, 3800$<$$T_{\rm
+    eff}$$<$6200, that are not flagged as eclipsing binaries.
+    The planet sample has the same stellar cuts, 
+    and shows confirmed and candidate planets from the cumulative KOI table, 
+    requiring them to have a MES$>$10.
+    Grazing objects ($b$>0.8) include 213 of the planet candidates
+    displayed, and 136 of the host stars.
 	}
 	\label{fig:prot_vs_teff}
 \end{figure*}
