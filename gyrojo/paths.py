@@ -16,6 +16,8 @@ TABLEDIR = join(RESULTSDIR, 'tables')
 
 CACHEDIR = join(os.path.expanduser('~'), '.gyrojo_cache')
 
+PAPERDIR = join(os.path.dirname(__path__[0]), 'paper')
+
 for l in [DATADIR, CACHEDIR, RESULTSDIR, TABLEDIR]:
     if not os.path.exists(l):
         print(f"Making {l}")
