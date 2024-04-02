@@ -1,6 +1,6 @@
 Contents
 _0_ Run the field star gyro analysis
-_1_ Run the KOI gyrochronology analysis
+_1_ (Deprecated) Run the KOI gyrochronology analysis
 _2_ Run the KOI lithium analysis
 _3_ Multiply the gyro and lithium age posteriors, an entirely statistically unjustified procedure
 _4_ Build everything needed for the manuscript
@@ -24,10 +24,10 @@ _0_ Run the field star gyro analysis:
 --------------------
 _1_ Run the KOI gyrochronology analysis
 
-  (NOTE: this is deprecated after the field star gyro analysis approach. 
-  However the "fully inclusive" aspect of this alternative approach, which includes
-  M14/M15 knowledge, might be beneficial.  Sph>500 as a cut is also kind of
-  reasonable.)
+  (NOTE: this is deprecated after the field star gyro analysis approach.
+  However the "fully inclusive" aspect of this initial implementation, which
+  included M14/M15 knowledge, might be beneficial.  Sph>500 as a cut is also kind
+  of reasonable.)
 
   1. `build_koi_table.py`:
 
