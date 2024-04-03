@@ -50,6 +50,42 @@ ulkvp('nplwgyroage', N)
 N = len(np.unique(df.kepid_x))
 ulkvp('nplhoststarwgyroage', N)
 
+# Number of planets with a gyro age, including grazing cases, below 1Gyr
+sel = (df.gyro_median > 0) & (df.gyro_median <= 1000)
+N = len(df[sel])
+ulkvp('nplyounggyro', N)
+N = len(np.unique(df[sel].kepid_x))
+ulkvp('nplhostsyounggyro', N)
+
+# Number of planets with a gyro age, including grazing cases, 1-2 Gyr
+sel = (df.gyro_median > 1000) & (df.gyro_median <= 2000)
+N = len(df[sel])
+ulkvp('nplmidgyro', N)
+N = len(np.unique(df[sel].kepid_x))
+ulkvp('nplhostsmidgyro', N)
+
+# Number of planets with a gyro age, including grazing cases, 2-3 Gyr
+sel = (df.gyro_median > 2000) & (df.gyro_median <= 3000)
+N = len(df[sel])
+ulkvp('nploldgyro', N)
+N = len(np.unique(df[sel].kepid_x))
+ulkvp('nplhostsoldgyro', N)
+
+# Number of planets with a gyro age, including grazing cases, below 1Gyr at 2sigma
+sel = (df['gyro_median'] + df['gyro_+2sigma']  <= 1000)
+N = len(df[sel])
+ulkvp('nplyounggyrotwosigma', N)
+N = len(np.unique(df[sel].kepid_x))
+ulkvp('nplhostsyounggyrotwosigma', N)
+
+# Number of planets with a gyro age, including grazing cases, below 1Gyr at 3sigma
+sel = (df['gyro_median'] + df['gyro_+3sigma']  <= 1000)
+N = len(df[sel])
+ulkvp('nplyounggyrothreesigma', N)
+N = len(np.unique(df[sel].kepid_x))
+ulkvp('nplhostsyounggyrothreesigma', N)
+
+# ... now drop grazing cases
 df, _, _ = get_age_results(whichtype='gyro', drop_grazing=1)
 
 # Number of planets with a gyro age, dropping grazing cases
