@@ -1245,6 +1245,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
         (mdf[sel_gyro_ok].age > 2000) & (mdf[sel_gyro_ok].age <= 3000)
     ])/10
     ulkvp('ratiombtoybstars', np.round(n_mb/n_yb, 1))
+    ulkvp('ratiombtoybstars', np.round(n_mb/n_yb, 1))
     ulkvp('ratioobtoybstars', np.round(n_ob/n_yb, 1))
     ##########################################
 

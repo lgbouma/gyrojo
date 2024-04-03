@@ -213,17 +213,19 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1):
 
         df = skoi_df.merge(skic_df, how='inner', left_on='kepid', right_on='KIC')
 
-        df['gyro_median'] = df['median']
-        df['gyro_+1sigma'] = df['+1sigma']
-        df['gyro_-1sigma'] = df['-1sigma']
-        df['gyro_+1sigmapct'] = df['+1sigmapct']
-        df['gyro_-1sigmapct'] = df['-1sigmapct']
+        for N in [1,2,3]:
+            df['gyro_median'] = df['median']
+            df[f'gyro_+{N}sigma'] = df[f'+{N}sigma']
+            df[f'gyro_-{N}sigma'] = df[f'-{N}sigma']
+            if N == 1:
+                df[f'gyro_+{N}sigmapct'] = df[f'+{N}sigmapct']
+                df[f'gyro_-{N}sigmapct'] = df[f'-{N}sigmapct']
+                df[f'adopted_age_+{N}sigmapct'] = df[f'gyro_+{N}sigmapct']
+                df[f'adopted_age_-{N}sigmapct'] = df[f'gyro_-{N}sigmapct']
 
-        df['adopted_age_median'] = df['gyro_median']
-        df['adopted_age_+1sigma'] = df['gyro_+1sigma']
-        df['adopted_age_-1sigma'] = df['gyro_-1sigma']
-        df['adopted_age_+1sigmapct'] = df['gyro_+1sigmapct']
-        df['adopted_age_-1sigmapct'] = df['gyro_-1sigmapct']
+            df['adopted_age_median'] = df['gyro_median']
+            df[f'adopted_age_+{N}sigma'] = df[f'gyro_+{N}sigma']
+            df[f'adopted_age_-{N}sigma'] = df[f'gyro_-{N}sigma']
 
         sel = df['median'] + df['+2sigma'] < 1000
         N_lt1gyr = len(df[sel])
