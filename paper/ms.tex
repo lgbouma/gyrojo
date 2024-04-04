@@ -880,7 +880,11 @@ gyro}$$<$1\,Gyr at 2$\sigma$ confidence yields
 \nplyounggyrotwosigma\ planets orbiting \nplhostsyounggyrotwosigma\
 stars.
 
-\subsection{Sanity Checks}
+\subsection{Young Planets}
+
+
+
+
 To date, four stellar clusters in the Kepler field have yielded planet
 detections.
 They are:...
@@ -977,6 +981,32 @@ All authors assisted in manuscript revision.
     scipy \citep{scipy},
 }
 
+\startlongtable
+\begin{deluxetable}{lllrrrr}
+	%\tabletypesize{\footnotesize}
+	\tabletypesize{\scriptsize}
+	\tablecaption{Young planets and planet candidates.
+		%The non-truncated machine readable versions are accessible both
+		%through the online journal, and at
+		%\url{https://zenodo.org/record/8327508}.
+		\label{tab:youngplanets}}
+	%\toprule
+	%\midrule
+	%\endhead
+	\startdata
+	KOI & Kepler & $t_{\rm gyro}$ & $R_{\rm p}$ & $P$ & $f_{\rm RUWE}$ & $f_{\rm grazing}$ \\
+	-- &   -- & Myr &    Earths &    days &      bool &   bool  \\
+	\hline
+	\input{table_subgyr_confirmed} %\\
+	%\hline
+	\input{table_subgyr_candidate}
+	\enddata
+	\tablecomments{This table includes X, Y, Z... The machine-readable version,
+		available online, includes additional columns for .... 
+	}
+\end{deluxetable}
+%\endlongtable
+
 %\clearpage
 
 \bibliographystyle{aasjournal}
@@ -985,6 +1015,7 @@ All authors assisted in manuscript revision.
 %\appendix
 %\section{Can you avoid appendices?}
 %\label{app:interp}
+
 
 \clearpage
 \listofchanges
