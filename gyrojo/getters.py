@@ -162,7 +162,8 @@ def get_li_data(sampleid):
 
 
 
-def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1):
+def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
+                    drop_highruwe=1):
     """
     Get age results for the planet hosts.
 
@@ -201,7 +202,28 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1):
     elif whichtype == 'gyro':
 
         kic_df = get_gyro_data('Santos19_Santos21_dquality')
-        skic_df = kic_df[kic_df['flag_is_gyro_applicable']]
+        if drop_highruwe:
+            skic_df = kic_df[kic_df['flag_is_gyro_applicable']]
+        else:
+            kic_df['flag_is_gyro_applicable'] = (
+                (~kic_df['flag_logg'])
+                #&
+                #(~df['flag_ruwe_outlier'])
+                &
+                (~kic_df['flag_dr3_non_single_star'])
+                &
+                (~kic_df['flag_camd_outlier'])
+                #&
+                #(df['flag_not_CP_CB'])
+                &
+                (~kic_df['flag_in_KEBC'])
+                &
+                (kic_df['adopted_Teff'] > 3800)
+                &
+                (kic_df['adopted_Teff'] < 6200)
+            )
+            skic_df = kic_df[kic_df['flag_is_gyro_applicable']]
+
         skic_df['KIC'] = skic_df['KIC'].astype(str)
 
         # parent sample age distribution
@@ -209,6 +231,8 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1):
 
         koi_df = get_koi_data('cumulative-KOI', drop_grazing=drop_grazing)
         koi_df['kepid'] = koi_df['kepid'].astype(str)
+        #import IPython; IPython.embed()
+        #assert 0
         skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
 
         df = skoi_df.merge(skic_df, how='inner', left_on='kepid', right_on='KIC')
