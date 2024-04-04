@@ -614,7 +614,7 @@ def plot_rp_vs_age(outdir, xscale='linear', elinewidth=0.1, shortylim=0,
 def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
 
     # get data
-    _df, d, st_ages = get_age_results(whichtype='gyro')
+    _df, d, st_ages = get_age_results(whichtype='gyro', drop_grazing=0)
     df = pd.DataFrame(d)
 
     # >33% radii
@@ -623,8 +623,8 @@ def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
     #sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
     # >20% radii
     sel = (df['rp']/df['rp_err1'] > 5) & (df['rp']/df['rp_err2'] > 5)
-    #AGE_MAX = 10**9.5 #(3.2 gyr)
-    AGE_MAX = 2e9
+    AGE_MAX = 10**9.5 #(3.2 gyr)
+    #AGE_MAX = 3e9
 
     sel &= df['age'] < AGE_MAX
     if teffcondition == 'allteff':
@@ -652,11 +652,17 @@ def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
         #(np.nanpercentile(st_ages, 100/2), AGE_MAX),
         # triple
         (0, 1e9),
-        (1e9, 2e9)
-        #(2e9, 3e9),
+        (1e9, 2e9),
+        (2e9, 3e9),
         #(0, 667e6),
         #(667e6, 1333e6),
         #(1333e6, 2000e6)
+        #
+        ## logbinning...
+        #(0, 10**8.75),
+        #(10**8.75, 10**9),
+        #(10**9, 10**9.25),
+        #(10**9.25, 10**9.5),
         #(0, np.nanpercentile(st_ages, 100/3)),
         #(np.nanpercentile(st_ages, 100/3), np.nanpercentile(st_ages, 2*100/3)),
         #(np.nanpercentile(st_ages, 2*100/3), AGE_MAX),
@@ -722,7 +728,7 @@ def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
         except ZeroDivisionError:
             θ = np.nan
 
-        DO_KEYNOTE_LABEL = 1
+        DO_KEYNOTE_LABEL = 0
         if teffcondition == 'teffgt5000':
             tstr = ', Teff $\geq$ 5000 K'
         elif teffcondition == 'tefflt5000':
@@ -1294,11 +1300,12 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     })
     axs[1].update({
         'xlabel': 'Gyro Age [Gyr]',
+        'ylabel': f'Fraction',
         'xlim': [xmin/1e3, (xmax-20)/1e3],
         'ylim': [0, 0.065],
         'title': 'KOI host stars'
     })
-    axs[1].set_yticklabels([])
+    #axs[1].set_yticklabels([])
 
     # AESTHETIC HAD WEIRD ISSUES...
     # Hide the right and top spines

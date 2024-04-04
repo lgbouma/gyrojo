@@ -387,6 +387,9 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1):
     paramdict['pl_name'] = nparr(a_pl_name)
     paramdict['mes'] = nparr(mes)
 
+    df['adopted_rp'] = a_rp
+    df['adopted_period'] = a_period
+
     return df, paramdict, st_ages
 
 
