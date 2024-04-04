@@ -90,8 +90,9 @@ Plots:
 * `plot_star_Prot_Teff.py`
 * `plot_koi_mean_prot_teff.py`
 
-Values:
+Values / tables:
 * `get_values_for_manuscript.py`
+* `make_younghighlight_table.py`
 
 todo's:
 * `plot_rp_vs_age.py`
