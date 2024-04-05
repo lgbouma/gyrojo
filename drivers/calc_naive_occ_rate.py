@@ -8,6 +8,15 @@ from gyrojo.getters import (
 )
 from gyrojo.paths import TABLEDIR
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
+from scipy.stats import gamma
+
+def completeness_correction(snr):
+
+    k = 17.56  # shape parameter
+    theta = 0.49  # scale parameter (θ)
+    l = 1  # location parameter is not directly used in gammacdf but can adjust the input
+
+    return gamma.cdf(snr, k, scale=theta, loc=l)
 
 def get_star_and_planet_dataframes():
     # stars
@@ -33,6 +42,14 @@ def get_star_and_planet_dataframes():
         (nparr(df['koi_srad'])*u.Rsun)
     ).cgs.value
 
+    # calculate completeness correction
+    # TODO: warning: this is a sketchy hack.  the MES != the SNR as defined by
+    # Fulton et al... but for a zeroth order pass, this is OK.
+    snr = nparr(df.koi_max_mult_ev)
+    df['w_det'] = (
+        1/completeness_correction(snr)
+    )
+
     return sdf, df
 
 def calc_simple_bin_occ():
@@ -41,8 +58,10 @@ def calc_simple_bin_occ():
 
     # define bins
     age_binedges = [0,1000,2000,3000]
-    rp_binedges = [0,1.8,6]
-    period_binedges = [0.01,10,1000]
+    rp_binedges = [0,1.8,4]
+    period_binedges = [0.1,10,100]
+    #rp_binedges = [0,1.8,6]
+    #period_binedges = [0.01,10,1000]
 
     age_bins = [
         (lo, hi) for lo,hi in zip(age_binedges[:-1], age_binedges[1:])
@@ -86,7 +105,7 @@ def calc_simple_bin_occ():
 
                 NPPS = N_pl / N_st
 
-                wNPPS = np.sum(df[sel_pl].w_geom) / N_st
+                wNPPS = np.sum(df[sel_pl].w_geom * df[sel_pl].w_det) / N_st
                 binkey = f'wNPPS_Rp{rlo}to{rhi}_P{plo}to{phi}'
                 occdict[agekey][binkey] = np.round(wNPPS, 2)
 
