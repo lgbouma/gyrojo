@@ -52,7 +52,7 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI', drop_grazing=1):
         # made by construct_field_star_gyro_quality_flags.py driver
         csvpath = join(
             TABLEDIR,
-            'field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
+            'field_gyro_posteriors_20240405_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
         )
         fdf = pd.read_csv(
             csvpath, dtype={
@@ -231,8 +231,6 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
 
         koi_df = get_koi_data('cumulative-KOI', drop_grazing=drop_grazing)
         koi_df['kepid'] = koi_df['kepid'].astype(str)
-        #import IPython; IPython.embed()
-        #assert 0
         skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
 
         df = skoi_df.merge(skic_df, how='inner', left_on='kepid', right_on='KIC')
@@ -477,13 +475,13 @@ def get_kicstar_data(sampleid):
     assert sampleid in ['Santos19_Santos21_all', 'Santos19_Santos21_clean0',
                         'Santos19_Santos21_logg', 'Santos19_Santos21_dquality']
 
-    csvpath = join(DATADIR, 'interim', 'S19_S21_merged_X_GDR3_X_B20.csv')
+    csvpath = join(DATADIR, 'interim', 'S19_S21_KOIbonus_merged_X_GDR3_X_B20.csv')
 
     if sampleid == 'Santos19_Santos21_dquality':
         # made by construct_field_star_gyro_quality_flags.py driver
         csvpath = join(
             TABLEDIR,
-            'field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
+            'field_gyro_posteriors_20240405_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
         )
         return pd.read_csv(
             csvpath, dtype={
@@ -536,6 +534,24 @@ def get_kicstar_data(sampleid):
         ]
 
         _df = pd.concat((s19_df[selcols], s21_df[selcols]))
+        _df['KIC'] = _df.KIC.astype(str)
+
+        # Add the "KOI supplement list"
+        _csvpath = join(
+            DATADIR, "literature", "Santos_privcomm_KOIs_Porb_Prot.csv"
+        )
+        bonusdf = pd.read_csv(_csvpath, dtype={'KIC':str})
+        bonusdf = bonusdf[~bonusdf.KIC.isin(_df.KIC)]
+        _selcols = "KIC,Prot".split(",")
+        bonusdf = bonusdf[_selcols]
+        for c in selcols:
+            if c not in bonusdf:
+                bonusdf[c] = np.nan
+        bonusdf['Provenance'] = 'SantosPrivComm'
+
+        _df = pd.concat((
+            s19_df[selcols], s21_df[selcols], bonusdf[selcols])
+        )
 
         # Berger+2020: Gaia-Kepler stellar properties catalog.
         _v = Vizier(columns=["**"])
