@@ -44,3 +44,4 @@ paper/ms.pdf
 paper/f*.pdf
 paper/*.pdf
 movies*
+tests/*test*png
