@@ -22,7 +22,7 @@ def calc_field_gyro_posteriors():
     # update these #
     ################
     sampleid = 'Santos19_Santos21_all'
-    cache_id = "field_gyro_posteriors_20230529"
+    cache_id = "field_gyro_posteriors_20240405"
     ################
 
     df = get_kicstar_data(sampleid)
