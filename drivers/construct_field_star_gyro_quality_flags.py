@@ -20,8 +20,11 @@ from os.path import join
 from glob import glob
 from gyrojo.paths import DATADIR, RESULTSDIR, LOCALDIR, TABLEDIR
 
-csvpath = join(RESULTSDIR, "field_gyro_posteriors_20230529",
-               "field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv")
+datestr = '20230529'
+datestr = '20240405'
+
+csvpath = join(RESULTSDIR, f"field_gyro_posteriors_{datestr}",
+               f"field_gyro_posteriors_{datestr}_gyro_ages_X_GDR3_S19_S21_B20.csv")
 
 df = pd.read_csv(
     csvpath, dtype={'dr3_source_id':str, 'KIC':str, 'kepid':str }
@@ -71,7 +74,8 @@ df['flag_in_KEBC'] = (
 ###################################################
 from cdips.utils.gaiaqueries import given_source_ids_get_gaia_data
 source_ids = np.array(df.dr3_source_id).astype(np.int64)
-groupname = 'field_gyro_20230529'
+assert pd.isnull(source_ids).sum() == 0
+groupname = f'field_gyro_{datestr}'
 
 gdf = given_source_ids_get_gaia_data(
     source_ids, groupname, n_max=int(6e4), overwrite=False,
@@ -94,7 +98,7 @@ df['flag_dr3_non_single_star'] = (df.dr3_non_single_star > 0)
 from cdips.utils.gaiaqueries import given_source_ids_get_neighbor_counts
 dGmag = 2.5
 sep_arcsec = 4
-runid = 'field_gyro_20230529_neighbors'
+runid = f'field_gyro_{datestr}_neighbors'
 n_max = 60000
 count_df, ndf = given_source_ids_get_neighbor_counts(
     source_ids, dGmag, sep_arcsec, runid, n_max=n_max, overwrite=False,
@@ -110,11 +114,12 @@ df['flag_nbhr_count'] = df['nbhr_count'] >= 1
 
 #TODO: need CAMD flag constructed via Green19 map
 # this is a hacky selection in M_G vs (BP-RP), no extinction.  made in
-# "session_20230529_phot_single_selection_and_other_fun_subsets.glu"
+# "session_{datestr}_phot_single_selection_and_other_fun_subsets.glu"
+# and 20240405 is just a copy of 20230529
 manual_path = join(
     RESULTSDIR,
     "glue_interactive_viz",
-    "field_gyro_posteriors_20230529_GDR3_S19_S21_B20_phot_single.csv"
+    f"field_gyro_posteriors_{datestr}_GDR3_S19_S21_B20_phot_single.csv"
 )
 manual_phot_single_df = pd.read_csv(manual_path, dtype={'KIC':str})
 
@@ -146,7 +151,7 @@ df['flag_is_gyro_applicable'] = (
 
 outcsv = join(
     TABLEDIR,
-    "field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv"
+    f"field_gyro_posteriors_{datestr}_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv"
 )
 
 df.to_csv(outcsv, index=False)
