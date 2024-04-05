@@ -9,11 +9,11 @@ The mean Teff error is 92 K.
 """
 import os
 from gyrojo.paths import DATADIR, RESULTSDIR
-from gyrojo.plotting import plot_mean_prot_teff
+from gyrojo.plotting import plot_koi_mean_prot_teff
 
 outdir = os.path.join(RESULTSDIR, 'koi_mean_prot_teff')
 if not os.path.exists(outdir): os.mkdir(outdir)
 
-plot_mean_prot_teff(outdir, 'koi_X_S19S21dquality', drop_grazing=1)
-plot_mean_prot_teff(outdir, 'koi_X_S19S21dquality', drop_grazing=0)
-plot_mean_prot_teff(outdir, 'deprecated_all')
+plot_koi_mean_prot_teff(outdir, 'koi_X_S19S21dquality', drop_grazing=1)
+plot_koi_mean_prot_teff(outdir, 'koi_X_S19S21dquality', drop_grazing=0)
+plot_koi_mean_prot_teff(outdir, 'deprecated_all')

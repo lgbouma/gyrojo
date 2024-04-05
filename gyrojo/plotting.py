@@ -2,7 +2,7 @@
 Catch-all file for plotting scripts.  Contents:
 
     plot_li_vs_teff
-    plot_mean_prot_teff
+    plot_koi_mean_prot_teff
     plot_star_Prot_Teff
     plot_reinhold_2015
 
@@ -118,7 +118,7 @@ def get_planet_class_labels(df, OFFSET=0):
 ############
 # plotters #
 ############
-def plot_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality', drop_grazing=1):
+def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality', drop_grazing=1):
     # For KOIs
 
     df = get_gyro_data(sampleid, drop_grazing=drop_grazing)

@@ -1,6 +1,6 @@
 import os
 from os.path import join
-import numpy as np, pandas as pd
+import numpy as np, pandas as pd, matplotlib.pyplot as plt
 from gyrojo.getters import (
     get_gyro_data, get_age_results, get_koi_data
 )

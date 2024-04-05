@@ -45,3 +45,4 @@ paper/f*.pdf
 paper/*.pdf
 movies*
 tests/*test*png
+gyrojo/data/interim/S19_S21_KOIbonus_merged_X_GDR3_X_B20.csv

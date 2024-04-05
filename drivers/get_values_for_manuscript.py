@@ -1,7 +1,10 @@
+import os
+from os.path import join
 import numpy as np, pandas as pd
 from gyrojo.getters import (
     get_gyro_data, get_age_results, get_koi_data
 )
+from gyrojo.paths import DATADIR
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 
 ##########################################
