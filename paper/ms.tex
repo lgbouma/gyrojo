@@ -475,25 +475,41 @@ We choose to adopt the results of \citetalias{Santos_2019} and
 \citetalias{McQuillan_2014}; the brief summary is that the periods
 agree for 99.0\% of the 31{,}038 period detections in common between
 the two studies.  \citetalias{Santos_2021} classified the 2{,}992
-remaining stars from \citetalias{McQuillan_2014} as ``non-periodic''
-based on updated knowledge of contaminants (e.g.~giant stars and
-eclipsing binaries) and visual inspection.  In addition,
+remaining stars from \citetalias{McQuillan_2014} as not showing
+rotation periods based on updated knowledge of contaminants
+(e.g.~giant stars and eclipsing binaries) and visual inspection.
+In addition,
 \citetalias{Santos_2021} report rotation periods for 24{,}182
 main-sequence and subgiant FGKM stars that were not reported as
-periodic by \citetalias{McQuillan_2014}.  Our speculation is that
-these reported detections are more challenging than those from
-\citetalias{McQuillan_2014}, perhaps due to a lower variability
-amplitude, or a longer rotation period.  A relevant flag for stars
+periodic by \citetalias{McQuillan_2014}.  Many of
+these reported detections have lower variability amplitudes, and
+longer periods, than those reported by
+\citetalias{McQuillan_2014}.  A relevant flag for stars
 missing \citetalias{McQuillan_2014} periods is included in
-Table~\ref{tab:stars}.
-%TODO is it?
-We verified that the main conclusions of our analysis do not change if
-we were to adopt only the periods from \citetalias{McQuillan_2014}.
-%TODO have you?
+Table~\ref{tab:stars}.  Reviewing the resulting period detections, we
+learned that 32 KOIs with orbital and rotation periods within
+$\approx$20\% were excluded from the \citetalias{Santos_2019} and
+\citetalias{Santos_2021} catalogs (A.~Santos, priv.~comm.) ; we choose
+to include these objects.\footnote{In general, excluding stars in this
+category would impose a bias against young close-in planets, due to
+the natural commensurability between the rotation rates of young
+stars, and Kepler's increased sensitivity to short-period objects.
+While some of these KOIs are known false positives, our analysis
+naturally excludes such objects at later steps.  As one motivating
+example, this subset of stars happens to include {\it
+e.g.}~Kepler~1643 (KIC~8653134), with $P_{\rm orb}$=5.34\,days and
+$P_{\rm rot}$=5.05\,days, which is known to be $\approx$40\,Myr old
+based on membership in RSG-5 \citep{Bouma_2022}.  }
+The final tally of stars from \citetalias{Santos_2019},
+\citetalias{Santos_2021}, and our corrected KOI list is
+\nuniqstarsantosrot\ Kepler stars with rotation periods.
 
-Concatenating the results of \citetalias{Santos_2019} and
-\citetalias{Santos_2021} yields \nuniqstarsantosrot\ Kepler stars with
-rotation periods.
+%  %TODO is it?
+%  We verified that the main conclusions of our analysis do not change if
+%  we were to adopt only the periods from \citetalias{McQuillan_2014}.
+%  %TODO have you?
+
+
 
 
 \subsection{Kepler objects of interest}
@@ -829,7 +845,7 @@ To calculate lithium ages, we then use EAGLES \citep{Jeffries_2023}.
 \begin{figure*}[!t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.9\textwidth]{hist_samples_koi_gyro_ages_hist_field_gyro_ages_20230529_maxage3200.pdf}
+		\includegraphics[width=0.9\textwidth]{hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240405_maxage3200.pdf}
 	\end{center}
 	\vspace{-0.6cm}
 	\caption{
@@ -981,6 +997,8 @@ All authors assisted in manuscript revision.
     scipy \citep{scipy},
 }
 
+\clearpage 
+
 \startlongtable
 \begin{deluxetable}{lllrrrr}
 	%\tabletypesize{\footnotesize}
@@ -994,7 +1012,7 @@ All authors assisted in manuscript revision.
 	%\midrule
 	%\endhead
 	\startdata
-	KOI & Kepler & $t_{\rm gyro}$ & $R_{\rm p}$ & $P$ & $f_{\rm RUWE}$ & $f_{\rm grazing}$ \\
+	KOI & Kepler & $t_{\rm gyro}$ & $R_{\rm p}$ & $P_{\rm orb}$ & $f_{\rm RUWE}$ & $f_{\rm grazing}$ \\
 	-- &   -- & Myr &    Earths &    days &      bool &   bool  \\
 	\hline
 	\input{table_subgyr_confirmed} %\\
@@ -1007,7 +1025,7 @@ All authors assisted in manuscript revision.
 \end{deluxetable}
 %\endlongtable
 
-%\clearpage
+\clearpage
 
 \bibliographystyle{aasjournal}
 \bibliography{bibliography}
