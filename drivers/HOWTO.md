@@ -9,10 +9,12 @@ _4_ Build everything needed for the manuscript
 _0_ Run the field star gyro analysis:
 
 1. `calc_field_gyro_posteriors.py`
+  20230529: had S19+S21 well-defined.
+  20240405: added "bonus KOIs", including Kepler1643 (and symlinked rest of 20230529)
 
 2. `plot_field_gyro_posteriors.py`
 
-  Makes `field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv`
+  Makes `field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv`, or equivalent.
 
 3. `construct_field_star_gyro_quality_flags.py`
 
