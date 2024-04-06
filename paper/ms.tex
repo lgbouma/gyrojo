@@ -806,12 +806,31 @@ stars, respectively.
 \section{Ages From Lithium}
 \label{sec:liage}
 
+\begin{figure}[!t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.49\textwidth]{li_vs_teff_eagles_showdispersion.pdf}
+	\end{center}
+	\vspace{-0.6cm}
+	\caption{
+    {\bf Equivalent widths (EW) of the \ion{Li}{1} 6708\,\AA\ doublet
+    from Keck/HIRES spectra collected between 2010 and 2024.}
+    Lines represent mean models derived from Gaia-ESO spectra of stars
+    in clusters of various ages; the intrinsic dispersion 
+    evolves in time, and is modelled as the $\pm$1$\sigma$
+    bands~\citep{Jeffries_2023}.
+    As for rotation-based ages, the intrisic dispersion sets the
+    empirical precision limit for the technique.
+		\label{fig:li_vs_teff}
+	}
+\end{figure}
+
 To measure the lithium equivalent widths for the \nkoiswithhires\ KOIs
 with HIRES spectra, we use the procedure described by
 \citet{Bouma_2021}.
 The stars of interest for this work are FGK stars, and so the
 continuum in the vicinity of the
-\ion{Li}{1} 6708\,\AA\ feature is well-defined.
+\ion{Li}{1} 6708\,\AA\ doublet is well-defined.
 We therefore numerically integrate a single best-fit Gaussian over a
 local window, and estimate the uncertainties on the line width through
 a Monte Carlo procedure that bootstraps against the local scatter in the

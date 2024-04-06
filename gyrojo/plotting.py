@@ -1,10 +1,11 @@
 """
 Catch-all file for plotting scripts.  Contents:
 
-    plot_li_vs_teff
     plot_koi_mean_prot_teff
     plot_star_Prot_Teff
     plot_reinhold_2015
+
+    plot_li_vs_teff
 
     plot_koi_gyro_posteriors
     plot_li_gyro_posteriors
@@ -29,7 +30,7 @@ Helpers:
         _plot_slow_sequence_residual
         _plot_prot_vs_teff_residual
 """
-import os
+import os, sys
 from os.path import join
 from glob import glob
 from datetime import datetime
@@ -322,7 +323,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
     savefig(fig, outpath)
 
 
-def plot_li_vs_teff(outdir, yscale=None):
+def plot_li_vs_teff(outdir, yscale=None, limodel='eagles', show_dispersion=0):
 
     df = get_li_data('all')
 
@@ -342,51 +343,86 @@ def plot_li_vs_teff(outdir, yscale=None):
     det = ~upperlim
     li_ew_upper_lims = li_ew_perr[upperlim]
 
-    # baffles
-    from baffles.readData import read_lithium
-    bv_m, upper_lim, fits = read_lithium()
+    if limodel == 'baffles':
 
-    # Pleiades, m34, Hyades, M67
-    inds = nparr([4, 6, 8, 9])
-    ages = [120, 240, 670, 4000]
+        # baffles
+        from baffles.readData import read_lithium
+        bv_m, upper_lim, fits = read_lithium()
 
-    from baffles.li_constants import BV
-    li_models = [10**fits[ix][0](BV) for ix in inds]
-    li_pleiades = li_models[0]
-    li_m34 = li_models[1]
-    li_hyades = li_models[2]
-    li_m67 = li_models[3]
-    li_hyades[li_hyades > li_m34] = li_m34[li_hyades > li_m34]
-    li_m67[li_m67 > li_hyades] = li_hyades[li_m67 > li_hyades]
+        # Pleiades, m34, Hyades, M67
+        inds = nparr([4, 6, 8, 9])
+        ages = [120, 240, 670, 4000]
 
-    from cdips.utils.mamajek import get_interp_Teff_from_BmV
-    Teff_model = get_interp_Teff_from_BmV(nparr(BV))
+        from baffles.li_constants import BV
+        li_models = [10**fits[ix][0](BV) for ix in inds]
+        li_pleiades = li_models[0]
+        li_m34 = li_models[1]
+        li_hyades = li_models[2]
+        li_m67 = li_models[3]
+        li_hyades[li_hyades > li_m34] = li_m34[li_hyades > li_m34]
+        li_m67[li_m67 > li_hyades] = li_hyades[li_m67 > li_hyades]
 
-    # smooth pleiades model
-    from scipy.interpolate import make_interp_spline, BSpline
-    _inds = np.argsort(Teff_model)
-    spl = make_interp_spline(
-        Teff_model[_inds][::50], li_pleiades[_inds][::50], k=3
-    )
-    li_pleiades = spl(Teff_model)
+        from cdips.utils.mamajek import get_interp_Teff_from_BmV
+        Teff_model = get_interp_Teff_from_BmV(nparr(BV))
 
-    li_models = [li_pleiades, li_m34, li_hyades, li_m67]
+        # smooth pleiades model
+        from scipy.interpolate import make_interp_spline, BSpline
+        _inds = np.argsort(Teff_model)
+        spl = make_interp_spline(
+            Teff_model[_inds][::50], li_pleiades[_inds][::50], k=3
+        )
+        li_pleiades = spl(Teff_model)
+
+        li_models = [li_pleiades, li_m34, li_hyades, li_m67]
+
+    elif limodel == 'eagles':
+        #
+        # ported from eagles/eagles_iso.py
+        #
+        sys.path.append('/Users/luke/Dropbox/proj/eagles')
+
+        # import the EWLi prediction model from the main EAGLES code
+        from eagles import AT2EWm
+        from eagles import eAT2EWm
+
+        # set up a an equally spaced set of log temperatures between 3000 and 6500 K
+        tstep = 0.002
+        Teff_model = np.arange(3.4772, 3.8130, tstep)
+
+        if not show_dispersion:
+            ages = [120, 300, 670, 1000, 4000]
+        else:
+            ages = [120, 670, 4000]
+        lAges = [np.log10(t)+6 for t in ages]  # log age in years
+
+        li_models = []
+        li_model_dispersion = []
+        for lAge in lAges:
+            ewm = AT2EWm(Teff_model, lAge)
+            eewm = eAT2EWm(Teff_model, lAge)
+            li_models.append(ewm)
+            li_model_dispersion.append(eewm)
+        Teff_model = 10**Teff_model
 
     set_style("clean")
     fig, ax = plt.subplots(figsize=(4,3))
 
-    # TODO: get models
-    #model_ids = ['120-Myr', 'Praesepe', 'NGC-6811', '2.6-Gyr', 'M67']
-
-    #_Teff = np.linspace(3800, 6200, int(1e3))
     linestyles = ['solid', 'dotted', 'dashed', 'dashdot', 'solid']
-    for li_model, ls, age in zip(li_models, linestyles, ages):
+    for ix, (li_model, ls, age) in enumerate(zip(li_models, linestyles, ages)):
         color = 'k'
         agestr = f'{age/1e3:.2f} Gyr'
         ax.plot(
             Teff_model, li_model, color=color, linewidth=1, zorder=10,
             alpha=0.4, ls=ls, label=agestr
         )
+
+        if show_dispersion :
+            ax.fill_between(
+                Teff_model,
+                li_model-li_model_dispersion[ix],
+                li_model+li_model_dispersion[ix],
+                alpha=0.3
+            )
 
     print(f"Mean Teff error is {np.nanmean(Teff_errs):.1f} K")
 
@@ -426,10 +462,14 @@ def plot_li_vs_teff(outdir, yscale=None):
         ax.set_ylim([1, 300])
 
     ax.set_xlim([ 6300, 3700 ])
+    ax.set_ylim([ -5, 270 ])
 
     s = ''
+    s += f"_{limodel}"
     if yscale == 'log':
         s += "_logy"
+    if show_dispersion:
+        s += "_showdispersion"
 
     outpath = os.path.join(outdir, f'li_vs_teff{s}.png')
     savefig(fig, outpath)
