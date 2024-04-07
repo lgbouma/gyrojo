@@ -9,8 +9,8 @@ import numpy as np, matplotlib.pyplot as plt, pandas as pd
 import os, pickle
 from os.path import join
 
-from agetools.paths import DATADIR, LOCALDIR, RESULTSDIR
-from agetools.getters import get_gyro_data
+from gyrojo.paths import DATADIR, LOCALDIR, RESULTSDIR
+from gyrojo.getters import get_gyro_data
 
 def prepare_koi_jump_getter(sampleid):
 
@@ -27,11 +27,14 @@ def prepare_koi_jump_getter(sampleid):
     jdf = pd.read_csv(csvpath)
     jdf = jdf.drop_duplicates(subset='name', keep='first')
 
-    kdf = get_gyro_data(sampleid)
+    # let "grazing" and highRUWE cases be ok for nominal Li analysis
+    kdf = get_gyro_data(sampleid, drop_grazing=0, drop_highruwe=0)
+    assert len(kdf) == len(kdf.flag_is_gyro_applicable)
+    assert len(kdf) == len(kdf.flag_is_ok_planetcand)
 
-    N_gyrostars = len(np.unique(kdf.kepid))
+    N_gyrostars = len(np.unique(kdf.KIC))
     N_gyroplanets = len(kdf)
-    print(f"N_gyrostars: {N_gyrostars}")
+    print(f"N_gyrostars (incl grazing & high RUWE): {N_gyrostars}")
     print(f"N_gyroplanets: {N_gyroplanets}")
 
     # search for matches based on kepid and kepoi_name
@@ -40,7 +43,7 @@ def prepare_koi_jump_getter(sampleid):
     verbose = 0
     for _, r in kdf.iterrows():
 
-        kepid = r['kepid']
+        kepid = r['KIC']
         kepoi_name = r['kepoi_name']
         abbrev_kepoi_name = kepoi_name.split(".")[0]
         if verbose:
@@ -94,6 +97,12 @@ def prepare_koi_jump_getter(sampleid):
     print(f"N_lithiumstars: {N_lithiumstars}")
     print(f"N_lithiumplanets: {N_lithiumplanets}")
 
+    from gyrojo.papertools import update_latex_key_value_pair as ulkvp
+    ulkvp('nlithiumstars', N_lithiumstars)
+    ulkvp('nlithiumplanets', N_lithiumplanets)
+    ulkvp('nlithiumgyrostars', N_gyrostars)
+    ulkvp('nlithiumgyroplanets', N_gyroplanets)
+
     mjdf = _jdf.merge(kdf, how='left', on='kepoi_name', suffixes=("_JUMP",""))
     assert len(mjdf) == len(_jdf)
 
@@ -101,7 +110,7 @@ def prepare_koi_jump_getter(sampleid):
     mjdf.to_csv(outpath, index=False)
     print(f"Wrote {outpath}")
 
-    outdir = join(LOCALDIR, "young-KOIs_HIRES_lithium")
+    outdir = join(LOCALDIR, "gyrojo_HIRES_lithium")
     if not os.path.exists(outdir): os.mkdir(outdir)
 
     # make the scp script to pull all the lithium data available for the entire
@@ -111,7 +120,7 @@ def prepare_koi_jump_getter(sampleid):
         l = f"scp luke@cadence:{fname} {outdir}/. \n"
         lines.append(l)
 
-    if sampleid == 'all':
+    if sampleid == 'koi_X_S19S21dquality':
         bash_script = "scp_HIRES_lithium_data.sh"
         with open(bash_script, "w") as f:
             f.writelines(lines)
@@ -120,6 +129,6 @@ def prepare_koi_jump_getter(sampleid):
 
 
 if __name__ == "__main__":
-    prepare_koi_jump_getter('all')
-    prepare_koi_jump_getter('sel_2s')
-
+    prepare_koi_jump_getter('koi_X_S19S21dquality')
+    #prepare_koi_jump_getter('deprecated_all')
+    #prepare_koi_jump_getter('deprecated_sel_2s')
