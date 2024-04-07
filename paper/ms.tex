@@ -328,7 +328,7 @@ convincing---or even suggestive--- detection reported (see
 very young planets ({\it (c)}) has been noted by multiple authors
 \citep[e.g.][]{2017AJ....153...64M,Bouma_2020}, its presence is almost certainly
 exacerbated by a selection effect against sub-Neptune sized planet
-detection at $<$100\,Myr \citep{Zhou_2021,Bouma_2022}.  Recent studies have
+detection at $<$100\,Myr \citep{Zhou_2021,Bouma_2022b}.  Recent studies have
 nonetheless found that when accounting for completeness, there is
 $\approx$3$\sigma$ evidence that hot mini-Neptunes are more prevalent in
 $\approx$100-500\,Myr old K2 \citep{2023AJ....166..248C} and TESS
@@ -499,7 +499,7 @@ naturally excludes such objects at later steps.  As one motivating
 example, this subset of stars happens to include {\it
 e.g.}~Kepler~1643 (KIC~8653134), with $P_{\rm orb}$=5.34\,days and
 $P_{\rm rot}$=5.05\,days, which is known to be $\approx$40\,Myr old
-based on membership in RSG-5 \citep{Bouma_2022}.  }
+based on membership in RSG-5 \citep{Bouma_2022b}.  }
 The final tally of stars from \citetalias{Santos_2019},
 \citetalias{Santos_2021}, and our corrected KOI list is
 \nuniqstarsantosrot\ Kepler stars with rotation periods.
@@ -668,15 +668,22 @@ temperature dependent scatter that is observed in the cluster
 sequences to yield statistical age uncertainties.
 
 
-\subsection{Star Filters}
-\label{subsec:filters}
+\subsection{Star Quality Flags}
+\label{subsec:flags}
 We calculated gyrochrone age posteriors for all \nuniqstarsantosrot\
 stars with reported rotation periods and effective temperatures.  To
 select the subset stars for which we expect these age to in fact be
-valid, we then build a set of filters and quality flags, and apply
-them in the sub-analyses that follow.  We defined these filters as
-follows, each of which is included in Tables~\ref{tab:stars}
-and~\ref{tab:planets}.
+valid, we then build a set of quality flags.  When and
+how these flags should be applied depends on the question being asked.
+If the goal is to construct a false-positive free sample, they might
+all be applied.
+However if the goal is constructing a complete sample of young stars,
+then consider the examples of Kepler~1627Ab ($\approx$40\,Myr) and
+Kepler~51c ($\approx$625\,Myr).  The former has a high RUWE due to a
+resolved binary companion \citep{Bouma_2022a}; the latter is on a
+grazing orbit \citep{2014ApJ...783...53M}.  
+The flags in Tables~\ref{tab:stars} and~\ref{tab:planets} enable
+selecting for such cases using bitflags.
 
 {\it Subgiants}---We flagged stars as possible subgiants if they had
 $\log g < 4.2$.  We set this threshold by examining the
@@ -717,20 +724,11 @@ directly include this column.
 {\it Final calibration sample}---{\bf todo: mention any extra flags
 from Berger2020, or perhaps in the KOI catalog itself, or perhaps the
 amplitude cuts you might want to apply to the rotation period catalog}
-%The combination of the filters
-%described above yields the set of stars that show no evidence for
-%binarity or crowding.  However, some of the rotation period analyses
-%in Table~\ref{tab:clusters} include additional relevant quality flags.
-%For instance, light curves showing multiple photometric periods can
-%indicate unresolved binarity.  We used all relevant filters available
-%from the original authors if they were designed to select single stars
-%with reliable rotation periods.  The final combination of these
-%filters with our own flag for possible binarity yields our sample of
-%benchmark rotators.
 
-\subsection{Planet Filters}
+
+\subsection{Planet Quality Flags}
 For the subset of our analysis that focuses on the properties of
-planets, we use the following additional filters.
+planets, we use the following additional quality flags.
 
 % see Erik's 2022 discussion; might want to shift to include a cut on
 % disposition score.
@@ -780,25 +778,32 @@ do not exclude them from our analysis; this is because...{\bf justify}.
 The rotation periods for the stellar and planetary samples are shown
 in Figure~\ref{fig:prot_vs_teff}.  Out of the \nkeplerstars\ stars
 observed by Kepler, requiring reported rotation periods yielded
-\nuniqstarsantosrotgyroappl.  Further requiring these rotating stars
+\nuniqstarsantosrot.  Further requiring these rotating stars
 to have temperatures 3800$<$$T_{\rm eff}$/K$<$6200, which is the range
 over which \texttt{gyro-interp} returns finite age posteriors,
 yields \nuniqstarsantosrotteffcut\ stars.
 Further requiring them to be apparently single, near the main
-sequence, with $\log g$$>$4.2, RUWE$<$1.4, and not flagged as
-eclipsing binaries yielded \nuniqstarsantosrotgyroappl\ rotators
-amenable for gyrochronology.
+sequence, with $\log g$$>$4.2, and not flagged as
+eclipsing binaries yielded \nuniqstarsantosallbutruwe\ rotators
+potentially amenable for gyrochronology.
+Finally, imposing RUWE$<$1.4 leaves \nuniqstarsantosrotgyroappl\ stars
+for which gyrochronology is likely to be valid.
+
 
 In the planet sample, the cumulative KOI table included
 \nnonfpcumkois\ confirmed and candidate planets, orbiting
-\nnonfpcumkoihosts\ stars.  Applying all the same stellar cuts, and
-requiring these confirmed and candidate planets to have MES$>$10,
-yields \nplwgyroage\ planets with rotation-based ages orbiting
-\nplhoststarwgyroage\ stars.  If we additionally require the planets
-to be non-grazing ($b<0.8$) based on the Markov Chain Monte Carlo
-(MCMC) fits from \citet{Thompson_2018}, we are left with
-\nplwgyroagenograzing\ and \nplhoststarwgyroagenograzing\ planets and
-stars, respectively.
+\nnonfpcumkoihosts\ stars.  Assume that we apply all the same stellar
+cuts, save for that on RUWE.
+Then,
+require these confirmed and candidate planets to have MES$>$10.
+This combination of selection criteria
+yield \nplwgyroagewithgrazingandhighruwe\ planets with rotation-based
+ages orbiting \nplhoststarwgyroagewithgrazingandhighruwe\ stars
+(\nplhoststarwgyroagejusthighruwe\ of these stars with ``high'' RUWE).
+If we additionally require the planets to be non-grazing ($b<0.8$)
+based on the Markov Chain Monte Carlo (MCMC) fits from
+\citet{Thompson_2018}, we are left with \nplwgyroagenograzing\ and
+\nplhoststarwgyroagenograzing\ planets and stars, respectively.
 
 
 
@@ -814,7 +819,7 @@ stars, respectively.
 	\vspace{-0.6cm}
 	\caption{
     {\bf Equivalent widths (EW) of the \ion{Li}{1} 6708\,\AA\ doublet
-    from Keck/HIRES spectra collected between 2010 and 2024.}
+    from Keck/HIRES spectra collected between 2009 and 2024.}
     Lines represent mean models derived from Gaia-ESO spectra of stars
     in clusters of various ages; the intrinsic dispersion 
     evolves in time, and is modelled as the $\pm$1$\sigma$
@@ -824,6 +829,17 @@ stars, respectively.
 		\label{fig:li_vs_teff}
 	}
 \end{figure}
+
+%TODO: does JUMP mirror all HIRES data from KOA?
+We queried a combination of the Keck Observatory Archive and the
+internal CPS archive to collect all HIRES spectra that were available
+for the \nplhoststarwgyroagewithgrazingandhighruwe\ stars
+with plausible rotation-based ages.
+This exercise yielded at least one spectrum for \nlithiumstars\ and 
+\nlithiumplanets\ planets.
+
+
+Out of the \nplhoststarwgyroagewithgrazingandhighruwe\ stars for w
 
 To measure the lithium equivalent widths for the \nkoiswithhires\ KOIs
 with HIRES spectra, we use the procedure described by
@@ -874,7 +890,7 @@ To calculate lithium ages, we then use EAGLES \citep{Jeffries_2023}.
     stars with reported rotation periods and temperatures is shown in
     light gray;
     the age calculation was actually valid for stars that meet the criteria
-    discussed in Section~\ref{subsec:filters} (dark blue).
+    discussed in Section~\ref{subsec:flags} (dark blue).
 		\label{fig:hist_tgyro}
 	}
 \end{figure*}
