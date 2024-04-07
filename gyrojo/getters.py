@@ -21,7 +21,8 @@ from gyrointerp.helpers import prepend_colstr, left_merge
 from gyrojo.paths import LOCALDIR, DATADIR, RESULTSDIR, TABLEDIR
 
 
-def get_gyro_data(sampleid, koisampleid='cumulative-KOI', drop_grazing=1):
+def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
+                  drop_grazing=1, drop_highruwe=1):
     """
     Args:
         sampleid (str): the dataframe of either stars or planets to return.
@@ -68,7 +69,9 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI', drop_grazing=1):
             assert sampleid == 'koi_X_S19S21dquality'
 
         df, paramdict, st_ages = get_age_results(
-            whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=drop_grazing
+            whichtype='gyro', COMPARE_AGE_UNCS=0,
+            drop_grazing=drop_grazing,
+            drop_highruwe=drop_highruwe
         )
         return df
 
@@ -167,9 +170,9 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
     """
     Get age results for the planet hosts.
 
-    "gyro" results are from Santos19_Santos21_dquality, stars for which gyro is
-    applicable, and planets (currently) from the cumulative-KOI table, which
-    are "OK" planet candidates.
+    "gyro" results are from Santos19_Santos21_dquality, stars for
+    which gyro is applicable, and planets (by default) from the
+    cumulative-KOI table, which are "OK" planet candidates.
 
     "joint" results are currently defunct
     """
@@ -222,6 +225,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
                 &
                 (kic_df['adopted_Teff'] < 6200)
             )
+            # REQUIRE "flag_is_gyro_applicable"
             skic_df = kic_df[kic_df['flag_is_gyro_applicable']]
 
         skic_df['KIC'] = skic_df['KIC'].astype(str)
@@ -231,6 +235,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
 
         koi_df = get_koi_data('cumulative-KOI', drop_grazing=drop_grazing)
         koi_df['kepid'] = koi_df['kepid'].astype(str)
+        # REQUIRE "flag_is_ok_planetcand"
         skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
 
         df = skoi_df.merge(skic_df, how='inner', left_on='kepid', right_on='KIC')
