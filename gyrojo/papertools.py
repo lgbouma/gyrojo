@@ -1,3 +1,8 @@
+"""
+Contents:
+    update_latex_key_value_pair
+    read_latex_key_value_pairs
+"""
 import os, re
 from os.path import join
 from gyrojo.paths import PAPERDIR
@@ -60,3 +65,36 @@ def update_latex_key_value_pair(
 
     with open(latexpath, "w") as file:
         file.writelines(lines)
+
+def read_latex_key_value_pairs(
+    latexpath=join(PAPERDIR, "vals_manuscript.tex")
+):
+    """
+    Args:
+        latexpath (str): The path to the LaTeX file containing the key-value pairs.
+
+    Returns:
+        dict: A dictionary containing the key-value pairs read from the file.
+    """
+
+    key_value_dict = {}
+
+    with open(latexpath, "r") as file:
+        for line in file:
+            match = re.match(r"\\newcommand{\\(\w+)}{(.+)}", line.strip())
+            if match:
+                key = match.group(1)
+                value = match.group(2)
+
+                # Remove comma-padding from the value
+                value = value.replace("{,}", "")
+
+                # Check if the value contains a decimal point
+                if "." in value:
+                    value = float(value)
+                else:
+                    value = int(value)
+
+                key_value_dict[key] = value
+
+    return key_value_dict
