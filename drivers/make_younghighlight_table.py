@@ -5,7 +5,7 @@ from gyrojo.getters import (
     get_gyro_data, get_age_results, get_koi_data
 )
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
-from gyrojo.paths import PAPERDIR
+from gyrojo.paths import PAPERDIR, DATADIR
 
 # ...with age results
 drop_highruwe = 0
@@ -13,16 +13,23 @@ drop_grazing = 0
 _df, _, _ = get_age_results(
     whichtype='gyro', drop_grazing=drop_grazing, drop_highruwe=drop_highruwe
 )
+_ldf = pd.read_csv(join(
+    DATADIR, 'interim', 'koi_jump_getter_koi_X_S19S21dquality.csv'
+))
+_df['KIC'] = _df.KIC.astype(str)
+_ldf['KIC'] = _ldf.KIC.astype(str)
+_df['has_hires'] = _df.KIC.isin(_ldf.KIC)
 
 # ...kepler-52 is <1002myr at 2sigma lol.
-sel = (_df['gyro_median'] + _df['gyro_+2sigma']  <= 1003)
+sel = (_df['gyro_median'] + _df['gyro_+1sigma']  <= 1003)
 N = len(_df[sel])
 
 df = _df[sel]
 
 selcols = (
     "kepoi_name,kepler_name,koi_disposition,gyro_median,"
-    "gyro_+1sigma,gyro_-1sigma,adopted_rp,adopted_period,flag_ruwe_outlier,flag_koi_is_grazing"
+    "gyro_+1sigma,gyro_-1sigma,Prot,adopted_rp,adopted_period,"
+    "flag_ruwe_outlier,flag_koi_is_grazing,has_hires"
 ).split(",")
 pdf = df[selcols].sort_values(
     by=['gyro_median','kepler_name','kepoi_name']
@@ -33,18 +40,32 @@ for c in pdf.columns:
         pdf[c] = pdf[c].astype(int)
     if c == 'adopted_period':
         pdf[c] = np.round(pdf[c], 2)
-    if 'flag' in c:
+    if 'flag' in c or 'has_hires' in c:
         pdf[c] = pdf[c].astype(int)
 
 pcols = (
     "kepoi_name,kepler_name,gyro_median,"
-    "gyro_+1sigma,gyro_-1sigma,adopted_rp,adopted_period,flag_ruwe_outlier,flag_koi_is_grazing"
+    "gyro_+1sigma,gyro_-1sigma,adopted_rp,adopted_period,"
+    "flag_ruwe_outlier,flag_koi_is_grazing,has_hires"
 ).split(",")
+_pcols = (
+    "kepoi_name,kepler_name,gyro_median,"
+    "gyro_+1sigma,gyro_-1sigma,adopted_rp,Prot,adopted_period,"
+    "flag_ruwe_outlier,flag_koi_is_grazing,has_hires"
+).split(",")
+
 
 print(42*'-')
 print(pdf[pdf.koi_disposition == 'CONFIRMED'][pcols])
 print(42*'-')
 print(pdf[pdf.koi_disposition == 'CANDIDATE'][pcols])
+print(42*'~')
+print('\n')
+print(pdf[(pdf.koi_disposition == 'CONFIRMED') & (pdf.has_hires == 0)][_pcols])
+print(10*'-')
+print(pdf[(pdf.koi_disposition == 'CANDIDATE') & (pdf.has_hires == 0)][_pcols])
+print('\n')
+print(42*'~')
 
 # where are kepler 1627 and 1643???
 #
@@ -80,6 +101,7 @@ mapdict = {
     "adopted_period": r"$P$",
     "flag_ruwe_outlier": r"$f_{\rm RUWE}$",
     "flag_koi_is_grazing": r"$f_{\rm grazing}$",
+    "has_hires": r"Spec?",
 }
 rounddict = {
     'adopted_period': 2,
