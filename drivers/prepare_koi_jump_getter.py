@@ -17,10 +17,12 @@ def prepare_koi_jump_getter(sampleid):
     print(20*'-')
     print(f"Preparing sampleid={sampleid}")
 
-    # this CSV is output by `kepler_lithium_sample_getter.sql`
-    # already sorted by name and counts.
+    # this CSV is output by `kepler_lithium_sample_getter.sql` already
+    # sorted by name and counts.  there is no requirement on whether
+    # iodine is in or out b/c it doesn't affect lithium.
     csvpath = join(
-        DATADIR, "raw", "20230113_JUMP_kepler_lithium_sample_getter.csv"
+        DATADIR, "raw",
+        "20240407_JUMP_kepler_lithium_sample_no_iodine_constraint.csv"
     )
 
     # initially grab only the highest count spectra.
