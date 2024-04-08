@@ -37,8 +37,8 @@ WHERE (
   OR
   UPPER(db_star.name) LIKE 'KIC%'
   )
-  AND
-  db_observation_hires_j.iodine_in = False
+--  AND
+--  db_observation_hires_j.iodine_in = False
   AND
   db_observation.isjunk = False
   AND
