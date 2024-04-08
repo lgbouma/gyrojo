@@ -9,7 +9,7 @@ have consistent rotation period measurements.
 import os
 from copy import deepcopy
 from glob import glob
-from agetools.paths import DATADIR, LOCALDIR
+from gyrojo.paths import DATADIR, LOCALDIR
 from os.path import join
 from datetime import datetime
 import pandas as pd, numpy as np
@@ -19,7 +19,7 @@ import pandas as pd, numpy as np
 from cdips_followup.spectools import get_Li_6708_EW
 
 # metadata dataframe, contains the JUMP, Gaia, B20, S19/21, etc information
-sampleid = "all"
+sampleid = "koi_X_S19S21dquality"
 csvpath = join(DATADIR, "interim", f"koi_jump_getter_{sampleid}.csv")
 df = pd.read_csv(csvpath)
 
@@ -29,7 +29,7 @@ for ix, r in df.iterrows():
     idstring = r['name']
 
     filename = os.path.basename(r['filename'])
-    spectrum_path = join(LOCALDIR, "young-KOIs_HIRES_lithium", filename)
+    spectrum_path = join(LOCALDIR, "gyrojo_HIRES_lithium", filename)
     assert os.path.exists(spectrum_path)
 
     # e.g., ij489.70.fits
