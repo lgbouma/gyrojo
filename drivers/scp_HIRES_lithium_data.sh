@@ -69,8 +69,8 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij140.66.fits /Users/luke/local/gyrojo_HIR
 scp luke@cadence:/data/mir3/iodfitsdb/ij140.66.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij140.66.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij140.66.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
-scp luke@cadence:/data/mir3/iodfitsdb/ij119.1139.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
-scp luke@cadence:/data/mir3/iodfitsdb/ij119.1139.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij129.323.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij129.323.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij334.293.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij130.904.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij130.904.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -98,6 +98,7 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij159.690.fits /Users/luke/local/gyrojo_HI
 scp luke@cadence:/data/mir3/iodfitsdb/ij159.690.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij159.690.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij130.2102.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij336.106.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij333.685.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij158.281.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij296.485.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -206,15 +207,16 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij192.289.fits /Users/luke/local/gyrojo_HI
 scp luke@cadence:/data/mir3/iodfitsdb/ij192.289.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij290.680.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij131.507.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
-scp luke@cadence:/data/mir3/iodfitsdb/ij305.376.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij131.1088.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij131.507.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
-scp luke@cadence:/data/mir3/iodfitsdb/ij305.376.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij131.1088.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij179.76.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij179.76.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij179.76.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij122.81.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij190.802.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij125.108.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij128.283.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij194.287.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij194.303.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij201.820.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -229,7 +231,9 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij389.1478.fits /Users/luke/local/gyrojo_H
 scp luke@cadence:/data/mir3/iodfitsdb/ij389.1479.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij152.298.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij192.873.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij521.168.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij192.873.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij521.168.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij156.98.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij131.488.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij156.526.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -294,7 +298,7 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij157.288.fits /Users/luke/local/gyrojo_HI
 scp luke@cadence:/data/mir3/iodfitsdb/ij157.288.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij157.288.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij148.163.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
-scp luke@cadence:/data/mir3/iodfitsdb/ij152.504.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij152.935.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij152.1113.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij290.298.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij292.286.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -318,6 +322,7 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij150.521.fits /Users/luke/local/gyrojo_HI
 scp luke@cadence:/data/mir3/iodfitsdb/ij482.184.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij117.421.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij130.2101.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij98.96.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij183.386.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij152.1112.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij153.324.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -333,9 +338,9 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij204.967.fits /Users/luke/local/gyrojo_HI
 scp luke@cadence:/data/mir3/iodfitsdb/ij204.967.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij131.504.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij131.510.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
-scp luke@cadence:/data/mir3/iodfitsdb/ij341.88.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij336.107.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij131.510.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
-scp luke@cadence:/data/mir3/iodfitsdb/ij341.88.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij336.107.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij153.706.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij305.383.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij292.277.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -347,6 +352,7 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij131.512.fits /Users/luke/local/gyrojo_HI
 scp luke@cadence:/data/mir3/iodfitsdb/ij131.512.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij131.512.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij292.389.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij516.100.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij152.669.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij152.669.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij190.800.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -422,7 +428,7 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij290.484.fits /Users/luke/local/gyrojo_HI
 scp luke@cadence:/data/mir3/iodfitsdb/ij290.484.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij130.2522.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij292.792.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
-scp luke@cadence:/data/mir3/iodfitsdb/ij117.630.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij119.1128.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij158.1191.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij157.688.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij293.286.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -508,6 +514,7 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij128.83.fits /Users/luke/local/gyrojo_HIR
 scp luke@cadence:/data/mir3/iodfitsdb/ij97.1482.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij389.1891.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij127.890.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij97.1493.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij122.741.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij130.1291.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij233.122.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -533,7 +540,7 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij130.896.fits /Users/luke/local/gyrojo_HI
 scp luke@cadence:/data/mir3/iodfitsdb/ij120.928.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij120.1133.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij122.86.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
-scp luke@cadence:/data/mir3/iodfitsdb/ij76.1278.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij179.96.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij294.97.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij172.1090.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij172.1090.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -692,8 +699,8 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij120.1127.fits /Users/luke/local/gyrojo_H
 scp luke@cadence:/data/mir3/iodfitsdb/ij120.1127.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij127.722.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij127.722.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
-scp luke@cadence:/data/mir3/iodfitsdb/ij120.726.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
-scp luke@cadence:/data/mir3/iodfitsdb/ij120.726.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij156.83.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij156.83.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij193.293.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij193.293.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij193.293.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -739,6 +746,7 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij159.284.fits /Users/luke/local/gyrojo_HI
 scp luke@cadence:/data/mir3/iodfitsdb/ij158.697.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij490.478.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij158.1064.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij518.322.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij155.273.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij158.320.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij333.509.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -749,6 +757,7 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij292.377.fits /Users/luke/local/gyrojo_HI
 scp luke@cadence:/data/mir3/iodfitsdb/ij177.100.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij177.100.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij173.997.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij517.71.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij179.487.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij179.912.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij292.383.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
@@ -796,6 +805,7 @@ scp luke@cadence:/data/mir3/iodfitsdb/ij189.1293.fits /Users/luke/local/gyrojo_H
 scp luke@cadence:/data/mir3/iodfitsdb/ij193.1494.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij384.99.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij438.82.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
+scp luke@cadence:/data/mir3/iodfitsdb/ij516.105.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij295.296.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij201.1199.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
 scp luke@cadence:/data/mir3/iodfitsdb/ij333.306.fits /Users/luke/local/gyrojo_HIRES_lithium/. 
