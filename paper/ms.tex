@@ -748,6 +748,7 @@ degeneracy).  While we include a flag for such objects, we by default
 do not exclude them from our analysis; this is because...{\bf justify}.
 
 \subsection{Tally}
+\label{subsec:tally}
 
 \begin{figure*}[!t]
 	\begin{center}
@@ -834,9 +835,18 @@ based on the Markov Chain Monte Carlo (MCMC) fits from
 We queried a combination of the Keck Observatory Archive and the
 internal CPS archive to collect all HIRES spectra that were available
 for the \nplhoststarwgyroagewithgrazingandhighruwe\ stars
-with plausible rotation-based ages.
+described in Section~\ref{subsec:tally} for which it might be possible
+to derive rotation-based ages.
+
+%
+We required the spectra to not have the iodine cell in...
+%TODO ?!?!?!
+%
+
 This exercise yielded at least one spectrum for \nlithiumstars\ and 
 \nlithiumplanets\ planets.
+These observations were acquired between 6 September 2009 and 18
+September 2022.
 
 
 Out of the \nplhoststarwgyroagewithgrazingandhighruwe\ stars for w
@@ -1035,7 +1045,7 @@ All authors assisted in manuscript revision.
 \clearpage 
 
 \startlongtable
-\begin{deluxetable}{lllrrrr}
+\begin{deluxetable}{lllrrrrr}
 	%\tabletypesize{\footnotesize}
 	\tabletypesize{\scriptsize}
 	\tablecaption{Young planets and planet candidates.
@@ -1047,8 +1057,8 @@ All authors assisted in manuscript revision.
 	%\midrule
 	%\endhead
 	\startdata
-	KOI & Kepler & $t_{\rm gyro}$ & $R_{\rm p}$ & $P_{\rm orb}$ & $f_{\rm RUWE}$ & $f_{\rm grazing}$ \\
-	-- &   -- & Myr &    Earths &    days &      bool &   bool  \\
+	KOI & Kepler & $t_{\rm gyro}$ & $R_{\rm p}$ & $P_{\rm orb}$ & $f_{\rm RUWE}$ & $f_{\rm grazing}$ & Spec? \\
+  -- &   -- & Myr &    Earths &    days &      bool &   bool  & bool \\
 	\hline
 	\input{table_subgyr_confirmed} %\\
 	%\hline
