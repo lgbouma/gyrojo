@@ -71,6 +71,8 @@ Run this to then get the HIRES spectra to the local drive.
 
 5. `calc_koi_lithium_posteriors.py`
 
+#TODO FIXME FROM HERE!
+
 Use the lithium equivalent widths, and estimates of B-V colors, to calculate
 the lithium posteriors and cache them to disk.
 
