@@ -12,13 +12,12 @@ from numpy import array as nparr
 
 import baffles.baffles as baffles
 
-from agetools.paths import DATADIR, RESULTSDIR
-from agetools.getters import get_li_data
+from gyrojo.paths import DATADIR, RESULTSDIR
+from gyrojo.getters import get_li_data
 
-def calc_koi_lithium_posteriors():
+def calc_koi_lithium_posteriors(datestr, sampleid, li_method='baffles'):
 
-    datestr = "20230208"
-    sampleid = "all"
+    assert li_method in ['baffles', 'eagles']
 
     mldf = get_li_data(sampleid)
 
@@ -35,7 +34,7 @@ def calc_koi_lithium_posteriors():
 
         # by default, assume we have a detection and that it is gaussian
         upperLim = False
-        li = 1.*li_ew
+        li = 1.*np.round(li_ew, 3)
         li_err = int(np.mean([abs(li_ew_perr), abs(li_ew_merr)]))
 
         CUTOFF = 10 # mA: consider anything less a nondetection
@@ -63,4 +62,12 @@ def calc_koi_lithium_posteriors():
         print(f"{kepoi_name}: done")
 
 if __name__ == "__main__":
-    calc_koi_lithium_posteriors()
+
+    # (deprecated)
+    datestr = "20230208"
+    sampleid = "all"
+
+    datestr = "20240405"
+    sampleid = "koi_X_S19S21dquality"
+
+    calc_koi_lithium_posteriors(datestr, sampleid, li_method='baffles')
