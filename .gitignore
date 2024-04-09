@@ -47,3 +47,5 @@ movies*
 tests/*test*png
 gyrojo/data/interim/S19_S21_KOIbonus_merged_X_GDR3_X_B20.csv
 gyrojo/data/interim/koi_jump_getter_koi_X_S19S21dquality.csv
+gyrojo/data/interim/Li_EW_HIRES_koi_X_S19S21dquality/
+gyrojo/data/raw/20240407_JUMP_kepler_lithium_sample_no_iodine_constraint.csv
