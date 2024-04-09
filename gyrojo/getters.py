@@ -451,7 +451,8 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
 
 def get_kicstar_data(sampleid):
     """
-    Get Kepler field star Prot, Teff, and stellar information.
+    Get Kepler field star Prot, Teff, and stellar information.  (including gyro
+    ages!)
 
     Args:
         sampleid (str):  most common will be "Santos19_Santos21_all", which
@@ -517,11 +518,16 @@ def get_kicstar_data(sampleid):
             TABLEDIR,
             'field_gyro_posteriors_20240405_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
         )
-        return pd.read_csv(
+        df = pd.read_csv(
             csvpath, dtype={
                 'dr3_source_id':str, 'KIC':str, 'kepid':str
             }
         )
+        cols = ['median', 'peak', 'mean', '+1sigma', '-1sigma', '+2sigma',
+                '-2sigma', '+3sigma', '-3sigma', '+1sigmapct', '-1sigmapct']
+        for c in cols:
+            df = df.rename({c: f'gyro_{c}'}, axis='columns')
+        return df
 
     if not os.path.exists(csvpath):
         from astroquery.vizier import Vizier
