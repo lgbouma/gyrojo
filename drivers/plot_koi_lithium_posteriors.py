@@ -1,10 +1,12 @@
 import os
-import agetools.plotting as ap
-from agetools.paths import RESULTSDIR
+import gyrojo.plotting as ap
+from gyrojo.paths import RESULTSDIR
 
-cache_id = "koi_lithium_posteriors_20230208"
+li_method = 'eagles' # or "baffles"
+datestr = "20240405"
+
+cache_id = f"koi_lithium_posteriors_{li_method}_{datestr}"
 
 outdir = os.path.join(RESULTSDIR, cache_id)
-if not os.path.exists(outdir): os.mkdir(outdir)
 
-ap.plot_koi_li_posteriors(outdir, cache_id)
+ap.plot_process_koi_li_posteriors(outdir, cache_id, li_method=li_method)
