@@ -8,6 +8,7 @@ Getters:
     | get_koi_data
 """
 import os
+from copy import deepcopy
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
 from os.path import join
 from glob import glob
@@ -174,10 +175,12 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
     which gyro is applicable, and planets (by default) from the
     cumulative-KOI table, which are "OK" planet candidates.
 
+    "gyro_li" includes both gyro and lithium results, separately.
+
     "joint" results are currently defunct
     """
 
-    assert whichtype in ['joint', 'gyro', 'li']
+    assert whichtype in ['joint', 'gyro', 'li', 'gyro_li']
 
     if whichtype == 'joint':
 
@@ -202,7 +205,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
         df.loc[_sel, 'adopted_age_+1sigma'] = df.loc[_sel, 'gyro_+1sigma']
         df.loc[_sel, 'adopted_age_-1sigma'] = df.loc[_sel, 'gyro_-1sigma']
 
-    elif whichtype == 'gyro':
+    elif 'gyro' in whichtype:
 
         kic_df = get_gyro_data('Santos19_Santos21_dquality')
         if drop_highruwe:
@@ -238,7 +241,8 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
         # REQUIRE "flag_is_ok_planetcand"
         skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
 
-        df = skoi_df.merge(skic_df, how='inner', left_on='kepid', right_on='KIC')
+        df = skoi_df.merge(skic_df, how='inner', left_on='kepid',
+                           right_on='KIC', suffixes=('','_KIC'))
 
         for N in [1,2,3]:
             df['gyro_median'] = df['median']
@@ -258,8 +262,33 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
         N_lt1gyr = len(df[sel])
         print(f'N lt 1gyr: {N_lt1gyr}')
 
-    elif whichtype == 'li':
-        raise NotImplementedError
+    if whichtype == 'gyro_li':
+
+        # made by plot_process_koi_li_posteriors.py
+        li_method = 'eagles'
+        datestr = '20240405'
+        outdir = join(
+            RESULTSDIR, f"koi_lithium_posteriors_{li_method}_{datestr}"
+        )
+        csvpath = join(
+            outdir, f"{li_method}_koi_lithium_ages_X_S19S21_dquality.csv"
+        )
+
+        # here, if eagles, take single lithium ages for all finite cases.
+        li_df = pd.read_csv(csvpath)
+        li_df = li_df.sort_values(by='li_median')
+        li_df['kepid'] = li_df.kepid.astype(str)
+        li_df = li_df.drop_duplicates(subset='kepid', keep='first')
+        df['kepid'] = df.kepid.astype(str)
+        selcols = [
+            c for c in li_df if 'li_' in c or c == 'kepid'
+        ]
+        _df = df.merge(
+            li_df[selcols], how='left', on='kepid'
+        )
+        assert len(_df) == len(df)
+        df = deepcopy(_df)
+
 
     GET_BERGER20_RADII = 0
     GET_PETIGURA22_RADII = 0
