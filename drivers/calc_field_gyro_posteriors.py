@@ -21,7 +21,7 @@ def calc_field_gyro_posteriors():
     ################
     # update these #
     ################
-    sampleid = 'Santos19_Santos21_all'
+    sampleid = 'Santos19_Santos21_all' # i.e. dquality hasn't been computed
     cache_id = "field_gyro_posteriors_20240405"
     ################
 

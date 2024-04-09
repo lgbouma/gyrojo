@@ -74,7 +74,7 @@ ulkvp('nnonfpcumkoihosts', N)
 ##########################################
 # ...with age results
 df, _, _ = get_age_results(
-    whichtype='gyro', drop_grazing=0, drop_highruwe=0
+    whichtype='gyro_li', drop_grazing=0, drop_highruwe=0
 )
 assert pd.isnull(df.gyro_median).sum() == 0
 
