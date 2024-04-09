@@ -27,8 +27,10 @@ N = len(_df[sel])
 df = _df[sel]
 
 selcols = (
-    "kepoi_name,kepler_name,koi_disposition,gyro_median,"
-    "gyro_+1sigma,gyro_-1sigma,Prot,li_median,li_+1sigma,li_-1sigma,"
+    "kepoi_name,kepler_name,koi_disposition,"
+    "adopted_Teff,Prot,li_LiEW,li_eLiEW,"
+    "gyro_median,gyro_+1sigma,gyro_-1sigma,"
+    "li_median,li_+1sigma,li_-1sigma,"
     "adopted_rp,adopted_period,"
     "flag_ruwe_outlier,flag_koi_is_grazing,has_hires"
 ).split(",")
@@ -43,11 +45,11 @@ def cast_to_int_string(value):
         return str(int(value))
 
 for c in pdf.columns:
-    if 'gyro_' in c:
+    if 'gyro_' in c or 'adopted_Teff' in c:
         pdf[c] = pdf[c].astype(int)
     if 'li_' in c:
         pdf[c] = pdf[c].apply(cast_to_int_string)
-    if c == 'adopted_period':
+    if c == 'adopted_period' or c == 'Prot':
         pdf[c] = np.round(pdf[c], 2)
     if 'flag' in c or 'has_hires' in c:
         pdf[c] = pdf[c].astype(int)
@@ -119,16 +121,31 @@ def replace_nan_string(value):
 pdf['t_li'] = pdf['t_li'].apply(replace_nan_string)
 
 
+pdf['Li_EW'] = pdf.apply(
+    lambda row:
+    "$"+
+    f"{row['li_LiEW']}"+
+    "\pm"+
+    f"{row['li_eLiEW']}"+
+    "$",
+    axis=1
+)
+pdf['Li_EW'] = pdf['Li_EW'].apply(replace_nan_string)
+
 
 # Drop the original age columns
 pdf = pdf.drop(
     columns=['gyro_median', 'gyro_+1sigma', 'gyro_-1sigma', 'li_median',
-             'li_+1sigma', 'li_-1sigma']
+             'li_+1sigma', 'li_-1sigma', "li_LiEW", "li_eLiEW"]
 )
 
+# These columns will be written.
 mapdict = {
     'kepoi_name': "KOI",
     "kepler_name": "Kepler",
+    "adopted_Teff": r"$T_{\rm eff}$",
+    "Prot": "Prot",
+    "Li_EW": "Li_EW",
     "t_gyro": r"$t_{\rm gyro}$",
     "t_li": r"$t_{\rm Li}$",
     "adopted_rp": r"$R_{\rm p}$",
@@ -140,6 +157,7 @@ mapdict = {
 rounddict = {
     'adopted_period': 2,
     'adopted_rp': 2,
+    'Prot': 2,
 }
 formatters = {}
 for k,v in rounddict.items():
