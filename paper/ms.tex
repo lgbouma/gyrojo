@@ -861,8 +861,8 @@ continuum.
 Generally speaking, this approach does not correct for the neighboring
 \ion{Fe}{1} 6707.44\,\AA\ blend.
 
-To evaluate the accuracy and precision of this approach, after
-applying an initial iteration of this method on the 
+To evaluate the accuracy and precision of our equivalent measurement
+technique, after applying an initial iteration on the
 \nplhoststarwgyroagewithgrazingandhighruwe\ aforementioned stars,
 we compared our lithium equivalent widths
 with those reported by \citet{Berger_2018}.
@@ -942,79 +942,204 @@ with median ages below 1\,Gyr, requiring $t_{\rm
 gyro}$$<$1\,Gyr at 2$\sigma$ confidence yields
 \nplyounggyrotwosigma\ planets orbiting \nplhostsyounggyrotwosigma\
 stars.
+The stellar and planetary properties of this latter sample of young
+planets are given in Table~\ref{tab:youngplanets}.
 
 
-\subsection{The Sub-Gigayear Sample}
+\subsection{Planets Younger Than One Billion Years}
 
 Given that the history of young exoplanet discovery includes a
 sociological tendency to report detailed descriptions of specific
 young exoplanets, we find it necessary to briefly discuss the
 properties of at least the most notable members of the set of
 confirmed planets that have well-measured ages.
-For this exercise, we follow Table~\ref{tab:youngplanets}.
+We first focus on systems reported to be in the four stellar
+ensembles in the Kepler field that have yielded transiting planets:
+Cep-Her, MELANGE-3, Theia~520, and NGC~6811.
+We then consider the broader set of Kepler planets that are young
+based on the rotational and lithium-based properties of their host
+stars.
 
-\paragraph{The Cep-Her Planets}
-Kepler\,1627Ab, Kepler\,1643b, Kepler\,1974b and Kepler\,1975\,Ab are
+
+\subsubsection{Planets in Clusters}
+\label{subsec:clusterplanets}
+
+\paragraph{Cep-Her}
+Kepler-1627Ab, Kepler-1643b, Kepler-1974b and Kepler-1975\,Ab are
 known members of the $\approx$40\,Myr old Cep-Her association
-\citep{Bouma_2022a,Bouma_2022b}.
-The age of various sub-components of this association are
-best measured through relative isochronal placement of the
-pre-main-sequence \citep[see][]{Bouma_2022b}, and gyrochronology of
-stars in these clusters show them to be $<$100\,Myr old.
-The planets themselves are all on close-in orbits (5-25\,days), with
-sizes from 2-4\,$R_\oplus$.
-For Kepler\,1627A and Kepler\,1974, the rotation and lithium-based
-ages for these stars agree within 1$\sigma$ with the cluster-based
-ages.
-{\bf TODO discuss Kepler-1643 old tension, ditto KOI7913...}
+\citep{Bouma_2022a,Bouma_2022b}.  The age of various sub-components of
+this association are best measured through relative isochronal
+placement of the pre-main-sequence \citep[see][]{Bouma_2022b}, and
+gyrochronology of stars in these clusters show them to be $<$100\,Myr
+old.  The planets themselves are all on close-in orbits (5-25\,days),
+with sizes from 2-4\,$R_\oplus$.  For Kepler-1627A and Kepler-1974,
+the rotation, lithium, and cluster-based ages all agree within
+1$\sigma$.  For Kepler-1643, while the rotation and cluster ages agree
+($46^{+9}_{-7}$\,Myr; \citealt{Bouma_2022b}), the lithium-based age
+($198^{+98}_{-76}$\,Myr) is 2.0$\sigma$ above the nominal cluster age
+for RSG-5.  For Kepler-1975Ab (KOI\,7913Ab), the lithium age may be
+similarly ``old'', though with less confidence due to the large
+intrinsic scatter in K dwarf lithium calibration measurements.  For
+that system, the isochronal age of its binary companion provides a
+more stringent and serendipitous constraint on the $\approx$40\,Myr
+age.
 
-\paragraph{Theia~520 Planets}
+\paragraph{MELANGE-3}
+\citet{2022AJ....164...88B} described an association in the Kepler
+field that was argued to be $105\pm10$\,Myr based on a combination of
+rotation, lithium, and the isochronal pre-main-sequence.  Kepler-970
+and Kepler-1928 harbor two transiting mini-Neptunes inside this
+association \citep{2022AJ....164...88B}.  Our rotation-based
+age-dating independently recovers these systems, with $t_{\rm
+gyro}=176_{-40}^{+120}$\,Myr and $144_{-88}^{+104}$\,Myr for
+Kepler-970 and -1928 respectively.  The former rotation-based age
+being slightly older than the suggested Pleiades age for the
+assocation agrees with Figure~4 of \citet{2022AJ....164...88B}, where
+the MELANGE-3 rotational isochrone is visually slower than
+the corresponding Pleiades track.
 
-Kepler\,968 and Kepler\,52 both have rotation-based ages near
-350\,Myr.
-They are also members of Theia~520 (CITE).
-Independent work by J.~Curtis et al.~is indicating an age of XXX\,Myr for this
-cluster.
-This makes them the youngest multiplanet systems that have currently
-been identified from the Kepler primary mission.
+\paragraph{Theia~520}
+Kepler-968 and Kepler-52 both have rotation-based ages of
+330-350\,Myr.  These stars were independently reported by
+\citet{2019AJ....158..122K} to be members of an association dubbed
+Theia~520 based on their spatial and kinematic correlations with
+nearby stars.  While the core of this structure was previously named
+UBC-1 \citep{2018A&A...618A..59C}, both Kepler planet hosts are in
+more diffuse regions of the cluster reported by
+\citet{2019AJ....158..122K}, so we adopt the name from the latter
+study.  The nominal age of Theia~520 reported by
+\citet{2019AJ....158..122K} based on isochrone fitting was
+$247^{+64}_{-51}$\,Myr.  An independent analysis of the cluster's core
+by \citet{2024A&A...681A..13F} using g-mode asteroseismology,
+gyrochronology, and isochrone fitting found consistent results.
+Ongoing spectroscopic and rotation-based studies of the broader
+cluster by J.~Curtis et al.~ is broadly that the two planet-hosting
+stars are indeed members of this diffuse population.  Given the broad
+set of both cluster-level and individual-star evidence, this makes
+Kepler-968 and Kepler-52 the youngest multiplanet systems that have
+currently been identified from the Kepler primary mission.
+We leave detailed discussion of the planet's properties to the latter 
+group.
 
-\paragraph{NGC~6811 Planets}
-Meibom (CITE CITE) ... do we get those ones?
-
-
-\paragraph{Systems with Rotation and Lithium in Agreement}
-Kepler\,1529b, a 5.3\,day 2.0\,$R_\oplus$ mini-Neptune is
-$\approx$100\,Myr old.
-
-Kepler\,1928b, a 19.6\,day 1.9\,$R_\oplus$ mini-Neptune is
-$\approx$140-200\,Myr old.
-
-Kepler\,1930b, a 13.0\,day 1.5\,$R_\oplus$ super-Earth on a grazing
-orbit is $\approx$120-180\,Myr old.
-
-Kepler\,1313b, doubly unlucky, a 3.8\,day 1.7\,$R_\oplus$ super-Earth
-on a grazing orbit is $\approx$185\,Myr old.
-
-Kepler\,1521b, a 47.2\,day 2.3\,$R_\oplus$ super-Earth is 180-210\,Myr
-old.
-
-Kepler\,1467b, a 47.1\,day 3.1\,$R_\oplus$ mini-Neptune is
-230-240\,Myr old.
-
-Kepler\,1565b, a 1.5\,day 1.3\,$R_\oplus$ super-Earth is 180-230\,Myr
-old.
-
-Kepler\,971b, a 9.6\,day 3.9\,$R_\oplus$ Neptune-sized planet is
-300-370\,Myr old.
-
-Kepler\,1933b is a 4.9\,day 1.0\,$R_\oplus$ Earth-sized planet.  Its
-rotation-based age of $304^{+96}_{-112}$\,Myr agrees within $1\sigma$
-of its lithium age, though at half the relative uncertainty.
-This system may be the youngest Earth-sized planet known, comparable to 
-systems such as HD~63433d \citep[1.1\,$R_\oplus$, $414\pm23$\,Myr][]{2024AJ....167...54C}.
+\paragraph{NGC~6811}
+\citet{Meibom_2013} reported the discovery of Kepler-66 and -67b, two
+mini-Neptunes in NGC~6811 ($\approx$1\,Gyr).
+We report rotation-based ages for these systems of
+$1419^{+657}_{-353}$\,Myr and $873.75\pm{112}$\,Myr respectively.
+For Kepler-66, $T_{\rm eff}$=5898\,K, and $P_{\rm
+rot}$=10.25$\pm$0.10\,days.
+{\it LGB TODO: check again after dereddening...}
 
 
-\paragraph{Other Notables}
+
+\subsubsection{Systems with Rotation and Lithium in Agreement}
+%
+Whenever both rotation and lithium find a star to be in a
+narrowly-constrained age range, confidence in the true age greatly
+increases, due to the independence of the two measurement techniques.
+The empirical precision for the inferred ages as a function of $P_{\rm
+rot}$, $EW_{\rm Li}$, and $T_{\rm eff}$ has been mapped out by
+\citet{Bouma_2023} and \citet{Jeffries_2023} for rotation and lithium
+respectively.  The region of greatest overlap is dictated by the
+timescale for lithium depletion: for stars with temperatures between
+4500-5500\,K with ages $\lesssim$500\,Myr, we can hope to obtain
+independent two-sided constraints.
+
+The youth of most of these systems, to our knowledge, is being
+well-constrained for the first time in this work.  Here we limit
+discussion to systems with $t_{\rm gyro}$$<$500\,Myr not in the clusters
+mentioned above.
+
+The new young planets
+include five 1.8-3.8\,$R_\oplus$ mini-Neptunes
+(Kepler-1529b $\approx$100\,Myr,
+-1521b $\approx$195\,Myr,
+-1467b $\approx$235\,Myr,
+-955b $\approx$400\,Myr, and
+-523b $\approx$440\,Myr),
+a single Neptune-sized planet
+(Kepler-971b $\approx$335\,Myr),
+five 1.1-1.8\,$R_\oplus$ super-Earths
+(Kepler-1930b $\approx$150\,Myr,
+-1313b $\approx$185\,Myr,
+-1565b $\approx$205\,Myr,
+-1532b $\approx$400\,Myr,
+-1481b $\approx$400\,Myr),
+and three Earth or sub-Earth-sized planets
+(Kepler-1933b $\approx$300\,Myr,
+-1561b $\approx$420\,Myr,
+-1482b $\approx$490\,Myr).
+All of these planets are on orbital periods below 50\,days.
+
+Of these planets, one specific highlight is Kepler-1933b, a 4.9\,day
+1.0\,$R_\oplus$ Earth-sized planet.  Its rotation-based age of
+$304^{+96}_{-112}$\,Myr agrees within $1\sigma$ of its lithium age,
+though at half the relative uncertainty.  Based on these lines of
+evidence, this system may be the youngest Earth-sized planet known,
+comparable to systems such as HD~63433d \citep[1.1\,$R_\oplus$,
+$414\pm23$\,Myr][]{2024AJ....167...54C}.
+
+A less clear case is Kepler-447b, which is supposedly a 32\,$R_\oplus$
+planet on a 7.8\,day grazing orbit.  Rotation and lithium independently
+find a 420-440\,Myr age.  {\it LGB TODO What is up with the size?}.
+
+%  Kepler-1529b, a 5.3\,day 2.0\,$R_\oplus$ mini-Neptune is $\approx$100\,Myr old.
+%  Kepler-1930b, a 13.0\,day 1.5\,$R_\oplus$ super-Earth on a grazing orbit is $\approx$120-180\,Myr old.
+%  Kepler-1313b, doubly unlucky, a 3.8\,day 1.7\,$R_\oplus$ super-Earth on a grazing orbit is $\approx$185\,Myr old.
+%  Kepler-1521b, a 47.2\,day 2.3\,$R_\oplus$ mini-Neptune is 180-210\,Myr old.
+%  Kepler-1467b, a 47.1\,day 3.1\,$R_\oplus$ mini-Neptune is 230-240\,Myr old.
+%  Kepler-1565b, a 1.5\,day 1.3\,$R_\oplus$ super-Earth is 180-230\,Myr old.
+%  Kepler-971b, a 9.6\,day 3.9\,$R_\oplus$ Neptune-sized planet is 300-370\,Myr old.
+%  
+%  Kepler-1933b is a 4.9\,day 1.0\,$R_\oplus$ Earth-sized planet.  Its
+%  rotation-based age of $304^{+96}_{-112}$\,Myr agrees within $1\sigma$ of
+%  its lithium age, though at half the relative uncertainty.  Based on
+%  these lines of evidence, this system may be the youngest Earth-sized
+%  planet known, comparable to systems such as HD~63433d
+%  \citep[1.1\,$R_\oplus$, $414\pm23$\,Myr][]{2024AJ....167...54C}.
+%  
+%  Kepler-1532b is a 1.1\,day 1.3\,$R_\oplus$ super-Earth.  Rotation points to a $\approx$400\,Myr age, and lithium is consistent.
+%  Kepler-955b is a 14.5\,day 2.7\,$R_\oplus$ mini-Neptune.  Rotation points to a $\approx$400\,Myr age, and lithium is consistent.
+%  Kepler-1481b, a 5.9\,day 1.1\,$R_\oplus$ super-Earth has a
+%  rotation-based age of $\approx$400\,Myr, and a $2\sigma$ lithium
+%  detection that, upon visual inspection of the spectrum, is
+%  believeable.  The implied lithium age is marginally consistent with
+%  the rotation-based age, although perhaps with some tension.
+%  Kepler-447b is supposedly a 32\,$R_\oplus$ planet (grazing) on a
+%  7.8\,day grazing orbit.  Rotation and lithium independently find a
+%  420-440\,Myr age.
+%  Kepler-1561b is a 0.9\,$R_\oplus$ sub-Earth, on a 1.0\,day orbit.
+%  Rotation points to a 420\,Myr age.  The detected EW$_{\rm Li}$ is
+%  consistent, although given the star's temperature, not particularly
+%  constraining.
+%  The same is true for the 1.9\,$R_\oplus$ and 5.8\,day super-Earth Kepler-523b, and the 
+%  1.0\,$R_\oplus$, 12.2\,day Earth-sized Kepler-1482b.
+
+
+
+\subsubsection{Systems with Rotation and Lithium in Disagreement}
+
+For Kepler-957, $T_{\rm eff}$=4947\,K, and $P_{\rm rot}$=4.52\,days,
+This implies a rotation-based age of $96_{-72}^{+192}$\,Myr.  The
+rotational broadening of the spectrum ($v\sin
+i$$\approx$9.8$\pm$1.0\kms) is consistent with the nominal stellar
+rotation period.  However, if this star were $\lesssim$500\,Myr old,
+lithium should have been detectable at $>$50\,m\AA.  Lithium is
+marginally if at all present in the spectrum ({\bf  EW$_{\rm
+Li}$$<$XX\,m\AA at 2$\sigma$ }).  While the planet (nominally
+6.9\,$R_\oplus$ on a 5.9\,day orbit) has been statistically validated
+\citep{Morton_2016}, inspecting the data validation reports this is
+somewhat surprising.  The light curve shows greater scatter in-transit
+than out of transit, appears near-grazing, and has a suggestion of a
+strong odd-even depth difference.  This is a surprising system that
+merits further attention.
+
+\subsubsection{Need spectra}
+Kepler-1938...
+Kepler-762... (a HJ!)
+Kepler-1320
+
+\subsubsection{Other Notables}
 
 Kepler~221 is a 633$^{+120}_{-112}$\,Myr four-planet system.
 
@@ -1026,27 +1151,6 @@ Kepler~411 is also odd, due to the 58\,day-outer planet.
 
 
 
-
-
-\paragraph{Sub-}
-
-Kepler\,957b
-
-
-
-
-To date, four stellar clusters in the Kepler field have yielded planet
-detections.
-They are:...
-Young Kepler systems with the most precisely measured ages are...
-
-(TODO: perhaps easiest in a little table.  Theia316, Theia520, CepHer,
-and NGC6811).
-
-
-
-
-\subsection{Ages for KOIs}
 
 \subsection{Evolutionary trends in time}
 
@@ -1103,6 +1207,14 @@ T Ceillier, J Van Saders et al 2016 MNRAS...
 \section{Conclusions}
 \label{sec:conclusions}
 
+% 4 CepHer, 2 MELANGE3, 6 Theia520, 2 NGC6811.
+Our rotation analysis blindly recovered the 14 known Kepler planets in
+clusters (Section~\ref{subsec:clusterplanets}), and provided accurate
+independent ages for their host stars.
+
+
+
+
 \acknowledgements
 This work was supported by the 
 Heising-Simons 51~Pegasi~b Fellowship (LGB)
@@ -1134,7 +1246,7 @@ All authors assisted in manuscript revision.
 \clearpage 
 
 \startlongtable
-\begin{deluxetable*}{llllrrrrr}
+\begin{deluxetable*}{lllllllrrrrr}
 	%\tabletypesize{\footnotesize}
 	\tabletypesize{\scriptsize}
 	\tablecaption{Young planets and planet candidates.
@@ -1146,8 +1258,8 @@ All authors assisted in manuscript revision.
 	%\midrule
 	%\endhead
 	\startdata
-  KOI & Kepler & $t_{\rm gyro}$ & $t_{\rm Li} $ & $R_{\rm p}$ & $P_{\rm orb}$ & $f_{\rm RUWE}$ & $f_{\rm grazing}$ & Spec? \\
-  -- &   -- & Myr & Myr &    Earths &    days &      bool &   bool  & bool \\
+  KOI & Kepler &  $T_{\rm eff}$ & $P_{\rm rot}$ & EW$_{\rm Li}$ & $t_{\rm gyro}$ & $t_{\rm Li} $ & $R_{\rm p}$ & $P_{\rm orb}$ & $f_{\rm RUWE}$ & $f_{\rm grazing}$ & Spec? \\
+  -- &   -- & K & days & m\AA & Myr & Myr &    Earths &    days &      bool &   bool  & bool \\
 	\hline
 	\input{table_subgyr_confirmed} %\\
 	%\hline
