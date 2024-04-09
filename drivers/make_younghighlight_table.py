@@ -11,7 +11,7 @@ from gyrojo.paths import PAPERDIR, DATADIR
 drop_highruwe = 0
 drop_grazing = 0
 _df, _, _ = get_age_results(
-    whichtype='gyro', drop_grazing=drop_grazing, drop_highruwe=drop_highruwe
+    whichtype='gyro_li', drop_grazing=drop_grazing, drop_highruwe=drop_highruwe
 )
 _ldf = pd.read_csv(join(
     DATADIR, 'interim', 'koi_jump_getter_koi_X_S19S21dquality.csv'
@@ -28,16 +28,25 @@ df = _df[sel]
 
 selcols = (
     "kepoi_name,kepler_name,koi_disposition,gyro_median,"
-    "gyro_+1sigma,gyro_-1sigma,Prot,adopted_rp,adopted_period,"
+    "gyro_+1sigma,gyro_-1sigma,Prot,li_median,li_+1sigma,li_-1sigma,"
+    "adopted_rp,adopted_period,"
     "flag_ruwe_outlier,flag_koi_is_grazing,has_hires"
 ).split(",")
 pdf = df[selcols].sort_values(
     by=['gyro_median','kepler_name','kepoi_name']
 )
 
+def cast_to_int_string(value):
+    if pd.isna(value):
+        return np.nan
+    else:
+        return str(int(value))
+
 for c in pdf.columns:
-    if 'gyro' in c:
+    if 'gyro_' in c:
         pdf[c] = pdf[c].astype(int)
+    if 'li_' in c:
+        pdf[c] = pdf[c].apply(cast_to_int_string)
     if c == 'adopted_period':
         pdf[c] = np.round(pdf[c], 2)
     if 'flag' in c or 'has_hires' in c:
@@ -45,12 +54,14 @@ for c in pdf.columns:
 
 pcols = (
     "kepoi_name,kepler_name,gyro_median,"
-    "gyro_+1sigma,gyro_-1sigma,adopted_rp,adopted_period,"
+    "gyro_+1sigma,gyro_-1sigma,li_median,li_+1sigma,li_-1sigma,"
+    "adopted_rp,adopted_period,"
     "flag_ruwe_outlier,flag_koi_is_grazing,has_hires"
 ).split(",")
 _pcols = (
     "kepoi_name,kepler_name,gyro_median,"
-    "gyro_+1sigma,gyro_-1sigma,adopted_rp,Prot,adopted_period,"
+    "gyro_+1sigma,gyro_-1sigma,li_median,li_+1sigma,li_-1sigma,"
+    "adopted_rp,Prot,adopted_period,"
     "flag_ruwe_outlier,flag_koi_is_grazing,has_hires"
 ).split(",")
 
@@ -89,14 +100,37 @@ pdf['t_gyro'] = pdf.apply(
     +"} $",
     axis=1
 )
+pdf['t_li'] = pdf.apply(
+    lambda row:
+    "$"+
+    f"{row['li_median']}"+
+    "^{+"+
+    f"{row['li_+1sigma']}"+
+    "}_{-"+
+    f"{row['li_-1sigma']}"
+    +"} $",
+    axis=1
+)
+def replace_nan_string(value):
+    if pd.isna(value) or 'nan' in str(value).lower():
+        return '--'
+    else:
+        return value
+pdf['t_li'] = pdf['t_li'].apply(replace_nan_string)
 
-# Drop the original gyro columns
-pdf = pdf.drop(columns=['gyro_median', 'gyro_+1sigma', 'gyro_-1sigma'])
+
+
+# Drop the original age columns
+pdf = pdf.drop(
+    columns=['gyro_median', 'gyro_+1sigma', 'gyro_-1sigma', 'li_median',
+             'li_+1sigma', 'li_-1sigma']
+)
 
 mapdict = {
     'kepoi_name': "KOI",
     "kepler_name": "Kepler",
     "t_gyro": r"$t_{\rm gyro}$",
+    "t_li": r"$t_{\rm Li}$",
     "adopted_rp": r"$R_{\rm p}$",
     "adopted_period": r"$P$",
     "flag_ruwe_outlier": r"$f_{\rm RUWE}$",

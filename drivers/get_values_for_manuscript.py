@@ -147,4 +147,3 @@ d = read_latex_key_value_pairs()
 # they should be the same, else the two refer to different samples.
 assert d['nlithiumgyrostars'] == d['nplhoststarwgyroagewithgrazingandhighruwe']
 assert d['nlithiumgyroplanets'] == d['nplwgyroagewithgrazingandhighruwe']
-
