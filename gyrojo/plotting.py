@@ -988,8 +988,10 @@ def plot_process_koi_li_posteriors(outdir, cache_id, li_method='eagles'):
     csvdir = os.path.join(RESULTSDIR, cache_id)
     if li_method == 'baffles':
         csvpaths = glob(os.path.join(csvdir, "*lithium.csv"))
+        raise NotImplementedError('need a way to propagate Li EWs...')
     elif li_method == 'eagles':
         csvpaths = glob(os.path.join(csvdir, "*_pos.csv"))
+
     assert len(csvpaths) > 0
 
     # plot all stars
@@ -1003,9 +1005,12 @@ def plot_process_koi_li_posteriors(outdir, cache_id, li_method='eagles'):
     for ix, csvpath in enumerate(csvpaths):
 
         kepoi_name = os.path.basename(csvpath).split("_")[0]
+        ewpath = join(csvdir, f"{kepoi_name}.csv")
+        assert os.path.exists(ewpath)
         kepoi_names.append(kepoi_name)
 
         df = pd.read_csv(csvpath, names=['age_grid','age_post'], comment='#')
+        ewdf = pd.read_csv(ewpath)
 
         t_post = np.array(df.age_post)
 
@@ -1015,6 +1020,9 @@ def plot_process_koi_li_posteriors(outdir, cache_id, li_method='eagles'):
             age_grid = 10**np.array(df.age_grid) / (1e6) # convert to myr
 
         d = get_summary_statistics(age_grid, t_post)
+        # write the Li EWs that eagles / baffles actually used
+        d['LiEW'] = ewdf.LiEW.iloc[0]
+        d['eLiEW'] = ewdf.eLiEW.iloc[0]
         print(d)
         summaries.append(d)
 
