@@ -323,9 +323,11 @@ def plot_star_Prot_Teff(outdir, sampleid):
     savefig(fig, outpath)
 
 
-def plot_li_vs_teff(outdir, yscale=None, limodel='eagles', show_dispersion=0):
+def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
+                    limodel='eagles', show_dispersion=0):
 
-    df = get_li_data('all')
+    #df = get_li_data('all')
+    df = get_li_data(sampleid)
 
     n_pl = len(np.unique(df.kepoi_name))
     n_st = len(np.unique(df.kepid))
@@ -464,7 +466,7 @@ def plot_li_vs_teff(outdir, yscale=None, limodel='eagles', show_dispersion=0):
     ax.set_xlim([ 6300, 3700 ])
     ax.set_ylim([ -5, 270 ])
 
-    s = ''
+    s = f'_{sampleid}'
     s += f"_{limodel}"
     if yscale == 'log':
         s += "_logy"
