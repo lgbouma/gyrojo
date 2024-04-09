@@ -892,7 +892,7 @@ While our preference would have been to exclusively use
 \begin{figure*}[!t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.9\textwidth]{hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240405_maxage3200.pdf}
+		\includegraphics[width=\textwidth]{hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240405_maxage3200.pdf}
 	\end{center}
 	\vspace{-0.6cm}
 	\caption{
@@ -1276,10 +1276,25 @@ All authors assisted in manuscript revision.
 \bibliographystyle{aasjournal}
 \bibliography{bibliography}
 
-%\appendix
+\appendix
 %\section{Can you avoid appendices?}
 %\label{app:interp}
 
+\section{Figure dump}
+
+\begin{figure*}[!t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.5\textwidth]{gyroage_vs_teff_errs_showplanets_linear.png}
+	\end{center}
+	\vspace{-0.6cm}
+	\caption{
+		{\bf Gyro-age vs Teff}.
+		$\pm$1$\sigma$ uncertainties are plotted around the median for Kepler stars (black) and KOIs (blue).
+		Visual pileup on the left is b/c i) uncertain ages, and ii) lots of stars there.  Precision-land is the other portion.
+		\label{fig:gyroage_vs_teff}
+	}
+\end{figure*}
 
 \clearpage
 \listofchanges

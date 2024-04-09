@@ -11,3 +11,7 @@ cp $r/hist_field_gyro_ages_20240405/hist_samples_koi_gyro_ages_hist_field_gyro_a
 
 # plot_li_vs_teff
 cp $r/li_vs_teff/li_vs_teff_koi_X_S19S21dquality_eagles_showdispersion.pdf .
+
+########## 
+# appendices (probably omit)
+cp $r/gyroage_vs_teff/gyroage_vs_teff_errs_showplanets_linear.png .
