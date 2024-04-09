@@ -837,23 +837,20 @@ internal CPS archive to collect all HIRES spectra that were available
 for the \nplhoststarwgyroagewithgrazingandhighruwe\ stars
 described in Section~\ref{subsec:tally} for which it might be possible
 to derive rotation-based ages.
-
-%
-We required the spectra to not have the iodine cell in...
-%TODO ?!?!?!
-%
-
+We imposed no constraint on whether the iodine cell was present, since
+there are no relevant lines in the region of the 
+\ion{Li}{1} 6708\,\AA\ doublet.
 This exercise yielded at least one spectrum for \nlithiumstars\ and 
 \nlithiumplanets\ planets.
-These observations were acquired between 6 September 2009 and 18
-September 2022.
+These observations were acquired between 6 September 2009 and 16
+May 2024, primarily by the California Kepler Survey (CKS,
+CITE).
+In preparation for this study, we additionally collected {\bf XX}
+spectra for ``confirmed'' planets with rotation-based ages below
+1\,Gyr.
 
-
-Out of the \nplhoststarwgyroagewithgrazingandhighruwe\ stars for w
-
-To measure the lithium equivalent widths for the \nkoiswithhires\ KOIs
-with HIRES spectra, we use the procedure described by
-\citet{Bouma_2021}.
+To measure the lithium equivalent widths, we followed the procedure
+described by \citet{Bouma_2021}.
 The stars of interest for this work are FGK stars, and so the
 continuum in the vicinity of the
 \ion{Li}{1} 6708\,\AA\ doublet is well-defined.
@@ -865,18 +862,23 @@ Generally speaking, this approach does not correct for the neighboring
 \ion{Fe}{1} 6707.44\,\AA\ blend.
 
 To evaluate the accuracy and precision of this approach, after
-applying an initial iteration of this method on the \nkoiswithhires\
-KOIs with HIRES spectra, we compared our lithium equivalent widths
+applying an initial iteration of this method on the 
+\nplhoststarwgyroagewithgrazingandhighruwe\ aforementioned stars,
+we compared our lithium equivalent widths
 with those reported by \citet{Berger_2018}.
-For the \nbergeroverlap\ stars in both samples, 
-we found {\bf X, Y, Z.}
+For the \nbergeroverlap\ stars in both samples, we found {\bf X, Y,
+Z.}
 
-To calculate lithium ages, we then use EAGLES \citep{Jeffries_2023}.
-{\bf TODO: explain why}
-%TODO: explain why.
-
-
-
+To calculate lithium ages, we use a combination of \texttt{EAGLES}
+\citep{Jeffries_2023} and \texttt{BAFFLES}
+\citep{Stanford-Moore_2020}.
+The former tool was calibrated on stars observed by the Gaia-ESO
+spectroscopic survey in 52 open clusters, with ages spanning 2 to
+6{,}000\,Myr.  
+Example \texttt{EAGLES} isochrones, as well as the modelled intrinsic dispersion
+about those isochrones, are shown in Figure~\ref{fig:li_vs_teff}.
+While our preference would have been to exclusively use
+\texttt{EAGLES} due to its homogeneous analysis approach ...
 
 
 
@@ -941,7 +943,94 @@ gyro}$$<$1\,Gyr at 2$\sigma$ confidence yields
 \nplyounggyrotwosigma\ planets orbiting \nplhostsyounggyrotwosigma\
 stars.
 
-\subsection{Young Planets}
+
+\subsection{The Sub-Gigayear Sample}
+
+Given that the history of young exoplanet discovery includes a
+sociological tendency to report detailed descriptions of specific
+young exoplanets, we find it necessary to briefly discuss the
+properties of at least the most notable members of the set of
+confirmed planets that have well-measured ages.
+For this exercise, we follow Table~\ref{tab:youngplanets}.
+
+\paragraph{The Cep-Her Planets}
+Kepler\,1627Ab, Kepler\,1643b, Kepler\,1974b and Kepler\,1975\,Ab are
+known members of the $\approx$40\,Myr old Cep-Her association
+\citep{Bouma_2022a,Bouma_2022b}.
+The age of various sub-components of this association are
+best measured through relative isochronal placement of the
+pre-main-sequence \citep[see][]{Bouma_2022b}, and gyrochronology of
+stars in these clusters show them to be $<$100\,Myr old.
+The planets themselves are all on close-in orbits (5-25\,days), with
+sizes from 2-4\,$R_\oplus$.
+For Kepler\,1627A and Kepler\,1974, the rotation and lithium-based
+ages for these stars agree within 1$\sigma$ with the cluster-based
+ages.
+{\bf TODO discuss Kepler-1643 old tension, ditto KOI7913...}
+
+\paragraph{Theia~520 Planets}
+
+Kepler\,968 and Kepler\,52 both have rotation-based ages near
+350\,Myr.
+They are also members of Theia~520 (CITE).
+Independent work by J.~Curtis et al.~is indicating an age of XXX\,Myr for this
+cluster.
+This makes them the youngest multiplanet systems that have currently
+been identified from the Kepler primary mission.
+
+\paragraph{NGC~6811 Planets}
+Meibom (CITE CITE) ... do we get those ones?
+
+
+\paragraph{Systems with Rotation and Lithium in Agreement}
+Kepler\,1529b, a 5.3\,day 2.0\,$R_\oplus$ mini-Neptune is
+$\approx$100\,Myr old.
+
+Kepler\,1928b, a 19.6\,day 1.9\,$R_\oplus$ mini-Neptune is
+$\approx$140-200\,Myr old.
+
+Kepler\,1930b, a 13.0\,day 1.5\,$R_\oplus$ super-Earth on a grazing
+orbit is $\approx$120-180\,Myr old.
+
+Kepler\,1313b, doubly unlucky, a 3.8\,day 1.7\,$R_\oplus$ super-Earth
+on a grazing orbit is $\approx$185\,Myr old.
+
+Kepler\,1521b, a 47.2\,day 2.3\,$R_\oplus$ super-Earth is 180-210\,Myr
+old.
+
+Kepler\,1467b, a 47.1\,day 3.1\,$R_\oplus$ mini-Neptune is
+230-240\,Myr old.
+
+Kepler\,1565b, a 1.5\,day 1.3\,$R_\oplus$ super-Earth is 180-230\,Myr
+old.
+
+Kepler\,971b, a 9.6\,day 3.9\,$R_\oplus$ Neptune-sized planet is
+300-370\,Myr old.
+
+Kepler\,1933b is a 4.9\,day 1.0\,$R_\oplus$ Earth-sized planet.  Its
+rotation-based age of $304^{+96}_{-112}$\,Myr agrees within $1\sigma$
+of its lithium age, though at half the relative uncertainty.
+This system may be the youngest Earth-sized planet known, comparable to 
+systems such as HD~63433d \citep[1.1\,$R_\oplus$, $414\pm23$\,Myr][]{2024AJ....167...54C}.
+
+
+\paragraph{Other Notables}
+
+Kepler~221 is a 633$^{+120}_{-112}$\,Myr four-planet system.
+
+Kepler~51 (CITE Masuda2014) has previously been noted for its bizarre architure.
+The rotation-based age we find here is higher/lower than previously noted.
+
+Kepler~411 is also odd, due to the 58\,day-outer planet.
+
+
+
+
+
+
+\paragraph{Sub-}
+
+Kepler\,957b
 
 
 
@@ -1045,7 +1134,7 @@ All authors assisted in manuscript revision.
 \clearpage 
 
 \startlongtable
-\begin{deluxetable}{lllrrrrr}
+\begin{deluxetable*}{llllrrrrr}
 	%\tabletypesize{\footnotesize}
 	\tabletypesize{\scriptsize}
 	\tablecaption{Young planets and planet candidates.
@@ -1057,8 +1146,8 @@ All authors assisted in manuscript revision.
 	%\midrule
 	%\endhead
 	\startdata
-	KOI & Kepler & $t_{\rm gyro}$ & $R_{\rm p}$ & $P_{\rm orb}$ & $f_{\rm RUWE}$ & $f_{\rm grazing}$ & Spec? \\
-  -- &   -- & Myr &    Earths &    days &      bool &   bool  & bool \\
+  KOI & Kepler & $t_{\rm gyro}$ & $t_{\rm Li} $ & $R_{\rm p}$ & $P_{\rm orb}$ & $f_{\rm RUWE}$ & $f_{\rm grazing}$ & Spec? \\
+  -- &   -- & Myr & Myr &    Earths &    days &      bool &   bool  & bool \\
 	\hline
 	\input{table_subgyr_confirmed} %\\
 	%\hline
@@ -1067,7 +1156,7 @@ All authors assisted in manuscript revision.
 	\tablecomments{This table includes X, Y, Z... The machine-readable version,
 		available online, includes additional columns for .... 
 	}
-\end{deluxetable}
+\end{deluxetable*}
 %\endlongtable
 
 \clearpage
