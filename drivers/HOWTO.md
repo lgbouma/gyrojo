@@ -2,7 +2,7 @@ Contents
 _0_ Run the field star gyro analysis
 _1_ (Deprecated) Run the KOI gyrochronology analysis
 _2_ Run the KOI lithium analysis
-_3_ Multiply the gyro and lithium age posteriors, an entirely statistically unjustified procedure
+_3_ (Deprecated) Multiply the gyro and lithium age posteriors
 _4_ Build everything needed for the manuscript
 
 --------------------
@@ -14,12 +14,12 @@ _0_ Run the field star gyro analysis:
 
 2. `plot_field_gyro_posteriors.py`
 
-  Makes `field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv`, or equivalent.
+  Makes `field_gyro_posteriors_20240405_gyro_ages_X_GDR3_S19_S21_B20.csv`, or equivalent.
 
 3. `construct_field_star_gyro_quality_flags.py`
 
   Given output from #2, builds
-  `field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv`
+  `field_gyro_posteriors_20240405_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv`
 
 4. `plot_hist_field_gyro_ages.py`
 
@@ -71,24 +71,30 @@ Run this to then get the HIRES spectra to the local drive.
 
 5. `calc_koi_lithium_posteriors.py`
 
-#TODO FIXME FROM HERE!
+Use the lithium equivalent widths to calculate the lithium posteriors and cache
+them to disk.
 
-Use the lithium equivalent widths, and estimates of B-V colors, to calculate
-the lithium posteriors and cache them to disk.
+6. `plot_process_koi_lithium_posteriors.py`
 
-6. `plot_koi_lithium_posteriors.py`
+Plots the results, and also makes concatenated CSV cache file:
+`eagles_koi_lithium_ages_X_S19S21_dquality.csv`
 
 --------------------
 _3_ Multiply the gyro and lithium age posteriors, an entirely statistically unjustified procedure
 
-1. `calc_koi_joint_posteriors.py`
+(DEPRECATED)
 
-Given the gyro and lithium posteriors, multiply them.  Saves output, including
-a merged file with all the gyro, lithium, and joint summary statistics, at 
-`koi_gyro_X_lithium_posteriors_20230116/{sampleid}_merged_joint_age_posteriors.csv`
+  1. `calc_koi_joint_posteriors.py`
+
+  Given the gyro and lithium posteriors, multiply them.  Saves output, including
+  a merged file with all the gyro, lithium, and joint summary statistics, at 
+  `koi_gyro_X_lithium_posteriors_20230116/{sampleid}_merged_joint_age_posteriors.csv`
 
 --------------------
 _4_ Build everything needed for the manuscript
+
+Analysis:
+  Do steps _0_, _1_, and _2_ above.
 
 Plots:
 * `plot_star_Prot_Teff.py`
