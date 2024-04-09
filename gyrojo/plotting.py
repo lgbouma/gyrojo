@@ -981,12 +981,15 @@ def plot_koi_gyro_posteriors(outdir, cache_id):
     print(mdf[sel_2s][cols])
 
 
-def plot_koi_li_posteriors(outdir, cache_id):
+def plot_process_koi_li_posteriors(outdir, cache_id, li_method='eagles'):
 
     from gyrointerp.helpers import get_summary_statistics
 
     csvdir = os.path.join(RESULTSDIR, cache_id)
-    csvpaths = glob(os.path.join(csvdir, "*lithium.csv"))
+    if li_method == 'baffles':
+        csvpaths = glob(os.path.join(csvdir, "*lithium.csv"))
+    elif li_method == 'eagles':
+        csvpaths = glob(os.path.join(csvdir, "*_pos.csv"))
     assert len(csvpaths) > 0
 
     # plot all stars
@@ -1002,9 +1005,14 @@ def plot_koi_li_posteriors(outdir, cache_id):
         kepoi_name = os.path.basename(csvpath).split("_")[0]
         kepoi_names.append(kepoi_name)
 
-        df = pd.read_csv(csvpath, names=['age_grid','age_post'])
+        df = pd.read_csv(csvpath, names=['age_grid','age_post'], comment='#')
+
         t_post = np.array(df.age_post)
-        age_grid = np.array(df.age_grid)
+
+        if li_method == 'baffles':
+            age_grid = np.array(df.age_grid) # already in myr
+        elif li_method == 'eagles':
+            age_grid = 10**np.array(df.age_grid) / (1e6) # convert to myr
 
         d = get_summary_statistics(age_grid, t_post)
         print(d)
@@ -1015,31 +1023,48 @@ def plot_koi_li_posteriors(outdir, cache_id):
                 lw=0.3, c='k', zorder=zorder)
 
     xmin = 0
-    xmax = 4000
+    xmax = 1500
     ax.update({
         'xlabel': 'Age [Myr]',
         'ylabel': 'Probability ($10^{-3}\,$Myr$^{-1}$)',
         'xlim': [xmin, xmax],
     })
-    outpath = os.path.join(outdir, f'step0_lithium_posteriors_verification.png')
+    outpath = os.path.join(outdir, f'{li_method}_lithium_posteriors_verification.png')
     savefig(fig, outpath, writepdf=1, dpi=400)
 
     df = pd.DataFrame(summaries, index=kepoi_names)
+    for c in df.columns:
+        if c != 'kepoi_name':
+            df = df.rename({c: f'li_{c}'}, axis='columns')
     df['kepoi_name'] = kepoi_names
-    csvpath = os.path.join(outdir, "step0_koi_lithium_ages.csv")
+    csvpath = os.path.join(outdir, f"{li_method}_koi_lithium_ages.csv")
     df.to_csv(csvpath, index=False)
     print(f"Wrote {csvpath}")
 
-    _csvpath = os.path.join(DATADIR, "interim",
-                           "koi_table_X_GDR3_B20_S19_S21_M14_M15.csv")
+    _csvpath = join(
+        DATADIR, "interim", "koi_jump_getter_koi_X_S19S21dquality.csv"
+    )
     kdf = pd.read_csv(_csvpath)
 
-    mdf = df.merge(kdf, how='inner', on='kepoi_name')
+    _mdf = df.merge(kdf, how='inner', on='kepoi_name')
+
+    # Check if "li_median" agree for duplicate kepoi_name entries...
+    result = _mdf.groupby('kepoi_name')['li_median'].apply(
+        lambda x: x.nunique() == 1
+    )
+    all_match = result.all()
+    assert all_match
+
+    # If true, drop duplicates
+    mdf = _mdf[~_mdf.duplicated('kepoi_name', keep='first')]
+
     assert len(mdf) == len(df)
 
-    # Contents: for the 864
-    csvpath = os.path.join(outdir, "step0_koi_lithium_ages_X_GDR3_B20_S19_S21_M14_M15.csv")
-    mdf = mdf.sort_values(by='median')
+    # Write lithium result contents
+    csvpath = join(
+        outdir, f"{li_method}_koi_lithium_ages_X_S19S21_dquality.csv"
+    )
+    mdf = mdf.sort_values(by='li_median')
     mdf.to_csv(csvpath, index=False)
     print(f"Wrote {csvpath}")
 
@@ -1048,6 +1073,7 @@ def plot_koi_li_posteriors(outdir, cache_id):
     sel_2s = mdf['median'] + mdf['+2sigma'] < 1000
 
     print(mdf[sel_2s][cols])
+
 
 
 def plot_age_comparison(outdir, logscale=1, iso_v_gyroli=0, ratio_v_gyroli=0,
@@ -1645,4 +1671,3 @@ def plot_multis_vs_age(outdir, teffcondition='allteff'):
 
     outpath = os.path.join(outdir, f'multis_age_sorted.png')
     savefig(fig, outpath)
-
