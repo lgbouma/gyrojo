@@ -7,6 +7,8 @@ Catch-all file for plotting scripts.  Contents:
 
     plot_li_vs_teff
 
+    plot_gyroage_vs_teff
+
     plot_koi_gyro_posteriors
     plot_li_gyro_posteriors
     plot_field_gyro_posteriors
@@ -1294,7 +1296,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     #################################################
     plt.close("all")
     set_style('clean')
-    fig, axs = plt.subplots(ncols=2, figsize=(0.5*8,0.5*4.5), constrained_layout=True)
+    fig, axs = plt.subplots(ncols=2, figsize=(0.5*8,0.5*3), constrained_layout=True)
 
     koi_df = get_koi_data('cumulative-KOI', drop_grazing=0)
     koi_df['kepid'] = koi_df['kepid'].astype(str)
@@ -1535,14 +1537,14 @@ def plot_field_gyro_posteriors(outdir, cache_id):
     assert len(mdf) == len(df)
 
     csvpath = os.path.join(outdir, f"{cache_id}_gyro_ages_X_GDR3_S19_S21_B20.csv")
-    mdf = mdf.sort_values(by='median')
+    mdf = mdf.sort_values(by='gyro_median')
     mdf.to_csv(csvpath, index=False)
     print(f"Wrote {csvpath}")
 
-    cols = ['KIC', 'median', '+1sigma', '-1sigma',
-            '+2sigma', '-2sigma', "+1sigmapct", "-1sigmapct", "Prot",
+    cols = ['KIC', 'gyro_median', 'gyro_+1sigma', 'gyro_-1sigma',
+            'gyro_+2sigma', 'gyro_-2sigma', "gyro_+1sigmapct", "gyro_-1sigmapct", "Prot",
             "adopted_Teff"]
-    sel_2s = mdf['median'] + mdf['+2sigma'] < 1000
+    sel_2s = mdf['gyro_median'] + mdf['gyro_+2sigma'] < 1000
 
     print(mdf[sel_2s][cols])
 
@@ -1615,7 +1617,6 @@ def plot_multis_vs_age(outdir, teffcondition='allteff'):
 
     multidf = df[df.ismulti]
     multidf = multidf.sort_values(by=['age','pl_name'])
-    import IPython; IPython.embed()
 
     N = len(np.unique(multidf.starname))
 
@@ -1679,3 +1680,85 @@ def plot_multis_vs_age(outdir, teffcondition='allteff'):
 
     outpath = os.path.join(outdir, f'multis_age_sorted.png')
     savefig(fig, outpath)
+
+
+def plot_gyroage_vs_teff(outdir, yscale='linear', showerrs=0, showplanets=0):
+
+    # get data
+
+    # stars
+    sampleid = 'Santos19_Santos21_dquality'
+    kicdf = get_kicstar_data(sampleid)
+    if sampleid == 'Santos19_Santos21_dquality':
+        kicdf = kicdf[kicdf['flag_is_gyro_applicable']]
+
+    # planets
+    koidf, _, _ = get_age_results(whichtype='gyro_li', COMPARE_AGE_UNCS=0,
+                                  drop_grazing=0, drop_highruwe=0)
+
+    # make plot
+    plt.close('all')
+    set_style()
+
+    fig, ax = plt.subplots(figsize=(4,3))
+
+    yerr = nparr(
+        [nparr(kicdf['gyro_-1sigma']), nparr(kicdf['gyro_+1sigma'])]
+    ).reshape((2, len(kicdf)))
+    yval = nparr(kicdf['gyro_median'])
+    xval = nparr(kicdf['adopted_Teff'])
+    meanpct = np.nanmean(nparr(
+        [nparr(kicdf['gyro_-1sigmapct']), nparr(kicdf['gyro_+1sigmapct'])]
+    ).reshape((2, len(kicdf))), axis=0)
+    if showerrs:
+        ax.errorbar(
+            xval, yval, yerr=yerr,
+            marker='o', elinewidth=0.05, capsize=0, lw=0, mew=0.5, color='k',
+            markersize=0, zorder=5, alpha=0.5
+        )
+    else:
+        ax.errorbar(
+            xval, yval, yerr=yerr,
+            marker='o', elinewidth=0.0, capsize=0, lw=0, mew=0.5, color='k',
+            markersize=0.5, zorder=5, alpha=0.5
+        )
+    if showplanets:
+        yerr = nparr(
+            [nparr(koidf['gyro_-1sigma']), nparr(koidf['gyro_+1sigma'])]
+        ).reshape((2, len(koidf)))
+        yval = nparr(koidf['gyro_median'])
+        xval = nparr(koidf['adopted_Teff'])
+        if showerrs:
+            ax.errorbar(
+                xval, yval, yerr=yerr,
+                marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='C0',
+                markersize=0, zorder=5, alpha=1
+            )
+        else:
+            ax.errorbar(
+                xval, yval, yerr=yerr,
+                marker='o', elinewidth=0.0, capsize=0, lw=0, mew=0.5, color='C0',
+                markersize=2, zorder=5, alpha=1
+            )
+
+    ax.update({
+        'xlabel': 'Effective Temperature [K]',
+        'ylabel': r't$_{\rm gyro}$ [Myr]',
+        'yscale': yscale,
+        'xlim': ax.get_xlim()[::-1]
+    })
+
+
+    # set naming options
+    if showerrs:
+        s = 'errs'
+    else:
+        s = 'medvals'
+    if showplanets:
+        s += '_showplanets'
+
+    s += f'_{yscale}'
+
+    bn = 'gyroage_vs_teff'
+    outpath = join(outdir, f'{bn}_{s}.png')
+    savefig(fig, outpath, dpi=400)
