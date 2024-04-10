@@ -141,45 +141,61 @@ currently alphabetical)}
 
 % <250 words
 \begin{abstract}
-  We report empirically calibrated rotation- and lithium-based ages
-  for planets and stars observed by the primary Kepler mission.
+  Recent studies of stars in open clusters have yielded a detailed picture
+  of how the rotation rates and lithium content of FGK stars evolve
+  during the main sequence.
   %
-  Stellar rotation periods are collected from previous analyses of
-  Kepler data; lithium content is assessed using both new and
-  archival HIRES spectra.
+  Here we apply this knowledge to planets and stars observed by the
+  primary Kepler mission (2009-2013), and report the resulting rotation and
+  lithium-based ages.
   %
-  We report ages for \nkoisgoldwithages\ FGK stars with transiting
-  planets, with relative statistical precisions $\sigma_t / t$ of XX
-  +YY -ZZ\%.  This is a factor of X.X +Y.Y -Z.Z more statistically precise than
-  isochronal ages for the same stars, and $\approx$X.X times less
-  precise than cluster-based ages.
+  Rotation periods are collected from previous analyses of
+  Kepler data; lithium is measured from new and archival HIRES
+  spectra.
   %
-  The results include XXX planets younger than 1\,Gyr (at 3$\sigma$),
-  and YYY planets younger than 0.5\,Gyr (at 3$\sigma$).
+  We report rotation-based ages for \nuniqstarsantosrotgyroappl\ stars
+  and \nplwgyroagenograzing\ planets for which we believe
+  gyrochronology is likely valid. %, and for many more for which the underlying assumptions of
+%  the technique may be compromised.
   %
-  We also report rotation-based ages for XX,XXX stars observed
-  by Kepler, aka.~the ``target star sample''.
+  The relative statistical precisions from rotation, $\sigma_{t_{\rm
+  gyro}} / t_{\rm gyro}$, are XX +YY -ZZ\%, which is X.X +Y.Y -Z.Z more
+  statistically precise than isochronal ages for the same stars, and
+  $\approx$X.X times less precise than cluster-based ages.
   %
-  In the latter sample of dwarf FGK stars observed by Kepler, we find
+  The results include \nplyounggyrotwosigma\
+  planets younger than 1\,Gyr at 2$\sigma$ (\nplyounggyrothreesigma\
+  planets at 3$\sigma$).
+  %
+  While lithium provides only marginal added information for most of
+  this sample,
+  we report robust two-sided age measurements from both rotation and
+  lithium for 14 confirmed $<$500\,Myr planets, including five
+  mini-Neptunes, five super-Earths, three Earths and sub-Earths, and a
+  Neptune-sized planet.
+  %
+  In the broader Kepler target star sample,
+  we find
   that the gyrochrone age distribution rises linearly from 0 to
   3\,Gyr, with stars 2\,Gyr old being twice as common in the Kepler
   field as stars 1\,Gyr old.
   %
-  This qualitatively agrees with previous analyses of the Milky Way's star
-  formation history, though it offers greater sensitivity in the range of
-  $\approx$0.1-1\,Gyr.
+  This approach offers greater sensitivity to main sequence ages than previous analyses of the Milky Way's star
+  formation history, and the resulting age distribution bounds
+  the relative balance of ``young'' and ``old'' planets detectable not only by Kepler, but also
+  by future wide-field transit surveys.
   %
 %  The sample of detected Kepler planets has a similar age
 %  distribution, though it is slightly deficient at $\lesssim$0.2\,Gyr,
 %  likely due to decreased detection sensitivity.
   %
-  Combining our stellar age catalog with Kepler's completeness products, we perform
-  a hierarchical bayesian analysis to infer the average number of planets per star
-  as a function of both stellar and planetary parameters.
+  %Combining our stellar age catalog with Kepler's completeness products, we perform
+  %a hierarchical bayesian analysis to infer the average number of planets per star
+  %as a function of both stellar and planetary parameters.
   %
-  While we recover many previously known correlations with stellar mass and metallicity,
-  our analysis also highlights the importance of age in shaping the ``sub-Saturn desert'',
-  and in influencing the evolution of the mini-Neptune and super-Earth populations.
+  %While we recover many previously known correlations with stellar mass and metallicity,
+  %our analysis also highlights the importance of age in shaping the ``sub-Saturn desert'',
+  %and in influencing the evolution of the mini-Neptune and super-Earth populations.
   %TODO will this be the case?
 %  We also comment on a few previously reported evolutionary trends in
 %  the size evolution of close-in mini-Neptunes (2-4\,\rearth) and
@@ -753,7 +769,8 @@ do not exclude them from our analysis; this is because...{\bf justify}.
 \begin{figure*}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.5\textwidth]{prot_teff_Santos19_Santos21_clean0.pdf}
+			\includegraphics[width=0.5\textwidth]{prot_teff_Santos19_Santos21_dquality.pdf}
+      % vs prot_teff_Santos19_Santos21_clean0.pdf !
 		}
 		\subfloat{
 			\includegraphics[width=0.5\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf}
@@ -832,16 +849,14 @@ based on the Markov Chain Monte Carlo (MCMC) fits from
 \end{figure}
 
 %TODO: does JUMP mirror all HIRES data from KOA?
-We queried a combination of the Keck Observatory Archive and the
-internal CPS archive to collect all HIRES spectra that were available
-for the \nplhoststarwgyroagewithgrazingandhighruwe\ stars
-described in Section~\ref{subsec:tally} for which it might be possible
-to derive rotation-based ages.
-We imposed no constraint on whether the iodine cell was present, since
-there are no relevant lines in the region of the 
-\ion{Li}{1} 6708\,\AA\ doublet.
+We queried the internal CPS archive to collect all HIRES spectra that
+were available for the \nplhoststarwgyroagewithgrazingandhighruwe\
+stars for which rotation-based ages can be derived.
 This exercise yielded at least one spectrum for \nlithiumstars\ and 
 \nlithiumplanets\ planets.
+We did not constrain whether the iodine cell was used, since
+there are no relevant lines in the region of the 
+\ion{Li}{1} 6708\,\AA\ doublet.
 These observations were acquired between 6 September 2009 and 16
 May 2024, primarily by the California Kepler Survey (CKS,
 CITE).
