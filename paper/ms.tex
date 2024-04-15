@@ -118,26 +118,25 @@
 \altaffiliation{51 Pegasi b Fellow}
 \affiliation{\caltech}
 
-\author{Authors to include (order after LGB not assigned meaning;
-currently alphabetical)}
-
-% Early experiments for Kepler rotation samples
-\author[0000-0001-7967-1795]{Elsa~K.~Palumbo}
-\affiliation{\caltech}
-
-% ?
-%\author{Lynne~A.~Hillenbrand}
-%\affiliation{\caltech}
-
-% HIRES observations and reductions
-\author[0000-0002-0531-1073]{H. Isaacson}
-\affiliation{\berkeley}
-% HIRES observations, reductions, JUMP infrastructure
-\author[0000-0001-8638-0320]{A. W. Howard}
-\affiliation{\caltech}
+\author{et al}
 %
-\author{HIRES observers to be named}
-\affiliation{Various}
+%% Early experiments for Kepler rotation samples
+%\author[0000-0001-7967-1795]{Elsa~K.~Palumbo}
+%\affiliation{\caltech}
+%
+%% ?
+%%\author{Lynne~A.~Hillenbrand}
+%%\affiliation{\caltech}
+%
+%% HIRES observations and reductions
+%\author[0000-0002-0531-1073]{H. Isaacson}
+%\affiliation{\berkeley}
+%% HIRES observations, reductions, JUMP infrastructure
+%\author[0000-0001-8638-0320]{A. W. Howard}
+%\affiliation{\caltech}
+%%
+%\author{HIRES observers to be named}
+%\affiliation{Various}
 
 % <250 words
 \begin{abstract}
@@ -258,27 +257,30 @@ currently be associated with their birth cluster
 This means that there are many ``young'' (0.05-1\,Gyr) stars in the
 field that are omitted by cluster-only searches.
 Of order 40 transiting planets are currently known to be younger than
-1\,Gyr, requiring an age precision $t/\sigma_t > 3$ (see
-Figure~\ref{fig:rp_period_age}).  However, Kepler discovered
+1\,Gyr, requiring an age precision $t/\sigma_t > 3$.
+%TODO cite???
+% (see
+%Figure~\ref{fig:rp_period_age}).
+However, Kepler discovered
 $\approx$4{,}000 planets; and so unless there is a major discovery
 bias, we would expect a larger fraction of the Kepler
 planets---perhaps 10\%, or 400 planets---to be younger than 1\,Gyr.
 
-\begin{figure}[!t]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=0.49\textwidth]{f1.pdf}
-	\end{center}
-	\vspace{-0.6cm}
-	\caption{
-		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
-    Planets younger than 1\,Gyr with ages more precise than a
-    factor of three are emphasized. 
-    ({\bf cite relevant papers?})
-    Parameters are from the \citet{PSCompPars}.
-		\label{fig:rp_period_age}
-	}
-\end{figure}
+%\begin{figure}[!t]
+%	\begin{center}
+%		\leavevmode
+%		\includegraphics[width=0.49\textwidth]{f1.pdf}
+%	\end{center}
+%	\vspace{-0.6cm}
+%	\caption{
+%		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
+%    Planets younger than 1\,Gyr with ages more precise than a
+%    factor of three are emphasized. 
+%    ({\bf cite relevant papers?})
+%    Parameters are from the \citet{PSCompPars}.
+%		\label{fig:rp_period_age}
+%	}
+%\end{figure}
 
 Have these young Kepler planets already been found?  If they have, the
 most likely studies to have found them would be those by
@@ -795,7 +797,6 @@ do not exclude them from our analysis; this is because...{\bf justify}.
 	\begin{center}
 		\subfloat{
 			\includegraphics[width=0.5\textwidth]{prot_teff_Santos19_Santos21_dquality.pdf}
-      % vs prot_teff_Santos19_Santos21_clean0.pdf !
 		}
 		\subfloat{
 			\includegraphics[width=0.5\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf}
@@ -987,6 +988,60 @@ planets are given in Table~\ref{tab:youngplanets}.
 
 
 \subsection{Planets Younger Than One Billion Years}
+
+%\begin{figure*}[!t]
+%	\begin{center}
+%		\subfloat{
+%			\includegraphics[width=0.5\textwidth]{rp_vs_period_scatter_20240415_colorbyage_strictyoung.pdf}
+%		}
+%		\subfloat{
+%			\includegraphics[width=0.5\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_selsnrupper3_strictyoung.pdf}
+%		}
+%	
+%		\subfloat{
+%		\includegraphics[width=0.5\textwidth]{rp_vs_period_scatter_20240415_colorbyage_anyyoung.pdf}
+%		}
+%		\subfloat{
+%			\includegraphics[width=0.5\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pdf}
+%		}
+%	\end{center}
+%	\vspace{-0.5cm}
+%
+%	\caption{
+%		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
+%    Planets younger than 1\,Gyr are emphasized. 
+%    Two possible selection functions are suggested...
+%		\label{fig:rp_period_age_results}
+%	}
+%\end{figure*}
+
+\begin{figure*}[!t]
+	\begin{center}
+		\subfloat{
+			\includegraphics[width=0.8\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_selsnrupper3_strictyoung.pdf}
+		}
+		
+		\subfloat{
+			\includegraphics[width=0.8\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pdf}
+		}
+	\end{center}
+	\vspace{-0.5cm}
+	
+	\caption{
+		{\bf Sizes, orbital periods, and rotation-based ages of young transiting exoplanets}.
+		Two different selection functions for what defines a young, sub-gigayear, planet
+		are imposed on the {\it top} and {\it bottom}: the former requires $t$>1\,Gyr with
+		$t/\sigma_{\rm t}$>3, the latter also allows planets younger than 1\,Gyr at 2$\sigma$.
+		Circles are previously reported measurements from the literature.
+		Stars are newly calculated ages for Kepler planets from this work.
+		Gray points are transiting planets from the NASA Exoplanet Archive older than
+		1\,Gyr.
+		The three age bins span 10-46\,Myr, 46-215\,Myr, and 215-1000\,Myr.
+		\label{fig:rp_period_age_results}
+	}
+\end{figure*}
+
+
 
 Given that the history of young exoplanet discovery includes a
 sociological tendency to report detailed descriptions of specific
