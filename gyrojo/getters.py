@@ -872,6 +872,114 @@ def get_cleaned_gaiadr3_X_kepler_dataframe():
     return cgk_df
 
 
+def get_cleaned_gaiadr3_X_kepler_supplemented_dataframe():
+    """
+    as in get_cleaned_gaiadr3_X_kepler_dataframe (the Kepler-Gaia DR3
+    crossmatch), but supplemented with Berger+20 parameters, and a few other
+    odds and ends.
+    """
+
+    cachecsv = join(DATADIR, "interim", "kic_X_dr3_supp.csv")
+    if os.path.exists(cachecsv):
+        return pd.read_csv(cachecsv)
+
+    cgk_df = get_cleaned_gaiadr3_X_kepler_dataframe()
+
+    from cdips.utils.gaiaqueries import apparent_to_absolute_mag
+    cgk_df['M_G'] = apparent_to_absolute_mag(
+        cgk_df.dr3_phot_g_mean_mag, cgk_df.dr3_parallax
+    )
+
+    from astroquery.vizier import Vizier
+    Vizier.ROW_LIMIT = -1
+
+    # Berger+2020: Gaia-Kepler stellar properties catalog.
+    _v = Vizier(columns=["**"])
+    _v.ROW_LIMIT = -1
+    catalogs = _v.get_catalogs("J/AJ/159/280")
+
+    # Table 1: input parameters
+    # 'KIC', 'gmag', 'e_gmag', 'Ksmag', 'e_Ksmag', 'plx', 'e_plx', '__Fe_H_',
+    # 'e__Fe_H_', 'RUWE', 'Ncomp', 'KsCorr', 'State', 'output', 'KSPC', '_RA',
+    # '_DE'
+    b20t1_df = catalogs[0].to_pandas()
+    b20t1_df = prepend_colstr('b20t1_', b20t1_df)
+
+    # Table 2: output parameters
+    # "E_" means upper err, "e_" means lower.  Note that "e_" is signed, so
+    # that all entries in these columns are negative.
+    # ['recno', 'KIC', 'Mass', 'E_Mass', 'e_Mass', 'Teff', 'E_Teff', 'e_Teff',
+    #  'logg', 'E_logg', 'e_logg', '__Fe_H_', 'E__Fe_H_', 'e__Fe_H_', 'Rad',
+    #  'E_Rad', 'e_Rad', 'rho', 'E_rho', 'e_rho', 'Lum', 'E_Lum', 'e_Lum',
+    #  'Age', 'f_Age', 'E_Age', 'e_Age', 'Dist', 'E_Dist', 'e_Dist', 'Avmag',
+    #  'GOF', 'TAMS']
+    b20t2_df = catalogs[1].to_pandas() # output parameters
+    b20t2_df = prepend_colstr('b20t2_', b20t2_df)
+
+    # start merging!
+    mdf0 = left_merge(cgk_df, b20t1_df, 'kepid', 'b20t1_KIC')
+    mdf1 = left_merge(mdf0, b20t2_df, 'kepid', 'b20t2_KIC')
+    df = deepcopy(mdf1)
+
+    #############
+    # get Teffs #
+    #############
+
+    # default Teffs
+    df['adopted_Teff'] = df['b20t2_Teff']
+    df['adopted_Teff_provenance'] = 'Berger2020_table2'
+    df['adopted_Teff_err'] = np.nanmean([
+        np.array(df['b20t2_E_Teff']),
+        np.array(np.abs(df['b20t2_e_Teff']))
+    ], axis=0)
+
+    ## else, take Gaia DR3 Teff and logg, and assume σ_Teff = 200 K
+    #_sel = pd.isnull(df['adopted_Teff'])
+    #df.loc[_sel, 'adopted_Teff'] = df.loc[_sel, 'dr3_teff_gspphot']
+    #df.loc[_sel, 'adopted_Teff_err'] = 200
+    #df.loc[_sel, 'adopted_Teff_provenance'] = 'Gaia DR3 GSP-Phot'
+
+    #  # (NOTE: can't really do this in KIC case?)
+    #  # else, take Santos+19 or Santos+21 Teff and logg, which are
+    #  # mostly Mathur+17 (DR25) in this case.
+    #  _sel = pd.isnull(df['adopted_Teff'])
+    #  df.loc[_sel, 'adopted_Teff'] = df.loc[_sel, 'Teff']
+    #  df.loc[_sel, 'adopted_Teff_err'] = df.loc[_sel, 'e_Teff']
+    #  df.loc[_sel, 'adopted_Teff_provenance'] = df.loc[_sel, 'Provenance']
+
+    #  assert np.sum(pd.isnull(df['adopted_Teff'])) == 0
+    #  assert np.sum(pd.isnull(df['adopted_Teff_err'])) == 0
+
+    #############
+    # get loggs #
+    #############
+
+    # default loggs
+    df['adopted_logg'] = df['b20t2_logg']
+    df['adopted_logg_provenance'] = 'Berger2020_table2'
+    df['adopted_logg_err'] = np.nanmean([
+        np.array(df['b20t2_E_logg']),
+        np.array(np.abs(df['b20t2_e_logg']))
+    ], axis=0)
+
+    #    ## else, take Gaia DR3 Teff and logg, assume σ_logg = 0.3 dex
+    #    #_sel = pd.isnull(df['adopted_logg'])
+    #    #df.loc[_sel, 'adopted_logg'] = df.loc[_sel, 'dr3_logg_gspphot']
+    #    #df.loc[_sel, 'adopted_logg_err'] = 0.3
+    #    #df.loc[_sel, 'adopted_logg_provenance'] = 'Gaia DR3 GSP-Phot'
+
+    #    _sel = pd.isnull(df['adopted_logg'])
+    #    df.loc[_sel, 'adopted_logg'] = df.loc[_sel, 'logg']
+    #    df.loc[_sel, 'adopted_logg_err'] = df.loc[_sel, 'e_logg']
+    #    df.loc[_sel, 'adopted_logg_provenance'] = df.loc[_sel, 'Provenance']
+
+    df.to_csv(cachecsv, index=False)
+
+
+    return df
+
+
+
 def get_koi_data(sampleid, drop_grazing=1):
     """
     Get the KOI tables from the NASA exoplanet archive -- either the
