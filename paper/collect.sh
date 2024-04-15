@@ -1,5 +1,9 @@
 r="/Users/luke/Dropbox/proj/gyrojo/results"
 
+# plot_camd
+cp $r/camd/camd_M_G_vs_dr3_bp_rp.pdf .
+cp $r/camd/camd_M_G_vs_adopted_Teff.pdf .
+
 # plot_star_Prot_Teff
 cp $r/star_Prot_Teff/prot_teff_Santos19_Santos21_dquality.pdf .
 
