@@ -8,7 +8,7 @@ Catch-all file for plotting scripts.  Contents:
     plot_li_vs_teff
 
     plot_gyroage_vs_teff
-    plot_camd
+    plot_st_params
 
     plot_koi_gyro_posteriors
     plot_li_gyro_posteriors
