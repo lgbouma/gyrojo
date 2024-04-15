@@ -1766,7 +1766,7 @@ def plot_gyroage_vs_teff(outdir, yscale='linear', showerrs=0, showplanets=0):
     savefig(fig, outpath, dpi=400)
 
 
-def plot_camd(outdir, xkey='dr3_bp_rp', ykey='M_G'):
+def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
 
     # get data
 
@@ -1778,18 +1778,17 @@ def plot_camd(outdir, xkey='dr3_bp_rp', ykey='M_G'):
     koidf, _, _ = get_age_results(whichtype='gyro_li', COMPARE_AGE_UNCS=0,
                                   drop_grazing=0, drop_highruwe=0)
 
-    #  # get all KOIs
-    #  koi_df = get_koi_data('cumulative-KOI', drop_grazing=0)
-    #  koi_df['kepid'] = koi_df['kepid'].astype(str)
-    #  # REQUIRE "flag_is_ok_planetcand"
-    #  skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
-
     # get KIC target stars
     from gyrojo.getters import (
         get_cleaned_gaiadr3_X_kepler_supplemented_dataframe
     )
     cgk_df = get_cleaned_gaiadr3_X_kepler_supplemented_dataframe()
 
+    #  # if you wanted all KOIs
+    #  koi_df = get_koi_data('cumulative-KOI', drop_grazing=0)
+    #  koi_df['kepid'] = koi_df['kepid'].astype(str)
+    #  # REQUIRE "flag_is_ok_planetcand"
+    #  skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
 
     # make plot
     plt.close('all')
@@ -1853,13 +1852,24 @@ def plot_camd(outdir, xkey='dr3_bp_rp', ykey='M_G'):
         xlabel = '$T_\mathrm{eff,adopted}$ [K]'
         xlim = [7500, 2500]
 
+    if ykey == 'M_G':
+        ylabel = '$M_\mathrm{G}$ [mag]'
+        ylim = [15.5, -6.5]
+    elif ykey == 'adopted_logg':
+        ylabel = '$\log g$ [dex]'
+        ylim = [6.5, 1.5]
+    elif ykey == 'dr3_phot_g_mean_mag':
+        ylabel = '$G$ [mag]'
+        ylim = [21, 5]
+
     ax.update({
         'xlabel': xlabel,
-        'ylabel': '$M_\mathrm{G}$ [mag]',
-        'ylim': [15.5, -6.5],
+        'ylabel': ylabel,
+        'ylim': ylim,
         'xlim': xlim
     })
-    ax.set_yticks([15, 10, 5, 0, -5])
+    if ykey == 'M_G':
+        ax.set_yticks([15, 10, 5, 0, -5])
 
     ax.legend(
         loc='lower left', fontsize='x-small',
@@ -1874,5 +1884,5 @@ def plot_camd(outdir, xkey='dr3_bp_rp', ykey='M_G'):
     # set naming options
     s = f'_{ykey}_vs_{xkey}'
 
-    outpath = join(outdir, f'camd{s}.png')
+    outpath = join(outdir, f'st_params{s}.png')
     savefig(fig, outpath, dpi=400)
