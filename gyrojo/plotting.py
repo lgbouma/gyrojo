@@ -1375,15 +1375,27 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405')
         'ylabel': f'Fraction',
         'xlim': [xmin/1e3, (xmax-20)/1e3],
         'ylim': [0, 0.065],
-        'title': 'Kepler stars'
+        #'title': 'Kepler stars'
     })
+    axs[0].text(.08, .97, 'Kepler targets', ha='left', va='top',
+                fontsize='large', zorder=5, transform=axs[0].transAxes,
+                fontdict={'fontstyle':'oblique'})
+    if MAXAGE < 4000:
+        axs[0].set_xticks([0, 1, 2, 3])
+
     axs[1].update({
         'xlabel': '$t_{\mathrm{gyro}}$ [Gyr]',
         'ylabel': f'Fraction',
         'xlim': [xmin/1e3, (xmax-20)/1e3],
         'ylim': [0, 0.065],
-        'title': 'KOI host stars'
+        #'title': 'KOI host stars'
     })
+    axs[1].text(.08, .97, 'KOI host stars', ha='left', va='top',
+                fontsize='large', zorder=5, transform=axs[1].transAxes,
+                fontdict={'fontstyle':'oblique'})
+    if MAXAGE < 4000:
+        axs[1].set_xticks([0, 1, 2, 3])
+
     #axs[1].set_yticklabels([])
 
     # AESTHETIC HAD WEIRD ISSUES...
@@ -1854,10 +1866,10 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
 
     if ykey == 'M_G':
         ylabel = '$M_\mathrm{G}$ [mag]'
-        ylim = [15.5, -6.5]
+        ylim = [15.5, -3.5]
     elif ykey == 'adopted_logg':
-        ylabel = '$\log g$ [dex]'
-        ylim = [6.5, 1.5]
+        ylabel = '$(\log g)_\mathrm{adopted}$ [dex]'
+        ylim = [6.5, 2.5]
     elif ykey == 'dr3_phot_g_mean_mag':
         ylabel = '$G$ [mag]'
         ylim = [21, 5]
@@ -1869,7 +1881,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
         'xlim': xlim
     })
     if ykey == 'M_G':
-        ax.set_yticks([15, 10, 5, 0, -5])
+        ax.set_yticks([15, 10, 5, 0])
 
     ax.legend(
         loc='lower left', fontsize='x-small',

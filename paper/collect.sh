@@ -1,12 +1,12 @@
 r="/Users/luke/Dropbox/proj/gyrojo/results"
 
 # plot_st_params
-# CAMD:
+# ...CAMD:
 cp $r/st_params/st_params_M_G_vs_dr3_bp_rp.pdf .
 cp $r/st_params/st_params_M_G_vs_adopted_Teff.pdf .
-# logg vs Teff
+# ...logg vs Teff
 cp $r/st_params/st_params_adopted_logg_vs_adopted_Teff.pdf .
-# G vs Teff
+# ...G vs Teff
 cp $r/st_params/st_params_dr3_phot_g_mean_mag_vs_adopted_Teff.pdf .
 
 # plot_star_Prot_Teff
