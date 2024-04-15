@@ -8,6 +8,7 @@ Catch-all file for plotting scripts.  Contents:
     plot_li_vs_teff
 
     plot_gyroage_vs_teff
+    plot_camd
 
     plot_koi_gyro_posteriors
     plot_li_gyro_posteriors
@@ -143,7 +144,7 @@ def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality', drop_grazin
     Prot_errs = nparr(df.Prot_err)
 
     set_style("clean")
-    fig, ax = plt.subplots(figsize=(4,3))
+    fig, ax = plt.subplots(figsize=(3,3))
 
     model_ids = ['120-Myr', 'Praesepe', 'NGC-6811', '2.6-Gyr', 'M67']
     ages = ['120 My', '670 My', '1 Gy', '2.6 Gy', '4 Gy']
@@ -259,7 +260,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
         Prot_errs = nparr(df.Prot_err)
 
     set_style("clean")
-    fig, ax = plt.subplots(figsize=(4,3))
+    fig, ax = plt.subplots(figsize=(3,3))
 
     model_ids = ['120-Myr', 'Praesepe', 'NGC-6811', '2.6-Gyr', 'M67']
     ages = ['120 My', '670 My', '1 Gy', '2.6 Gy', '4 Gy']
@@ -409,7 +410,7 @@ def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
         Teff_model = 10**Teff_model
 
     set_style("clean")
-    fig, ax = plt.subplots(figsize=(4,3))
+    fig, ax = plt.subplots(figsize=(3,3))
 
     linestyles = ['solid', 'dotted', 'dashed', 'dashdot', 'solid']
     for ix, (li_model, ls, age) in enumerate(zip(li_models, linestyles, ages)):
@@ -1226,12 +1227,12 @@ def plot_reinhold_2015(outdir):
     savefig(fig, outpath)
 
 
-def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
+def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405'):
 
     from gyrointerp.paths import CACHEDIR
-    csvdir = join(CACHEDIR, "samples_field_gyro_posteriors_20230529")
+    csvdir = join(CACHEDIR, f"samples_field_gyro_posteriors_{datestr}")
 
-    mergedcsv = join(csvdir, f'merged_{cache_id}_samples_20230531.csv')
+    mergedcsv = join(csvdir, f'merged_{cache_id}_samples_{datestr}.csv')
     if not os.path.exists(mergedcsv):
 
         csvpaths = glob(join(csvdir, "*samples.csv"))
@@ -1296,7 +1297,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     #################################################
     plt.close("all")
     set_style('clean')
-    fig, axs = plt.subplots(ncols=2, figsize=(0.5*8,0.5*3), constrained_layout=True)
+    fig, axs = plt.subplots(ncols=2, figsize=(0.9*6, 0.9*3), constrained_layout=True)
 
     koi_df = get_koi_data('cumulative-KOI', drop_grazing=0)
     koi_df['kepid'] = koi_df['kepid'].astype(str)
@@ -1370,14 +1371,14 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     xmin = 0
     xmax = MAXAGE
     axs[0].update({
-        'xlabel': 'Gyro Age [Gyr]',
+        'xlabel': '$t_{\mathrm{gyro}}$ [Gyr]',
         'ylabel': f'Fraction',
         'xlim': [xmin/1e3, (xmax-20)/1e3],
         'ylim': [0, 0.065],
         'title': 'Kepler stars'
     })
     axs[1].update({
-        'xlabel': 'Gyro Age [Gyr]',
+        'xlabel': '$t_{\mathrm{gyro}}$ [Gyr]',
         'ylabel': f'Fraction',
         'xlim': [xmin/1e3, (xmax-20)/1e3],
         'ylim': [0, 0.065],
@@ -1397,10 +1398,11 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
     custom_lines = [Line2D([0], [0], color='lightgray', lw=1, alpha=0.6),
                     Line2D([0], [0], color='C0', alpha=0.81, lw=1) ]
     axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='xx-small',
-                  borderaxespad=2.0, borderpad=0.8, framealpha=0)
+                  borderaxespad=2.0, borderpad=0.8, framealpha=0,
+                  loc='lower right')
     axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='xx-small',
-                  borderaxespad=2.0, borderpad=0.8, framealpha=0)
-
+                  borderaxespad=2.0, borderpad=0.8, framealpha=0,
+                  loc='lower right')
 
     outpath = os.path.join(outdir, f'hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}.png')
     fig.tight_layout()
@@ -1416,7 +1418,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000):
         mdf.loc[sel_gyro_ok & sel_planets & sel_age, 'age']
     )
 
-    txt = f'D={D:.2f}, p={p_value:.4f} 2-sample KS'
+    txt = f'D={D:.2f}, p={p_value:.2e} 2-sample KS'
     print(42*'-')
     print(txt)
     print(42*'-')
@@ -1698,7 +1700,7 @@ def plot_gyroage_vs_teff(outdir, yscale='linear', showerrs=0, showplanets=0):
 
     # make plot
     plt.close('all')
-    set_style()
+    set_style('clean')
 
     fig, ax = plt.subplots(figsize=(4,3))
 
@@ -1761,4 +1763,116 @@ def plot_gyroage_vs_teff(outdir, yscale='linear', showerrs=0, showplanets=0):
 
     bn = 'gyroage_vs_teff'
     outpath = join(outdir, f'{bn}_{s}.png')
+    savefig(fig, outpath, dpi=400)
+
+
+def plot_camd(outdir, xkey='dr3_bp_rp', ykey='M_G'):
+
+    # get data
+
+    # stars (w/ Prot)
+    sampleid = 'Santos19_Santos21_dquality'
+    kicdf = get_kicstar_data(sampleid)
+
+    # planets (for gyro)
+    koidf, _, _ = get_age_results(whichtype='gyro_li', COMPARE_AGE_UNCS=0,
+                                  drop_grazing=0, drop_highruwe=0)
+
+    #  # get all KOIs
+    #  koi_df = get_koi_data('cumulative-KOI', drop_grazing=0)
+    #  koi_df['kepid'] = koi_df['kepid'].astype(str)
+    #  # REQUIRE "flag_is_ok_planetcand"
+    #  skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
+
+    # get KIC target stars
+    from gyrojo.getters import (
+        get_cleaned_gaiadr3_X_kepler_supplemented_dataframe
+    )
+    cgk_df = get_cleaned_gaiadr3_X_kepler_supplemented_dataframe()
+
+
+    # make plot
+    plt.close('all')
+    set_style('clean')
+
+    fig, ax = plt.subplots(figsize=(3,3))
+
+    dfs = [
+        cgk_df,
+        kicdf,
+        kicdf[kicdf['flag_is_gyro_applicable']],
+        koidf
+    ]
+    colors = [
+        'lightgray',
+        'gray',
+        'k',
+        'C0'
+    ]
+    zorders = [
+        -1,
+        0,
+        1,
+        2
+    ]
+    sizes = [
+        0.1,
+        0.3,
+        1,
+        1.5
+    ]
+    labels = [
+        'KIC',
+        '...w/ Prot',
+        '...& gyro applicable',
+        '...& KOI',
+    ]
+    rasterized = [
+        True,
+        True,
+        True,
+        False
+    ]
+
+    for df, c, z, l, s, r in zip(
+        dfs, colors, zorders, labels, sizes, rasterized
+    ):
+
+        yval = nparr(df[ykey])
+        xval = nparr(df[xkey])
+        ax.scatter(
+            xval, yval,
+            marker='o', c=c, zorder=z, s=s, linewidths=0,
+            label=l+f" ($N$={len(xval)})", rasterized=r
+        )
+
+    if xkey == 'dr3_bp_rp':
+        xlabel = '$G_\mathrm{BP}-G_{\mathrm{RP}}$ [mag]'
+        xlim = [0.1, 4.05]
+    elif xkey == 'adopted_Teff':
+        xlabel = '$T_\mathrm{eff,adopted}$ [K]'
+        xlim = [7500, 2500]
+
+    ax.update({
+        'xlabel': xlabel,
+        'ylabel': '$M_\mathrm{G}$ [mag]',
+        'ylim': [15.5, -6.5],
+        'xlim': xlim
+    })
+    ax.set_yticks([15, 10, 5, 0, -5])
+
+    ax.legend(
+        loc='lower left', fontsize='x-small',
+        markerscale=3,
+        framealpha=0,
+        #handletextpad=0.3, framealpha=0, borderaxespad=0, borderpad=0,
+        #handlelength=1.6#, bbox_to_anchor=(0.97, 0.97)
+        handletextpad=0.1, borderaxespad=0.5, borderpad=0.5
+    )
+
+
+    # set naming options
+    s = f'_{ykey}_vs_{xkey}'
+
+    outpath = join(outdir, f'camd{s}.png')
     savefig(fig, outpath, dpi=400)
