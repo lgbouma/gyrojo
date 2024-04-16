@@ -518,6 +518,7 @@ def get_kicstar_data(sampleid):
             TABLEDIR,
             'field_gyro_posteriors_20240405_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
         )
+        assert os.path.exists(csvpath)
         df = pd.read_csv(
             csvpath, dtype={
                 'dr3_source_id':str, 'KIC':str, 'kepid':str
@@ -841,10 +842,10 @@ def get_cleaned_gaiadr3_X_kepler_dataframe():
             if idcache[kepid] >= 1:
                 n_gaia_nbhr[ix] = idcache[kepid]
 
-    cgk_df['flag_n_gaia_nbhr'] = n_gaia_nbhr.astype(int)
+    cgk_df['count_n_gaia_nbhr'] = n_gaia_nbhr.astype(int)
 
     okcols = ['kepid', 'nconfp', 'nkoi', 'ntce', 'jmag', 'hmag', 'kmag',
-              'planet?', 'flag_n_gaia_nbhr']
+              'planet?', 'count_n_gaia_nbhr']
     colstr = 'dr3_'
     cgk_df = cgk_df.rename({c:colstr+c for c in cgk_df.columns
                             if c not in okcols}, axis='columns')
@@ -862,7 +863,7 @@ def get_cleaned_gaiadr3_X_kepler_dataframe():
                'dr3_logg_gspphot', 'dr3_mh_gspphot', 'dr3_distance_gspphot',
                'dr3_ag_gspphot', 'dr3_ebpminrp_gspphot',
                'dr3_kepler_gaia_ang_dist', 'dr3_pm_corrected', 'nconfp',
-               'nkoi', 'ntce', 'planet?', 'flag_n_gaia_nbhr']
+               'nkoi', 'ntce', 'planet?', 'count_n_gaia_nbhr']
     # "cleaned" Gaia-Kepler dataframe.  duplicates accounted for; dud columns
     # dropped (most columns kept).
     cgk_df = cgk_df[selcols]
