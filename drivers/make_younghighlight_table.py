@@ -32,7 +32,7 @@ selcols = (
     "gyro_median,gyro_+1sigma,gyro_-1sigma,"
     "li_median,li_+1sigma,li_-1sigma,"
     "adopted_rp,adopted_period,"
-    "flag_ruwe_outlier,flag_koi_is_grazing,has_hires"
+    "flag_dr3_ruwe_outlier,flag_koi_is_grazing,has_hires"
 ).split(",")
 pdf = df[selcols].sort_values(
     by=['gyro_median','kepler_name','kepoi_name']
@@ -58,13 +58,13 @@ pcols = (
     "kepoi_name,kepler_name,gyro_median,"
     "gyro_+1sigma,gyro_-1sigma,li_median,li_+1sigma,li_-1sigma,"
     "adopted_rp,adopted_period,"
-    "flag_ruwe_outlier,flag_koi_is_grazing,has_hires"
+    "flag_dr3_ruwe_outlier,flag_koi_is_grazing,has_hires"
 ).split(",")
 _pcols = (
     "kepoi_name,kepler_name,gyro_median,"
     "gyro_+1sigma,gyro_-1sigma,li_median,li_+1sigma,li_-1sigma,"
     "adopted_rp,Prot,adopted_period,"
-    "flag_ruwe_outlier,flag_koi_is_grazing,has_hires"
+    "flag_dr3_ruwe_outlier,flag_koi_is_grazing,has_hires"
 ).split(",")
 
 
@@ -150,7 +150,7 @@ mapdict = {
     "t_li": r"$t_{\rm Li}$",
     "adopted_rp": r"$R_{\rm p}$",
     "adopted_period": r"$P$",
-    "flag_ruwe_outlier": r"$f_{\rm RUWE}$",
+    "flag_dr3_ruwe_outlier": r"$f_{\rm RUWE}$",
     "flag_koi_is_grazing": r"$f_{\rm grazing}$",
     "has_hires": r"Spec?",
 }
