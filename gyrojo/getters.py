@@ -154,7 +154,13 @@ def get_li_data(sampleid):
         f"{name}_{spec_id}_Li_EW_deltawav5.0_xshift*_results.csv")
         for name, spec_id in zip(names, spec_ids)
     ]
-    li_paths = [glob(globstr)[0] for globstr in globstrs ]
+    li_paths = []
+    for globstr in globstrs:
+        glob_result = glob(globstr)
+        if len(glob_result) > 0:
+            li_paths.append(glob_result[0])
+        else:
+            raise NotImplementedError(f'failing for {globstr}')
     for li_path in li_paths:
         assert os.path.exists(li_path)
     li_df = pd.concat([pd.read_csv(f) for f in li_paths])
