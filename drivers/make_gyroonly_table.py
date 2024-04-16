@@ -25,34 +25,6 @@ def make_table(
     dropcols = [c for c in koidf.columns if 'adopted_age' in c]
     koidf = koidf.drop(labels=dropcols, axis='columns')
 
-    #    kic_df['flag_is_gyro_applicable'] = (
-    #        (~kic_df['flag_logg'])
-    #        #&
-    #        #(~df['flag_ruwe_outlier'])
-    #        &
-    #        (~kic_df['flag_dr3_non_single_star'])
-    #        &
-    #        (~kic_df['flag_camd_outlier'])
-    #        #&
-    #        #(df['flag_not_CP_CB'])
-    #        &
-    #        (~kic_df['flag_in_KEBC'])
-    #        &
-    #        (kic_df['adopted_Teff'] > 3800)
-    #        &
-    #        (kic_df['adopted_Teff'] < 6200)
-    #    )
-
-    #
-    #    flag_is_ok_planetcand = (
-    #       (~koi_df['flag_koi_is_fp'])
-    #       &
-    #       (~koi_df['flag_koi_is_low_snr'])
-    #   )
-    #   if drop_grazing:
-    #       flag_is_ok_planetcand &= (~koi_df['flag_koi_is_grazing'])
-
-
     koidf = koidf.rename({'Provenance':'Prot_provenance'}, axis='columns')
     selcols = ['kepid', 'kepoi_name', 'kepler_name', 'koi_disposition',
                'adopted_Teff', 'adopted_Teff_provenance', 'adopted_Teff_err',
