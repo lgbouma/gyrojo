@@ -726,77 +726,76 @@ sequences to yield statistical age uncertainties.
 \label{subsec:flags}
 We calculated gyrochrone age posteriors for all \nuniqstarsantosrot\
 stars with reported rotation periods and effective temperatures.  To
-select the subset stars for which we expect these age to in fact be
-valid, we then build a set of quality flags.  When and
-how these flags should be applied depends on the question being asked.
-If the goal is to construct a false-positive free sample, they might
-all be applied.
-If the goal is constructing a complete sample of young stars,
-then consider the examples of Kepler~1627Ab ($\approx$40\,Myr) and
+select stars for which we expect these age to in fact be valid, we
+then build a set of quality flags.  When and how these flags should be
+applied depends on the question being asked.  If the goal is to
+construct a false-positive free sample, they might all be applied.  If
+the goal is constructing a complete sample of young stars, then
+consider the examples of Kepler~1627Ab ($\approx$40\,Myr) and
 Kepler~51c ($\approx$625\,Myr).  The former has a high RUWE due to a
 resolved binary companion \citep{Bouma_2022a}; the latter is on a
-grazing orbit \citep{2014ApJ...783...53M}.  
-The flags in Tables~\ref{tab:stars} and~\ref{tab:planets} enable
-selecting for such cases using bitflags.
+grazing orbit \citep{2014ApJ...783...53M}.  The flags in
+Tables~\ref{tab:stars} and~\ref{tab:planets} enable selecting for or
+against such cases using bit flags.
 
-{\it Temperature range (bit 0)}---We required stars to have effective
-temperatures $T_{\rm eff}$ between 3800 and 6200\,K
-\citep{Bouma_2023}.   Stars hotter than 6200\,K spin down very slowly,
-if at all, limiting the utility of rotation-based ages.  Stars cooler
-than 3800\,K do seem to spin down over gigayear timescales (e.g. CITE
-E.Newton thesis, the Engle paper, and Chiti's thing), but the
-currently available open cluster data have yet to clarify at what
-times, if any, the intrinsic scatter in the population decreases.
+{\it Temperature range (bit 0)}---We require stars to have effective
+temperatures $T_{\rm eff}$ between 3800 and 6200\,K in order to report
+gyrochrone ages \citep{Bouma_2023}.   Stars hotter than 6200\,K spin
+down very slowly, if at all.  Stars cooler than 3800\,K do spin down
+over gigayear timescales (e.g. {\bf CITE} E.Newton thesis, the Engle
+paper, and Chiti's article), but the currently available open cluster
+data have yet to clarify at what times, if any, the intrinsic scatter
+in the population decreases.
 
-{\it Surface gravity (bit 1)}---We flagged stars as possible subgiants if they had
-$\log g < 4.2$.  We set this threshold by examining the
+{\it Surface gravity (bit 1)}---We flagged stars as possible subgiants
+if they had $\log g < 4.2$.  We set this threshold by examining the
 relevant flag from \citet{berger_2018_radii_evolnstates},
 cross-matched against \citet{Berger_2020a_catalog}.
-\citet{berger_2018_radii_evolnstates} performed this classification
-using the PARSEC evolutionary models, stellar radii, and DR25 stellar
-properties catalog effective temperatures \citep{Mathur_2017}.
+%\citet{berger_2018_radii_evolnstates} performed this classification
+%using the PARSEC evolutionary models, stellar radii, and DR25 stellar
+%properties catalog effective temperatures \citep{Mathur_2017}.
 
-{\it Absolute luminosity (bit 2)}---We calculated the absolute Gaia DR3
-$G$-band luminosity, ignoring reddening, using the reported apparent
-$G$-band magnitude and parallaxes.
-We flag stars with $M_{\rm G} < 3.9$, corresponding to main-sequence
-spectral types earlier than $\approx$F8V \citep{Pecaut_2013}.
+{\it Absolute luminosity (bit 2)}---We calculated the absolute Gaia
+DR3 $G$-band luminosity, ignoring reddening, using the reported
+apparent $G$-band magnitude and parallaxes.  We flag stars with
+$M_{\rm G} < 3.9$, corresponding to main-sequence spectral types
+earlier than $\approx$F8V \citep{Pecaut_2013}.
 
-{\it Known eclipsing binaries (bit 3)}---We flagged any stars reported to be
-in the final Kepler eclipsing binary catalog (KEBC;
+{\it Known eclipsing binaries (bit 3)}---We flagged any stars reported
+to be in the final Kepler eclipsing binary catalog (KEBC;
 \citealt{2016AJ....151...68K}).
 
-{\it Kepler-Gaia crossmatch quality (bits 4 and 5)}--- In instances
+{\it Kepler-Gaia crossmatch quality (bits 4 and 5)}--- In situations
 where we wanted to leverage Gaia DR3 data, we used M.~Bedell's 4$''$
-Kepler-to-Gaia crossmatch\footnote{\url{https://gaia-kepler.fun/}; we
-used 4$''$ rather than the 1$''$ match because 91 KOIs are omitted in
-the 1$''$ match, 23 of which have either ``candidate'' or
-``confirmed'' status.  Almost all of these 23 are M dwarfs with high
-proper motions.  Performing the same crossmatch at 4 arcseconds, only
-two KOIs (KOI-3993 and KOI-6531), both known false positives, fail to
-yield Gaia DR3 crossmatches.}, which is a crossmatch of the NASA
-Exoplanet Archive \texttt{q1\_q17\_dr25\_stellar} catalog with Gaia
-DR3.  For KIC stars with multiple potential Gaia matches within the
-4$''$ search radius, we adopted the brightest star as the default
-match.  in most such cases this was unambiguous because there is a
-large brightness difference between the primary and any apparent
-neighbors.  Cases with multiple stars within 4$''$ within $\Delta
-G$$<$$0.5$\,mag are noted using bit flag 5.  The separation
+Kepler-to-Gaia crossmatch\footnote{\url{https://gaia-kepler.fun}, last
+accessed 15 April 2024.  We used 4$''$ rather than the 1$''$ match
+because 91 KOIs are omitted in the 1$''$ match, 23 of which have
+either ``candidate'' or ``confirmed'' status.  Almost all of these 23
+are M dwarfs with high proper motions.  Performing the same crossmatch
+at 4 arcseconds, only two KOIs (KOI-3993 and KOI-6531), both known
+false positives, fail to yield Gaia DR3 crossmatches.}, which is a
+crossmatch of the NASA Exoplanet Archive
+\texttt{q1\_q17\_dr25\_stellar} catalog with Gaia DR3.  The separation
 distribution of the Kepler-Gaia DR3 crossmatches is such that 99.2\%
 of candidate matches are within 1$''$.   We nonetheless noted an
 upturn in the candidate match rate from 3-4$''$; such sources are
-flagged using bit 4.
+flagged using bit 4.  For KIC stars with multiple potential Gaia
+matches within the 4$''$ search radius, we adopted the brightest star
+as the default match.  In most such cases this was unambiguous because
+there is a large brightness difference between the primary and any
+apparent neighbors.  However cases with multiple stars within 4$''$
+within $\Delta G$$<$$0.5$\,mag are noted using bit flag 5.  
 
 {\it Gaia DR3 non-single-stars (bit 6)}---The Gaia DR3
 \texttt{non\_single\_star} column in the \texttt{gaia\_source} table
 flags known eclipsing, astrometric, and spectroscopic binaries.  We
 directly include this column.
 
-{\it RUWE (bit 7)}---Following recommendations in the Gaia DR3
-documentation\footnote{\url{https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_ruwe.html}},
-we flagged stars with a Gaia DR3 renormalized unit weight error (RUWE)
+{\it RUWE (bit 7)}---We flagged stars with a Gaia DR3 renormalized
+unit weight error
+(RUWE\footnote{\url{https://gea.esac.esa.int/archive/documentation/GDR3/Gaia_archive/chap_datamodel/sec_dm_main_source_catalogue/ssec_dm_gaia_source.html}})
 exceeding 1.4 as possible binaries.  Such astrometric outliers can be
-either bonafide astrometric binaries, or more often are marginally
+either bona fide astrometric binaries, or more often are marginally
 resolved point sources for which the single-source PSF model used in
 the Gaia pipeline induces spurious astrometric scatter.
 
@@ -811,38 +810,33 @@ to 10$\times$ the brightness of the target star within this region
 {\it Near the main-sequence (bit 9)}---Many stars observed by Kepler
 are far from the main sequence: this can be seen in color--absolute
 magnitude diagrams, and in diagrams of e.g.~surface gravity as a
-function of temperature (Figure~\ref{fig:stellarprops}).  This poses a
+function of temperature (Figure~\ref{fig:stellarprops}).  This is a
 problem for rotation-based age-dating because {\it i)} ``stars'' far
-from the main-sequence include unresolved and unidentified photometric
-binaries, and {\it ii}) rotation periods of single stars far from the
-main-sequence have likely evolved due to effects other than magnetic
-braking.  The added complications of reddening and metallicity make
-imposing a simple cut in these diagrams challenging.  After exploring
-various options, we found that the $+1$$\sigma$ relative isochronal
+from the main-sequence include unresolved photometric binaries, and
+{\it ii}) rotation periods of single stars far from the main-sequence
+have likely evolved due to effects other than magnetic braking.  The
+added complications of reddening and metallicity make imposing a
+simple cut in any two dimensions challenging.  After exploring various
+options, we found however that the $+1$$\sigma$ relative isochronal
 uncertainty reported by \citet{Berger_2020a_catalog}, $+\sigma_{\rm
-B20,iso}/t_{\rm B20,iso}$, traced the relevant region of parameter
-space quite well.
-Another way of saying this is that gyrochronology is likely to be less
-reliable for stars for which the upper limit on the relative
-isochronal uncertainty is small.
+B20,iso}/t_{\rm B20,iso}$, reasonably separated the relevant region of
+parameter space.  Another way of saying this is that gyrochronology is
+probably less reliable for stars for which the upper limit on the
+relative isochronal uncertainty is small.
+We flag stars with $+\sigma_{\rm B20,iso}/t_{\rm B20,iso} < 0.4$ as
+meeting this criterion.
 
-%FIXME TODO LEFT OFF HERE...
+{\it Candidate pulsators and close-in binaries (bit
+10)}---\citeauthor{Santos_2021} included in a flag for candidate
+``classical pulsators'' (e.g. RR~Lyrae, Cepheids) and candidate
+close-in binaries.  Visual inspection hints that this flag also
+includes many bona fide young stars, and so although we propagate it 
+to our set of quality flags, we generally ignore it.
 
-
-df['b20t2_rel_E_Age'] = np.abs(df['b20t2_E_Age'])/df['b20t2_Age']
-
-This is potentially an issue for rotation-based age dating,
-particularly 
-
-using the Gaia DR2 photometry, in $M_{\rm G}$ vs. $(G_{\rm
-BP} - G_{\rm RP})_0$, and $(G - G_{\rm RP})_0$.  We then manually drew
-loci to flag over or under-luminous stars in each diagram, typically
-more than $\approx$0.5 magnitudes above or below the main sequence.
-%TODO refer to a figure!!!
-
-{\it Final calibration sample}---{\bf todo: mention any extra flags
-from Berger2020, or perhaps in the KOI catalog itself, or perhaps the
-amplitude cuts you might want to apply to the rotation period catalog}
+An important decision for our subsequent analysis is how to combine
+the above flags in order to decide whether or not a star is suited for
+gyrochronology.  By default, we assume that a star is suitable for
+gyrochronology if none of bits zero through nine are raised.
 
 
 \subsection{Planet Quality Flags}
@@ -897,17 +891,19 @@ do not exclude them from our analysis; this is because...{\bf justify}.
 
 The rotation periods for the stellar and planetary samples are shown
 in Figure~\ref{fig:prot_vs_teff}.  Out of the \nkeplerstars\ stars
-observed by Kepler, requiring reported rotation periods yielded
-\nuniqstarsantosrot.  Further requiring these rotating stars
+observed by Kepler, requiring reported rotation periods and a
+reliable DR3 crossmatch yielded
+\nuniqstarsantosrot\ stars.  Further requiring these rotating stars
 to have temperatures 3800$<$$T_{\rm eff}$/K$<$6200, which is the range
 over which \texttt{gyro-interp} returns finite age posteriors,
 yields \nuniqstarsantosrotteffcut\ stars.
 Further requiring them to be apparently single, near the main
-sequence, with $\log g$$>$4.2, and not flagged as
+sequence, with $\log g$$>$4.2, $M_{\rm G}>3.9$, and not flagged as
 eclipsing binaries yielded \nuniqstarsantosallbutruwe\ rotators
 potentially amenable for gyrochronology.
-Finally, imposing RUWE$<$1.4 leaves \nuniqstarsantosrotgyroappl\ stars
-for which gyrochronology is likely to be valid.
+Finally, imposing RUWE$<$1.4 and requiring no possible blends ($\Delta
+G$<2.5) within 4$''$ leaves \nuniqstarsantosrotgyroappl\ stars for
+which gyrochronology is likely to be valid.
 
 
 In the planet sample, the cumulative KOI table included
@@ -1013,8 +1009,8 @@ While our preference would have been to exclusively use
 	\end{center}
 	\vspace{-0.6cm}
 	\caption{
-		{\bf Age distribution of stars and planet-hosts in the Kepler field
-    inferred from rotation periods}.
+    {\bf Age distribution of stars (left) and known planet hosts
+    (right) in the Kepler field inferred from rotation periods}.
     A histogram of samples from the age posteriors for all Kepler
     stars with reported rotation periods and temperatures is shown in
     light gray;
@@ -1318,7 +1314,7 @@ Kepler~51 (CITE Masuda2014) has previously been noted for its bizarre architure.
 The rotation-based age we find here is higher/lower than previously noted.
 
 Kepler~411, a $\approx$780$\pm$170\,Myr early K dwarf with three
-transiting planets at 3.0, 7.8, and 58\,days, has a peculiar
+transiting planets at 3.0, 7.8, and 58\,days, has a rare
 architecture.  \citet{2019A&A...624A..15S} conducted a transiting
 timing analysis of the system, confirming Kepler-411d and arguing for
 the presence of a fourth non-transiting planet, Kepler-411e, based on
@@ -1343,7 +1339,7 @@ qualitatively consistent with the estimates from
 our age accounts for the intrinsic scatter in the open cluster
 calibration sequences \citep{Bouma_2023}.  
 While the usual catalogs (\citetalias{Santos_2019},
-\citetalias{Santos_2021}, \citetlias{McQuillan_2014}, and
+\citetalias{Santos_2021}, \citetalias{McQuillan_2014}, and
 \citetalias{Mazeh_2015}) do not report this star's rotation period.
 \citetalias{Santos_2021} flagged the system as ``potentially'' having
 rotation-based modulation.
