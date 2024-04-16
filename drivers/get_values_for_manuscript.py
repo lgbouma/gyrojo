@@ -2,7 +2,8 @@ import os
 from os.path import join
 import numpy as np, pandas as pd
 from gyrojo.getters import (
-    get_gyro_data, get_age_results, get_koi_data
+    get_gyro_data, get_age_results, get_koi_data,
+    select_by_quality_bits
 )
 from gyrojo.paths import DATADIR
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
@@ -10,53 +11,44 @@ from gyrojo.papertools import read_latex_key_value_pairs
 
 ##########################################
 # Stars with rotation periods and quality flags calculated
-df = get_gyro_data(
-    "Santos19_Santos21_dquality", drop_grazing=0, drop_highruwe=0
-)
+df = get_gyro_data("Santos19_Santos21_dquality")
 
 assert pd.isnull(df.Prot).sum() == 0
 assert len(np.unique(df.KIC)) == len(df)
 
 # Number of unique stars with Santos+ rotation period reported
-N = len(df)
+# (...and good Gaia matches)
+sel = select_by_quality_bits(df, [4, 5], [0, 0])
+N = len(df[sel])
 ulkvp('nuniqstarsantosrot', N)
 
 # Number of unique stars with Santos+ rotation period reported, and
-# 3800<Teff<6200K (i.e. can compute a gyro age).
-sel = (df.adopted_Teff > 3800) & (df.adopted_Teff < 6200)
-df = df[sel]
-N = len(df)
+# 3800<Teff<6200K (i.e. can hypothetically compute a gyro age).
+sel = select_by_quality_bits(df, [0, 4, 5], [0, 0, 0])
+N = len(df[sel])
 ulkvp('nuniqstarsantosrotteffcut', N)
 
 # Number of unique stars with Santos+ rotation period reported, and
 # 3800<Teff<6200K (i.e. can compute a gyro age).
-sel = (
-      (~df['flag_logg'])
-      #&
-      #(~df['flag_ruwe_outlier'])
-      &
-      (~df['flag_dr3_non_single_star'])
-      &
-      (~df['flag_camd_outlier'])
-      #&
-      #(df['flag_not_CP_CB'])
-      &
-      (~df['flag_in_KEBC'])
-      &
-      (df['adopted_Teff'] > 3800)
-      &
-      (df['adopted_Teff'] < 6200)
+
+#Further requiring them to be apparently single, near the main
+#sequence, with $\log g$$>$4.2, $M_{\rm G}>3.9$, and not flagged as
+#eclipsing binaries 
+sel = select_by_quality_bits(
+    df, [0, 1, 2, 3, 4, 5, 6, 9],
+        [0, 0, 0, 0, 0, 0, 0, 0]
 )
-df = df[sel]
-N = len(df)
+N = len(df[sel])
 ulkvp('nuniqstarsantosallbutruwe', N)
 
-df = get_gyro_data(
-    "Santos19_Santos21_dquality", drop_grazing=0, drop_highruwe=1
-)
-
 # Number of unique stars with Santos+ rotation, and gyro applicable
-N = len(df[df.flag_is_gyro_applicable])
+sel = select_by_quality_bits(
+    df, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+)
+N = len(df[sel])
+M = len(df[df.flag_is_gyro_applicable])
+assert N == M
 ulkvp('nuniqstarsantosrotgyroappl', N)
 
 ##########################################
@@ -83,10 +75,10 @@ N = len(df)
 ulkvp('nplwgyroagewithgrazingandhighruwe', N)
 
 # Number of planet-hosting stars with a gyro age, including grazing & high ruwe cases
-N = len(np.unique(df.kepid_x))
+N = len(np.unique(df.kepid))
 ulkvp('nplhoststarwgyroagewithgrazingandhighruwe', N)
 
-N = len(np.unique(df[df.flag_ruwe_outlier].kepid_x))
+N = len(np.unique(df[df.flag_dr3_ruwe_outlier].kepid))
 ulkvp('nplhoststarwgyroagejusthighruwe', N)
 
 
@@ -94,35 +86,35 @@ ulkvp('nplhoststarwgyroagejusthighruwe', N)
 sel = (df.gyro_median > 0) & (df.gyro_median <= 1000)
 N = len(df[sel])
 ulkvp('nplyounggyro', N)
-N = len(np.unique(df[sel].kepid_x))
+N = len(np.unique(df[sel].kepid))
 ulkvp('nplhostsyounggyro', N)
 
 # Number of planets with a gyro age, including grazing & high ruwe cases, 1-2 Gyr
 sel = (df.gyro_median > 1000) & (df.gyro_median <= 2000)
 N = len(df[sel])
 ulkvp('nplmidgyro', N)
-N = len(np.unique(df[sel].kepid_x))
+N = len(np.unique(df[sel].kepid))
 ulkvp('nplhostsmidgyro', N)
 
 # Number of planets with a gyro age, including grazing & high ruwe cases, 2-3 Gyr
 sel = (df.gyro_median > 2000) & (df.gyro_median <= 3000)
 N = len(df[sel])
 ulkvp('nploldgyro', N)
-N = len(np.unique(df[sel].kepid_x))
+N = len(np.unique(df[sel].kepid))
 ulkvp('nplhostsoldgyro', N)
 
 # Number of planets with a gyro age, including grazing & high ruwe cases, below 1Gyr at 2sigma
 sel = (df['gyro_median'] + df['gyro_+2sigma']  <= 1000)
 N = len(df[sel])
 ulkvp('nplyounggyrotwosigma', N)
-N = len(np.unique(df[sel].kepid_x))
+N = len(np.unique(df[sel].kepid))
 ulkvp('nplhostsyounggyrotwosigma', N)
 
 # Number of planets with a gyro age, including grazing & high ruwe cases, below 1Gyr at 3sigma
 sel = (df['gyro_median'] + df['gyro_+3sigma']  <= 1000)
 N = len(df[sel])
 ulkvp('nplyounggyrothreesigma', N)
-N = len(np.unique(df[sel].kepid_x))
+N = len(np.unique(df[sel].kepid))
 ulkvp('nplhostsyounggyrothreesigma', N)
 
 # ... now drop grazing cases, keeping high ruwe
@@ -135,7 +127,7 @@ N = len(df)
 ulkvp('nplwgyroagenograzing', N)
 
 # Number of planet-hosting stars with a gyro age, dropping grazing cases
-N = len(np.unique(df.kepid_x))
+N = len(np.unique(df.kepid))
 ulkvp('nplhoststarwgyroagenograzing', N)
 
 ##########################################
