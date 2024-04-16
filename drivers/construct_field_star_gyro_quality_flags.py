@@ -52,7 +52,7 @@ df['flag_kepler_gaia_ang_dist'] = df['dr3_kepler_gaia_ang_dist'] > 3
 
 df['flag_Teffrange'] = (
     (df['adopted_Teff'] < 3800)
-    &
+    |
     (df['adopted_Teff'] > 6200)
 )
 
@@ -138,6 +138,7 @@ df['b20t2_max_rel_Age'] = np.maximum(df['b20t2_rel_E_Age'], df['b20t2_rel_e_Age'
 df['flag_b20t2_rel_E_Age'] = df['b20t2_rel_E_Age'] < 0.4
 
 
+#    DEPRECATED::
 #    #############
 #    # CAMD flag #
 #    #############
@@ -162,19 +163,7 @@ df['flag_b20t2_rel_E_Age'] = df['b20t2_rel_E_Age'] < 0.4
 # finally, is gyro applicable? #
 ################################
 
-# bit 0: T if adopted_Teff outside of 3800-6200K
-# bit 1: T if adopted_logg>4.2 (dwarf stars only)
-# bit 2: T if M_G<3.9 (require Main Sequence < F8V)
-# bit 3: T if in KEBC (no known EBs)
-# bit 4: T if Kepler<->Gaia xmatch ang dist > 3 arcsec
-# bit 5: T if Gaia DR3 non_single_star
-# bit 6: T if RUWE>1.4
-# bit 7: T if nbhr_count >= 1 (at least one 1/10th Gmag brightness within 4 arcsec)
-# bit 8: T if σt_B20iso+1sigma/σt < 0.4 (iso age, cutting subgiant FGKs & photometric outliers)
-#
-# not relevant for gyro:
-#
-# bit 9: T if in CP/CB from Santos [lossy...]
+# see description of flags in docstring
 flag_bits = {
     'flag_Teffrange': 0,
     'flag_logg': 1,
