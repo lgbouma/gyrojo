@@ -6,6 +6,8 @@ Getters:
     | get_age_results
     | get_cleaned_gaiadr3_X_kepler_dataframe
     | get_koi_data
+Selector:
+    | select_by_quality_bits
 """
 import os
 from copy import deepcopy
@@ -208,33 +210,23 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
     elif 'gyro' in whichtype:
 
         kic_df = get_gyro_data('Santos19_Santos21_dquality')
+        # REQUIRE "flag_is_gyro_applicable"; change what this means
+        # based on the kwargs.
         if drop_highruwe:
             skic_df = kic_df[kic_df['flag_is_gyro_applicable']]
         else:
-            kic_df['flag_is_gyro_applicable'] = (
-                (~kic_df['flag_logg'])
-                #&
-                #(~df['flag_ruwe_outlier'])
-                &
-                (~kic_df['flag_dr3_non_single_star'])
-                &
-                (~kic_df['flag_camd_outlier'])
-                #&
-                #(df['flag_not_CP_CB'])
-                &
-                (~kic_df['flag_in_KEBC'])
-                &
-                (kic_df['adopted_Teff'] > 3800)
-                &
-                (kic_df['adopted_Teff'] < 6200)
+            sel = select_by_quality_bits(
+                kic_df,
+                [0, 1, 2, 3, 4, 5, 6, 8, 9],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0]
             )
-            # REQUIRE "flag_is_gyro_applicable"
+            kic_df['flag_is_gyro_applicable'] = sel
             skic_df = kic_df[kic_df['flag_is_gyro_applicable']]
 
         skic_df['KIC'] = skic_df['KIC'].astype(str)
 
         # parent sample age distribution
-        st_ages = 1e6*nparr(skic_df['median'])
+        st_ages = 1e6*nparr(skic_df['gyro_median'])
 
         koi_df = get_koi_data('cumulative-KOI', drop_grazing=drop_grazing)
         koi_df['kepid'] = koi_df['kepid'].astype(str)
@@ -245,22 +237,12 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
                            right_on='KIC', suffixes=('','_KIC'))
 
         for N in [1,2,3]:
-            df['gyro_median'] = df['median']
-            df[f'gyro_+{N}sigma'] = df[f'+{N}sigma']
-            df[f'gyro_-{N}sigma'] = df[f'-{N}sigma']
             if N == 1:
-                df[f'gyro_+{N}sigmapct'] = df[f'+{N}sigmapct']
-                df[f'gyro_-{N}sigmapct'] = df[f'-{N}sigmapct']
                 df[f'adopted_age_+{N}sigmapct'] = df[f'gyro_+{N}sigmapct']
                 df[f'adopted_age_-{N}sigmapct'] = df[f'gyro_-{N}sigmapct']
-
             df['adopted_age_median'] = df['gyro_median']
             df[f'adopted_age_+{N}sigma'] = df[f'gyro_+{N}sigma']
             df[f'adopted_age_-{N}sigma'] = df[f'gyro_-{N}sigma']
-
-        sel = df['median'] + df['+2sigma'] < 1000
-        N_lt1gyr = len(df[sel])
-        print(f'N lt 1gyr: {N_lt1gyr}')
 
     if whichtype == 'gyro_li':
 
@@ -507,8 +489,9 @@ def get_kicstar_data(sampleid):
         dataframe matching the requested sampleid
     """
 
-    assert sampleid in ['Santos19_Santos21_all', 'Santos19_Santos21_clean0',
-                        'Santos19_Santos21_logg', 'Santos19_Santos21_dquality']
+    assert sampleid in ['Santos19_Santos21_all', 'Santos19_Santos21_dquality']
+    # 'Santos19_Santos21_clean0', 'Santos19_Santos21_logg' both
+    # deprecated
 
     csvpath = join(DATADIR, 'interim', 'S19_S21_KOIbonus_merged_X_GDR3_X_B20.csv')
 
@@ -723,13 +706,13 @@ def get_kicstar_data(sampleid):
         #
         # s21_flag2: Subsample
         #
-        #   	Note (G1): Flag as follows:
-        #   			1 = main-sequence or subgiant solar-like targets in
-        #   					DR25 Mathur+ (2017, J/ApJS/229/30) and Berger+ (2020, J/AJ/159/280);
-        #   			2 = main-sequence or subgiant solar-like targets only in
-        #   					DR25 Mathur et al. (2017, J/ApJS/229/30);
-        #   			3 = main-sequence or subgiant solar-like targets only in
-        #   					DR25 Berger et al. (2020, J/AJ/159/280).
+        #       Note (G1): Flag as follows:
+        #               1 = main-sequence or subgiant solar-like targets in
+        #                       DR25 Mathur+ (2017, J/ApJS/229/30) and Berger+ (2020, J/AJ/159/280);
+        #               2 = main-sequence or subgiant solar-like targets only in
+        #                       DR25 Mathur et al. (2017, J/ApJS/229/30);
+        #               3 = main-sequence or subgiant solar-like targets only in
+        #                       DR25 Berger et al. (2020, J/AJ/159/280).
         #
         # s21_flag3: binarity flag
         #
@@ -742,14 +725,14 @@ def get_kicstar_data(sampleid):
         #
         # s21_flag4: KOI flag
         #
-        #   	Flag as follows:
-        #   		0 = confirmed;
-        #   		1 = candidate;
-        #   		2 = false positive.	
+        #       Flag as follows:
+        #           0 = confirmed;
+        #           1 = candidate;
+        #           2 = false positive. 
         #
         # s21_flag5: stellar property source flag
         #   
-        #   	Flag as follows:
+        #       Flag as follows:
         #   0 = Berger et al. (2020, J/AJ/159/280);
         #   1 = Mathur et al. (2017, J/ApJS/229/30)
         #
@@ -1036,3 +1019,34 @@ def get_koi_data(sampleid, drop_grazing=1):
     koi_df['flag_is_ok_planetcand'] = flag_is_ok_planetcand
 
     return koi_df
+
+
+def select_by_quality_bits(df, bit_positions, target_values):
+    """
+    Selects data points from a DataFrame based on the values of specific bits in a column.
+
+    Args:
+        df (pandas.DataFrame): The input DataFrame containing the 'flag_gyro_quality' column.
+        bit_positions (list): A list of bit positions to check (0-indexed).
+        target_values (list): A list of target values (0 or 1) for each bit position.
+
+    Returns:
+        pandas.Series: A boolean mask indicating the selected data points.
+
+    Example:
+        # Select data points where bit 4 is False (0) and bit 5 is False (0)
+        mask = select_data_by_bits(df, [4, 5], [0, 0])
+        selected_data = df[mask]
+    """
+    if len(bit_positions) != len(target_values):
+        raise ValueError("The lengths of bit_positions and target_values must be the same.")
+
+    data = df['flag_gyro_quality'].to_numpy()
+    mask = np.ones(len(data), dtype=bool)
+
+    for bit, target in zip(bit_positions, target_values):
+        bit_mask = 1 << bit
+        bit_values = (data & bit_mask) >> bit
+        mask &= (bit_values == target)
+
+    return mask
