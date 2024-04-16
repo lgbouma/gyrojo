@@ -1,17 +1,22 @@
 """
-Build flags for
-- subgiants
-- photometric binaries
-- ruwe outliers
-- crowding
-- non-single-stars
-- "CP/CB candidates"
+Build flags for...
+bit 0: T if adopted_Teff outside of 3800-6200K
+bit 1: T if adopted_logg>4.2 (dwarf stars only)
+bit 2: T if M_G<3.9 (require Main Sequence < F8V)
+bit 3: T if in KEBC (no known EBs)
+bit 4: T if Kepler<->Gaia xmatch ang dist > 3 arcsec
+bit 5: T if Kepler<->Gaia xmatch yielded multiple stars within ΔG=0.5 mag at <4"
+bit 6: T if Gaia DR3 non_single_star
+bit 7: T if RUWE>1.4
+bit 8: T if nbhr_count >= 1 (crowding, at least one 1/10th Gmag brightness within 4 arcsec)
+bit 9: T if σt_B20iso+1sigma/σt < 0.4 (iso age, cutting subgiant FGKs & photometric outliers)
 
-all in service of the one flag to rule them all:
+plus, not relevant for gyro:
+
+bit 10: T if in CP/CB from Santos [lossy...]
+
+...all in service of the one flag that can be used to rule them all:
     "flag_is_gyro_applicable"
-
-(NOTE 2023/06/05: photometric binaries need reconstruction using the Green19
-reddening maps)
 """
 
 import pandas as pd, numpy as np
@@ -41,14 +46,28 @@ df['M_G'] = (
 # build the quality flags #
 ###########################
 
-df['flag_ruwe_outlier'] = df['dr3_ruwe'] > 1.4
+df['flag_dr3_ruwe_outlier'] = df['dr3_ruwe'] > 1.4
+
+df['flag_kepler_gaia_ang_dist'] = df['dr3_kepler_gaia_ang_dist'] > 3
+
+df['flag_Teffrange'] = (
+    (df['adopted_Teff'] < 3800)
+    &
+    (df['adopted_Teff'] > 6200)
+)
 
 df['flag_logg'] = df['adopted_logg'] < 4.2
 
-df['flag_not_CP_CB'] = (
+df['flag_dr3_M_G'] = df['M_G'] < 3.9
+
+df['flag_is_CP_CB'] = ~(
     pd.isnull(df.s21_flag1)
     &
     pd.isnull(df.s19_flag1)
+)
+
+df['flag_kepler_gaia_xmambiguous'] = (
+    df.count_n_gaia_nbhr > 0
 )
 
 #################################
@@ -106,48 +125,84 @@ count_df, ndf = given_source_ids_get_neighbor_counts(
 )
 
 df['nbhr_count'] = np.array(count_df.nbhr_count)
-df['flag_nbhr_count'] = df['nbhr_count'] >= 1
+df['flag_dr3_crowding'] = df['nbhr_count'] >= 1
 
-#############
-# CAMD flag #
-#############
+#####################
+# RELATIVE AGE FLAG #
+#####################
+df['b20t2_rel_E_Age'] = np.abs(df['b20t2_E_Age'])/df['b20t2_Age']
+df['b20t2_rel_e_Age'] = np.abs(df['b20t2_e_Age'])/df['b20t2_Age']
+df['b20t2_max_rel_Age'] = np.maximum(df['b20t2_rel_E_Age'], df['b20t2_rel_e_Age'])
 
-#TODO: need CAMD flag constructed via Green19 map
-# this is a hacky selection in M_G vs (BP-RP), no extinction.  made in
-# "session_{datestr}_phot_single_selection_and_other_fun_subsets.glu"
-# and 20240405 is just a copy of 20230529
-manual_path = join(
-    RESULTSDIR,
-    "glue_interactive_viz",
-    f"field_gyro_posteriors_{datestr}_GDR3_S19_S21_B20_phot_single.csv"
-)
-manual_phot_single_df = pd.read_csv(manual_path, dtype={'KIC':str})
+# NOTE: flag values of ~40-50% seem reasonable in glue...
+df['flag_b20t2_rel_E_Age'] = df['b20t2_rel_E_Age'] < 0.4
 
-df['KIC'] = df.KIC.astype(str)
 
-df['flag_camd_outlier'] = ~(df.KIC.isin(manual_phot_single_df.KIC))
+#    #############
+#    # CAMD flag #
+#    #############
+#    
+#    #TODO: need CAMD flag constructed via Green19 map
+#    # this is a hacky selection in M_G vs (BP-RP), no extinction.  made in
+#    # "session_{datestr}_phot_single_selection_and_other_fun_subsets.glu"
+#    # and 20240405 is just a copy of 20230529
+#    
+#    manual_path = join(
+#        RESULTSDIR,
+#        "glue_interactive_viz",
+#        f"field_gyro_posteriors_{datestr}_GDR3_S19_S21_B20_phot_single.csv"
+#    )
+#    manual_phot_single_df = pd.read_csv(manual_path, dtype={'KIC':str})
+#    
+#    df['KIC'] = df.KIC.astype(str)
+#    
+#    df['flag_camd_outlier'] = ~(df.KIC.isin(manual_phot_single_df.KIC))
 
 ################################
 # finally, is gyro applicable? #
 ################################
 
-df['flag_is_gyro_applicable'] = (
-    (~df['flag_logg'])
-    &
-    (~df['flag_ruwe_outlier'])
-    &
-    (~df['flag_dr3_non_single_star'])
-    &
-    (~df['flag_camd_outlier'])
-    #&
-    #(df['flag_not_CP_CB'])
-    &
-    (~df['flag_in_KEBC'])
-    &
-    (df['adopted_Teff'] > 3800)
-    &
-    (df['adopted_Teff'] < 6200)
-)
+# bit 0: T if adopted_Teff outside of 3800-6200K
+# bit 1: T if adopted_logg>4.2 (dwarf stars only)
+# bit 2: T if M_G<3.9 (require Main Sequence < F8V)
+# bit 3: T if in KEBC (no known EBs)
+# bit 4: T if Kepler<->Gaia xmatch ang dist > 3 arcsec
+# bit 5: T if Gaia DR3 non_single_star
+# bit 6: T if RUWE>1.4
+# bit 7: T if nbhr_count >= 1 (at least one 1/10th Gmag brightness within 4 arcsec)
+# bit 8: T if σt_B20iso+1sigma/σt < 0.4 (iso age, cutting subgiant FGKs & photometric outliers)
+#
+# not relevant for gyro:
+#
+# bit 9: T if in CP/CB from Santos [lossy...]
+flag_bits = {
+    'flag_Teffrange': 0,
+    'flag_logg': 1,
+    'flag_dr3_M_G': 2,
+    'flag_in_KEBC': 3,
+    'flag_kepler_gaia_ang_dist': 4,
+    'flag_kepler_gaia_xmambiguous': 5,
+    'flag_dr3_non_single_star': 6,
+    'flag_dr3_ruwe_outlier': 7,
+    'flag_dr3_crowding': 8,
+    'flag_b20t2_rel_E_Age': 9,
+    'flag_is_CP_CB': 10
+}
+
+# Iterate over the flag columns and update the flag_gyro_quality column
+df['flag_gyro_quality'] = 0
+for flag, bit_pos in flag_bits.items():
+    # Convert the flag column to NumPy array and perform left-shift operation
+    shifted_values = np.left_shift(df[flag].astype(int).values, bit_pos)
+    # Update the 'flag_gyro_quality' column using the shifted values
+    df['flag_gyro_quality'] |= shifted_values
+
+# Define the mask to check bits 0 through 9 inclusive
+mask = 0b0000001111111111
+
+# Create the 'flag_is_gyro_applicable' column - uses bits 0 to 9, but ignores
+# bit 10.
+df['flag_is_gyro_applicable'] = ((df['flag_gyro_quality'] & mask) == 0)
 
 outcsv = join(
     TABLEDIR,
