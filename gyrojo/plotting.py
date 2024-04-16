@@ -1547,6 +1547,11 @@ def plot_field_gyro_posteriors(outdir, cache_id):
     kdf = get_kicstar_data(sampleid)
     kdf['KIC'] = kdf['KIC'].astype(str)
 
+    df = df.rename(
+        {k:f'gyro_{k}' for k in df.columns if k != 'KIC'},
+        axis='columns'
+    )
+
     mdf = df.merge(kdf, how='inner', on='KIC')
     assert len(mdf) == len(df)
 
