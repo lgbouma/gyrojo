@@ -181,7 +181,7 @@ def get_li_data(sampleid):
 
 
 def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
-                    drop_highruwe=1):
+                    drop_highruwe=1, manual_includes=None):
     """
     Get age results for the planet hosts.
 
@@ -225,7 +225,8 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
         # REQUIRE "flag_is_gyro_applicable"; change what this means
         # based on the kwargs.
         if drop_highruwe:
-            skic_df = kic_df[kic_df['flag_is_gyro_applicable']]
+            sel = (kic_df['flag_is_gyro_applicable'])
+            skic_df = kic_df[sel]
         else:
             sel = select_by_quality_bits(
                 kic_df,
@@ -233,7 +234,13 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
                 [0, 0, 0, 0, 0, 0, 0, 0, 0]
             )
             kic_df['flag_is_gyro_applicable'] = sel
-            skic_df = kic_df[kic_df['flag_is_gyro_applicable']]
+            sel = (kic_df['flag_is_gyro_applicable'])
+
+        if isinstance(manual_includes, list):
+            for m in manual_includes:
+                sel |= kic_df.KIC.astype(str).str.contains(m)
+
+        skic_df = kic_df[sel]
 
         skic_df['KIC'] = skic_df['KIC'].astype(str)
 

@@ -10,8 +10,14 @@ from gyrojo.paths import PAPERDIR, DATADIR
 # ...with age results
 drop_highruwe = 0
 drop_grazing = 0
+manual_includes = [
+    '10736489', # KIC10736489 = KOI-7368: adopted_logg = 4.448...teff=5068.2... cutoff 4.48
+    '8873450', # KOI-7913 binary
+    '9471268', # Kepler-326 700myr multi
+]
 _df, _, _ = get_age_results(
-    whichtype='gyro_li', drop_grazing=drop_grazing, drop_highruwe=drop_highruwe
+    whichtype='gyro_li', drop_grazing=drop_grazing,
+    drop_highruwe=drop_highruwe, manual_includes=manual_includes
 )
 _ldf = pd.read_csv(join(
     DATADIR, 'interim', 'koi_jump_getter_koi_X_S19S21dquality.csv'
@@ -32,7 +38,7 @@ selcols = (
     "gyro_median,gyro_+1sigma,gyro_-1sigma,"
     "li_median,li_+1sigma,li_-1sigma,"
     "adopted_rp,adopted_period,"
-    "flag_dr3_ruwe_outlier,flag_koi_is_grazing,has_hires"
+    "flag_dr3_ruwe_outlier,flag_koi_is_grazing,flag_gyro_quality,has_hires"
 ).split(",")
 pdf = df[selcols].sort_values(
     by=['gyro_median','kepler_name','kepoi_name']
@@ -58,13 +64,13 @@ pcols = (
     "kepoi_name,kepler_name,gyro_median,"
     "gyro_+1sigma,gyro_-1sigma,li_median,li_+1sigma,li_-1sigma,"
     "adopted_rp,adopted_period,"
-    "flag_dr3_ruwe_outlier,flag_koi_is_grazing,has_hires"
+    "flag_dr3_ruwe_outlier,flag_koi_is_grazing,flag_gyro_quality,has_hires"
 ).split(",")
 _pcols = (
     "kepoi_name,kepler_name,gyro_median,"
     "gyro_+1sigma,gyro_-1sigma,li_median,li_+1sigma,li_-1sigma,"
     "adopted_rp,Prot,adopted_period,"
-    "flag_dr3_ruwe_outlier,flag_koi_is_grazing,has_hires"
+    "flag_dr3_ruwe_outlier,flag_koi_is_grazing,flag_gyro_quality,has_hires"
 ).split(",")
 
 
@@ -152,6 +158,7 @@ mapdict = {
     "adopted_period": r"$P$",
     "flag_dr3_ruwe_outlier": r"$f_{\rm RUWE}$",
     "flag_koi_is_grazing": r"$f_{\rm grazing}$",
+    "flag_gyro_quality": r"$Q_{\rm gyro}$",
     "has_hires": r"Spec?",
 }
 rounddict = {
