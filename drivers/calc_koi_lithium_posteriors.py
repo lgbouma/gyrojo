@@ -4,7 +4,7 @@ calculated from the adopted_Teff column and assuming the Pecaut+Mamajek
 calibration, to estimate the lithium posteriors.
 """
 
-import os, sys
+import os, sys, shutil
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
 from os.path import join
 from glob import glob
@@ -15,7 +15,8 @@ import baffles.baffles as baffles
 from gyrojo.paths import DATADIR, RESULTSDIR
 from gyrojo.getters import get_li_data
 
-def calc_koi_lithium_posteriors(datestr, sampleid, li_method='baffles'):
+def calc_koi_lithium_posteriors(datestr, sampleid, li_method='baffles',
+                                overwrite=1):
 
     assert li_method in ['baffles', 'eagles']
 
@@ -49,7 +50,13 @@ def calc_koi_lithium_posteriors(datestr, sampleid, li_method='baffles'):
         maxAge = 4000 # Myr  (for initial "all" analysis)
 
         outbasedir = join(RESULTSDIR, f"koi_lithium_posteriors_{li_method}_{datestr}")
-        if not os.path.exists(outbasedir): os.mkdir(outbasedir)
+        if not os.path.exists(outbasedir):
+            os.mkdir(outbasedir)
+        else:
+            if overwrite:
+                # NOTE: necessary bc otherwise updated gyro selxn fn doesnt propagate
+                # and can end up with posteriors from earlier runs
+                shutil.rmtree(directory)
 
         outname = join(outbasedir, f"{kepoi_name}")
 
