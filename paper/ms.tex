@@ -811,20 +811,29 @@ to 10$\times$ the brightness of the target star within this region
 are far from the main sequence: this can be seen in color--absolute
 magnitude diagrams, and in diagrams of e.g.~surface gravity as a
 function of temperature (Figure~\ref{fig:stellarprops}).  This is a
-problem for rotation-based age-dating because {\it i)} ``stars'' far
-from the main-sequence include unresolved photometric binaries, and
-{\it ii}) rotation periods of single stars far from the main-sequence
-have likely evolved due to effects other than magnetic braking.  The
-added complications of reddening and metallicity make imposing a
-simple cut in any two dimensions challenging.  After exploring various
-options, we found however that the $+1$$\sigma$ relative isochronal
-uncertainty reported by \citet{Berger_2020a_catalog}, $+\sigma_{\rm
-B20,iso}/t_{\rm B20,iso}$, reasonably separated the relevant region of
-parameter space.  Another way of saying this is that gyrochronology is
-probably less reliable for stars for which the upper limit on the
-relative isochronal uncertainty is small.
-We flag stars with $+\sigma_{\rm B20,iso}/t_{\rm B20,iso} < 0.4$ as
-meeting this criterion.
+challenge for rotation-based age-dating because {\it i)} point sources
+far from the main-sequence include unresolved photometric binaries,
+and {\it ii}) effects other than magnetic braking influence the
+rotation periods of bona fide single stars far from the main-sequence.
+The added complications of reddening and metallicity make defining a
+simple cut in any two dimensions challenging.  We explored various
+options, and found that the $+1$$\sigma$ relative isochronal
+uncertainty reported by \citet{Berger_2020a_catalog}, $+\sigma_{t,{\rm
+B20,iso}}/t_{\rm B20,iso}$, reasonably separated FGK stars ``near'' and
+``far'' from the main-sequence.  We therefore selected stars with
+$t_{\rm B20,iso}/(+\sigma_{t,{\rm B20,iso}})\approx 3$, and fitted an
+an $N^{\rm th}$-order polynomial in the $\log g$-$T_{\rm eff}$ plane
+to these stars between 4100 and 5800\,K.  We let the order of the fit
+vary from $N$=1 to 10, and minimizing the Bayesian Information Criterion
+yielded $N$=6.  The resulting locus is shown in
+Figure~\ref{fig:stellarprops}.  While the details of this procedure
+are entirely arbitrary, the overall purpose is to exclude stars for
+which there is photometric evidence that gyrochronology may not be
+reliable.  The rotation period distribution of sources excluded in
+this manner includes a larger fraction of ``rapid rotators'', likely
+due to a combination of astrophysical and systematic effects.
+
+
 
 {\it Candidate pulsators and close-in binaries (bit
 10)}---\citeauthor{Santos_2021} included in a flag for candidate
