@@ -1862,6 +1862,15 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
             label=l+f" ($N$={len(xval)})", rasterized=r
         )
 
+    if ykey == 'adopted_logg' and xkey == 'adopted_Teff':
+        from gyrojo.locus_definer import constrained_polynomial_function
+        csvpath = join(DATADIR, "interim", "logg_teff_locus_coeffs.csv")
+        coeffs = pd.read_csv(csvpath).values.flatten()
+        _teff = np.linspace(3801,6199,1000)
+        ax.plot(_teff, constrained_polynomial_function(_teff, coeffs),
+                zorder=5, c='C1', lw=0.5)
+        #print(constrained_polynomial_function(np.array([5070]), coeffs))
+
     if xkey == 'dr3_bp_rp':
         xlabel = '$G_\mathrm{BP}-G_{\mathrm{RP}}$ [mag]'
         xlim = [0.1, 4.05]
@@ -1874,7 +1883,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
         ylim = [15.5, -3.5]
     elif ykey == 'adopted_logg':
         ylabel = '$(\log g)_\mathrm{adopted}$ [dex]'
-        ylim = [6.5, 2.5]
+        ylim = [5.5, 3.0]
     elif ykey == 'dr3_phot_g_mean_mag':
         ylabel = '$G$ [mag]'
         ylim = [21, 5]

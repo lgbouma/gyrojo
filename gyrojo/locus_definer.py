@@ -174,10 +174,11 @@ def constrained_polynomial_function(temperatures, coeffs):
         logg_vals
     )
 
-    logg_vals = np.where(
-        (temperatures > 3800) & (temperatures < 4100),
-        np.min(logg_vals[(temperatures > 3800) & (temperatures < 4200)]),
-        logg_vals
-    )
+    if len(temperatures[(temperatures > 3800) & (temperatures < 4100)]) > 0:
+        logg_vals = np.where(
+            (temperatures > 3800) & (temperatures < 4100),
+            np.min(logg_vals[(temperatures > 3800) & (temperatures < 4200)]),
+            logg_vals
+        )
 
     return logg_vals
