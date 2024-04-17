@@ -28,6 +28,12 @@ for ix, r in df.iterrows():
     # eg., CK06186
     idstring = r['name']
 
+    if idstring == 'CK03377B':
+        continue
+        # odd edge case; the "primary" was observed for 730sec, this one is
+        # only 60sec and causes the fitter to fail.  (and i think it's the same
+        # star)
+
     filename = os.path.basename(r['filename'])
     spectrum_path = join(LOCALDIR, "gyrojo_HIRES_lithium", filename)
     assert os.path.exists(spectrum_path)
