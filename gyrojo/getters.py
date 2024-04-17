@@ -5,6 +5,7 @@ Getters:
     | get_li_data
     | get_age_results
     | get_cleaned_gaiadr3_X_kepler_dataframe
+    | get_cleaned_gaiadr3_X_kepler_supplemented_dataframe
     | get_koi_data
 Selector:
     | select_by_quality_bits
@@ -125,6 +126,11 @@ def get_li_data(sampleid):
     # certainly important for any mildly evolved stars.)
     csvpath = join(DATADIR, "interim", f"koi_jump_getter_{sampleid}.csv")
     mjdf = pd.read_csv(csvpath)
+
+    # odd edge case; the "primary" was observed for 730sec, this one is
+    # only 60sec and causes the fitter to fail.  (and i think it's the same
+    # star)
+    mjdf = mjdf[mjdf['name'] != 'CK03377B']
 
     BmV = get_interp_BmV_from_Teff(nparr(mjdf.adopted_Teff))
 
