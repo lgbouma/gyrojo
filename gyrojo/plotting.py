@@ -11,7 +11,7 @@ Catch-all file for plotting scripts.  Contents:
     plot_st_params
 
     plot_koi_gyro_posteriors
-    plot_li_gyro_posteriors
+    plot_process_koi_li_posteriors
     plot_field_gyro_posteriors
 
     plot_hist_field_gyro_ages
@@ -1055,7 +1055,9 @@ def plot_process_koi_li_posteriors(outdir, cache_id, li_method='eagles'):
     _csvpath = join(
         DATADIR, "interim", "koi_jump_getter_koi_X_S19S21dquality.csv"
     )
-    kdf = pd.read_csv(_csvpath)
+    _kdf = pd.read_csv(_csvpath)
+    _kdf = _kdf.sort_values(by=['kepoi_name','counts'],ascending=[True,False])
+    kdf = _kdf[~_kdf.duplicated('kepoi_name', keep='first')]
 
     _mdf = df.merge(kdf, how='inner', on='kepoi_name')
 
@@ -1069,6 +1071,8 @@ def plot_process_koi_li_posteriors(outdir, cache_id, li_method='eagles'):
     # If true, drop duplicates
     mdf = _mdf[~_mdf.duplicated('kepoi_name', keep='first')]
 
+    # If this fails, did you remember to clear out
+    # "/results/koi_lithium_posteriors_eagles_20240405", or its analog?
     assert len(mdf) == len(df)
 
     # Write lithium result contents
@@ -1906,6 +1910,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
         handletextpad=0.1, borderaxespad=0.5, borderpad=0.5
     )
 
+    ax.grid(linestyle=':', linewidth=0.5, color='gray', alpha=0.7, zorder=-1)
 
     # set naming options
     s = f'_{ykey}_vs_{xkey}'

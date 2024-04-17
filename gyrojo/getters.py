@@ -229,7 +229,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
         else:
             sel = select_by_quality_bits(
                 kic_df,
-                [0, 1, 2, 3, 4, 5, 6, 8, 9],
+                [0, 1, 2, 3, 4, 5, 6, 8, 9],  # leaving high ruwe...
                 [0, 0, 0, 0, 0, 0, 0, 0, 0]
             )
             kic_df['flag_is_gyro_applicable'] = sel
