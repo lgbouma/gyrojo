@@ -147,7 +147,7 @@
   during the main sequence.
   %
   Here we apply this knowledge to planets and stars observed by the
-  primary Kepler mission (2009-2013), and report the resulting rotation and
+  primary Kepler mission, and report the resulting rotation and
   lithium-based ages.
   %
   Rotation periods are collected from previous analyses of
@@ -1099,11 +1099,11 @@ planets are given in Table~\ref{tab:youngplanets}.
 \begin{figure*}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.8\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_selsnrupper3_strictyoung.pdf}
+			\includegraphics[width=0.78\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_selsnrupper3_strictyoung.pdf}
 		}
 		
 		\subfloat{
-			\includegraphics[width=0.8\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pdf}
+			\includegraphics[width=0.78\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
@@ -1456,7 +1456,7 @@ All authors assisted in manuscript revision.
 \clearpage 
 
 \startlongtable
-\begin{deluxetable*}{lllllllrrrrr}
+\begin{deluxetable*}{lllllllrrrrrr}
 	%\tabletypesize{\footnotesize}
 	\tabletypesize{\scriptsize}
 	\tablecaption{Young planets and planet candidates.
@@ -1468,8 +1468,8 @@ All authors assisted in manuscript revision.
 	%\midrule
 	%\endhead
 	\startdata
-  KOI & Kepler &  $T_{\rm eff}$ & $P_{\rm rot}$ & EW$_{\rm Li}$ & $t_{\rm gyro}$ & $t_{\rm Li} $ & $R_{\rm p}$ & $P_{\rm orb}$ & $f_{\rm RUWE}$ & $f_{\rm grazing}$ & Spec? \\
-  -- &   -- & K & days & m\AA & Myr & Myr &    Earths &    days &      bool &   bool  & bool \\
+  KOI & Kepler &  $T_{\rm eff}$ & $P_{\rm rot}$ & EW$_{\rm Li}$ & $t_{\rm gyro}$ & $t_{\rm Li} $ & $R_{\rm p}$ & $P_{\rm orb}$ & $f_{\rm RUWE}$ & $f_{\rm grazing}$ & $Q_{\rm gyro}$ &  Spec? \\
+  -- &   -- & K & days & m\AA & Myr & Myr &    Earths &    days &      bool &   bool  & int & bool \\
 	\hline
 	\input{table_subgyr_confirmed} %\\
 	%\hline
