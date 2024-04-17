@@ -156,6 +156,10 @@ def constrained_polynomial_function(temperatures, coeffs):
     Returns:
         np.ndarray: Array of logg values with constraints applied.
     """
+
+    if isinstance(temperatures, float):
+        temperatures = np.array([temperatures])
+
     # Calculate polynomial values
     poly_vals = np.polyval(coeffs, temperatures)
 

@@ -141,8 +141,8 @@ logg_locus = constrained_polynomial_function(nparr(df['adopted_Teff']), coeffs)
 df['flag_farfrommainsequence'] = df['adopted_logg'] < logg_locus
 
 # DEPRECATED:
-# df['b20t2_rel_E_Age'] = np.abs(df['b20t2_E_Age'])/df['b20t2_Age']
-# df['b20t2_rel_e_Age'] = np.abs(df['b20t2_e_Age'])/df['b20t2_Age']
+df['b20t2_rel_E_Age'] = np.abs(df['b20t2_E_Age'])/df['b20t2_Age']
+df['b20t2_rel_e_Age'] = np.abs(df['b20t2_e_Age'])/df['b20t2_Age']
 # df['b20t2_max_rel_Age'] = np.maximum(df['b20t2_rel_E_Age'], df['b20t2_rel_e_Age'])
 # df['flag_b20t2_rel_E_Age'] = df['b20t2_rel_E_Age'] < 0.4
 
