@@ -1079,9 +1079,9 @@ def plot_process_koi_li_posteriors(outdir, cache_id, li_method='eagles'):
     mdf.to_csv(csvpath, index=False)
     print(f"Wrote {csvpath}")
 
-    cols = ['kepoi_name', 'kepler_name', 'median', '+1sigma', '-1sigma',
-            '+2sigma', '-2sigma', "+1sigmapct", "-1sigmapct", "koi_prad"]
-    sel_2s = mdf['median'] + mdf['+2sigma'] < 1000
+    cols = ['kepoi_name', 'kepler_name', 'li_median', 'li_+1sigma', 'li_-1sigma',
+            'li_+2sigma', 'li_-2sigma', "li_+1sigmapct", "li_-1sigmapct", "koi_prad"]
+    sel_2s = mdf['li_median'] + mdf['li_+2sigma'] < 1000
 
     print(mdf[sel_2s][cols])
 
