@@ -9,7 +9,7 @@ bit 5: T if Kepler<->Gaia xmatch yielded multiple stars within ΔG=0.5 mag at <4
 bit 6: T if Gaia DR3 non_single_star
 bit 7: T if RUWE>1.4
 bit 8: T if nbhr_count >= 1 (crowding, at least one 1/10th Gmag brightness within 4 arcsec)
-bit 9: T if σt_B20iso+1sigma/σt < 0.4 (iso age, cutting subgiant FGKs & photometric outliers)
+bit 9: T if above logg/Teff locus (iso age precision, cutting subgiant FGKs & photometric outliers)
 
 plus, not relevant for gyro:
 
@@ -24,6 +24,7 @@ import os
 from os.path import join
 from glob import glob
 from gyrojo.paths import DATADIR, RESULTSDIR, LOCALDIR, TABLEDIR
+from numpy import array as nparr
 
 datestr = '20230529'
 datestr = '20240405'
@@ -133,13 +134,17 @@ df['flag_dr3_crowding'] = df['nbhr_count'] >= 1
 #####################
 # RELATIVE AGE FLAG #
 #####################
-df['b20t2_rel_E_Age'] = np.abs(df['b20t2_E_Age'])/df['b20t2_Age']
-df['b20t2_rel_e_Age'] = np.abs(df['b20t2_e_Age'])/df['b20t2_Age']
-df['b20t2_max_rel_Age'] = np.maximum(df['b20t2_rel_E_Age'], df['b20t2_rel_e_Age'])
+from gyrojo.locus_definer import constrained_polynomial_function
+csvpath = join(DATADIR, "interim", "logg_teff_locus_coeffs.csv")
+coeffs = pd.read_csv(csvpath).values.flatten()
+logg_locus = constrained_polynomial_function(nparr(df['adopted_Teff']), coeffs)
+df['flag_farfrommainsequence'] = df['adopted_logg'] < logg_locus
 
-# NOTE: flag values of ~40-50% seem reasonable in glue...
-df['flag_b20t2_rel_E_Age'] = df['b20t2_rel_E_Age'] < 0.4
-
+# DEPRECATED:
+# df['b20t2_rel_E_Age'] = np.abs(df['b20t2_E_Age'])/df['b20t2_Age']
+# df['b20t2_rel_e_Age'] = np.abs(df['b20t2_e_Age'])/df['b20t2_Age']
+# df['b20t2_max_rel_Age'] = np.maximum(df['b20t2_rel_E_Age'], df['b20t2_rel_e_Age'])
+# df['flag_b20t2_rel_E_Age'] = df['b20t2_rel_E_Age'] < 0.4
 
 #    DEPRECATED::
 #    #############
@@ -177,7 +182,7 @@ flag_bits = {
     'flag_dr3_non_single_star': 6,
     'flag_dr3_ruwe_outlier': 7,
     'flag_dr3_crowding': 8,
-    'flag_b20t2_rel_E_Age': 9,
+    'flag_farfrommainsequence': 9,
     'flag_is_CP_CB': 10
 }
 
