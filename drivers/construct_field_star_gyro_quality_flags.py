@@ -67,7 +67,7 @@ df['flag_is_CP_CB'] = ~(
 )
 
 df['flag_kepler_gaia_xmambiguous'] = (
-    df.count_n_gaia_nbhr > 0
+    df.count_n_gaia_nbhr >= 1
 )
 
 #################################
@@ -124,6 +124,9 @@ count_df, ndf = given_source_ids_get_neighbor_counts(
     enforce_all_sourceids_viable=True, gaia_datarelease='gaiadr3'
 )
 
+# NOTE this "nbhr_count" number may double-count at times, based on 
+# Kepler-1975 (KOI 7913) == KIC 8873450...  nonetheless, seems to be a specific
+# glitch.
 df['nbhr_count'] = np.array(count_df.nbhr_count)
 df['flag_dr3_crowding'] = df['nbhr_count'] >= 1
 
