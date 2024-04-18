@@ -19,12 +19,12 @@ def completeness_correction(snr):
     return gamma.cdf(snr, k, scale=theta, loc=l)
 
 def get_star_and_planet_dataframes():
-    # stars
-    df = get_gyro_data("Santos19_Santos21_dquality")
-    sdf = df[df.flag_is_gyro_applicable]
+    # stars (with rotation, & gyro applicable)
+    _df = get_gyro_data("Santos19_Santos21_dquality", drop_grazing=1, drop_highruwe=1)
+    sdf = _df[_df.flag_is_gyro_applicable]
 
     # planets
-    df, _, _ = get_age_results(whichtype='gyro', drop_grazing=0)
+    df, _, _ = get_age_results(whichtype='gyro', drop_grazing=1)
 
     df.loc[df.KIC == '7335514', 'koi_smass'] = 0.879 # KOI-7368 missing stellar mass and sma
     df.loc[df.KIC == '7335514', 'koi_srad'] = 0.874 # KOI-7368 missing stellar radius
@@ -36,7 +36,7 @@ def get_star_and_planet_dataframes():
     df.loc[df.koi_sma.isnull(), 'koi_sma'] = sma_AU[df.koi_sma.isnull()]
 
     # calculate geometric weights
-    df['w_geom'] = (
+    df['w_geom'] = (1 / 0.8 ) * (
         (nparr(df['koi_sma'])*u.AU)
         /
         (nparr(df['koi_srad'])*u.Rsun)
