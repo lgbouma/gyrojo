@@ -26,6 +26,8 @@ Catch-all file for plotting scripts.  Contents:
 
     plot_sub_praesepe_selection_cut
 
+    plot_gyromodeldispersion
+
 Helpers:
     _given_ax_append_spectral_types
 
@@ -56,6 +58,7 @@ from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 from gyrointerp.models import (
     reference_cluster_slow_sequence
 )
+from gyrointerp.models import slow_sequence, slow_sequence_residual
 
 from aesthetic.plot import set_style, savefig
 
@@ -1917,3 +1920,144 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
 
     outpath = join(outdir, f'st_params{s}.png')
     savefig(fig, outpath, dpi=400)
+
+
+
+def get_Prot_model(age, Teff_obs):
+
+    # Get model Prots
+    age = int(age)
+
+    Prot_mu = slow_sequence(Teff_obs, age, verbose=False)
+
+    y_grid = np.linspace(-14, 6, 1000)
+    Prot_resid = slow_sequence_residual(age, y_grid=y_grid, teff_grid=Teff_obs)
+
+    Prot_mod = []
+
+    for ix, _ in enumerate(Teff_obs):
+
+        dProt = np.random.choice(
+            y_grid, size=1, replace=True,
+            p=Prot_resid[:,ix]/np.sum(Prot_resid[:,ix])
+        )
+
+        Prot_mod.append(Prot_mu[ix] + dProt)
+
+    Prot_mod = np.array(Prot_mod)
+
+    return Prot_mod
+
+
+
+
+
+def plot_gyromodeldispersion(outdir):
+    # similar to _plot_slow_sequence_residual from gyrointerp
+
+    from matplotlib.colors import LogNorm, Normalize
+    from matplotlib import cm
+
+    np.random.seed(42)
+
+    ymin, ymax = 0, 30
+    teffmin, teffmax = 3800, 6200
+    N = int(1e4)
+    #N = int(5e3)
+    Teffs = np.linspace(teffmin, teffmax, N)
+    ages = [100, 500, 1000, 2000]
+
+    Nteffbins, Nprotbins = (
+        int(1.5*int((teffmax-teffmin)/20)), int(1.5*int((ymax-ymin)/0.2))
+    )
+    print(f"Npoints: {N}, Nteff, Nprot: {Nteffbins}, {Nprotbins}, product: {Nteffbins*Nprotbins}")
+
+    Prots = []
+    Protmodels = []
+    for age in ages:
+
+        _Prot = slow_sequence(Teffs, age)
+        Prots.append(_Prot)
+
+        Protmodel = get_Prot_model(age, Teffs)
+        Protmodels.append(Protmodel.flatten())
+
+    ####
+
+    set_style("clean")
+    fig, ax = plt.subplots(figsize=(3,3))
+
+    agelabels = ['100 Myr', '500 Myr', '1 Gyr', '2 Gyr']
+    yvals = [8.5, 12.5, 16.5, 19.5, 28]
+    linestyles = ['solid', 'dotted', 'dashed', 'dashdot', 'solid']
+    colormaps = [cm.Blues, cm.Oranges, cm.Greens, cm.Purples, cm.Greys]
+    colors = ['C0', 'C1', 'C2', 'purple', 'darkgray']
+    zorders = [2,3,4,5,6][::-1]
+
+    for age, ls, yval, al, Prot, Protmodel, _c, _cm, zo in zip(
+        ages, linestyles, yvals, agelabels, Prots, Protmodels,
+        colors,
+        colormaps,
+        zorders
+    ):
+
+        # plot mean lines
+        color = 'k'
+        ax.plot(
+            Teffs[5:-5], Prot[5:-5], color=color, linewidth=1,
+            zorder=10, alpha=0.9, ls=ls
+        )
+
+        SHOW_POINTS = 1
+        SHOW_HIST2D = 0
+
+        if SHOW_POINTS:
+            ax.scatter(
+                Teffs, Protmodel, linewidths=0,
+                marker='o', color=_c, zorder=zo, s=0.2, rasterized=True
+
+            )
+
+        if SHOW_HIST2D:
+            H, _, _ = np.histogram2d(
+                Teffs, Protmodel, bins=[Nteffbins, Nprotbins],
+                range=[[teffmin, teffmax], [ymin, ymax]]
+            )
+
+            #alpha_mask = 1/(H)
+            #alpha_mask[alpha_mask > 1] = 1
+            #alpha_mask[alpha_mask < 0.5] = 0.5
+
+            norm = LogNorm()
+            h, xedges, yedges, img = ax.hist2d(
+                Teffs, Protmodel, bins=[Nteffbins, Nprotbins],
+                range=[[teffmin, teffmax], [ymin, ymax]],
+                #density=True,
+                cmin=1,
+                cmap=_cm,
+                norm=norm,
+                alpha=0.8,
+                #alpha=alpha_mask,
+                zorder=zo
+            )
+            h[pd.isnull(h)] = 0
+            assert np.all(h==H)
+
+        # annotate means
+        bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
+        ax.text(3680, yval, al, ha='right', va='center', fontsize='x-small',
+                bbox=bbox, zorder=49, color=_c)
+
+    txt = r"Models: ${\tt gyro-interp}$"
+    ax.text(0.97, 0.97, txt, transform=ax.transAxes,
+            ha='right',va='top', color='k')
+
+    ax.set_xlabel("Effective Temperature [K]")
+    ax.set_ylabel("Rotation Period [days]")
+    ax.set_xlim([ 6300, 3700 ])
+    ax.set_ylim([ -1, 23 ])
+
+    s = ''
+
+    outpath = os.path.join(outdir, f'gyromodeldispersion{s}.png')
+    savefig(fig, outpath)
