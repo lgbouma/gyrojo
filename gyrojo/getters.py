@@ -460,59 +460,31 @@ def get_kicstar_data(sampleid):
         concatenates Santos19 and Santos21, and then crossmatches against
         Berger20 (tables1&2).  Adopted Teffs and adopted loggs are then
         assigned in a rank-ordered preference scheme, as are period
-        uncertainties.  Other options include "Santos19_Santos21_clean0",
-        "Santos19_Santos21_logg", "Santos19_Santos21_dquality".  These latter
-        options impose a posteriori cuts on the returned dataframe (not the
-        computed one).
+        uncertainties.  Other options are "Santos19_Santos21_dquality", which
+        imposes a posteriori cuts on the returned dataframe (not the computed
+        one), and "allKIC_Berger20" which is the KIC/Berger20 stars, without
+        any parsing of whether rotation is reported.
 
-        Santos19_Santos21_logg:
-            sel &= df.logg > 4.2
-        Santos19_Santos21_clean0:
-            sel &= df.logg > 4.2
-            sel &= (
-                df.Sph >= 500
-            )
-            not_CP_CB = pd.isnull(df.s21_flag1) & pd.isnull(df.s19_flag1)
-            sel &= not_CP_CB
-        Santos19_Santos21_dquality:
-            Returns a more sophisticated data quality flagging scheme than
-            either the logg or "clean0" cuts above, implemented in
-            construct_field_star_gyro_quality_flags.py.
-            Has flags for:
-                - subgiants
-                - photometric binaries
-                - ruwe outliers
-                - crowding
-                - non-single-stars
-                - "CP/CB candidates"
-            and it defines:
-                df['flag_is_gyro_applicable'] = (
-                    (~df['flag_logg'])
-                    &
-                    (~df['flag_ruwe_outlier'])
-                    &
-                    (~df['flag_dr3_non_single_star'])
-                    &
-                    (~df['flag_camd_outlier'])
-                    #&
-                    #(df['flag_not_CP_CB'])
-                    &
-                    (~df['flag_in_KEBC'])
-                    &
-                    (df['adopted_Teff'] > 3800)
-                    &
-                    (df['adopted_Teff'] < 6200)
-                )
+        "Santos19_Santos21_dquality" specifically just returns
+        field_gyro_posteriors_20240405_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv
 
     Returns:
         dataframe matching the requested sampleid
     """
 
-    assert sampleid in ['Santos19_Santos21_all', 'Santos19_Santos21_dquality']
+    assert sampleid in [
+        'Santos19_Santos21_all',
+        'Santos19_Santos21_dquality',
+        'allKIC_Berger20'
+    ]
     # 'Santos19_Santos21_clean0', 'Santos19_Santos21_logg' both
     # deprecated
 
-    csvpath = join(DATADIR, 'interim', 'S19_S21_KOIbonus_merged_X_GDR3_X_B20.csv')
+    if sampleid == 'Santos19_Santos21_all':
+        csvpath = join(DATADIR, 'interim', 'S19_S21_KOIbonus_merged_X_GDR3_X_B20.csv')
+
+    if sampleid == 'allKIC_Berger20':
+        return get_cleaned_gaiadr3_X_kepler_supplemented_dataframe()
 
     if sampleid == 'Santos19_Santos21_dquality':
         # made by construct_field_star_gyro_quality_flags.py driver
