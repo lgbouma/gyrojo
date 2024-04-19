@@ -1,5 +1,8 @@
 r="/Users/luke/Dropbox/proj/gyrojo/results"
 
+# plot_gyromodeldispersion
+cp $r/gyromodeldispersion/gyromodeldispersion.pdf .
+
 # plot_st_params
 # ...CAMD:
 cp $r/st_params/st_params_M_G_vs_dr3_bp_rp.pdf .
@@ -19,7 +22,8 @@ cp $r/koi_mean_prot_teff/koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf
 cp $r/hist_field_gyro_ages_20240405/hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240405_maxage3200.pdf .
 
 # plot_li_vs_teff
-cp $r/li_vs_teff/li_vs_teff_koi_X_S19S21dquality_eagles_showdispersion.pdf .
+cp $r/li_vs_teff/li_vs_teff_koi_X_S19S21dquality_eagles_logy.pdf .
+cp $r/li_vs_teff/li_vs_teff_koi_X_S19S21dquality_eagles_showpoints_nodata.pdf .
 
 # planets
 r="/Users/luke/Dropbox/proj/NEA_age_plots/results/rp_vs_period_scatter"
