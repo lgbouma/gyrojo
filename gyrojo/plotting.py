@@ -330,7 +330,8 @@ def plot_star_Prot_Teff(outdir, sampleid):
 
 
 def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
-                    limodel='eagles', show_dispersion=0):
+                    limodel='eagles', show_dispersion=0, nodata=0,
+                    show_dispersionpoints=0):
 
     #df = get_li_data('all')
     df = get_li_data(sampleid)
@@ -394,13 +395,21 @@ def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
         from eagles import eAT2EWm
 
         # set up a an equally spaced set of log temperatures between 3000 and 6500 K
-        tstep = 0.002
+        tstep = 0.00002
         Teff_model = np.arange(3.4772, 3.8130, tstep)
+        Teff_model = np.linspace(3.4772, 3.8130, int(1e4))
+        Teff_model = np.linspace(np.log10(3800), np.log10(6200), int(1e4))
 
-        if not show_dispersion:
-            ages = [120, 300, 670, 1000, 4000]
+        agestrs = None
+        if not show_dispersion and not show_dispersionpoints:
+            ages = [100, 500, 2000, 4000]
+            agestrs = ['100 Myr', '500 Myr', '2 Gyr', '4 Gyr']
+        elif show_dispersionpoints:
+            ages = [100, 500, 2000]
+            agestrs = ['100 Myr', '500 Myr', '2 Gyr']
         else:
-            ages = [120, 670, 4000]
+            ages = [100, 500, 2000, 4000]
+            agestrs = ['100 Myr', '500 Myr', '2 Gyr', '4 Gyr']
         lAges = [np.log10(t)+6 for t in ages]  # log age in years
 
         li_models = []
@@ -414,14 +423,24 @@ def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
 
     set_style("clean")
     fig, ax = plt.subplots(figsize=(3,3))
+    np.random.seed(42)
+
+    if not isinstance(agestrs, list):
+        agestrs = [f"{a}" for a in ages]
 
     linestyles = ['solid', 'dotted', 'dashed', 'dashdot', 'solid']
-    for ix, (li_model, ls, age) in enumerate(zip(li_models, linestyles, ages)):
+    colors = ['C0', 'C1', 'purple', 'whatever']
+    yvals = [110, 68.5, 38, 999]
+    for ix, (li_model, ls, age, _c, agestr, yval) in enumerate(
+        zip(li_models, linestyles, ages, colors, agestrs, yvals)
+    ):
         color = 'k'
-        agestr = f'{age/1e3:.2f} Gyr'
+        alpha = 0.9
+        if not show_dispersion and not show_dispersionpoints:
+            alpha = 0.4
         ax.plot(
-            Teff_model, li_model, color=color, linewidth=1, zorder=10,
-            alpha=0.4, ls=ls, label=agestr
+            Teff_model, li_model, color='k', linewidth=1, zorder=10,
+            alpha=alpha, ls=ls, label=agestr
         )
 
         if show_dispersion :
@@ -432,35 +451,68 @@ def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
                 alpha=0.3
             )
 
+        elif show_dispersionpoints:
+
+            sigma = li_model_dispersion[ix]/(2**0.5)
+            loc = li_model
+
+            Li_mod = np.random.normal(
+                loc=li_model, scale=sigma, size=len(li_model)
+            )
+
+            ax.scatter(
+                Teff_model, Li_mod, linewidths=0,
+                marker='o', color=_c,
+                s=0.2, rasterized=True
+            )
+
+            # annotate means
+            bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
+            ax.text(6100, yval, agestr, ha='left', va='center', fontsize='x-small',
+                    bbox=bbox, zorder=49, color=_c)
+
+            txt = r"Model: ${\tt eagles}$"
+            ax.text(0.97, 0.97, txt, transform=ax.transAxes,
+                    ha='right',va='top', color='k', bbox=bbox)
+
+
+
     print(f"Mean Teff error is {np.nanmean(Teff_errs):.1f} K")
 
     yerr = np.array(
         [li_ew_merr[det], li_ew_perr[det]]
     ).reshape((2, len(li_ew[det])))
 
-    ax.errorbar(
-        Teffs[det], li_ew[det], #xerr=Teff_errs,
-        yerr=yerr,
-        marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='k',
-        markersize=1, zorder=5
-    )
+    if not nodata:
+        ax.errorbar(
+            Teffs[det], li_ew[det], #xerr=Teff_errs,
+            yerr=yerr,
+            marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='k',
+            markersize=1, zorder=5
+        )
 
-    ax.scatter(
-        Teffs[upperlim], li_ew_upper_lims,
-        marker='$\downarrow$', s=2, color='k', zorder=4,
-        linewidths=0
-    )
+        ax.scatter(
+            Teffs[upperlim], li_ew_upper_lims,
+            marker='$\downarrow$', s=2, color='k', zorder=4,
+            linewidths=0
+        )
 
-    leg = ax.legend(loc='upper right', handletextpad=0.3, fontsize='small',
-                    framealpha=0, borderaxespad=0, borderpad=0,
-                    handlelength=1.6, bbox_to_anchor=(0.97, 0.97))
+    if not show_dispersionpoints:
+        leg = ax.legend(loc='upper right', handletextpad=0.3, fontsize='small',
+                        framealpha=0, borderaxespad=0, borderpad=0,
+                        handlelength=1.6, bbox_to_anchor=(0.97, 0.97))
+
+        #leg.texts[0].set_color(colors[0])
+        #leg.texts[1].set_color(colors[1])
+        #leg.texts[2].set_color(colors[2])
 
     txt = (
         "$N_\mathrm{p}$ = " + f"{n_pl}\n"
         "$N_\mathrm{s}$ = " + f"{n_st}"
     )
-    ax.text(0.03, 0.97, txt, transform=ax.transAxes,
-            ha='left',va='top', color='k')
+    if not nodata:
+        ax.text(0.03, 0.97, txt, transform=ax.transAxes,
+                ha='left',va='top', color='k')
 
     ax.set_ylabel('Li$_{6708}$ EW [m$\mathrm{\AA}$]')
     ax.set_xlabel('Effective Temperature [K]')
@@ -471,6 +523,10 @@ def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
 
     ax.set_xlim([ 6300, 3700 ])
     ax.set_ylim([ -5, 270 ])
+    if show_dispersionpoints:
+        ax.set_ylim([ -5, 320 ])
+    if not show_dispersion and not show_dispersionpoints:
+        ax.set_ylim([ -5, 370 ])
 
     s = f'_{sampleid}'
     s += f"_{limodel}"
@@ -478,6 +534,10 @@ def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
         s += "_logy"
     if show_dispersion:
         s += "_showdispersion"
+    if show_dispersionpoints:
+        s += "_showpoints"
+    if nodata:
+        s += "_nodata"
 
     outpath = os.path.join(outdir, f'li_vs_teff{s}.png')
     savefig(fig, outpath)
@@ -1386,7 +1446,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405')
     })
     axs[0].text(.08, .97, 'Kepler targets', ha='left', va='top',
                 fontsize='large', zorder=5, transform=axs[0].transAxes,
-                fontdict={'fontstyle':'oblique'})
+                fontdict={'fontstyle':'normal'})
     if MAXAGE < 4000:
         axs[0].set_xticks([0, 1, 2, 3])
 
@@ -1399,7 +1459,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405')
     })
     axs[1].text(.08, .97, 'KOI host stars', ha='left', va='top',
                 fontsize='large', zorder=5, transform=axs[1].transAxes,
-                fontdict={'fontstyle':'oblique'})
+                fontdict={'fontstyle':'normal'})
     if MAXAGE < 4000:
         axs[1].set_xticks([0, 1, 2, 3])
 
@@ -1989,7 +2049,7 @@ def plot_gyromodeldispersion(outdir):
 
     agelabels = ['100 Myr', '500 Myr', '1 Gyr', '2 Gyr']
     yvals = [8.5, 12.5, 16.5, 19.5, 28]
-    linestyles = ['solid', 'dotted', 'dashed', 'dashdot', 'solid']
+    linestyles = ['solid', 'dotted', 'dashdot', 'dashed', 'solid']
     colormaps = [cm.Blues, cm.Oranges, cm.Greens, cm.Purples, cm.Greys]
     colors = ['C0', 'C1', 'C2', 'purple', 'darkgray']
     zorders = [2,3,4,5,6][::-1]
@@ -2048,7 +2108,7 @@ def plot_gyromodeldispersion(outdir):
         ax.text(3680, yval, al, ha='right', va='center', fontsize='x-small',
                 bbox=bbox, zorder=49, color=_c)
 
-    txt = r"Models: ${\tt gyro-interp}$"
+    txt = r"Model: ${\tt gyro-interp}$"
     ax.text(0.97, 0.97, txt, transform=ax.transAxes,
             ha='right',va='top', color='k')
 
