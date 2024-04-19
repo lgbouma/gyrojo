@@ -10,6 +10,16 @@ from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 from gyrojo.papertools import read_latex_key_value_pairs
 
 ##########################################
+# cumulative KOI table
+koi_df = get_koi_data('cumulative-KOI', drop_grazing=0)
+
+# Number of KOIs that are not known false positives
+sel = ~(koi_df['flag_koi_is_fp'])
+N = len(koi_df[sel])
+ulkvp('nkoisnofp', N)
+
+
+##########################################
 # Stars with rotation periods and quality flags calculated
 df = get_gyro_data("Santos19_Santos21_dquality")
 
