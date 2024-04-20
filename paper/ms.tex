@@ -54,9 +54,9 @@
 % number of stars monitored by Kepler (quoting Santos19/21)
 \newcommand{\nkeplerstars}{$\approx$160{,}000}
 % fraction of stars with rotation periods, with teff/logg in Berger+20
-\newcommand{\fracstarswithprotwithbtwenty}{{$\sim$94\%}}
+\newcommand{\fracstarswithprotwithbtwenty}{{$\approx$94\%}}
 % complement of above
-\newcommand{\fracstarswithprotwithoutbtwenty}{{$\sim$6\%}}
+\newcommand{\fracstarswithprotwithoutbtwenty}{{$\approx$6\%}}
 
 %%%%%%%%%%%
 % PLANETS %
@@ -70,7 +70,7 @@
 % number of KOIs in Q1-Q17 DR25 table that are not known false positives that have rotation periods
 \newcommand{\nkoisnofpwithprot}{{$\sim$1{,}000}}
 % fraction of KOIs that are not FPs with B+20 parameters
-\newcommand{\frackoisnofpwithprotwithbtwenty}{{$\sim$92\%}}
+\newcommand{\frackoisnofpwithprotwithbtwenty}{{$\approx$92\%}}
 
 %%%%%%%%%%%
 % LITHIUM %
@@ -208,23 +208,23 @@
 
 Discovering a young planet requires solving two problems: find the
 planet, and measure the star's age.  Each problem admits a range of
-solutions.  Here, we will focus on planets found using transits,
-and stellar ages inferred using rotation and lithium.  Rotation
-will provide the most age information for the largest number of
-stars.  The lithium-based technique will provide useful information
-for stars younger than a few hundred million years.
+solutions.  Here, we will focus on planets previously found using
+transits, and infer new stellar ages using rotation and lithium.
+Rotation will provide the most age information for the largest number
+of stars.  The lithium technique will provide useful information for
+stars younger than a few hundred million years.
 
 To begin, let us imagine that the age distribution of stars within a
 few hundred parsecs is uniformly distributed between 0 and 10\,Gyr
 \citep[e.g.][]{Nordstrom_2004}.  
-The utility of this approximation is that it provides a rough estimate
-for the rarity of young stars:
-$\approx$1\% of stars in the nearby Galaxy have ages below 100\,Myr,
+This approximiation is useful because it clarifies the rarity of young
+stars:
+$\approx$1\% of nearby stars have ages below 100\,Myr,
 and $\approx$10\% are younger than 1\,Gyr.
-Observations of exoplanets forming in disks (CITE), and of exoplanets
+Studies of exoplanets forming in disks (CITE), and of exoplanets
 evolving shortly after disk dispersal (CITE CITE), are therefore
-severely limited in their achievable sample sizes by the
-tyranny of the Galactic star formation rate.
+capped in their maximum achievable sample sizes by the tyranny of the
+Galactic star formation rate.
 
 %While the youngest 0.1\% of stars ($\lesssim$10\,million
 %years; Myr) are perhaps the most constraining for studies of planet
@@ -449,15 +449,14 @@ A few conclusions are offered in Section~\ref{sec:conclusions}.
 \label{sec:selection}
 
 This work is focused on Kepler stars for which ages can be inferred
-using either stellar rotation, lithium, or both.  These ``age-dateable
+using either rotation, lithium, or both.  These ``age-dateable
 stars'' are a minority of the \nkeplerstars\ Kepler targets.  Rotation
-periods provide the majority of the information, since they have been
-reported for roughly one in three Kepler targets
+periods have been reported for roughly one in three Kepler targets
 \citep[e.g.][]{McQuillan_2014,Santos_2021}.  High-resolution spectra,
 and therefore measurements of the \ion{Li}{1} 6708\,\AA\ doublet, in
 general have only been acquired for the Kepler objects of interest
-(KOIs), which comprise only a few percent of the overall stellar
-sample.  In the following, we will describe the set of stars that we
+(KOIs), which comprise a few percent of Kepler's targets.
+In the following, we will describe the set of stars that we
 adopt with measured rotation periods (Section~\ref{subsec:rotsel}),
 the set of objects we adopt as planets
 (Section~\ref{subsec:planetsel}), and the set of planets with
@@ -558,7 +557,7 @@ vetting \footnote{See
 These planets represent a superset of those in the fully automated
 Q1-Q17 DR25 KOI Table \citep{Thompson_2018}, which could be adopted in
 future work for planet occurrence rate calculations.  This version of
-the cumulative KOI table included \nkoisnofp\ that are either
+the cumulative KOI table included \nkoisnofp\ objects that are either
 ``confirmed'' or ``candidate'' planets, after excluding known false
 positives. 
 
@@ -568,20 +567,20 @@ positives.
 %will comprise the core data for our gyrochronology analysis.
 
 \subsection{High Resolution Spectra}
+\label{subsec:lithiumsel}
 A final piece of our analysis involves an age assessment based on the
 equivalent width of the \ion{Li}{1} 6708\,\AA\ doublet.  For this
-component of the work, we rely on spectra acquired with the High
+component of the work, we rely on spectra acquired using the High
 Resolution Echelle Spectrometer (HIRES; \citealt{vogt_hires_1994}) on
 the Keck I 10m telescope.  These spectra were collected between 2009
-and 2024, primarily through projects such as the California Kepler
-Survey
+and 2024, primarily through the California Kepler Survey
 \citep{2017AJ....154..107P,2017AJ....154..108J,2017AJ....154..109F}.
-We supplemented the existing archive with $\approx$10\,hours of new
+We supplemented the existing archive with $\approx$10~hours of new
 observations for 22 stars between Fall 2022 and Spring 2024.
-These targets were selected to ensure that confirmed planets with
-evidence from rotation for ages below 1\,Gyr received spectra, since
-this is the age range where lithium was most likely to yield
-useful age constraints.
+These stars were chosen to ensure that confirmed planets with
+rotational evidence for ages below 1\,Gyr received spectra, since this
+is the age range where lithium is most likely to yield useful age
+constraints.
 
 Lithium equivalent widths and abundances were already analyzed by
 \citet{2018ApJ...855..115B} for about three quarters of the spectra in
@@ -628,18 +627,20 @@ ages of just the planet sample.
 	\end{center}
 	\vspace{-0.5cm}
 	\caption{
-    {\bf The stellar samples.}  Our analysis focuses on stars observed by Kepler with 
-    previously reported
-    rotation periods (dark gray points). 
-    About half of these rotators are suitable for gyrochronology (black points),
-    based on factors including their temperatures, surface gravities, (non-)binarity, and proximity to the main sequence.
-    The full list of criteria is given in Section~\ref{subsec:flags}.
-    A few percent of the remainder are either ``confirmed'' or ``candidate'' Kepler Objects of Interest that
-    meet an additional set of quality criteria (blue points; Section~\ref{subsec:plflags}).
-    These are the objects for which our rotation-based ages are most reliable.
-    We also report lithium-based ages for a largely-overlapping setting of KOIs
-    based on high-resolution spectroscopy.
-    Surface gravities and effective temperatures are primarily from
+    {\bf The stellar samples.}  Our analysis focuses on stars observed
+    by Kepler with previously reported rotation periods (dark gray
+    points).  About half of these rotators are suitable for
+    gyrochronology (black points), based on factors including their
+    temperatures, surface gravities, (non-)binarity, and proximity to
+    the main sequence.  The full list of criteria is given in
+    Section~\ref{subsec:flags}.  A few percent of the remainder are
+    either ``confirmed'' or ``candidate'' Kepler Objects of Interest
+    that meet an additional set of quality criteria (blue points;
+    Section~\ref{subsec:plflags}).  These are the objects for which
+    our rotation-based ages are most reliable.  We also report
+    lithium-based ages for a largely-overlapping setting of KOIs based
+    on high-resolution spectroscopy.  Surface gravities and effective
+    temperatures are primarily from
     \citet{Berger_2020a_catalog}.
 	}
 	\label{fig:stellarprops}
@@ -648,12 +649,12 @@ ages of just the planet sample.
 
 % https://gea.esac.esa.int/archive/documentation/GDR3/Data_analysis/chap_cu8par/sec_cu8par_apsis/ssec_cu8par_apsis_gspphot.html
 
-As our default source for stellar temperatures and surface gravities,
-we adopt the values from the Gaia-Kepler Stellar Properties Catalog
-(GKSP; \citealt{Berger_2020a_catalog}).  The GKSP parameters are
-available for stars with ``AAA'' 2MASS photometry, measured parallaxes
-in Gaia DR2,  and $g$-band photometry from either the KIC or the
-Kepler-INT survey.  The parameters themselves were derived using
+Our default source for stellar temperatures and surface gravities is
+the Gaia-Kepler Stellar Properties Catalog (GKSP;
+\citealt{Berger_2020a_catalog}).  The GKSP parameters were reported
+for stars with ``AAA'' 2MASS photometry, measured parallaxes in Gaia
+DR2,  and $g$-band photometry from either the KIC or the Kepler-INT
+survey.  The parameters themselves were derived using
 \texttt{isoclassify} \citep{2017ApJ...844..102H} to interpolate over
 the MIST isochrone grids
 \citep{2016ApJ...823..102C,2016ApJS..222....8D}, given the SDSS $g$
@@ -661,55 +662,36 @@ and 2MASS $K_{\rm s}$ photometry, the Gaia DR2 parallaxes, and
 $V$-band extinction from the \citet{2018MNRAS.478..651G} reddening
 map.  The resulting stellar parameters are available for
 \fracstarswithprotwithbtwenty\ of the \nuniqstarsantosrot\ Kepler
-stars with rotation periods.
-\citet{David_2021} compared the stellar parameters ($T_{\rm eff}$,
-$R_\star$, [Fe/H]) derived from the \citet{Berger_2020a_catalog}
-isochronal approach with the spectroscopic parameters from
-\citet{Fulton_2018}.  While this approach is one way of validating the
-\citet{Berger_2020a_catalog} output, the temperature scales did show a
-few-percent difference, with \citetalias{Fulton_2018} quoting higher
+stars with rotation periods.  For the remaining
+\fracstarswithprotwithoutbtwenty\ of stars that lack temperatures and
+surface gravities from \citetalias{Berger_2020a_catalog}, we adopt the
+values reported by \citet{Santos_2019} and \citet{Santos_2021}, which
+for these cases primarily derive from the \citet{Mathur_2017} DR25
+Kepler Stellar Properties Catalog, and are mostly derived from
+photometry.  In the planet sample, \frackoisnofpwithprotwithbtwenty\
+of the non-false-positive KOIs with rotation periods have parameters
+from \citet{Berger_2020a_catalog}, and the remainder similarly are
+drawn from DR25. 
+
+\citet{David_2021} compared the photometric
+\citetalias{Berger_2020a_catalog} stellar parameters ($T_{\rm eff}$,
+$R_\star$, [Fe/H]) against the spectroscopic parameters from
+\citet{Fulton_2018}.  The temperature scales did show a few-percent
+systematic difference, with \citetalias{Fulton_2018} quoting higher
 temperatures than \citetalias{Berger_2020a_catalog} for mid K dwarfs,
-and lower temperatures for early F dwarfs.
+and lower temperatures for early F dwarfs.  Our age analysis,
+described below, assumes Gaussian uncertainties in effective
+temperatures; we by default adopt the maximum of the two-sided
+uncertainties reported by \citetalias{Berger_2020a_catalog} as our
+symmetric temperature uncertainty.  Overall, the impact of systematic
+uncertainties in the temperature scale on our age uncertainties is
+generally smaller than that of the intrinsic scatter in the
+calibration sequences of the open clusters.
 
+%TODO: plot uncertainties in teff vs teff...
+%TODO: plot uncertainties in logg vs logg...
 
-%For the remaining \fracstarswithprotwithoutbtwenty\ of stars that lack
-%temperatures and surface gravities, we adopt the values 
-%from the Gaia DR3 General Stellar Parametrizer from Photometry (GSP-Phot; CITE).
-%GSP-Phot uses the low-resolution Gaia BP and RP spectra, mean $G$ magnitudes,
-%and parallaxes, in concert with the PARSEC isochrones (CITE Tang2014, Chen2015,
-%Pastorelli2020) to infer the stellar effective temperatures, surface gravities,
-%metallicities, and line-of-sight extinctions.
-%In the planet sample,
-%\frackoisnofpwithprotwithbtwenty\ of the
-%the non-false-positive KOIs with rotation periods have parameters from
-%\citet{Berger_2020a_catalog}.
-
-For the remaining \fracstarswithprotwithoutbtwenty\ of stars that lack
-temperatures and surface gravities from
-\citetalias{Berger_2020a_catalog}, we adopt the values reported by
-\citet{Santos_2019} and \citet{Santos_2021}, which for these cases
-primarily derive from the \citet{Mathur_2017} DR25 Kepler Stellar
-Properties Catalog, and are mostly derived from photometry.  In the
-planet sample, \frackoisnofpwithprotwithbtwenty\ of the
-non-false-positive KOIs with rotation periods have parameters from
-\citet{Berger_2020a_catalog}, and the remainder similarly are drawn
-from DR25. 
-
-%TODO: the relevant check here is Berger20 teff vs CKS spec teff...
-%  As a sanity check on our effective temperature scale, we then used the 
-%  the CITE Green2019 reddening map, combined with the Gaia DR2 $G_{\rm
-%  BP}-G_{\rm RP}$ color, to calculate effective temperatures using the
-%  relation suggested by \citet{Curtis_2020}.
-%  This latter effective temperature scale was demonstrated to have a 
-%  scatter of $\approx$50\,K for stars near the main-sequence.
-%  We find {\bf X, Y, Z.}
-%  We ultimately favor the \citet{Berger_2020a_catalog} scale
-%  because it uses 2MASS $K_{\rm s}$ photometry, and is tied to an actual
-%  isochronal fit.
-
-%TODO: plot uncertainties in teff/logg for both parameter sets.
-
-% TODO: add that plot showing differences btwn the two teff scales?
+%TODO: add that plot showing differences btwn the two teff scales?
 
 
 \section{Ages From Rotation}
@@ -1052,7 +1034,7 @@ To evaluate the accuracy and precision of our equivalent measurement
 technique, after applying an initial iteration on the
 \nplhoststarwgyroagewithgrazingandhighruwe\ aforementioned stars,
 we compared our lithium equivalent widths
-with those reported by \citet{Berger_2018}.
+with those reported by \citet{2018ApJ...855..115B}.
 For the \nbergeroverlap\ stars in both samples, we found {\bf X, Y,
 Z.}
 
