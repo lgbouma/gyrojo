@@ -618,7 +618,7 @@ def get_kicstar_data(sampleid):
     # default Teffs
     df['adopted_Teff'] = df['b20t2_Teff']
     df['adopted_Teff_provenance'] = 'Berger2020_table2'
-    df['adopted_Teff_err'] = np.nanmean([
+    df['adopted_Teff_err'] = np.nanmax([
         np.array(df['b20t2_E_Teff']),
         np.array(np.abs(df['b20t2_e_Teff']))
     ], axis=0)
@@ -646,7 +646,7 @@ def get_kicstar_data(sampleid):
     # default Teffs
     df['adopted_logg'] = df['b20t2_logg']
     df['adopted_logg_provenance'] = 'Berger2020_table2'
-    df['adopted_logg_err'] = np.nanmean([
+    df['adopted_logg_err'] = np.nanmax([
         np.array(df['b20t2_E_logg']),
         np.array(np.abs(df['b20t2_e_logg']))
     ], axis=0)
