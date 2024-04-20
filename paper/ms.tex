@@ -745,21 +745,20 @@ sequences to yield statistical age uncertainties.
 	\vspace{-0.6cm}
 	\caption{
 		{\bf The models.}
-		Points represent $10^4$ draws from model probability distributions
-		that have been fitted to observed rotation periods 
-		\citep{Bouma_2023} and lithium equivalent widths \citep[EWs;][]{Jeffries_2023}
-		of stars in open clusters.
-		Lines are the ``mean models'' at various ages;
-		the asymmetric intrinsic dispersion in rotation and lithium about these mean models, which is what the models fit, sets
-the theoretical precision limit for both age-dating methods.		
-		Additional sources of uncertainty, including measurement uncertainty,
-		impose further limits on achievable age precision.
-		These models are calibrated
-		using open clusters younger than 4\,Gyr.
-		The displayed points assume an unphysical uniform distribution in
-		temperature for visual clarity.
-		The sizes of the points are the same in each panel, so that
-		low apparent density signifies greater dispersion around the mean.
+    Points represent $10^4$ draws from model probability distributions
+    that have been fitted to observed rotation periods
+    \citep{Bouma_2023} and lithium equivalent widths
+    \citep[EWs;][]{Jeffries_2023} of stars in open clusters.  Lines
+    are the ``mean models'' at various ages; the asymmetric intrinsic
+    dispersion in rotation and lithium about these mean models, which
+    is what the models fit, sets the theoretical precision limit for
+    both age-dating methods.		Additional sources of uncertainty,
+    including measurement uncertainty, impose further limits on
+    achievable age precision.  These models are calibrated using open
+    clusters younger than 4\,Gyr.  The displayed points assume an
+    unphysical uniform distribution in temperature for visual clarity.
+    The sizes of the points are the same in each panel, so that low
+    apparent density signifies greater dispersion around the mean.
 		\label{fig:models}
 	}
 \end{figure*}
@@ -946,30 +945,28 @@ do not exclude them from our analysis; this is because...{\bf justify}.
 
 The rotation periods for the stellar and planetary samples are shown
 in Figure~\ref{fig:prot_vs_teff}.  Out of the \nkeplerstars\ stars
-observed by Kepler, requiring reported rotation periods and a
-reliable DR3 crossmatch yielded
-\nuniqstarsantosrot\ stars.  Further requiring these rotating stars
-to have temperatures 3800$<$$T_{\rm eff}$/K$<$6200, which is the range
-over which \texttt{gyro-interp} returns finite age posteriors,
-yields \nuniqstarsantosrotteffcut\ stars.
-Further requiring them to be apparently single, near the main
+observed by Kepler, requiring reported rotation periods and a reliable
+DR3 crossmatch yielded \nuniqstarsantosrot\ stars.  Further requiring
+these rotating stars to have temperatures 3800$<$$T_{\rm
+eff}$/K$<$6200, which is the range over which \texttt{gyro-interp}
+returns finite age posteriors, yields \nuniqstarsantosrotteffcut\
+stars.  Further requiring them to be apparently single, near the main
 sequence, with $\log g$$>$4.2, $M_{\rm G}>3.9$, and not flagged as
 eclipsing binaries yielded \nuniqstarsantosallbutruwe\ rotators
-potentially amenable for gyrochronology.
-Finally, imposing RUWE$<$1.4 and requiring no possible blends ($\Delta
-G$<2.5) within 4$''$ leaves \nuniqstarsantosrotgyroappl\ stars for
-which gyrochronology is likely to be valid.
+potentially amenable for gyrochronology.  Finally, imposing RUWE$<$1.4
+and requiring no possible blends ($\Delta G$<2.5) within 4$''$ leaves
+\nuniqstarsantosrotgyroappl\ stars for which gyrochronology is likely
+to be valid.
 
 
 In the planet sample, the cumulative KOI table included
 \nnonfpcumkois\ confirmed and candidate planets, orbiting
 \nnonfpcumkoihosts\ stars.  Assume that we apply all the same stellar
-cuts, save for that on RUWE.
-Then,
-require these confirmed and candidate planets to have MES$>$10.
-This combination of selection criteria
-yield \nplwgyroagewithgrazingandhighruwe\ planets with rotation-based
-ages orbiting \nplhoststarwgyroagewithgrazingandhighruwe\ stars
+cuts, save for that on RUWE.  Then, require these confirmed and
+candidate planets to have MES$>$10.  This combination of selection
+criteria yield \nplwgyroagewithgrazingandhighruwe\ planets with
+rotation-based ages orbiting
+\nplhoststarwgyroagewithgrazingandhighruwe\ stars
 (\nplhoststarwgyroagejusthighruwe\ of these stars with ``high'' RUWE).
 If we additionally require the planets to be non-grazing ($b<0.8$)
 based on the Markov Chain Monte Carlo (MCMC) fits from
@@ -990,46 +987,33 @@ based on the Markov Chain Monte Carlo (MCMC) fits from
 	\vspace{-0.6cm}
 	\caption{
     {\bf Equivalent widths (EW) of the \ion{Li}{1} 6708\,\AA\ doublet
-    from Keck/HIRES spectra collected between 2009 and 2024.}
-    Lines are the ``mean'' isochrones from the same models as in Figure~\ref{fig:models}.
-    The logarithmic scale highlights the dynamica range of both detections
-    and upper limits.
-%    The intrinsic
-%    dispersion in the cluster data evolves in time, and is shown as
-%    the $\pm$1$\sigma$ bands~\citep{Jeffries_2023}.
-%    As for rotation-based ages, the intrisic dispersion sets the
-%    empirical precision limit for the technique.
+    from Keck/HIRES spectra collected between 2009 and 2024.} Lines
+    are the ``mean'' isochrones from the same models as in
+    Figure~\ref{fig:models}.  The logarithmic scale highlights the
+    dynamica range of both detections and upper limits.
 		\label{fig:li_vs_teff}
 	}
 \end{figure}
 
-%TODO: does JUMP mirror all HIRES data from KOA?
-We queried the internal CPS archive to collect all HIRES spectra that
-were available for the \nplhoststarwgyroagewithgrazingandhighruwe\
-stars for which rotation-based ages can be derived.
-This exercise yielded at least one spectrum for \nlithiumstars\ and 
-\nlithiumplanets\ planets.
-We did not constrain whether the iodine cell was used, since
-there are no relevant lines in the region of the 
-\ion{Li}{1} 6708\,\AA\ doublet.
-These observations were acquired between 6 September 2009 and 16
-May 2024, primarily by the California Kepler Survey (CKS,
-CITE).
-In preparation for this study, we additionally collected {\bf XX}
-spectra for ``confirmed'' planets with rotation-based ages below
-1\,Gyr.
+We queried the internal CPS archive to collect all blaze-corrected
+HIRES spectra that were available for the
+\nplhoststarwgyroagewithgrazingandhighruwe\ stars for which
+rotation-based ages can be derived.  This query yielded at least one
+spectrum for \nlithiumstars\ and \nlithiumplanets\ planets.  These
+spectra were acquired between 6 September 2009 and 16 May 2024.  For
+stars with multiple spectra available at varying ranges of
+signal-to-noise (S/N), we analyzed only the spectrum with the highest
+number of counts.
 
-To measure the lithium equivalent widths, we followed the procedure
-described by \citet{Bouma_2021}.
-The stars of interest for this work are FGK stars, and so the
-continuum in the vicinity of the
-\ion{Li}{1} 6708\,\AA\ doublet is well-defined.
-We therefore numerically integrate a single best-fit Gaussian over a
-local window, and estimate the uncertainties on the line width through
-a Monte Carlo procedure that bootstraps against the local scatter in the
-continuum.
-Generally speaking, this approach does not correct for the neighboring
-\ion{Fe}{1} 6707.44\,\AA\ blend.
+We measured the lithium equivalent widths following a procedure from
+previous work \citep{Bouma_2021}.  The stars of interest for this work
+are FGK stars, and so the continuum in the vicinity of the \ion{Li}{1}
+6708\,\AA\ doublet is well-defined.  We therefore numerically
+integrate a single best-fit Gaussian over a local window, and
+estimated uncertainties on the line width through a Monte Carlo
+procedure that bootstraps against the local scatter in the continuum.
+This approach does not correct for the neighboring \ion{Fe}{1}
+6707.44\,\AA\ blend.
 
 To evaluate the accuracy and precision of our equivalent measurement
 technique, after applying an initial iteration on the
