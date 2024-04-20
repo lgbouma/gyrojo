@@ -448,6 +448,47 @@ A few conclusions are offered in Section~\ref{sec:conclusions}.
 \section{Selecting the Stellar and Planetary Samples}
 \label{sec:selection}
 
+\begin{figure*}[!t]
+	\begin{center}
+		\subfloat{
+			\includegraphics[width=0.47\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
+		}
+%	
+%		\subfloat{
+%			\includegraphics[width=0.4\textwidth]{st_params_M_G_vs_adopted_Teff.pdf}
+%		}
+%		\vspace{-0.5cm}
+		\subfloat{
+		\includegraphics[width=0.47\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
+		}
+%		\subfloat{
+%			\includegraphics[width=0.5\textwidth]{st_params_dr3_phot_g_mean_mag_vs_adopted_Teff.pdf}
+%		}
+	\end{center}
+	\vspace{-0.5cm}
+	\caption{
+    {\bf The stellar samples.}  Our analysis focuses on stars observed
+    by Kepler with previously reported rotation periods (dark gray
+    points).  About half of these rotators are suitable for
+    gyrochronology (black points), based on factors including their
+    temperatures, surface gravities, (non-)binarity, and proximity to
+    the main sequence.  The full list of criteria is given in
+    Section~\ref{subsec:flags}.  A few percent of the remainder are
+    either ``confirmed'' or ``candidate'' Kepler Objects of Interest
+    that meet an additional set of quality criteria (blue points;
+    Section~\ref{subsec:plflags}).  These are the objects for which
+    our rotation-based ages are most reliable.  We also report
+    lithium-based ages for a largely-overlapping setting of KOIs based
+    on high-resolution spectroscopy.  Surface gravities and effective
+    temperatures are primarily from
+    \citet{Berger_2020a_catalog}.
+	}
+	\label{fig:stellarprops}
+\end{figure*}
+
+
+
+
 This work is focused on Kepler stars for which ages can be inferred
 using either rotation, lithium, or both.  These ``age-dateable
 stars'' are a minority of the \nkeplerstars\ Kepler targets.  Rotation
@@ -608,45 +649,6 @@ ages of just the planet sample.
 \section{Stellar Properties}
 \label{sec:stellarprops}
 
-\begin{figure*}[!t]
-	\begin{center}
-		\subfloat{
-			\includegraphics[width=0.47\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
-		}
-%	
-%		\subfloat{
-%			\includegraphics[width=0.4\textwidth]{st_params_M_G_vs_adopted_Teff.pdf}
-%		}
-%		\vspace{-0.5cm}
-		\subfloat{
-		\includegraphics[width=0.47\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
-		}
-%		\subfloat{
-%			\includegraphics[width=0.5\textwidth]{st_params_dr3_phot_g_mean_mag_vs_adopted_Teff.pdf}
-%		}
-	\end{center}
-	\vspace{-0.5cm}
-	\caption{
-    {\bf The stellar samples.}  Our analysis focuses on stars observed
-    by Kepler with previously reported rotation periods (dark gray
-    points).  About half of these rotators are suitable for
-    gyrochronology (black points), based on factors including their
-    temperatures, surface gravities, (non-)binarity, and proximity to
-    the main sequence.  The full list of criteria is given in
-    Section~\ref{subsec:flags}.  A few percent of the remainder are
-    either ``confirmed'' or ``candidate'' Kepler Objects of Interest
-    that meet an additional set of quality criteria (blue points;
-    Section~\ref{subsec:plflags}).  These are the objects for which
-    our rotation-based ages are most reliable.  We also report
-    lithium-based ages for a largely-overlapping setting of KOIs based
-    on high-resolution spectroscopy.  Surface gravities and effective
-    temperatures are primarily from
-    \citet{Berger_2020a_catalog}.
-	}
-	\label{fig:stellarprops}
-\end{figure*}
-
-
 % https://gea.esac.esa.int/archive/documentation/GDR3/Data_analysis/chap_cu8par/sec_cu8par_apsis/ssec_cu8par_apsis_gspphot.html
 
 Our default source for stellar temperatures and surface gravities is
@@ -688,46 +690,44 @@ uncertainties in the temperature scale on our age uncertainties is
 generally smaller than that of the intrinsic scatter in the
 calibration sequences of the open clusters.
 
+% optional todo's:
 %TODO: plot uncertainties in teff vs teff...
 %TODO: plot uncertainties in logg vs logg...
-
 %TODO: add that plot showing differences btwn the two teff scales?
 
 
 \section{Ages From Rotation}
 \label{sec:rotage}
 
-
-
 We calculate gyrochrone ages using \texttt{gyro-interp}
-\citep{Bouma_2023}.  We built this statistical framework to address
+\citep{Bouma_2023}.  We designed this method to address
 the issue that, especially over the first gigayear of stellar
 spin-down, stars with the same mass and same rotation period can have
 very different ages \citep[e.g.][]{Curtis_2019_ngc6811}.  The
 gyrochrone age posterior should therefore incorporate this intrinsic
 population-level scatter into the precision with which the age can be
-measured.  The three main assumptions behind the \texttt{gyro-interp}
-framework are as follows.  {\it 1)} The stars are on the main
+inferred.  The three main assumptions behind the \texttt{gyro-interp}
+framework are as follows.  {\it 1)} The stars are near the main
 sequence, {\it 2)} their spindown is not influenced by binary
 companions, and {\it 3)} the rotation period distribution for field
-stars of a given mass and age is identical to that of the calibration
+stars of a given mass and age is identical to that of equally aged
 open clusters (metallicity differences, for instance, are ignored).  
-Regarding the former two assumptions: pre-main-sequence and
-post-main-sequence evolution introduce variations in the stellar
-angular momentum budget.  Similarly, tidal effects might
-systematically spin up (or down) stars in binaries.
+Regarding the former two assumptions: pre-main-sequence contraction and
+post-main-sequence expansion influence surface stellar rotation periods
+in ways that we do not model.  Stars in e.g.~ close binaries might be
+subject to tidal effects that we do not treat.
 
 Using our adopted effective temperatures and rotation periods, we ran
 \texttt{gyro-interp} over an age grid of 0 to 4\,Gyr, linearly spaced
-over 500 grid points.  \texttt{gyro-interp} itself is only calibrated
+over 500 grid points.  \texttt{gyro-interp} itself is calibrated
 out to 4\,Gyr, the adopted age of the M67 cluster
-\citep[see][]{Dungee_2022,Gruner_2023}.  To estimate the stellar
+\citep[see][]{2022ApJ...938..118D,Gruner_2023}.  To estimate the stellar
 spin-down rate as a function of time and stellar temperature, this
 framework interpolates between reference open clusters using smooth
 cubic hermite polynomials.  We calculate the probability of the
 rotation-based age $t_{\rm gyro}$, given the observed rotation
 periods, effective temperatures, and their uncertainties by
-integrating Equation~1 of \citep{Bouma_2023} at the default grid
+integrating Equation~1 of \citet{Bouma_2023} at the default grid
 resolution.  This procedure marginalizes over the intrinsic age and
 temperature dependent scatter that is observed in the cluster
 sequences to yield statistical age uncertainties.
@@ -746,19 +746,20 @@ sequences to yield statistical age uncertainties.
 	\caption{
 		{\bf The models.}
 		Points represent $10^4$ draws from model probability distributions
-		that have been fitted to rotation periods 
-		\citep{Bouma_2023} and to lithium measurements \citep{Jeffries_2023}
+		that have been fitted to observed rotation periods 
+		\citep{Bouma_2023} and lithium equivalent widths \citep[EWs;][]{Jeffries_2023}
 		of stars in open clusters.
-		Lines are the fitted ``mean models'' at various ages; these models are calibrated
-		for stars younger than 4\,Gyr.
-		The intrinsic dispersion in rotation and lithium at any given age, which what these models are designed to fit, sets
-		the theoretical precision limit for both age-dating methods.
+		Lines are the ``mean models'' at various ages;
+		the asymmetric intrinsic dispersion in rotation and lithium about these mean models, which is what the models fit, sets
+the theoretical precision limit for both age-dating methods.		
 		Additional sources of uncertainty, including measurement uncertainty,
-		impose additional limitations on achievable age precision.
+		impose further limits on achievable age precision.
+		These models are calibrated
+		using open clusters younger than 4\,Gyr.
 		The displayed points assume an unphysical uniform distribution in
-		temperature for visual clarity, and sizes of the points are the same in each panel.
-		%    Gyrochrone age posteriors are broadest in regions 
-		%    with the slowest stellar spin-down.
+		temperature for visual clarity.
+		The sizes of the points are the same in each panel, so that
+		low apparent density signifies greater dispersion around the mean.
 		\label{fig:models}
 	}
 \end{figure*}
@@ -768,26 +769,26 @@ sequences to yield statistical age uncertainties.
 \label{subsec:flags}
 We calculated gyrochrone age posteriors for all \nuniqstarsantosrot\
 stars with reported rotation periods and effective temperatures.  To
-select stars for which we expect these age to in fact be valid, we
-then build a set of quality flags.  When and how these flags should be
-applied depends on the question being asked.  If the goal is to
+flag stars for which we suspect these ages may not in fact be valid,
+we then build a set of bit-quality flags.  When and how these flags should
+be applied depends on the question being asked.  If the goal is to
 construct a false-positive free sample, they might all be applied.  If
 the goal is constructing a complete sample of young stars, then
 consider the examples of Kepler~1627Ab ($\approx$40\,Myr) and
 Kepler~51c ($\approx$625\,Myr).  The former has a high RUWE due to a
 resolved binary companion \citep{Bouma_2022a}; the latter is on a
-grazing orbit \citep{2014ApJ...783...53M}.  The flags in
-Tables~\ref{tab:stars} and~\ref{tab:planets} enable selecting for or
-against such cases using bit flags.
+grazing orbit \citep{2014ApJ...783...53M}.  Our quality flags enable
+selecting for or against such cases by selecting from the following
+bits.
 
 {\it Temperature range (bit 0)}---We require stars to have effective
 temperatures $T_{\rm eff}$ between 3800 and 6200\,K in order to report
 gyrochrone ages \citep{Bouma_2023}.   Stars hotter than 6200\,K spin
 down very slowly, if at all.  Stars cooler than 3800\,K do spin down
-over gigayear timescales (e.g. {\bf CITE} E.Newton thesis, the Engle
-paper, and Chiti's article), but the currently available open cluster
-data have yet to clarify at what times, if any, the intrinsic scatter
-in the population decreases.
+over gigayear timescales
+\citep{2016ApJ...821...93N,2023ApJ...954L..50E,2024arXiv240312129C},
+but the currently available open cluster data have yet to clarify
+exactly when the intrinsic scatter in the population decreases.
 
 {\it Surface gravity (bit 1)}---We flagged stars as possible subgiants
 if they had $\log g < 4.2$.  We set this threshold by examining the
