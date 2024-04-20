@@ -20,11 +20,11 @@ def completeness_correction(snr):
 
 def get_star_and_planet_dataframes():
     # stars (with rotation, & gyro applicable)
-    _df = get_gyro_data("Santos19_Santos21_dquality", drop_grazing=1, drop_highruwe=1)
+    _df = get_gyro_data("Santos19_Santos21_dquality", grazing_is_ok=0, drop_highruwe=1)
     sdf = _df[_df.flag_is_gyro_applicable]
 
     # planets
-    df, _, _ = get_age_results(whichtype='gyro', drop_grazing=1)
+    df, _, _ = get_age_results(whichtype='gyro', grazing_is_ok=0)
 
     df.loc[df.KIC == '7335514', 'koi_smass'] = 0.879 # KOI-7368 missing stellar mass and sma
     df.loc[df.KIC == '7335514', 'koi_srad'] = 0.874 # KOI-7368 missing stellar radius

@@ -9,14 +9,14 @@ from gyrojo.paths import PAPERDIR, DATADIR
 
 # ...with age results
 drop_highruwe = 0
-drop_grazing = 0
+grazing_is_ok = 1
 manual_includes = [
     '10736489', # KIC10736489 = KOI-7368: adopted_logg = 4.448...teff=5068.2... cutoff 4.48
     '8873450', # KOI-7913 binary
     '9471268', # Kepler-326 700myr multi
 ]
 _df, _, _ = get_age_results(
-    whichtype='gyro_li', drop_grazing=drop_grazing,
+    whichtype='gyro_li', grazing_is_ok=grazing_is_ok,
     drop_highruwe=drop_highruwe, manual_includes=manual_includes
 )
 _ldf = pd.read_csv(join(

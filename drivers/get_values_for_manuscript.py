@@ -11,7 +11,7 @@ from gyrojo.papertools import read_latex_key_value_pairs
 
 ##########################################
 # cumulative KOI table
-koi_df = get_koi_data('cumulative-KOI', drop_grazing=0)
+koi_df = get_koi_data('cumulative-KOI', grazing_is_ok=1)
 
 # Number of KOIs that are not known false positives
 sel = ~(koi_df['flag_koi_is_fp'])
@@ -63,7 +63,7 @@ ulkvp('nuniqstarsantosrotgyroappl', N)
 
 ##########################################
 # get PLANET numbers!
-kdf = get_koi_data('cumulative-KOI', drop_grazing=0)
+kdf = get_koi_data('cumulative-KOI', grazing_is_ok=1)
 
 # Number of non-false positive KOIs from cumulative koi df
 N = len(kdf[~kdf.flag_koi_is_fp])
@@ -76,7 +76,7 @@ ulkvp('nnonfpcumkoihosts', N)
 ##########################################
 # ...with age results
 df, _, _ = get_age_results(
-    whichtype='gyro_li', drop_grazing=0, drop_highruwe=0
+    whichtype='gyro_li', grazing_is_ok=1, drop_highruwe=0
 )
 assert pd.isnull(df.gyro_median).sum() == 0
 
@@ -129,7 +129,7 @@ ulkvp('nplhostsyounggyrothreesigma', N)
 
 # ... now drop grazing cases, keeping high ruwe
 df, _, _ = get_age_results(
-    whichtype='gyro', drop_grazing=1, drop_highruwe=0
+    whichtype='gyro', grazing_is_ok=0, drop_highruwe=0
 )
 
 # Number of planets with a gyro age, dropping grazing cases

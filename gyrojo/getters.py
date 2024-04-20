@@ -26,7 +26,7 @@ from gyrojo.paths import LOCALDIR, DATADIR, RESULTSDIR, TABLEDIR
 
 
 def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
-                  drop_grazing=1, drop_highruwe=1):
+                  grazing_is_ok=0, drop_highruwe=1):
     """
     Args:
         sampleid (str): the dataframe of either stars or planets to return.
@@ -41,9 +41,9 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
         koisampleid (str): if you're getting planets, which slice of the KOI
         tables do you want?  "cumulative-KOI" or "DR25-KOI".
 
-        drop_grazing (bool): whether you want "flag_is_ok_planetcand" to drop
-        grazing planets, or not.  The "flag_koi_is_grazing" will be true no
-        matter what.
+        grazing_is_ok (bool): whether you want "flag_is_ok_planetcand"
+        to drop grazing planets, or not.  The "flag_koi_is_grazing"
+        will be true no matter what.
     """
 
     assert sampleid in [
@@ -74,7 +74,7 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
 
         df, paramdict, st_ages = get_age_results(
             whichtype='gyro', COMPARE_AGE_UNCS=0,
-            drop_grazing=drop_grazing,
+            grazing_is_ok=grazing_is_ok,
             drop_highruwe=drop_highruwe
         )
         return df
@@ -180,8 +180,9 @@ def get_li_data(sampleid):
 
 
 
-def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
-                    drop_highruwe=1, manual_includes=None):
+def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
+                    grazing_is_ok=0, drop_highruwe=1,
+                    manual_includes=None):
     """
     Get age results for the planet hosts.
 
@@ -247,7 +248,9 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0, drop_grazing=1,
         # parent sample age distribution
         st_ages = 1e6*nparr(skic_df['gyro_median'])
 
-        koi_df = get_koi_data('cumulative-KOI', drop_grazing=drop_grazing)
+        koi_df = get_koi_data(
+            'cumulative-KOI', grazing_is_ok=grazing_is_ok
+        )
         koi_df['kepid'] = koi_df['kepid'].astype(str)
         # REQUIRE "flag_is_ok_planetcand"
         skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
@@ -955,7 +958,7 @@ def get_cleaned_gaiadr3_X_kepler_supplemented_dataframe():
 
 
 
-def get_koi_data(sampleid, drop_grazing=1):
+def get_koi_data(sampleid, grazing_is_ok=0):
     """
     Get the KOI tables from the NASA exoplanet archive -- either the
     cumulative KOI table, or the homogeneous DR25 table.
@@ -1004,7 +1007,7 @@ def get_koi_data(sampleid, drop_grazing=1):
         &
         (~koi_df['flag_koi_is_low_snr'])
     )
-    if drop_grazing:
+    if not grazing_is_ok:
         flag_is_ok_planetcand &= (~koi_df['flag_koi_is_grazing'])
 
     koi_df['flag_is_ok_planetcand'] = flag_is_ok_planetcand

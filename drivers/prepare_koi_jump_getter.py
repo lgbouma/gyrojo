@@ -30,7 +30,9 @@ def prepare_koi_jump_getter(sampleid):
     jdf = jdf.drop_duplicates(subset='name', keep='first')
 
     # let "grazing" and highRUWE cases be ok for nominal Li analysis
-    kdf = get_gyro_data(sampleid, drop_grazing=0, drop_highruwe=0)
+    #FIXME TODO FIXME TODO THIS SHOULD BE ALL KOIS!!!
+    kdf = get_gyro_data(sampleid, grazing_is_ok=0, drop_highruwe=0)
+
     assert len(kdf) == len(kdf.flag_is_gyro_applicable)
     assert len(kdf) == len(kdf.flag_is_ok_planetcand)
 

@@ -125,10 +125,11 @@ def get_planet_class_labels(df, OFFSET=0):
 ############
 # plotters #
 ############
-def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality', drop_grazing=1):
+def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality',
+                            grazing_is_ok=0):
     # For KOIs
 
-    df = get_gyro_data(sampleid, drop_grazing=drop_grazing)
+    df = get_gyro_data(sampleid, grazing_is_ok=grazing_is_ok)
 
     if 'deprecated' not in sampleid:
         assert len(df) == df['flag_is_gyro_applicable'].sum()
@@ -214,7 +215,7 @@ def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality', drop_grazin
     ax.set_ylim([ -1, 48 ])
 
     s = ''
-    if drop_grazing:
+    if not grazing_is_ok:
         s += "dropgrazing"
     else:
         s += "keepgrazing"
@@ -722,7 +723,9 @@ def plot_rp_vs_age(outdir, xscale='linear', elinewidth=0.1, shortylim=0,
 def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
 
     # get data
-    _df, d, st_ages = get_age_results(whichtype='gyro', drop_grazing=0)
+    _df, d, st_ages = get_age_results(
+        whichtype='gyro', grazing_is_ok=1
+    )
     df = pd.DataFrame(d)
 
     # >33% radii
@@ -1327,7 +1330,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405')
 
     print(f"Got {N_post_samples} posterior samples...")
 
-    kdf = get_gyro_data("Santos19_Santos21_dquality", drop_grazing=0)
+    kdf = get_gyro_data("Santos19_Santos21_dquality", grazing_is_ok=1)
     skdf = kdf[kdf.flag_is_gyro_applicable]
     skdf['KIC'] = skdf.KIC.astype(str)
     mdf['KIC'] = mdf.KIC.astype(str)
@@ -1366,7 +1369,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405')
     set_style('clean')
     fig, axs = plt.subplots(ncols=2, figsize=(0.9*6, 0.9*3), constrained_layout=True)
 
-    koi_df = get_koi_data('cumulative-KOI', drop_grazing=0)
+    koi_df = get_koi_data('cumulative-KOI', grazing_is_ok=1)
     koi_df['kepid'] = koi_df['kepid'].astype(str)
     skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
     sel_planets = mdf.KIC.isin(skoi_df.kepid)
@@ -1757,7 +1760,9 @@ def find_duplicates(arr):
 def plot_multis_vs_age(outdir, teffcondition='allteff'):
 
     # get data
-    _df, d, st_ages = get_age_results(whichtype='gyro', drop_grazing=0)
+    _df, d, st_ages = get_age_results(
+        whichtype='gyro', grazing_is_ok=1
+    )
     df = pd.DataFrame(d)
 
     sel = np.ones(len(df)).astype(bool)
@@ -1876,7 +1881,7 @@ def plot_gyroage_vs_teff(outdir, yscale='linear', showerrs=0, showplanets=0):
 
     # planets
     koidf, _, _ = get_age_results(whichtype='gyro_li', COMPARE_AGE_UNCS=0,
-                                  drop_grazing=0, drop_highruwe=0)
+                                  grazing_is_ok=1, drop_highruwe=0)
 
     # make plot
     plt.close('all')
@@ -1956,7 +1961,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
 
     # planets (for gyro)
     koidf, _, _ = get_age_results(whichtype='gyro_li', COMPARE_AGE_UNCS=0,
-                                  drop_grazing=0, drop_highruwe=0)
+                                  grazing_is_ok=1, drop_highruwe=0)
 
     # get KIC target stars
     from gyrojo.getters import (
@@ -1964,8 +1969,8 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
     )
     cgk_df = get_cleaned_gaiadr3_X_kepler_supplemented_dataframe()
 
-    #  # if you wanted all KOIs
-    #  koi_df = get_koi_data('cumulative-KOI', drop_grazing=0)
+    #  # if you wanted all KOIs, including FPs
+    #  koi_df = get_koi_data('cumulative-KOI', grazing_is_ok=1)
     #  koi_df['kepid'] = koi_df['kepid'].astype(str)
     #  # REQUIRE "flag_is_ok_planetcand"
     #  skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]

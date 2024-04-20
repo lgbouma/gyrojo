@@ -12,14 +12,14 @@ from gyrojo.paths import TABLEDIR
 
 def make_table(
     ABBREVCOLS = 0, # abbreviate columns?
-    dropgrazing = 1,
+    grazing_is_ok = 0,
     drophighruwe = 1,
 ):
 
     # planets
     koidf, _, _ = get_age_results(
         whichtype='gyro_li', COMPARE_AGE_UNCS=0,
-        drop_grazing=dropgrazing, drop_highruwe=drophighruwe
+        grazing_is_ok=grazing_is_ok, drop_highruwe=drophighruwe
     )
 
     dropcols = [c for c in koidf.columns if 'adopted_age' in c]
@@ -41,7 +41,7 @@ def make_table(
 
     outcsv = join(
         TABLEDIR,
-        f'koi_gyro_ages_20240405_dropgrazing{dropgrazing}_drophighruwe{drophighruwe}.csv'
+        f'koi_gyro_ages_20240405_grazingisok{grazing_is_ok}_drophighruwe{drophighruwe}.csv'
     )
     kdf = kdf.sort_values(by=['koi_disposition', 'gyro_median'],
                           ascending=[False,True])
@@ -51,5 +51,5 @@ def make_table(
     assert kdf.flag_is_ok_planetcand.sum() == len(kdf)
 
 if __name__ == "__main__":
-    make_table(dropgrazing=1, drophighruwe=1)
-    make_table(dropgrazing=0, drophighruwe=0)
+    make_table(grazing_is_ok=1, drophighruwe=1)
+    make_table(grazing_is_ok=0, drophighruwe=0)
