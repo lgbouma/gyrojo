@@ -104,7 +104,8 @@
 \begin{document}
 
 %\title{Gyrochrone and Lithium Ages for Stars and Planets Observed by Kepler}
-\title{Ages of Planets and Stars Observed by Kepler}
+%Ages of the Kepler Stars and Planets
+\title{Ages of Stars and Planets Observed by Kepler}
 
 \correspondingauthor{Luke G. Bouma}
 \email{luke@astro.caltech.edu}
@@ -609,40 +610,82 @@ positives.
 
 \subsection{High Resolution Spectra}
 \label{subsec:lithiumsel}
-A final piece of our analysis involves an age assessment based on the
-equivalent width of the \ion{Li}{1} 6708\,\AA\ doublet.  For this
-component of the work, we rely on spectra acquired using the High
-Resolution Echelle Spectrometer (HIRES; \citealt{vogt_hires_1994}) on
-the Keck I 10m telescope.  These spectra were collected between 2009
-and 2024, primarily through the California Kepler Survey
+
+The final piece of our analysis involves assessing ages based on the
+equivalent width of the \ion{Li}{1} 6708\,\AA\ doublet.  Specifically,
+we analyzed spectra acquired with the High Resolution Echelle
+Spectrometer (HIRES; \citealt{vogt_hires_1994}) on the Keck I 10m
+telescope.  These spectra were primarily collected through the
+California Kepler Survey
 \citep{2017AJ....154..107P,2017AJ....154..108J,2017AJ....154..109F}.
 We supplemented the existing archive with $\approx$10~hours of new
-observations for 22 stars between Fall 2022 and Spring 2024.
-These stars were chosen to ensure that confirmed planets with
-rotational evidence for ages below 1\,Gyr received spectra, since this
-is the age range where lithium is most likely to yield useful age
-constraints.
+observations for 22 stars between Fall 2022 and Spring 2024.  These
+stars were chosen to ensure that confirmed planets with rotational
+evidence for ages below 1\,Gyr had spectra, since this is the age
+range in which lithium is most likely to yield useful age constraints.
 
-Lithium equivalent widths and abundances were already analyzed by
-\citet{2018ApJ...855..115B} for about three quarters of the spectra in
-our sample.
 % stat from _estimate_new_lithium_timefrac.py
-However, since new spectra have been acquired since the
-\citeauthor{2018ApJ...855..115B} analysis, and since our approach and
-selection function are different, we opt to perform our own analysis
-of the reduced HIRES spectra.
+Lithium equivalent widths and abundances for the Kepler Objects of
+Interest were already analyzed by \citet{2018ApJ...855..115B} for
+about three quarters of the spectra in our sample.  However, since new
+spectra have been acquired since the \citeauthor{2018ApJ...855..115B}
+analysis, and since our approach and selection function are different,
+we opt to perform our own analysis of the reduced HIRES spectra.
 
-%FIXME FIXME TODO LEFT OFF HERE
-%FIXME FIXME TODO LEFT OFF HERE
-%FIXME FIXME TODO LEFT OFF HERE
-These HIRES spectra are available for \nkoiswithhires\ of the
-\nkoisnofp\ non-false-positive KOIs.
-In the broader stellar sample, they are available for a much smaller 
-fraction of the stars observed by Kepler, because they were generally only
-acquired due to the presence of a transiting planet candidate.
-Given this selection function,
-we leverage these spectra in our analysis as a way to scrutinize the
-ages of just the planet sample.
+We queried the internal CPS archive to collect all blaze-corrected
+HIRES spectra that were available for all non-false positive Kepler
+Objects of Interest with a MES$>$10.  This query yielded at least one
+spectrum for \nlithiumstars\ stars and \nlithiumplanets\ planets.  For
+stars with multiple spectra available at varying ranges of
+signal-to-noise (S/N), we analyzed only the spectrum with the highest
+number of counts.  The resulting spectra were acquired between 6
+September 2009 and 16 May 2024, and cumulatively comprise
+\nhireshours\,hours of open-shutter time.
+
+We measured the lithium equivalent widths following a procedure
+adapted from previous work \citep{Bouma_2021}.  Our stars of interest
+are FGK stars, and so the continuum in the vicinity of the \ion{Li}{1}
+6708\,\AA\ doublet is well-defined.  We Doppler corrected the spectra
+to a common reference wavelength by cross-correlating against a high
+S/N template for Kepler-1698, chosen because $\gamma$$\approx$9\kms,
+$T_{\rm eff}$$\approx$5000\,K and $v\sin i$$\approx$5\,\kms, which
+puts it in the middle of our sample's temperature range and gives it
+mild line-broadening.  We then trimmed the Doppler-corrected spectra
+to a local window centered on the lithium line, using a window width
+of 15\,\AA (we considered 10\,\AA\ and 20\,\AA; the results were
+broadly consistent).  We then continuum-normalized by fitting a
+third-degree Chebyshev series, while excluding any regions that showed
+absorption lines.  We then numerically integrated the resulting
+spectrum using a one-component Gaussian with free amplitude, width,
+and mean, and estimated uncertainties on the line width through a
+Monte Carlo procedure that bootstraped against the local scatter in
+the continuum.
+
+%    %FIXME FIXME TODO LEFT OFF HERE
+%    %FIXME FIXME TODO LEFT OFF HERE
+%    %FIXME FIXME TODO LEFT OFF HERE
+Our EW measurement approach does not correct for the neighboring
+\ion{Fe}{1} 6707.44\,\AA\ blend.
+To evaluate the accuracy and precision of our equivalent measurement
+technique, after applying an initial iteration on the
+\nplhoststarwgyroagewithgrazingandhighruwe\ aforementioned stars,
+we compared our lithium equivalent widths
+with those reported by \citet{2018ApJ...855..115B}.
+For the \nbergeroverlap\ stars in both samples, we found {\bf X, Y,
+Z.}
+
+
+%    These HIRES spectra are available for \nkoiswithhires\ of the
+%    \nkoisnofp\ non-false-positive KOIs.
+%    In the broader stellar sample, they are available for a much smaller 
+%    fraction of the stars observed by Kepler, because they were generally only
+%    acquired due to the presence of a transiting planet candidate.
+%    Given this selection function,
+%    we leverage these spectra in our analysis as a way to scrutinize the
+%    ages of just the planet sample.
+
+
+
 
 
 
@@ -875,14 +918,15 @@ reliable.  The rotation period distribution of sources excluded in
 this manner includes a larger fraction of ``rapid rotators'', likely
 due to a combination of astrophysical and systematic effects.
 
-
-
 {\it Candidate pulsators and close-in binaries (bit
 10)}---\citeauthor{Santos_2021} included in a flag for candidate
 ``classical pulsators'' (e.g. RR~Lyrae, Cepheids) and candidate
-close-in binaries.  Visual inspection hints that this flag also
-includes many bona fide young stars, and so although we propagate it 
-to our set of quality flags, we generally ignore it.
+close-in binaries.  Visual inspection of the rotation periods as a
+function of temperature shows that although this flag selects many
+bona fide objects in these classes, it also selects the overwhelming
+majority of $\lesssim$5\,day bona fide young planets.  While we
+propagate this flag into our set of quality flags, we therefore
+generally ignore it.
 
 An important decision for our subsequent analysis is how to combine
 the above flags in order to decide whether or not a star is suited for
@@ -994,34 +1038,6 @@ based on the Markov Chain Monte Carlo (MCMC) fits from
 		\label{fig:li_vs_teff}
 	}
 \end{figure}
-
-We queried the internal CPS archive to collect all blaze-corrected
-HIRES spectra that were available for the
-\nplhoststarwgyroagewithgrazingandhighruwe\ stars for which
-rotation-based ages can be derived.  This query yielded at least one
-spectrum for \nlithiumstars\ and \nlithiumplanets\ planets.  These
-spectra were acquired between 6 September 2009 and 16 May 2024.  For
-stars with multiple spectra available at varying ranges of
-signal-to-noise (S/N), we analyzed only the spectrum with the highest
-number of counts.
-
-We measured the lithium equivalent widths following a procedure from
-previous work \citep{Bouma_2021}.  The stars of interest for this work
-are FGK stars, and so the continuum in the vicinity of the \ion{Li}{1}
-6708\,\AA\ doublet is well-defined.  We therefore numerically
-integrate a single best-fit Gaussian over a local window, and
-estimated uncertainties on the line width through a Monte Carlo
-procedure that bootstraps against the local scatter in the continuum.
-This approach does not correct for the neighboring \ion{Fe}{1}
-6707.44\,\AA\ blend.
-
-To evaluate the accuracy and precision of our equivalent measurement
-technique, after applying an initial iteration on the
-\nplhoststarwgyroagewithgrazingandhighruwe\ aforementioned stars,
-we compared our lithium equivalent widths
-with those reported by \citet{2018ApJ...855..115B}.
-For the \nbergeroverlap\ stars in both samples, we found {\bf X, Y,
-Z.}
 
 To calculate lithium ages, we use a combination of \texttt{EAGLES}
 \citep{Jeffries_2023} and \texttt{BAFFLES}
