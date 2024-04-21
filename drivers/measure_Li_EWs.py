@@ -20,6 +20,7 @@ from cdips_followup.spectools import get_Li_6708_EW
 
 # metadata dataframe, contains the JUMP, Gaia, B20, S19/21, etc information
 sampleid = "koi_X_S19S21dquality"
+sampleid = "koi_X_JUMP"
 csvpath = join(DATADIR, "interim", f"koi_jump_getter_{sampleid}.csv")
 df = pd.read_csv(csvpath)
 
@@ -50,7 +51,7 @@ for ix, r in df.iterrows():
     for d in [outbasedir, outdir]:
         if not os.path.exists(d): os.mkdir(d)
 
-    delta_wavs = [5,7.5]
+    delta_wavs = [7.5]
     for delta_wav in delta_wavs:
         outname = (
             f"{idstring}_{specname.replace('.fits','')}_"
