@@ -462,7 +462,7 @@ def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
             ax.scatter(
                 Teff_model, Li_mod, linewidths=0,
                 marker='o', color=_c,
-                s=0.2, rasterized=True
+                s=0.4, rasterized=True
             )
 
             # annotate means
@@ -2082,7 +2082,7 @@ def plot_gyromodeldispersion(outdir):
         if SHOW_POINTS:
             ax.scatter(
                 Teffs, Protmodel, linewidths=0,
-                marker='o', color=_c, zorder=zo, s=0.2, rasterized=True
+                marker='o', color=_c, zorder=zo, s=0.4, rasterized=True
 
             )
 
