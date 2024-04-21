@@ -10,7 +10,7 @@ import os, pickle
 from os.path import join
 
 from gyrojo.paths import DATADIR, LOCALDIR, RESULTSDIR
-from gyrojo.getters import get_gyro_data
+from gyrojo.getters import get_gyro_data, get_koi_data
 
 def prepare_koi_jump_getter(sampleid):
 
@@ -26,28 +26,26 @@ def prepare_koi_jump_getter(sampleid):
     )
 
     # initially grab only the highest count spectra.
-    jdf = pd.read_csv(csvpath)
-    jdf = jdf.drop_duplicates(subset='name', keep='first')
+    __jdf = pd.read_csv(csvpath)
+    jdf = __jdf.drop_duplicates(subset='name', keep='first')
 
-    # let "grazing" and highRUWE cases be ok for nominal Li analysis
-    #FIXME TODO FIXME TODO THIS SHOULD BE ALL KOIS!!!
-    kdf = get_gyro_data(sampleid, grazing_is_ok=0, drop_highruwe=0)
+    # get all 9564 KOIs, including false positives...
+    kdf = get_koi_data('cumulative-KOI', grazing_is_ok=1)
+    assert len(kdf) == 9564
+    # run the lithium analysis for any non-FP KOI with MES>10 for
+    # which a HIRES spectrum exists
+    kdf = kdf[kdf.flag_is_ok_planetcand]
+    kdf = kdf.sort_values(by='kepoi_name')
+    assert len(kdf) == 3307
 
-    assert len(kdf) == len(kdf.flag_is_gyro_applicable)
-    assert len(kdf) == len(kdf.flag_is_ok_planetcand)
-
-    N_gyrostars = len(np.unique(kdf.KIC))
-    N_gyroplanets = len(kdf)
-    print(f"N_gyrostars (incl grazing & high RUWE): {N_gyrostars}")
-    print(f"N_gyroplanets: {N_gyroplanets}")
-
-    # search for matches based on kepid and kepoi_name
+    # search the KOI table for matches based on both kepid and
+    # kepoi_name (the KOI identifier)
     matchrows = []
     ix = 0
     verbose = 0
     for _, r in kdf.iterrows():
 
-        kepid = r['KIC']
+        kepid = r['kepid']
         kepoi_name = r['kepoi_name']
         abbrev_kepoi_name = kepoi_name.split(".")[0]
         if verbose:
@@ -80,10 +78,15 @@ def prepare_koi_jump_getter(sampleid):
                 if verbose:
                     print(f'\t...got {N} KOI ID match, {abbrev_kepoi_name} = {matchname}')
             else:
-                _matchdf = jdf[_sel].reset_index(drop=True)
-                printcols = ['name','utctime','observation_id','counts']
+                __matchdf = jdf[_sel].sort_values(
+                    by='counts',
+                    ascending=False
+                ).reset_index(drop=True)
+                _matchdf = __matchdf.head(n=1)
+                printcols = ['name','ra','dec','utctime','observation_id','counts']
                 if verbose:
-                    print(f'\t...got {N} KOI ID matches, {abbrev_kepoi_name} =\n{jdf[_sel][printcols]}')
+                    print(f'\t...got {N} KOI ID matches, {abbrev_kepoi_name} =\n{__matchdf[printcols]}')
+                    print(f'\t...taking first!')
 
             _matchdf['kepid'] = kepid
             _matchdf['kepoi_name'] = kepoi_name
@@ -101,11 +104,15 @@ def prepare_koi_jump_getter(sampleid):
     print(f"N_lithiumstars: {N_lithiumstars}")
     print(f"N_lithiumplanets: {N_lithiumplanets}")
 
+    N_HIRES_hours = int(np.round(
+        _jdf[~_jdf.duplicated('observation_id')].exposure_time.sum() /
+        3600, 0
+    ))
+
     from gyrojo.papertools import update_latex_key_value_pair as ulkvp
     ulkvp('nlithiumstars', N_lithiumstars)
+    ulkvp('nhireshours', N_HIRES_hours)
     ulkvp('nlithiumplanets', N_lithiumplanets)
-    ulkvp('nlithiumgyrostars', N_gyrostars)
-    ulkvp('nlithiumgyroplanets', N_gyroplanets)
 
     mjdf = _jdf.merge(kdf, how='left', on='kepoi_name', suffixes=("_JUMP",""))
     assert len(mjdf) == len(_jdf)
@@ -124,7 +131,7 @@ def prepare_koi_jump_getter(sampleid):
         l = f"scp luke@cadence:{fname} {outdir}/. \n"
         lines.append(l)
 
-    if sampleid == 'koi_X_S19S21dquality':
+    if sampleid == 'koi_X_JUMP':
         bash_script = "scp_HIRES_lithium_data.sh"
         with open(bash_script, "w") as f:
             f.writelines(lines)
@@ -133,6 +140,7 @@ def prepare_koi_jump_getter(sampleid):
 
 
 if __name__ == "__main__":
-    prepare_koi_jump_getter('koi_X_S19S21dquality')
+    prepare_koi_jump_getter('koi_X_JUMP')
+    #prepare_koi_jump_getter('koi_X_S19S21dquality')
     #prepare_koi_jump_getter('deprecated_all')
     #prepare_koi_jump_getter('deprecated_sel_2s')
