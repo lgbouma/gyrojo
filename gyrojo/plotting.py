@@ -24,8 +24,6 @@ Catch-all file for plotting scripts.  Contents:
 
     plot_multis_vs_age
 
-    plot_sub_praesepe_selection_cut
-
     plot_gyromodeldispersion
 
 Helpers:
@@ -887,97 +885,6 @@ def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
         s = f'_{ix}_{lo_age:.2e}_{hi_age:.2e}_{teffcondition}'
         outpath = os.path.join(outdir, f'rp_vs_porb_binage{s}.png')
         savefig(fig, outpath)
-
-
-def plot_sub_praesepe_selection_cut(mdf5, poly_order=7):
-    """
-    make figure showing which stars have rotation periods that are being
-    selected via "sub-praesepe"
-    (called from drivers/build_koi_table.py)
-    """
-
-    plt.close("all")
-    fig, ax = plt.subplots(figsize=(4,3))
-
-    csvpath = join(
-        DATADIR, 'interim', 'slow_sequence_manual_selection',
-        'Praesepe_slow_sequence.csv'
-    )
-    df_prae = pd.read_csv(csvpath)
-
-    teff_model = np.arange(3800, 6200+1, 1)
-    prot_model = reference_cluster_slow_sequence(
-        teff_model, "Praesepe", poly_order=poly_order
-    )
-
-    ax.scatter(
-        df_prae["Teff"], df_prae["Prot"], c='C0', marker='o', zorder=4,
-        s=3, linewidths=0.5, label='Praesepe'
-    )
-    ax.plot(
-        teff_model, prot_model, c='C0', ls='-', zorder=3, lw=1
-    )
-
-    period_cols = ['s19_Prot', 's21_Prot', 'm14_Prot', 'm15_Prot']
-
-    for period_col in period_cols:
-        # all KOIs
-        if period_col == 's19_Prot':
-            ax.scatter(
-                mdf5["adopted_Teff"], mdf5[period_col], c='darkgray', marker='o',
-                zorder=0, s=1, linewidths=0, label='KOIs'
-            )
-        else:
-            # legend label trick
-            ax.scatter(
-                mdf5["adopted_Teff"], mdf5[period_col], c='darkgray', marker='o',
-                zorder=0, s=1, linewidths=0
-            )
-
-        # KOIs below Praesepe
-        sel_teff_range = (
-            (mdf5["adopted_Teff"] >= 3800)
-            &
-            (mdf5["adopted_Teff"] <= 6200)
-        )
-
-        period_val = mdf5[period_col][sel_teff_range]
-        teff_val = mdf5["adopted_Teff"][sel_teff_range]
-
-        sel_below_Praesepe = (
-            period_val < reference_cluster_slow_sequence(
-                teff_val, "Praesepe", poly_order=poly_order
-            )
-        )
-
-        if period_col == 's19_Prot':
-            ax.scatter(
-                teff_val[sel_below_Praesepe], period_val[sel_below_Praesepe],
-                c='C1', marker='o', zorder=4, linewidths=0.5, s=2,
-                label='KOIs below Praesepe'
-            )
-        else:
-            # legend label trick
-            ax.scatter(
-                teff_val[sel_below_Praesepe], period_val[sel_below_Praesepe],
-                c='C1', marker='o', zorder=4, linewidths=0.5, s=2,
-            )
-
-    ax.legend(loc='upper left', fontsize='xx-small', framealpha=1)
-
-    ax.update({
-        'xlabel': 'B+20 Teff',
-        'ylabel': 'Prot [M14,M15,S19,S21]',
-        'ylim': [0,20],
-        'xlim': [6500, 3600]
-    })
-
-    outdir = join(RESULTSDIR, 'debug')
-    if not os.path.exists(outdir): os.mkdir(outdir)
-    outpath = join(
-        outdir, f"koi_table_sub_praesepe_selection_cut_poly{poly_order}.png"
-    )
-    fig.savefig(outpath, dpi=350, bbox_inches='tight')
 
 
 def plot_koi_gyro_posteriors(outdir, cache_id):
