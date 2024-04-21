@@ -32,19 +32,19 @@ _1_ Run the KOI lithium analysis
 
 2. `prepare_koi_jump_getter.py`
 
-Crossmatch the gyro KOI sample (output of number #3 above) against JUMP.  Needs
-access to the JUMP "explore" SQL interface to run.  Cleans the initial SQL
-query results, and constucts the list of necessary spectra, and makes an scp
-script that can be used to pull the deblazed spectra from shrek.
-Also makes CSV files like `/data/interim/koi_jump_getter_{sampleid}.csv`, which
-contain the JUMP and Gaia, B20, S19/21, etc information.
+  Crossmatch the cumulative KOI sample (output of number #3 above)
+  against JUMP.  Needs access to the JUMP "explore" SQL interface to
+  run.  Cleans the initial SQL query results, and constucts the list of
+  necessary spectra, and makes an scp script that can be used to pull
+  the deblazed spectra from shrek.  Also makes CSV files like
+  `/data/interim/koi_jump_getter_{sampleid}.csv`, which contain the JUMP
+  and Gaia, B20, S19/21, etc information.
 
 3. `scp_HIRES_lithium_data.sh`
 
-Run this to then get the HIRES spectra to the local drive.
+  Run this to then get the HIRES spectra to the local drive.
 
-4.  Measure the lithium equivalent widths from the spectra, using
-    `measure_Li_EWs.py`
+4. `measure_Li_EWs.py`
 
 5. `calc_koi_lithium_posteriors.py`
 
