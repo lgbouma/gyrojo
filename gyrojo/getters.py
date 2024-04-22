@@ -116,7 +116,7 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
     return kdf
 
 
-def get_li_data(sampleid):
+def get_li_data(sampleid, whichwindowlen=7.5):
 
     assert sampleid in ['koi_X_S19S21dquality', 'koi_X_JUMP']
 
@@ -128,6 +128,44 @@ def get_li_data(sampleid):
     # certainly important for any mildly evolved stars.)
     csvpath = join(DATADIR, "interim", f"koi_jump_getter_{sampleid}.csv")
     mjdf = pd.read_csv(csvpath)
+
+    #TODO FIXME: many nan teffs bc this is all kepler... not just kois...
+
+    # rotators (...& w/ the S19S21 teffs)
+    sdf1 = get_kicstar_data("Santos19_Santos21_all")
+    # all KIC (w/ only B21 teffs)
+    sdf2 = get_cleaned_gaiadr3_X_kepler_supplemented_dataframe()
+
+    mjdf['kepid'] = mjdf.kepid.astype(str)
+    sdf1['kepid'] = sdf1.kepid.astype(str)
+    sdf2['kepid'] = sdf2.kepid.astype(str)
+
+    selcols = ('kepid,adopted_Teff,adopted_Teff_err,adopted_Teff_provenance,'
+               'dr3_source_id,b20t1_recno'.split(","))
+    _df0 = mjdf.merge(sdf1[selcols], on='kepid', how='left')
+    _df1 = _df0.merge(sdf2[selcols], on='kepid', how='left')
+
+    teffkeys = ['adopted_Teff','adopted_Teff_err','adopted_Teff_provenance']
+    for teffkey in teffkeys:
+        _df1[teffkey] = _df1[f'{teffkey}_x'].fillna(_df1[f'{teffkey}_y'])
+
+    _sel = pd.isnull(_df1['adopted_Teff'])
+    _df1.loc[_sel, 'adopted_Teff'] = _df1.loc[_sel, 'koi_steff']
+    _df1['mean_koi_steff_err'] = np.nanmean([
+        np.array(np.abs(_df1['koi_steff_err1'])),
+        np.array(np.abs(_df1['koi_steff_err2']))
+    ], axis=0)
+    _df1.loc[_sel, 'adopted_Teff_err'] = _df1.loc[_sel, 'mean_koi_steff_err']
+    _df1.loc[_sel, 'adopted_Teff_provenance'] = 'KOI Q1-Q17 Stellar Properties Catalog'
+
+    # Above provenance hierarchy:
+    # Preferred is Berger+21
+    # Next is Santos19/21 if available
+    # Final is KOI SPC if available
+    # require Teff never-NaN, because here it is used for calculating Li ages
+    assert np.sum(pd.isnull(_df1.adopted_Teff)) == 0
+
+    mjdf = deepcopy(_df1)
 
     # odd edge case; the "primary" was observed for 730sec, this one is
     # only 60sec and causes the fitter to fail.  (and i think it's the same
@@ -159,7 +197,7 @@ def get_li_data(sampleid):
 
     globstrs = [join(
         li_dir, name,
-        f"{name}_{spec_id}_Li_EW_deltawav7.5_xshift*_results.csv")
+        f"{name}_{spec_id}_Li_EW_deltawav{whichwindowlen}_xshift*_results.csv")
         for name, spec_id in zip(names, spec_ids)
     ]
     li_paths = []
@@ -197,105 +235,125 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
     "joint" results are currently defunct
     """
 
-    assert whichtype in ['joint', 'gyro', 'li', 'gyro_li']
+    assert whichtype in ['allageinfo', 'gyro', 'li', 'gyro_li']
 
-    if whichtype == 'joint':
+    #
+    # Get KOI list... rotating star list... and lithium list...
+    #
+    koi_df = get_koi_data('cumulative-KOI', grazing_is_ok=grazing_is_ok)
+    koi_df['kepid'] = koi_df['kepid'].astype(str)
 
-        raise DeprecationWarning(
-            'joint age posteriors need to be assessed start-to-finish'
+    kic_df = get_gyro_data('Santos19_Santos21_dquality')
+    kic_df['KIC'] = kic_df['KIC'].astype(str)
+
+    # made by plot_process_koi_li_posteriors.py
+    li_method = 'eagles'
+    datestr = '20240405'
+    outdir = join(RESULTSDIR, f"koi_lithium_posteriors_{li_method}_{datestr}")
+    csvpath = join( outdir, f"{li_method}_koi_X_JUMP_lithium_ages.csv" )
+    li_df = pd.read_csv(csvpath)
+    li_df = li_df.sort_values(by='li_eagles_lMed') # eagles median...
+    li_df['kepid'] = li_df.kepid.astype(str)
+    li_df = li_df.drop_duplicates(subset='kepid', keep='first')
+
+    # REQUIRE "flag_is_ok_planetcand"; change what this means based on
+    # "grazing_is_ok" kwarg.
+    skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
+
+    # If "gyro" or "gyro_li", then REQUIRE "flag_is_gyro_applicable";
+    # change what this means based on the kwargs.  Otherwise, (for
+    # "allageinfo") just note whether or not gyro is supposedly applicable.
+    if drop_highruwe:
+        sel = (kic_df['flag_is_gyro_applicable'])
+        skic_df = kic_df[sel]
+    else:
+        sel = select_by_quality_bits(
+            kic_df,
+            [0, 1, 2, 3, 4, 5, 6, 8, 9],  # leaving high ruwe...
+            [0, 0, 0, 0, 0, 0, 0, 0, 0]
         )
-        raise NotImplementedError
+        kic_df['flag_is_gyro_applicable'] = sel
+        sel = (kic_df['flag_is_gyro_applicable'])
 
-        csvpath = join(RESULTSDIR, 'koi_gyro_X_lithium_posteriors_20230208',
-                       'all_merged_joint_age_posteriors.csv')
-        df = pd.read_csv(csvpath)
+    if isinstance(manual_includes, list):
+        for m in manual_includes:
+            sel |= kic_df.KIC.astype(str).str.contains(m)
 
-        # Take the adopted age as the joint (gyro+li) age.
-        # If the join age is NaN (only the case for one interesting system,
-        # Kepler-1939/800myr/1Rearth), take the adopted age as the gyro age.
-        df['adopted_age_median'] = df['joint_median']
-        df['adopted_age_+1sigma'] = df['joint_+1sigma']
-        df['adopted_age_-1sigma'] = df['joint_-1sigma']
+    st_ages = None
 
-        _sel = pd.isnull(df['adopted_age_median'])
-        df.loc[_sel, 'adopted_age_median'] = df.loc[_sel, 'gyro_median']
-        df.loc[_sel, 'adopted_age_+1sigma'] = df.loc[_sel, 'gyro_+1sigma']
-        df.loc[_sel, 'adopted_age_-1sigma'] = df.loc[_sel, 'gyro_-1sigma']
+    if 'gyro' in whichtype:
 
-    elif 'gyro' in whichtype:
-
-        kic_df = get_gyro_data('Santos19_Santos21_dquality')
-        # REQUIRE "flag_is_gyro_applicable"; change what this means
-        # based on the kwargs.
-        if drop_highruwe:
-            sel = (kic_df['flag_is_gyro_applicable'])
-            skic_df = kic_df[sel]
-        else:
-            sel = select_by_quality_bits(
-                kic_df,
-                [0, 1, 2, 3, 4, 5, 6, 8, 9],  # leaving high ruwe...
-                [0, 0, 0, 0, 0, 0, 0, 0, 0]
-            )
-            kic_df['flag_is_gyro_applicable'] = sel
-            sel = (kic_df['flag_is_gyro_applicable'])
-
-        if isinstance(manual_includes, list):
-            for m in manual_includes:
-                sel |= kic_df.KIC.astype(str).str.contains(m)
+        # For "gyro" and "gyro_li", return the inner product of the "gyro-ok"
+        # KOIs with the KIC information.  (In other words, 'gyro_li' requires a
+        # rotation period for the stars).
 
         skic_df = kic_df[sel]
-
-        skic_df['KIC'] = skic_df['KIC'].astype(str)
 
         # parent sample age distribution
         st_ages = 1e6*nparr(skic_df['gyro_median'])
 
-        koi_df = get_koi_data(
-            'cumulative-KOI', grazing_is_ok=grazing_is_ok
-        )
-        koi_df['kepid'] = koi_df['kepid'].astype(str)
-        # REQUIRE "flag_is_ok_planetcand"
-        skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
-
         df = skoi_df.merge(skic_df, how='inner', left_on='kepid',
                            right_on='KIC', suffixes=('','_KIC'))
 
-        for N in [1,2,3]:
-            if N == 1:
-                df[f'adopted_age_+{N}sigmapct'] = df[f'gyro_+{N}sigmapct']
-                df[f'adopted_age_-{N}sigmapct'] = df[f'gyro_-{N}sigmapct']
-            df['adopted_age_median'] = df['gyro_median']
-            df[f'adopted_age_+{N}sigma'] = df[f'gyro_+{N}sigma']
-            df[f'adopted_age_-{N}sigma'] = df[f'gyro_-{N}sigma']
-
     if whichtype == 'gyro_li':
 
-        # made by plot_process_koi_li_posteriors.py
-        li_method = 'eagles'
-        datestr = '20240405'
-        outdir = join(
-            RESULTSDIR, f"koi_lithium_posteriors_{li_method}_{datestr}"
-        )
-        csvpath = join(
-            outdir, f"{li_method}_koi_lithium_ages_X_S19S21_dquality.csv"
-        )
-
         # here, if eagles, take single lithium ages for all finite cases.
-        li_df = pd.read_csv(csvpath)
-        li_df = li_df.sort_values(by='li_median')
-        li_df['kepid'] = li_df.kepid.astype(str)
-        li_df = li_df.drop_duplicates(subset='kepid', keep='first')
         df['kepid'] = df.kepid.astype(str)
-        selcols = [
-            c for c in li_df if 'li_' in c or c == 'kepid'
-        ]
-        _df = df.merge(
-            li_df[selcols], how='left', on='kepid'
-        )
+        selcols = [ c for c in li_df if 'li_' in c or c == 'kepid' ]
+        _df = df.merge(li_df[selcols], how='left', on='kepid')
         assert len(_df) == len(df)
         df = deepcopy(_df)
 
+    if whichtype == 'allageinfo':
 
+        # For "allageinfo", you want the "flag_is_ok_planetcand" KOIs, with any
+        # available rotation-based or lithium-based age information.
+
+        skic_df = kic_df[sel]
+        # gyro-applicable stars
+        rot_df = skoi_df.merge(skic_df, how='inner', left_on='kepid',
+                               right_on='KIC', suffixes=('','_KIC'))
+        rot_df = rot_df.drop_duplicates(subset='kepid', keep='first')
+
+        rcols = [c for c in rot_df.columns if not c.startswith('koi_') and not
+                 c.startswith('b20t') and not c.startswith('dr3_')]
+        licols = [c for c in li_df.columns if not c.startswith('koi_') and not
+                  c.startswith('b20t') and not c.startswith('dr3_') and not
+                  c.startswith('flag_')]
+
+        mdf0 = skoi_df.merge(rot_df[rcols], how='left', left_on='kepid',
+                             right_on='kepid', suffixes=('','_rotdf'))
+        mdf1 = mdf0.merge(li_df[licols], how='left', left_on='kepid',
+                          right_on='kepid', suffixes=('','_lidf'))
+
+        assert len(mdf0) == len(skoi_df)
+        assert len(mdf1) == len(skoi_df)
+
+        df = deepcopy(mdf1)
+
+        # Selection function is: you have at least some kind of useful age
+        # information from either lithium or rotation.
+        sel = (
+            ~pd.isnull(df.Prot)
+            |
+            ~pd.isnull(df.li_eagles_LiEW)
+        )
+        df = df[sel]
+
+    #
+    # in all instances, use the gyro age as the adopted age...
+    #
+    for N in [1,2,3]:
+        if N == 1:
+            df[f'adopted_age_+{N}sigmapct'] = df[f'gyro_+{N}sigmapct']
+            df[f'adopted_age_-{N}sigmapct'] = df[f'gyro_-{N}sigmapct']
+        df['adopted_age_median'] = df['gyro_median']
+        df[f'adopted_age_+{N}sigma'] = df[f'gyro_+{N}sigma']
+        df[f'adopted_age_-{N}sigma'] = df[f'gyro_-{N}sigma']
+
+    #
+    # planetary radius collection.
+    #
     GET_BERGER20_RADII = 0
     GET_PETIGURA22_RADII = 0
     GET_BESTGUESS_RADII = 1
