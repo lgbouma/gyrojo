@@ -218,6 +218,9 @@ def make_table(
                             'li_eagles_limlo_forsort', 'min_age'])
 
     if not SELECT_YOUNG:
+
+        ulkvp('nnonfopkoissomeageinfo', len(pdf))
+
         csvpath = join(PAPERDIR, 'table_allageinfo.csv')
         pdf.to_csv(csvpath, index=False)
         print(f'Wrote {csvpath}')

@@ -798,8 +798,8 @@ sequences to yield statistical age uncertainties.
     both age-dating methods.		Additional sources of uncertainty,
     including measurement uncertainty, impose further limits on
     achievable age precision.  These models are calibrated using open
-    clusters younger than 4\,Gyr.  The displayed points assume an
-    unphysical uniform distribution in temperature for visual clarity.
+    clusters younger than 4\,Gyr.  The displayed points assume a
+    uniform distribution in temperature for visual clarity.
     The sizes of the points are the same in each panel, so that low
     apparent density signifies greater dispersion around the mean.
 		\label{fig:models}
@@ -1049,6 +1049,8 @@ Example \texttt{EAGLES} isochrones, as well as the modelled intrinsic dispersion
 about those isochrones, are shown in Figure~\ref{fig:li_vs_teff}.
 While our preference would have been to exclusively use
 \texttt{EAGLES} due to its homogeneous analysis approach ...
+
+(Mention Linear prior in age.)
 
 
 
@@ -1508,7 +1510,9 @@ All authors assisted in manuscript revision.
 \begin{deluxetable*}{lllllllrrrrrr}
 	%\tabletypesize{\footnotesize}
 	\tabletypesize{\scriptsize}
-	\tablecaption{Young planets and planet candidates.
+	\tablecaption{Ages of Kepler planets and planet candidates.  Rows are sorted by the minimum of either the rotation or lithium-based age; this version of the table is truncated to planets younger than one billion years.  ``Confirmed'' planets appear before``candidate'' planets.
+		The full machine-readable table contains ages and age limits for \nnonfopkoissomeageinfo\ non-false positive KOIs with MES$>$10.
+		The bit quality flags for the rotation-based ages, $Q_{\rm gyro}$, are described in Section~\ref{subsec:flags}.
 		%The non-truncated machine readable versions are accessible both
 		%through the online journal, and at
 		%\url{https://zenodo.org/record/8327508}.
@@ -1524,9 +1528,9 @@ All authors assisted in manuscript revision.
 	%\hline
 	\input{table_subgyr_candidate}
 	\enddata
-	\tablecomments{This table includes X, Y, Z... The machine-readable version,
-		available online, includes additional columns for .... 
-	}
+%	\tablecomments{This table includes X, Y, Z... The machine-readable version,
+%		available online, includes additional columns for .... 
+%	}
 \end{deluxetable*}
 %\endlongtable
 
