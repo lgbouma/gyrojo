@@ -55,7 +55,7 @@ ax.scatter(xval, yval, s=1, c=color, cmap='viridis', zorder=99)
 a,b,c = ax.errorbar(
     xval, yval,
     xerr=xerr, yerr=np.sqrt(meanxerr**2 + yerr**2),
-    marker='o', elinewidth=0., capsize=0, lw=0, mew=0.5,
+    marker='o', elinewidth=0.1, capsize=0, lw=0, mew=0.5,
     markersize=1, zorder=5, c='k'
 )
 ax.plot( [0,200], [0,0], c='k', alpha=0.4, ls='--', zorder=-1)
