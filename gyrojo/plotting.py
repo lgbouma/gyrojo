@@ -958,14 +958,16 @@ def plot_koi_gyro_posteriors(outdir, cache_id):
     print(mdf[sel_2s][cols])
 
 
-def plot_process_koi_li_posteriors(outdir, cache_id, li_method='eagles'):
+def plot_process_koi_li_posteriors(outdir, cache_id, sampleid, li_method='eagles'):
 
     from gyrointerp.helpers import get_summary_statistics
 
     csvdir = os.path.join(RESULTSDIR, cache_id)
     if li_method == 'baffles':
         csvpaths = glob(os.path.join(csvdir, "*lithium.csv"))
-        raise NotImplementedError('need a way to propagate Li EWs...')
+        raise NotImplementedError(
+            'deprecated, and would need a way to propagate Li EWs...'
+        )
     elif li_method == 'eagles':
         csvpaths = glob(os.path.join(csvdir, "*_pos.csv"))
 
@@ -982,12 +984,12 @@ def plot_process_koi_li_posteriors(outdir, cache_id, li_method='eagles'):
     for ix, csvpath in enumerate(csvpaths):
 
         kepoi_name = os.path.basename(csvpath).split("_")[0]
-        ewpath = join(csvdir, f"{kepoi_name}.csv")
-        assert os.path.exists(ewpath)
+        eaglesrespath = join(csvdir, f"{kepoi_name}.csv")
+        assert os.path.exists(eaglesrespath)
         kepoi_names.append(kepoi_name)
 
         df = pd.read_csv(csvpath, names=['age_grid','age_post'], comment='#')
-        ewdf = pd.read_csv(ewpath)
+        eaglesdf = pd.read_csv(eaglesrespath)
 
         t_post = np.array(df.age_post)
 
@@ -998,8 +1000,10 @@ def plot_process_koi_li_posteriors(outdir, cache_id, li_method='eagles'):
 
         d = get_summary_statistics(age_grid, t_post)
         # write the Li EWs that eagles / baffles actually used
-        d['LiEW'] = ewdf.LiEW.iloc[0]
-        d['eLiEW'] = ewdf.eLiEW.iloc[0]
+        cols = ['ID', 'Teff', 'eTeff', 'LiEW', 'eLiEW', 'lApk', 'siglo',
+                'sighi', 'limup', 'limlo', 'lMed']
+        for c in cols:
+            d[f"eagles_{c}"] = eaglesdf[c].iloc[0]
         print(d)
         summaries.append(d)
 
@@ -1026,9 +1030,7 @@ def plot_process_koi_li_posteriors(outdir, cache_id, li_method='eagles'):
     df.to_csv(csvpath, index=False)
     print(f"Wrote {csvpath}")
 
-    _csvpath = join(
-        DATADIR, "interim", "koi_jump_getter_koi_X_S19S21dquality.csv"
-    )
+    _csvpath = join(DATADIR, "interim", f"koi_jump_getter_{sampleid}.csv")
     _kdf = pd.read_csv(_csvpath)
     _kdf = _kdf.sort_values(by=['kepoi_name','counts'],ascending=[True,False])
     kdf = _kdf[~_kdf.duplicated('kepoi_name', keep='first')]
@@ -1051,7 +1053,7 @@ def plot_process_koi_li_posteriors(outdir, cache_id, li_method='eagles'):
 
     # Write lithium result contents
     csvpath = join(
-        outdir, f"{li_method}_koi_lithium_ages_X_S19S21_dquality.csv"
+        outdir, f"{li_method}_{sampleid}_lithium_ages.csv"
     )
     mdf = mdf.sort_values(by='li_median')
     mdf.to_csv(csvpath, index=False)
@@ -2149,8 +2151,8 @@ def plot_liagefloor_vs_teff(outdir):
     for ix, _Teff in enumerate(Teff_model):
         if ix % 10 == 0:
             print(f"{ix}/{len(Teff_model)}")
-        LiEW = np.array([0])   #if one were to adopt LiEW > 20mA required
-        eLiEW = np.array([10])
+        LiEW = np.array([-20])   #if one were to adopt LiEW > 20mA required
+        eLiEW = np.array([20])
         prior = 1 # linear age prior
         lagesmin = 6.0
         lagesmax = 10.1
@@ -2161,9 +2163,9 @@ def plot_liagefloor_vs_teff(outdir):
                        lagesmin=lagesmin, lApkmin=lApkmin, z=0.0, nAge=nAge,
                        prior=prior)
         )
-
         twosig_age_lowerlimit = p[4]
         twosig_age_lowerlimits.append(twosig_age_lowerlimit)
+
     twosig_age_lowerlimits = nparr(twosig_age_lowerlimits)
 
     # make plot
@@ -2179,7 +2181,7 @@ def plot_liagefloor_vs_teff(outdir):
         'xlabel': 'Effective Temperature [K]',
         'ylabel': '2σ $t_\mathrm{Li}$ lower limit [Gyr]',
         'yscale': 'linear',
-        'title': 'EW=0$\pm$10mA implies...',
+        'title': f'EW={LiEW[0]}$\pm${eLiEW[0]}mA implies...',
         'xlim': ax.get_xlim()[::-1]
     })
 
@@ -2188,6 +2190,3 @@ def plot_liagefloor_vs_teff(outdir):
 
     outpath = os.path.join(outdir, f'liagefloor_vs_teff.png')
     savefig(fig, outpath, dpi=400)
-
-
-
