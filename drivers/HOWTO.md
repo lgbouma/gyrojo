@@ -48,20 +48,21 @@ _1_ Run the KOI lithium analysis
 
 5. `calc_koi_lithium_posteriors.py`
 
-Use the lithium equivalent widths to calculate the lithium posteriors and cache
-them to disk.
+  Use the lithium equivalent widths to calculate the lithium posteriors and cache
+  them to disk.
 
 6. `plot_process_koi_lithium_posteriors.py`
 
-Plots the results, and also makes concatenated CSV cache file:
-`eagles_koi_lithium_ages_X_S19S21_dquality.csv`
+  Plots the results, and also makes concatenated CSV cache file:
+  `eagles_koi_X_JUMP_lithium_ages.csv`
 
 --------------------
 _2_ Build everything needed for the manuscript
 
 Analysis:
   Do steps _0_ and _1_ above... then `./run_paper_scripts.sh`
-todo's:
+
+[?]todo's:
 * `plot_rp_vs_age.py`
 * `plot_rp_vs_porb_binage.py`
 * `plot_li_vs_teff.py`
