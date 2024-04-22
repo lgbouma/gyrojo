@@ -6,6 +6,7 @@ Catch-all file for plotting scripts.  Contents:
     plot_reinhold_2015
 
     plot_li_vs_teff
+    plot_liagefloor_vs_teff
 
     plot_gyroage_vs_teff
     plot_st_params
@@ -2129,3 +2130,64 @@ def plot_gyromodeldispersion(outdir):
 
     outpath = os.path.join(outdir, f'gyromodeldispersion{s}.png')
     savefig(fig, outpath)
+
+
+def plot_liagefloor_vs_teff(outdir):
+
+    # get data
+    sys.path.append('/Users/luke/Dropbox/proj/eagles')
+
+    # import the EWLi prediction model from the main EAGLES code
+    from eagles import AT2EWm
+    from eagles import eAT2EWm
+    from eagles import get_li_age
+
+    # set up a an equally spaced set of log temperatures between 3000 and 6500 K
+    Teff_model = np.linspace(np.log10(3800), np.log10(6200), int(1e2))
+
+    twosig_age_lowerlimits = []
+    for ix, _Teff in enumerate(Teff_model):
+        if ix % 10 == 0:
+            print(f"{ix}/{len(Teff_model)}")
+        LiEW = np.array([0])   #if one were to adopt LiEW > 20mA required
+        eLiEW = np.array([10])
+        prior = 1 # linear age prior
+        lagesmin = 6.0
+        lagesmax = 10.1
+        lApkmin = np.log10(5)+6
+        nAge = 820
+        lAges, llike, lprob, p, chisq = (
+            get_li_age(LiEW, eLiEW, np.array([10**_Teff]), lagesmax=lagesmax,
+                       lagesmin=lagesmin, lApkmin=lApkmin, z=0.0, nAge=nAge,
+                       prior=prior)
+        )
+
+        twosig_age_lowerlimit = p[4]
+        twosig_age_lowerlimits.append(twosig_age_lowerlimit)
+    twosig_age_lowerlimits = nparr(twosig_age_lowerlimits)
+
+    # make plot
+    plt.close('all')
+    set_style('clean')
+
+    fig, ax = plt.subplots(figsize=(4,3))
+
+    ax.plot(
+        10**Teff_model, (10**twosig_age_lowerlimits)/1e9, c='k', lw=1
+    )
+    ax.update({
+        'xlabel': 'Effective Temperature [K]',
+        'ylabel': '2σ $t_\mathrm{Li}$ lower limit [Gyr]',
+        'yscale': 'linear',
+        'title': 'EW=0$\pm$10mA implies...',
+        'xlim': ax.get_xlim()[::-1]
+    })
+
+    # set naming options
+    s = ''
+
+    outpath = os.path.join(outdir, f'liagefloor_vs_teff.png')
+    savefig(fig, outpath, dpi=400)
+
+
+
