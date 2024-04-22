@@ -9,4 +9,5 @@ cache_id = f"koi_lithium_posteriors_{li_method}_{datestr}"
 
 outdir = os.path.join(RESULTSDIR, cache_id)
 
-ap.plot_process_koi_li_posteriors(outdir, cache_id, li_method=li_method)
+sampleid = 'koi_X_JUMP'
+ap.plot_process_koi_li_posteriors(outdir, cache_id, sampleid, li_method=li_method)
