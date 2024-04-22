@@ -118,6 +118,8 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
 
 def get_li_data(sampleid):
 
+    assert sampleid in ['koi_X_S19S21dquality', 'koi_X_JUMP']
+
     from cdips.utils.mamajek import get_interp_BmV_from_Teff
 
     # Get B-V colors for stars with HIRES data available.  Take statistical
@@ -157,7 +159,7 @@ def get_li_data(sampleid):
 
     globstrs = [join(
         li_dir, name,
-        f"{name}_{spec_id}_Li_EW_deltawav5.0_xshift*_results.csv")
+        f"{name}_{spec_id}_Li_EW_deltawav7.5_xshift*_results.csv")
         for name, spec_id in zip(names, spec_ids)
     ]
     li_paths = []
