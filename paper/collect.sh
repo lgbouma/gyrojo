@@ -23,6 +23,7 @@ cp $r/hist_field_gyro_ages_20240405/hist_samples_koi_gyro_ages_hist_field_gyro_a
 
 # plot_li_vs_teff
 cp $r/li_vs_teff/li_vs_teff_koi_X_S19S21dquality_eagles_logy.pdf .
+cp $r/li_vs_teff/li_vs_teff_koi_X_JUMP_eagles_logy.pdf .
 cp $r/li_vs_teff/li_vs_teff_koi_X_S19S21dquality_eagles_showpoints_nodata.pdf .
 
 # planets
