@@ -75,7 +75,7 @@ def make_table(
         "li_median,li_+1sigma,li_-1sigma,li_eagles_limlo,li_eagles_limlo_formatted,"
         "li_eagles_limlo_forsort,"
         "adopted_rp,adopted_period,"
-        "flag_dr3_ruwe_outlier,flag_koi_is_grazing,flag_gyro_quality,has_hires"
+        "flag_dr3_ruwe_outlier,flag_koi_is_grazing,flag_gyro_quality,flag_planet_quality,has_hires"
     ).split(",")
     pdf = df[selcols].sort_values(
         by=['koi_disposition','min_age','li_eagles_limlo_forsort','kepler_name','kepoi_name'],
@@ -99,7 +99,7 @@ def make_table(
         "gyro_+1sigma,gyro_-1sigma,li_median,li_+1sigma,li_-1sigma,"
         "adopted_rp,adopted_period,"
         "flag_dr3_ruwe_outlier,flag_koi_is_grazing,"
-        "flag_gyro_quality,has_hires"
+        "flag_gyro_quality,flag_planet_quality,has_hires"
     ).split(",")
 
     print(42*'-')
@@ -181,7 +181,7 @@ def make_table(
         "adopted_rp": r"$R_{\rm p}$",
         "adopted_period": r"$P$",
         #"flag_dr3_ruwe_outlier": r"$f_{\rm RUWE}$",
-        "flag_koi_is_grazing": r"$f_{\rm grazing}$",
+        "flag_planet_quality": r"$Q_{\rm planet}$",
         "flag_gyro_quality": r"$Q_{\rm gyro}$",
         "has_hires": r"Spec?",
         "comment": "Comment"
@@ -194,6 +194,8 @@ def make_table(
     formatters = {}
     for k,v in rounddict.items():
         formatters[mapdict[k]] = lambda x: np.round(x, v)
+
+    invdict = {v:k for k,v in mapdict.items()}
 
     pdf = pdf.rename(mapdict, axis='columns')
 
@@ -225,6 +227,8 @@ def make_table(
     if not SELECT_YOUNG:
 
         ulkvp('nnonfopkoissomeageinfo', len(pdf))
+
+        pdf = pdf.rename(invdict, axis='columns')
 
         csvpath = join(PAPERDIR, 'table_allageinfo.csv')
         pdf.to_csv(csvpath, index=False)
