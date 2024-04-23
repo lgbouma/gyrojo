@@ -26,6 +26,20 @@ def replace_nan_string(value):
     else:
         return value
 
+COMMENTDICT = {
+    'K05245.01': "Cep-Her",
+    'K07368.01': "Cep-Her",
+    'K06186.01': "Cep-Her",
+    'K03876.01': "MELANGE-3",
+    'K01838.01': "MELANGE-3",
+    'K01833.01': 'Theia-520',
+    'K01833.02': 'Theia-520',
+    'K01833.03': 'Theia-520',
+    'K00775.02': 'Theia-520',
+    'K00775.01': 'Theia-520',
+    'K00775.03': 'Theia-520',
+}
+
 def make_table(
     # ...with age results
     drop_highruwe = 0,
@@ -165,6 +179,10 @@ def make_table(
                  'li_+1sigma', 'li_-1sigma', "li_eagles_LiEW", "li_eagles_eLiEW"]
     )
 
+    pdf['comment'] = np.repeat('', len(pdf))
+    for k,v in COMMENTDICT.items():
+        pdf.loc[pdf.kepoi_name == k, 'comment'] = v
+
     # These columns will be written.
     mapdict = {
         'kepoi_name': "KOI",
@@ -176,10 +194,11 @@ def make_table(
         "t_li": r"$t_{\rm Li}$",
         "adopted_rp": r"$R_{\rm p}$",
         "adopted_period": r"$P$",
-        "flag_dr3_ruwe_outlier": r"$f_{\rm RUWE}$",
+        #"flag_dr3_ruwe_outlier": r"$f_{\rm RUWE}$",
         "flag_koi_is_grazing": r"$f_{\rm grazing}$",
         "flag_gyro_quality": r"$Q_{\rm gyro}$",
         "has_hires": r"Spec?",
+        "comment": "Comment"
     }
     rounddict = {
         'adopted_period': 2,
