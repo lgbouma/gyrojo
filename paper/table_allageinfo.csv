@@ -1,4 +1,4 @@
-KOI,Kepler,koi_disposition,$T_{\rm eff}$,Prot,$R_{\rm p}$,$P$,flag_dr3_ruwe_outlier,$f_{\rm grazing}$,$Q_{\rm gyro}$,Spec?,$t_{\rm gyro}$,$t_{\rm Li}$,Li_EW,Comment
+kepoi_name,kepler_name,koi_disposition,adopted_Teff,Prot,adopted_rp,adopted_period,flag_dr3_ruwe_outlier,flag_koi_is_grazing,flag_gyro_quality,has_hires,t_gyro,t_li,Li_EW,comment
 K05245.01,Kepler-1627 b,CONFIRMED,5357,2.62,3.06,7.2,1,0,1152,1,$80^{+152}_{-56} $,$51^{+38}_{-27}$,$224\pm7$,Cep-Her
 K07368.01,Kepler-1974 b,CONFIRMED,,,,6.84,,0,,1,--,$54^{+47}_{-25}$,$247\pm4$,Cep-Her
 K06186.01,Kepler-1643 b,CONFIRMED,4918,5.05,2.11,5.34,0,0,0,1,$80^{+176}_{-56} $,$191^{+95}_{-74}$,$119\pm6$,Cep-Her
