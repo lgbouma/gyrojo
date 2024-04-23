@@ -329,9 +329,9 @@ def plot_star_Prot_Teff(outdir, sampleid):
     savefig(fig, outpath)
 
 
-def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
+def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
                     limodel='eagles', show_dispersion=0, nodata=0,
-                    show_dispersionpoints=0):
+                    show_dispersionpoints=0, IRON_OFFSET=7.5 ):
 
     #df = get_li_data('all')
     df = get_li_data(sampleid)
@@ -340,17 +340,17 @@ def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
     n_st = len(np.unique(df.kepid))
 
     Teffs = nparr(df.adopted_Teff)
+    assert pd.isnull(df.adopted_Teff).sum() == 0
     Teff_errs = nparr(df.adopted_Teff_err)
 
     # CKS-Young lithium dataset
-    IRON_OFFSET = 10 #TODO FIXME CALIBRATE
     li_ew = df['Fitted_Li_EW_mA'] - IRON_OFFSET
-    li_ew_perr = df['Fitted_Li_EW_mA_perr']
-    li_ew_merr = df['Fitted_Li_EW_mA_merr']
-    CUTOFF = 10 # mA: consider anything less a nondetection
-    upperlim = li_ew - li_ew_merr < CUTOFF
+    li_ew_perr = np.abs(df['Fitted_Li_EW_mA_perr'])
+    li_ew_merr = np.abs(df['Fitted_Li_EW_mA_merr'])
+    # anything below this is an upper limit
+    upperlim = (li_ew - li_ew_merr < 10)
     det = ~upperlim
-    li_ew_upper_lims = li_ew_perr[upperlim]
+    li_ew_upper_lims = li_ew[upperlim] + li_ew_perr[upperlim]
 
     if limodel == 'baffles':
 
@@ -398,7 +398,7 @@ def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
         tstep = 0.00002
         Teff_model = np.arange(3.4772, 3.8130, tstep)
         Teff_model = np.linspace(3.4772, 3.8130, int(1e4))
-        Teff_model = np.linspace(np.log10(3800), np.log10(6200), int(1e4))
+        Teff_model = np.linspace(np.log10(3500), np.log10(6400), int(1e4))
 
         agestrs = None
         if not show_dispersion and not show_dispersionpoints:
@@ -487,7 +487,7 @@ def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
         ax.errorbar(
             Teffs[det], li_ew[det], #xerr=Teff_errs,
             yerr=yerr,
-            marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='k',
+            marker='o', elinewidth=0.25, capsize=0, lw=0, mew=0.5, color='k',
             markersize=1, zorder=5
         )
 
@@ -526,7 +526,7 @@ def plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality', yscale=None,
     if show_dispersionpoints:
         ax.set_ylim([ -5, 320 ])
     if not show_dispersion and not show_dispersionpoints:
-        ax.set_ylim([ -5, 370 ])
+        ax.set_ylim([ -5, 500 ])
 
     s = f'_{sampleid}'
     s += f"_{limodel}"
