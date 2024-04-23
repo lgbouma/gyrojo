@@ -61,24 +61,11 @@
 %%%%%%%%%%%
 % PLANETS %
 %%%%%%%%%%%
-% number of KOIs in Q1-Q17 DR25 table
-%\newcommand{\nkois}{{$\sim$8{,}000}} %FIXME precise
-% number of KOIs in Q1-Q17 DR25 table that are not known false positives
-%\newcommand{\nkoisnofp}{{$\sim$4{,}000}} %FIXME precise
-% number of KOIs in Q1-Q17 DR25 table that have rotation periods
 \newcommand{\nkoiswithprot}{{$\sim$2{,}000}}
 % number of KOIs in Q1-Q17 DR25 table that are not known false positives that have rotation periods
 \newcommand{\nkoisnofpwithprot}{{$\sim$1{,}000}}
 % fraction of KOIs that are not FPs with B+20 parameters
 \newcommand{\frackoisnofpwithprotwithbtwenty}{{$\approx$92\%}}
-
-%%%%%%%%%%%
-% LITHIUM %
-%%%%%%%%%%%
-% number of KOIs that are not known FPs that have a HIRES spectrum
-%\newcommand{\nkoiswithhires}{{1{,}500}}
-% number of KOIs for which this work and Berger2018 overlap
-%\newcommand{\nbergeroverlap}{{500}}
 
 %%%%%%%%
 % AGES %
@@ -105,7 +92,7 @@
 
 %\title{Gyrochrone and Lithium Ages for Stars and Planets Observed by Kepler}
 %Ages of the Kepler Stars and Planets
-\title{Ages of Stars and Planets Observed by Kepler}
+\title{Ages of the Kepler Stars and Planets}
 
 \correspondingauthor{Luke G. Bouma}
 \email{luke@astro.caltech.edu}
@@ -157,6 +144,8 @@
   We report rotation-based ages for \nuniqstarsantosrotgyroappl\ stars
   and \nplwgyroagenograzing\ planets for which we believe
   gyrochronology is probably valid.
+  %
+  The independent lithium ages show X,Y,Z, though they are subject to their own systematic issues.
   %
   The relative statistical precisions from rotation, $\sigma_{t_{\rm
   gyro}} / t_{\rm gyro}$, are XX +YY -ZZ\%, which is X.X +Y.Y -Z.Z more
@@ -608,8 +597,8 @@ of 30 days.
 We considered planets in the NASA Exoplanet Archive's cumulative KOI
 table, which included the best knowledge available on any given planet
 candidate as of 6 June 2023, while also incorporating human-based
-vetting \footnote{See
-\url{https://exoplanetarchive.ipac.caltech.edu/docs/PurposeOfKOITable.html}}.
+vetting.\footnote{See
+\url{https://exoplanetarchive.ipac.caltech.edu/docs/PurposeOfKOITable.html}}
 These planets represent a superset of those in the fully automated
 Q1-Q17 DR25 KOI Table \citep{Thompson_2018}, which could be adopted in
 future work for planet occurrence rate calculations.  This version of
@@ -1088,13 +1077,13 @@ and astrophysical biases in EW measurements.
 	\end{center}
 	\vspace{-0.6cm}
 	\caption{
-		{\bf Age distribution of stars (left) and known planet hosts
+		{\bf Age distribution of stars (left) and planet hosts
 			(right) in the Kepler field inferred from rotation periods}.
-		A histogram of samples from the age posteriors for all Kepler
-		stars with reported rotation periods and temperatures is shown in
-		light gray;
-		the age calculation was actually valid for stars that meet the criteria
-		discussed in Section~\ref{subsec:flags} (dark blue).
+		The
+		light gray histogram does not impose any requires on factors such as
+		binarity, crowding, or the star's evolutionary state;
+		the age calculation was more likely to be valid for stars that meet the criteria
+		discussed in Section~\ref{subsec:flags} (black).
 		\label{fig:hist_tgyro}
 	}
 \end{figure*}
@@ -1168,36 +1157,7 @@ planets are given in Table~\ref{tab:planets}.
 %	}
 %\end{figure*}
 
-\begin{figure*}[!t]
-	\begin{center}
-%		\subfloat{
-%			\includegraphics[width=0.78\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_selsnrupper3_strictyoung.pdf}
-%		}
-%		
-%		\subfloat{
-			\includegraphics[width=0.78\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pdf}
-%		}
-	\end{center}
-	\vspace{-0.5cm}
-	
-	\caption{
-		{\bf Sizes, orbital periods, and rotation-based ages of transiting exoplanets younger than one billion years.} 
-		Planets highlighted in this plot have ages $t$<1\,Gyr at $2$$\sigma$.
-%		
-%		Two possible selection functions for what defines a young, sub-gigayear, planet
-%		are imposed on the {\it top} and {\it bottom}: the former requires $t$<1\,Gyr with
-%		$t/\sigma_{\rm t}$>3, the latter also allows planets younger than 1\,Gyr at 2$\sigma$.
-%		Circles are previously reported measurements from the literature.
-		Stars denote systems that are newly characterized in this work; circles
-		are planets from the literature meeting the same requirement.
-		Gray points are transiting planets from the NASA Exoplanet Archive older than
-		1\,Gyr.
-		The selection function matters:
-		if we were to require $t$<1\,Gyr and $t/\sigma_{\rm t}>3$, we would loose $\approx$ten
-		$<$0.5\,Gyr planets, and add $\approx$twenty 0.5-1\,Gyr planets.
-		\label{fig:rp_period_age_results}
-	}
-\end{figure*}
+
 
 
 
@@ -1284,6 +1244,41 @@ rot}$=10.25$\pm$0.10\,days.
 {\it LGB TODO: check again after dereddening...}
 
 
+
+\begin{figure*}[!t]
+	\begin{center}
+		%		\subfloat{
+		%			\includegraphics[width=0.78\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_selsnrupper3_strictyoung.pdf}
+		%		}
+		%		
+		%		\subfloat{
+		\includegraphics[width=0.8\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pdf}
+		%		}
+	\end{center}
+	\vspace{-0.5cm}
+	
+	\caption{
+		{\bf Sizes, orbital periods, and rotation-based ages of transiting exoplanets younger than one billion years.} 
+		%		
+		%		Two possible selection functions for what defines a young, sub-gigayear, planet
+		%		are imposed on the {\it top} and {\it bottom}: the former requires $t$<1\,Gyr with
+		%		$t/\sigma_{\rm t}$>3, the latter also allows planets younger than 1\,Gyr at 2$\sigma$.
+		%		Circles are previously reported measurements from the literature.
+		Stars denote \nplyounggyrotwosigmanograzingnoruwe\ systems that are newly characterized in this work to have
+		$t_{\rm gyro}$<1\,Gyr at $2$$\sigma$; circles
+		are planets from the literature meeting the same age requirement, but with a heterogeneous
+		set of age provenances.
+		Gray points are transiting planets from the NASA Exoplanet Archive older than
+		1\,Gyr.
+		The selection function matters:
+		selecting for precise ages ($t/\sigma_{\rm t}>3$) would hide $\approx$ten
+		$<$0.5\,Gyr planets, and add $\approx$twenty 0.5-1\,Gyr planets.
+		For this plot, we require our Kepler stellar hosts to have no quality flags raised,
+		and for the planets to similarly no have quality flags raised. 
+		Weakening these constraints would expand the sample at the expense of reliability.
+		\label{fig:rp_period_age_results}
+	}
+\end{figure*}
 
 \subsubsection{Systems with Rotation and Lithium in Agreement}
 %
@@ -1536,42 +1531,49 @@ All authors assisted in manuscript revision.
 \begin{deluxetable*}{lllllllrrrrrrl}
 	%\tabletypesize{\footnotesize}
 	\tabletypesize{\scriptsize}
-  \tablecaption{Ages of Kepler planets and planet candidates.  Rows
-  are sorted by the minimum of either the rotation or lithium-based
-  age, and ``confirmed'' planets appear before``candidate'' planets.
-  This version of the table is truncated to planets younger than
-  one billion years.  The full machine-readable table contains ages
+  \tablecaption{Ages of Kepler planets and planet candidates. 
+  This version of the table is truncated to include the youngest fifty confirmed Kepler planets, and the twenty youngest candidates.
+  The full machine-readable table contains ages
   and age limits for \nnonfopkoissomeageinfo\ non-false positive KOIs
-  with MES$>$10.  The bit quality flags for the rotation-based ages,
-  $Q_{\rm gyro}$, are described in Section~\ref{subsec:flags}.
-  Concisely summarized, they are:
-  Bit 0: $T_{\rm eff}/{\rm K} \in [ 3800-6200]$ ?
-  Bit 1: $\log g$$<$4.2?
-  Bit 2: $M_{\rm G}$<3.9?
-  Bit 3: In KEBC?
-  Bit 4: Large $d_{\rm xm,Kep-Gaia}$?
-  Bit 5: Confused Kep-Gaia crossmatch?
-  Bit 6: Gaia DR3 non-single star?
-  Bit 7: RUWE$>$1.4?
-  Bit 8: Crowded?
-  Bit 9: Far from main-sequence?
-  Bit 10: \citetalias{Santos_2021} CP/CB?
-  As an example, Kepler-1627 is flagged with bit 10 and bit 7.
+  with MES$>$10.  
   \label{tab:planets}}
 	%\toprule
 	%\midrule
 	%\endhead
 	\startdata
-  KOI & Kepler &  $T_{\rm eff}$ & $P_{\rm rot}$ & EW$_{\rm Li}$ & $t_{\rm gyro}$ & $t_{\rm Li} $ & $R_{\rm p}$ & $P_{\rm orb}$ & $f_{\rm grazing}$ & $Q_{\rm gyro}$ &  Spec? & Comment \\
-  -- &   -- & K & days & m\AA & Myr & Myr &    Earths &    days &       bool  & int & bool & -- \\
+  KOI & Kepler &  $T_{\rm eff}$ & $P_{\rm rot}$ & EW$_{\rm Li}$ &
+  $t_{\rm gyro}$ & $t_{\rm Li} $ & $R_{\rm p}$ & $P_{\rm orb}$ &
+  $Q_{\rm planet}$ & $Q_{\rm gyro}$ &  Spec? & Comment \\
+  -- &   -- & K & days & m\AA & Myr & Myr &    Earths &    days &       int  & int & bool & -- \\
 	\hline
 	\input{table_subgyr_confirmed} %\\
-	%\hline
+%	\rule
 	\input{table_subgyr_candidate}
 	\enddata
-%	\tablecomments{This table includes X, Y, Z... The machine-readable version,
-%		available online, includes additional columns for .... 
-%	}
+	\tablecomments{Rows
+		are sorted by the minimum of either the rotation or lithium-based
+		age, and ``confirmed'' planets appear before``candidate'' planets.
+		The bit quality flags for the rotation-based ages,
+		$Q_{\rm gyro}$, are described in Section~\ref{subsec:flags}.
+		Concisely summarized, they are:
+		Bit 0: $T_{\rm eff}/{\rm K} \in [ 3800-6200]$ ?
+		Bit 1: $\log g$$<$4.2?
+		Bit 2: $M_{\rm G}$<3.9?
+		Bit 3: In KEBC?
+		Bit 4: Large $d_{\rm xm,Kep-Gaia}$?
+		Bit 5: Confused Kep-Gaia crossmatch?
+		Bit 6: Gaia DR3 non-single star?
+		Bit 7: RUWE$>$1.4?
+		Bit 8: Crowded?
+		Bit 9: Far from main-sequence?
+		Bit 10: \citetalias{Santos_2021} CP/CB?
+		As an example, Kepler-1627 has $Q_{\rm gyro}$ flagged with bit 10 and bit 7.
+		The analogous planet quality bit-flag, $Q_{\rm planet}$, has the
+		following meaning.
+		Bit 0: Candidate not reliable?
+		Bit 1: MES$<$10?
+		Bit 2: Grazing?
+	}
 \end{deluxetable*}
 
 \startlongtable
