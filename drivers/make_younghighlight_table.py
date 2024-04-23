@@ -28,8 +28,8 @@ COMMENTDICT = {
 
 def make_table(
     # ...with age results
-    drop_highruwe = 0,
-    grazing_is_ok = 1,
+    drop_highruwe = 1,
+    grazing_is_ok = 0,
     #manual_includes = [
     #    '10736489', # KIC10736489 = KOI-7368: adopted_logg = 4.448...teff=5068.2... cutoff 4.48
     #    '8873450', # KOI-7913 binary
@@ -202,13 +202,13 @@ def make_table(
     if SELECT_YOUNG:
         sel = (pdf.koi_disposition == 'CONFIRMED')
         latexpath1 = join(PAPERDIR, 'table_subgyr_confirmed.tex')
-        pdf[sel][mapdict.values()].to_latex(
+        pdf[sel][mapdict.values()].head(n=50).to_latex(
             latexpath1, index=False, na_rep='--', escape=False, formatters=formatters
         )
 
         sel = (pdf.koi_disposition == 'CANDIDATE')
         latexpath2 = join(PAPERDIR, 'table_subgyr_candidate.tex')
-        t2 = pdf[sel][mapdict.values()].to_latex(
+        t2 = pdf[sel][mapdict.values()].head(n=20).to_latex(
             latexpath2, index=False, na_rep='--', escape=False, formatters=formatters
         )
 
