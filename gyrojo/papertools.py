@@ -14,6 +14,7 @@ import os, re
 from os.path import join
 from gyrojo.paths import PAPERDIR
 from pathlib import Path
+import numpy as np, pandas as pd
 
 def update_latex_key_value_pair(
     latexkeyname, latexvalue,
