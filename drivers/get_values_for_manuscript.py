@@ -140,6 +140,16 @@ ulkvp('nplwgyroagenograzing', N)
 N = len(np.unique(df.kepid))
 ulkvp('nplhoststarwgyroagenograzing', N)
 
+df, _, _ = get_age_results(
+    whichtype='gyro', grazing_is_ok=0, drop_highruwe=1
+)
+# Planets <1 Gyr at 2-sigma with a gyro age, no grazing, no ruwe.
+sel = (df['gyro_median'] + df['gyro_+2sigma']  <= 1000)
+N = len(df[sel])
+ulkvp('nplyounggyrotwosigmanograzingnoruwe', N)
+
+
+
 ##########################################
 # assertion checks:
 
