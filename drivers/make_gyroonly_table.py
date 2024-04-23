@@ -51,5 +51,6 @@ def make_table(
     assert kdf.flag_is_ok_planetcand.sum() == len(kdf)
 
 if __name__ == "__main__":
-    make_table(grazing_is_ok=1, drophighruwe=1)
-    make_table(grazing_is_ok=0, drophighruwe=0)
+    for g in [0,1]:
+        for r in [0,1]:
+            make_table(grazing_is_ok=g, drophighruwe=r)
