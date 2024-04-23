@@ -1045,8 +1045,10 @@ def get_koi_data(sampleid, grazing_is_ok=0):
 
     koi_df = pd.read_csv(koipath, comment='#', sep=',')
 
-    koi_df['flag_koi_is_fp'] = (
-        (koi_df.koi_disposition == "FALSE POSITIVE")
+    koi_df['flag_koi_is_fp'] = ~(
+        (koi_df.koi_disposition == "CONFIRMED")
+        |
+        (koi_df.koi_disposition == "CANDIDATE")
     ).astype(bool)
 
     # NOTE: Petigura+22 and Petigura+20 describe how, since b is nearly
@@ -1062,15 +1064,29 @@ def get_koi_data(sampleid, grazing_is_ok=0):
         (pd.isnull(koi_df.koi_max_mult_ev))
     ).astype(bool)
 
-    flag_is_ok_planetcand = (
-        (~koi_df['flag_koi_is_fp'])
-        &
-        (~koi_df['flag_koi_is_low_snr'])
-    )
-    if not grazing_is_ok:
-        flag_is_ok_planetcand &= (~koi_df['flag_koi_is_grazing'])
+    # see description of flags in docstring
+    flag_bits = {
+        'flag_koi_is_fp': 0,
+        'flag_koi_is_low_snr': 1,
+        'flag_koi_is_grazing': 2,
+    }
 
-    koi_df['flag_is_ok_planetcand'] = flag_is_ok_planetcand
+    # Iterate over the flag columns and update the flag_gyro_quality column
+    koi_df['flag_planet_quality'] = 0
+    for flag, bit_pos in flag_bits.items():
+        # Convert the flag column to NumPy array and perform left-shift operation
+        shifted_values = np.left_shift(koi_df[flag].astype(int).values, bit_pos)
+        # Update the 'flag_gyro_quality' column using the shifted values
+        koi_df['flag_planet_quality'] |= shifted_values
+
+    # Define the mask to check bits 0 through 9 inclusive
+    if grazing_is_ok:
+        mask = 0b000000011
+    else:
+        mask = 0b000000111
+
+    # Create the 'flag_is_ok_planetcand' column - uses bits 0,1,2 as requested
+    koi_df['flag_is_ok_planetcand'] = ((koi_df['flag_planet_quality'] & mask) == 0)
 
     return koi_df
 
