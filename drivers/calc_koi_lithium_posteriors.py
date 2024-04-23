@@ -16,7 +16,7 @@ from gyrojo.paths import DATADIR, RESULTSDIR
 from gyrojo.getters import get_li_data
 
 def calc_koi_lithium_posteriors(datestr, sampleid, li_method='baffles',
-                                overwrite=1):
+                                overwrite=1, IRON_OFFSET=7.5):
 
     sys.path.append('/Users/luke/Dropbox/proj/eagles')
     from eagles import main
@@ -42,7 +42,6 @@ def calc_koi_lithium_posteriors(datestr, sampleid, li_method='baffles',
         kepoi_name = r['kepoi_name']
         print(f'Beginning {kepoi_name}')
 
-        IRON_OFFSET = 8.3 #TODO FIXME CALIBRATE
         li_ew = r['Fitted_Li_EW_mA'] - IRON_OFFSET
         li_ew_perr = r['Fitted_Li_EW_mA_perr']
         li_ew_merr = r['Fitted_Li_EW_mA_merr']

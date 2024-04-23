@@ -4,6 +4,7 @@ from os.path import join
 from gyrojo.paths import RESULTSDIR
 from gyrojo.getters import get_li_data
 from aesthetic.plot import set_style, savefig
+from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 from astroquery.vizier import Vizier
 Vizier.ROW_LIMIT = -1
 
@@ -13,16 +14,16 @@ catalogs = Vizier.get_catalogs(CATALOG)
 bdf = catalogs[0].to_pandas()
 bdf['KOI'] = bdf['KOI'].astype(str)
 
-sampleid = 'koi_X_S19S21dquality' # TODO FIXME: once koi_X_JUMP done, rerun
+sampleid = 'koi_X_JUMP'
 df = get_li_data(sampleid)
 df['matchstr'] =[s[2:-3] for s in df.kepoi_name.astype(str)]
 
-dfcols = ('Fitted_Li_EW_mA,adopted_Teff,pl_name,matchstr,'
+dfcols = ('Fitted_Li_EW_mA,adopted_Teff,matchstr,'
           'Fitted_Li_EW_mA_perr,Fitted_Li_EW_mA_merr,kepoi_name'.split(","))
 bcols = 'KOI,EW_Li_,Teff,e_EW_Li_'.split(",")
 mdf = df[dfcols].merge(bdf[bcols], how='inner', left_on='matchstr', right_on='KOI')
 
-
+ulkvp('nbergeroverlap', len(mdf))
 
 
 
@@ -91,7 +92,7 @@ print(42*'-')
 print(mdf[sel][pcols])
 
 
-sel = xval > 25
+sel = xval > 30
 mean_offset = np.nanmean(yval[sel])
 median_offset = np.nanmedian(yval[sel])
 std_offset = np.nanstd(yval[sel])
