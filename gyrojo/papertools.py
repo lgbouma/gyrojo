@@ -1,7 +1,14 @@
 """
 Contents:
+
+LaTeX value file I/O:
     update_latex_key_value_pair
     read_latex_key_value_pairs
+
+LaTeX table formatting:
+    format_lowerlimit
+    cast_to_int_string
+    replace_nan_string
 """
 import os, re
 from os.path import join
@@ -98,3 +105,24 @@ def read_latex_key_value_pairs(
                 key_value_dict[key] = value
 
     return key_value_dict
+
+
+def format_lowerlimit(value):
+    if pd.isna(value):
+        return np.nan
+    else:
+        return f"$> {int(value)}$"
+
+def cast_to_int_string(value):
+    if pd.isna(value):
+        return np.nan
+    else:
+        return str(int(value))
+
+def replace_nan_string(value):
+    if pd.isna(value) or 'nan' in str(value).lower():
+        return '--'
+    else:
+        return value
+
+
