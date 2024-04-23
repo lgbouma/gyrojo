@@ -966,8 +966,8 @@ def get_cleaned_gaiadr3_X_kepler_supplemented_dataframe():
     # default Teffs
     df['adopted_Teff'] = df['b20t2_Teff']
     df['adopted_Teff_provenance'] = 'Berger2020_table2'
-    df['adopted_Teff_err'] = np.nanmean([
-        np.array(df['b20t2_E_Teff']),
+    df['adopted_Teff_err'] = np.nanmax([
+        np.array(np.abs(df['b20t2_E_Teff'])),
         np.array(np.abs(df['b20t2_e_Teff']))
     ], axis=0)
 
