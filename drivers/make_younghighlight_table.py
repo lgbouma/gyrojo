@@ -6,25 +6,11 @@ from gyrojo.getters import (
     get_gyro_data, get_age_results, get_koi_data
 )
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
+from gyrojo.papertools import (
+    format_lowerlimit, cast_to_int_string, replace_nan_string
+)
+
 from gyrojo.paths import PAPERDIR, DATADIR
-
-def format_lowerlimit(value):
-    if pd.isna(value):
-        return np.nan
-    else:
-        return f"$> {int(value)}$"
-
-def cast_to_int_string(value):
-    if pd.isna(value):
-        return np.nan
-    else:
-        return str(int(value))
-
-def replace_nan_string(value):
-    if pd.isna(value) or 'nan' in str(value).lower():
-        return '--'
-    else:
-        return value
 
 COMMENTDICT = {
     'K05245.01': "Cep-Her",
