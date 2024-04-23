@@ -58,10 +58,15 @@ for ix, r in df.iterrows():
             f"Li_EW_deltawav{delta_wav:.1f}_xshift-find.png"
         )
         outpath = os.path.join(outdir, outname)
+
+        xshift = 'find'
+        if idstring == 'CK00647':
+            xshift = -1.6 # edge case where automated shift fails bc hot star
+
         if os.path.exists(outpath):
             print(f"Found {outpath}")
         else:
             get_Li_6708_EW(spectrum_path, wvsol_path=None, delta_wav=delta_wav,
-                           outpath=outpath, xshift='find')
+                           outpath=outpath, xshift=xshift)
 
     print(f"{datetime.utcnow().isoformat()}: Finished {idstring} {specname}.")
