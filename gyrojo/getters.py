@@ -227,15 +227,19 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
     Get age results for the planet hosts.
 
     "gyro" results are from Santos19_Santos21_dquality, stars for
-    which gyro is applicable, and planets (by default) from the
-    cumulative-KOI table, which are "OK" planet candidates.
+        which gyro is applicable, and planets (by default) from the
+        cumulative-KOI table, which are "OK" planet candidates.
 
-    "gyro_li" includes both gyro and lithium results, separately.
+    "gyro_li" all "flag_is_ok_planetcand" and "flag_is_gyro_applicable" KOIs,
+        with both gyro and optionally lithium results.
 
-    "joint" results are currently defunct
+    "allageinfo": all "flag_is_ok_planetcand" KOIs, with any available
+        rotation-based or lithium-based age information.
+
+
     """
 
-    assert whichtype in ['allageinfo', 'gyro', 'li', 'gyro_li']
+    assert whichtype in ['allageinfo', 'gyro', 'gyro_li']
 
     #
     # Get KOI list... rotating star list... and lithium list...
