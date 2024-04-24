@@ -235,8 +235,6 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
 
     "allageinfo": all "flag_is_ok_planetcand" KOIs, with any available
         rotation-based or lithium-based age information.
-
-
     """
 
     assert whichtype in ['allageinfo', 'gyro', 'gyro_li']
@@ -523,17 +521,23 @@ def get_kicstar_data(sampleid):
     ages!)
 
     Args:
-        sampleid (str):  most common will be "Santos19_Santos21_all", which
-        concatenates Santos19 and Santos21, and then crossmatches against
-        Berger20 (tables1&2).  Adopted Teffs and adopted loggs are then
-        assigned in a rank-ordered preference scheme, as are period
-        uncertainties.  Other options are "Santos19_Santos21_dquality", which
-        imposes a posteriori cuts on the returned dataframe (not the computed
-        one), and "allKIC_Berger20" which is the KIC/Berger20 stars, without
-        any parsing of whether rotation is reported.
+        sampleid (str): Options are: [
+            'allKIC_Berger20_dquality'
+            'Santos19_Santos21_all',
+            'Santos19_Santos21_dquality',
+        ]
 
-        "Santos19_Santos21_dquality" specifically just returns
+        "Santos19_Santos21_all" concatenates Santos19 and Santos21, and then
+        crossmatches against Berger20 (tables1&2).  Adopted Teffs and adopted
+        loggs are then assigned in a rank-ordered preference scheme, as are
+        period uncertainties.
+
+        "Santos19_Santos21_dquality" imposes a posteriori cuts on the returned
+        dataframe (not the computed one).  This specifically just returns
         field_gyro_posteriors_20240405_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv
+
+        "allKIC_Berger20_dquality" which is the KIC/Berger20 stars, without any
+        parsing of whether rotation is reported, with quality flags calculated.
 
     Returns:
         dataframe matching the requested sampleid
@@ -542,7 +546,7 @@ def get_kicstar_data(sampleid):
     assert sampleid in [
         'Santos19_Santos21_all',
         'Santos19_Santos21_dquality',
-        'allKIC_Berger20'
+        'allKIC_Berger20_dquality'
     ]
     # 'Santos19_Santos21_clean0', 'Santos19_Santos21_logg' both
     # deprecated
@@ -550,8 +554,18 @@ def get_kicstar_data(sampleid):
     if sampleid == 'Santos19_Santos21_all':
         csvpath = join(DATADIR, 'interim', 'S19_S21_KOIbonus_merged_X_GDR3_X_B20.csv')
 
-    if sampleid == 'allKIC_Berger20':
-        return get_cleaned_gaiadr3_X_kepler_supplemented_dataframe()
+    if sampleid == 'allKIC_Berger20_dquality':
+        csvpath = join(
+            TABLEDIR,
+            'allKIC_20240405_X_GDR3_B20_with_qualityflags.csv'
+        )
+        assert os.path.exists(csvpath)
+        df = pd.read_csv(
+            csvpath, dtype={
+                'dr3_source_id':str, 'KIC':str, 'kepid':str
+            }
+        )
+        return df
 
     if sampleid == 'Santos19_Santos21_dquality':
         # made by construct_field_star_gyro_quality_flags.py driver
