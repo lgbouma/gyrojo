@@ -4,7 +4,7 @@ import numpy as np, pandas as pd
 from numpy import array as nparr
 from astropy import units as u, constants as c
 from gyrojo.getters import (
-    get_gyro_data, get_age_results, get_koi_data
+    get_gyro_data, get_age_results, get_koi_data, get_kicstar_data
 )
 from gyrojo.paths import TABLEDIR
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
@@ -18,13 +18,22 @@ def completeness_correction(snr):
 
     return gamma.cdf(snr, k, scale=theta, loc=l)
 
+
 def get_star_and_planet_dataframes():
-    # stars (with rotation, & gyro applicable)
+
+    # stars (with rotation, & after cut, assuming gyro is applicable)
     _df = get_gyro_data("Santos19_Santos21_dquality", grazing_is_ok=0, drop_highruwe=1)
     sdf = _df[_df.flag_is_gyro_applicable]
 
+    # all stars (regardless of rotation).  require them to meet the "gyro is
+    # applicable" cuts..., and then construct a sample of "gyro applicable"
+    # stars that do not have detected rotation periods.
+    kic_df = get_kicstar_data("allKIC_Berger20_dquality")
+    sel = (kic_df.flag_is_gyro_applicable) & ( ~(kic_df.kepid.isin(_df.KIC)) )
+    skic_df = kic_df[sel]
+
     # planets
-    df, _, _ = get_age_results(whichtype='gyro', grazing_is_ok=0)
+    df, _, _ = get_age_results(whichtype='allageinfo', grazing_is_ok=0, drop_highruwe=1)
 
     df.loc[df.KIC == '7335514', 'koi_smass'] = 0.879 # KOI-7368 missing stellar mass and sma
     df.loc[df.KIC == '7335514', 'koi_srad'] = 0.874 # KOI-7368 missing stellar radius
@@ -50,11 +59,12 @@ def get_star_and_planet_dataframes():
         1/completeness_correction(snr)
     )
 
-    return sdf, df
+    return sdf, df, skic_df
+
 
 def calc_simple_bin_occ():
 
-    sdf, df = get_star_and_planet_dataframes()
+    sdf, df, skic_df = get_star_and_planet_dataframes()
 
     # define bins
     age_binedges = [0,1000,2000,3000]
@@ -78,12 +88,12 @@ def calc_simple_bin_occ():
 
     for alo,ahi in age_bins:
 
-        sel_st = (sdf['median'] > alo) & (sdf['median'] <= ahi)
-        N_st = len(sdf[sel_st])
+        sel_st = (sdf['gyro_median'] > alo) & (sdf['gyro_median'] <= ahi)
+        N_star = len(sdf[sel_st])
 
         agekey = f"{alo}to{ahi}Myr"
         countdict[agekey] = {}
-        countdict[agekey]['Nst'] = N_st
+        countdict[agekey]['Nst'] = N_star
         occdict[agekey] = {}
 
         N_pl_tot = 0
@@ -103,9 +113,9 @@ def calc_simple_bin_occ():
                 binkey = f'Npl_Rp{rlo}to{rhi}_P{plo}to{phi}'
                 countdict[agekey][binkey] = N_pl
 
-                NPPS = N_pl / N_st
+                NPPS = N_pl / N_star
 
-                wNPPS = np.sum(df[sel_pl].w_geom * df[sel_pl].w_det) / N_st
+                wNPPS = np.sum(df[sel_pl].w_geom * df[sel_pl].w_det) / N_star
                 binkey = f'wNPPS_Rp{rlo}to{rhi}_P{plo}to{phi}'
                 occdict[agekey][binkey] = np.round(wNPPS, 2)
 
@@ -114,6 +124,48 @@ def calc_simple_bin_occ():
                 occdict[agekey][binkey] = np.round(abs_unc, 2)
 
         countdict[agekey]['Npl'] = N_pl_tot
+
+    #
+    # calculate the no rotation bin, with apologies for code duplication...
+    #
+    N_star = len(skic_df)
+    agekey = "NoRotation"
+    countdict[agekey] = {}
+    countdict[agekey]['Nst'] = N_star
+    occdict[agekey] = {}
+
+    N_pl_tot = 0
+    for rlo,rhi in rp_bins:
+        for plo,phi in period_bins:
+
+            sel_pl = (
+                pd.isnull(df['gyro_median'])
+                &
+                (df['adopted_rp'] >= rlo) & (df['adopted_rp'] < rhi)
+                &
+                (df['adopted_period'] >= plo) & (df['adopted_period'] < phi)
+            )
+            N_pl = len(df[sel_pl])
+            N_pl_tot += N_pl
+
+            binkey = f'Npl_Rp{rlo}to{rhi}_P{plo}to{phi}'
+            countdict[agekey][binkey] = N_pl
+
+            NPPS = N_pl / N_star
+
+            wNPPS = np.sum(df[sel_pl].w_geom * df[sel_pl].w_det) / N_star
+            binkey = f'wNPPS_Rp{rlo}to{rhi}_P{plo}to{phi}'
+            occdict[agekey][binkey] = np.round(wNPPS, 2)
+
+            abs_unc = wNPPS * np.sqrt(N_pl) / N_pl
+            binkey = f'auncwNPPS_Rp{rlo}to{rhi}_P{plo}to{phi}'
+            occdict[agekey][binkey] = np.round(abs_unc, 2)
+
+    countdict[agekey]['Npl'] = N_pl_tot
+
+    ##########################################
+    ##########################################
+    ##########################################
 
     countdf = pd.DataFrame(countdict)
     occdf = pd.DataFrame(occdict)
