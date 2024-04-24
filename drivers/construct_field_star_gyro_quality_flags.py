@@ -136,9 +136,11 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240405'):
     dGmag = 2.5
     sep_arcsec = 4
     runid = f'field_{sample}_{datestr}_neighbors'
+
     count_df, ndf = given_source_ids_get_neighbor_counts(
         source_ids, dGmag, sep_arcsec, runid, n_max=n_max, overwrite=False,
-        enforce_all_sourceids_viable=True, gaia_datarelease='gaiadr3'
+        enforce_all_sourceids_viable=True, gaia_datarelease='gaiadr3',
+        impose_nmax=0
     )
 
     # NOTE this "nbhr_count" number may double-count at times, based on 
