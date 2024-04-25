@@ -117,7 +117,8 @@ def calc_koi_lithium_posteriors(datestr, sampleid, li_method='baffles',
             # Read data for a single star and estimate its age, (input_file
             # would have one row), based on a prior age probability that is
             # flat in linear age, saving the output plots
-            args = [input_path, output_path, '-s', '-p', '1']
+            args = [input_path, output_path,
+                    '-s', '-p', '1', "--lagesmax", "10"]
             plt.close("all")
             main(args)
             plt.close("all")
