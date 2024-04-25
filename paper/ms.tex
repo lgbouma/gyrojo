@@ -490,6 +490,85 @@ A few conclusions are offered in Section~\ref{sec:conclusions}.
 	\label{fig:stellarprops}
 \end{figure*}
 
+\begin{figure*}[!t]
+	\begin{center}
+		\leavevmode
+		\subfloat{
+			\includegraphics[width=0.49\textwidth]{gyromodeldispersion.pdf}
+		}
+		\subfloat{
+			\includegraphics[width=0.49\textwidth]{li_vs_teff_koi_X_S19S21dquality_eagles_showpoints_nodata.pdf}
+		}
+	\end{center}
+	\vspace{-0.6cm}
+	\caption{
+		{\bf The models.}
+		Points represent $10^4$ draws from model probability distributions
+		that have been fitted to observed rotation periods
+		\citep{Bouma_2023} and lithium equivalent widths
+		\citep[EWs;][]{Jeffries_2023} of stars in open clusters.  Lines
+		are the ``mean models'' at various ages; the asymmetric intrinsic
+		dispersion in rotation and lithium about these mean models, which
+		is what the models fit, sets the theoretical precision limit for
+		both age-dating methods.		Additional sources of uncertainty,
+		including measurement uncertainty, impose further limits on
+		achievable age precision.  These models are calibrated using open
+		clusters younger than 4\,Gyr.  The displayed points assume a
+		uniform distribution in temperature for visual clarity.
+		The sizes of the points are the same in each panel, so that low
+		apparent density signifies greater dispersion around the mean.
+		\label{fig:models}
+	}
+\end{figure*}
+
+\begin{figure*}[!t]
+	\begin{center}
+		\subfloat{
+			\includegraphics[width=0.48\textwidth]{prot_teff_Santos19_Santos21_dquality.pdf}
+		}
+		%	
+		%		\vspace{-0.5cm}
+		\subfloat{
+			\includegraphics[width=0.48\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf}
+		}
+	\end{center}
+	\vspace{-0.5cm}
+	\caption{
+		{\bf Rotation periods for Kepler stars (top) and planets
+			(bottom)}.  The periods are from \citet{Santos_2019} and
+		\citet{Santos_2021} (\citetalias{Santos_2019} and
+		\citetalias{Santos_2021}).  The gray lines are ``mean fits'' from
+		Figure~\ref{fig:models} to the slow rotation sequences of M67,
+		Ruprecht~147, NGC~6811, Praesepe, and a trio of 120\,Myr open
+		clusters.  The stellar sample shows only apparently single stars
+		near the main sequence with $\log g$$>$4.2, RUWE$<$1.4,
+		3800$<$$T_{\rm eff}$/K$<$6200, that are not flagged as eclipsing
+		binaries.  The planet sample has the same stellar cuts, and shows
+		confirmed and candidate planets from the cumulative KOI table,
+		requiring them to have a MES$>$10.
+	}
+	\label{fig:prot_vs_teff}
+\end{figure*}
+
+\begin{figure}[!t]
+	\begin{center}
+		\leavevmode
+		\includegraphics[width=0.49\textwidth]{li_vs_teff_koi_X_JUMP_eagles_logy.pdf}
+	\end{center}
+	\vspace{-0.6cm}
+	\caption{
+		{\bf Equivalent widths (EW) of the \ion{Li}{1} 6708\,\AA\ doublet
+			for planet-hosting stars.} These measurements were made from
+		Keck/HIRES spectra collected between 2009 and 2024.  Lines are the
+		``mean'' isochrones from the same models as in
+		Figure~\ref{fig:models}; the intrinsic dispersion beyond
+		$\approx$1\,Gyr becomes much larger than changes in the mean.  The
+		logarithmic scale highlights the dynamic range of the detections
+		and upper limits.  Some stars with lithium detections do not have
+		detected rotation periods, and vice-versa.
+		\label{fig:li_vs_teff}
+	}
+\end{figure}
 
 
 
@@ -732,6 +811,8 @@ calibration sequences of the open clusters.
 %TODO: add that plot showing differences btwn the two teff scales?
 
 
+
+
 \section{Ages From Rotation}
 \label{sec:rotage}
 
@@ -771,37 +852,6 @@ integrating Equation~1 of \citet{Bouma_2023} at the default grid
 resolution.  This procedure marginalizes over the intrinsic age and
 temperature dependent scatter that is observed in the cluster
 sequences to yield statistical age uncertainties.
-
-\begin{figure*}[!t]
-	\begin{center}
-		\leavevmode
-		\subfloat{
-			\includegraphics[width=0.49\textwidth]{gyromodeldispersion.pdf}
-		}
-		\subfloat{
-			\includegraphics[width=0.49\textwidth]{li_vs_teff_koi_X_S19S21dquality_eagles_showpoints_nodata.pdf}
-		}
-	\end{center}
-	\vspace{-0.6cm}
-	\caption{
-		{\bf The models.}
-    Points represent $10^4$ draws from model probability distributions
-    that have been fitted to observed rotation periods
-    \citep{Bouma_2023} and lithium equivalent widths
-    \citep[EWs;][]{Jeffries_2023} of stars in open clusters.  Lines
-    are the ``mean models'' at various ages; the asymmetric intrinsic
-    dispersion in rotation and lithium about these mean models, which
-    is what the models fit, sets the theoretical precision limit for
-    both age-dating methods.		Additional sources of uncertainty,
-    including measurement uncertainty, impose further limits on
-    achievable age precision.  These models are calibrated using open
-    clusters younger than 4\,Gyr.  The displayed points assume a
-    uniform distribution in temperature for visual clarity.
-    The sizes of the points are the same in each panel, so that low
-    apparent density signifies greater dispersion around the mean.
-		\label{fig:models}
-	}
-\end{figure*}
 
 
 \subsection{Gyrochronology Quality Flags}
@@ -873,7 +923,7 @@ directly include this column.
 
 {\it RUWE (bit 7)}---We flagged stars with a Gaia DR3 renormalized
 unit weight error
-(RUWE\footnote{\url{https://gea.esac.esa.int/archive/documentation/GDR3/Gaia_archive/chap_datamodel/sec_dm_main_source_catalogue/ssec_dm_gaia_source.html}})
+(RUWE) %\footnote{\url{https://gea.esac.esa.int/archive/documentation/GDR3/Gaia_archive/chap_datamodel/sec_dm_main_source_catalogue/ssec_dm_gaia_source.html}})
 exceeding 1.4 as possible binaries.  Such astrometric outliers can be
 either bona fide astrometric binaries, or more often are marginally
 resolved point sources for which the single-source PSF model used in
@@ -959,34 +1009,6 @@ justify}.
 \subsection{Tally}
 \label{subsec:tally}
 
-\begin{figure}[!t]
-	\begin{center}
-		\subfloat{
-			\includegraphics[width=0.48\textwidth]{prot_teff_Santos19_Santos21_dquality.pdf}
-		}
-	
-		\vspace{-0.5cm}
-		\subfloat{
-			\includegraphics[width=0.48\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf}
-		}
-	\end{center}
-	\vspace{-0.5cm}
-	\caption{
-    {\bf Rotation periods for Kepler stars (top) and planets
-    (bottom)}.  The periods are from \citet{Santos_2019} and
-    \citet{Santos_2021} (\citetalias{Santos_2019} and
-    \citetalias{Santos_2021}).  The gray lines are ``mean fits'' from
-    Figure~\ref{fig:models} to the slow rotation sequences of M67,
-    Ruprecht~147, NGC~6811, Praesepe, and a trio of 120\,Myr open
-    clusters.  The stellar sample shows only apparently single stars
-    near the main sequence with $\log g$$>$4.2, RUWE$<$1.4,
-    3800$<$$T_{\rm eff}$/K$<$6200, that are not flagged as eclipsing
-    binaries.  The planet sample has the same stellar cuts, and shows
-    confirmed and candidate planets from the cumulative KOI table,
-    requiring them to have a MES$>$10.
-	}
-	\label{fig:prot_vs_teff}
-\end{figure}
 
 The rotation periods for the stellar and planetary samples are shown
 in Figure~\ref{fig:prot_vs_teff}.  Out of the \nkeplerstars\ stars
@@ -1024,25 +1046,6 @@ based on the Markov Chain Monte Carlo (MCMC) fits from
 \section{Ages From Lithium}
 \label{sec:liage}
 
-\begin{figure}[!t]
-	\begin{center}
-		\leavevmode
-		\includegraphics[width=0.49\textwidth]{li_vs_teff_koi_X_JUMP_eagles_logy.pdf}
-	\end{center}
-	\vspace{-0.6cm}
-	\caption{
-    {\bf Equivalent widths (EW) of the \ion{Li}{1} 6708\,\AA\ doublet
-    for planet-hosting stars.} These measurements were made from
-    Keck/HIRES spectra collected between 2009 and 2024.  Lines are the
-    ``mean'' isochrones from the same models as in
-    Figure~\ref{fig:models}; the intrinsic dispersion beyond
-    $\approx$1\,Gyr becomes much larger than changes in the mean.  The
-    logarithmic scale highlights the dynamic range of the detections
-    and upper limits.  Some stars with lithium detections do not have
-    detected rotation periods, and vice-versa.
-		\label{fig:li_vs_teff}
-	}
-\end{figure}
 
 Figure~\ref{fig:li_vs_teff} shows our measured lithium equivalent
 widths, plotted over the mean isochrone models from
@@ -1527,11 +1530,11 @@ All authors assisted in manuscript revision.
 \begin{deluxetable*}{lllllllrrrrrrl}
 	%\tabletypesize{\footnotesize}
 	\tabletypesize{\scriptsize}
-  \tablecaption{Ages of Kepler planets and planet candidates. 
-  This version of the table is truncated to include the youngest fifty confirmed Kepler planets, and the twenty youngest candidates.
-  The full machine-readable table contains ages
-  and age limits for \nnonfopkoissomeageinfo\ non-false positive KOIs
-  with MES$>$10.  
+  \tablecaption{Ages of Kepler planets and planet candidates.  This
+  version of the table is truncated to include the youngest fifty
+  confirmed Kepler planets, and the twenty youngest candidates.  The
+  full machine-readable table contains ages and age limits for
+  \nnonfopkoissomeageinfo\ non-false positive KOIs with MES$>$10.  
   \label{tab:planets}}
 	%\toprule
 	%\midrule
@@ -1574,25 +1577,25 @@ All authors assisted in manuscript revision.
 
 \startlongtable
 \begin{deluxetable*}{lllllllrrrrrr}
-	%\tabletypesize{\footnotesize}
 	\tabletypesize{\scriptsize}
-  \tablecaption{Ages of Kepler target stars.  
-  The full machine-readable table contains rotation-based ages
-  for \nuniqstarsantosrotteffcut\ stars with temperatures spanning
-  3800-6200\,K.
-  \nuniqstarsantosrotgyroappl\ of these stars have quality flags
-  without bits 0 to 9 raised, meaning that they are likely valid
-  objects for gyrochronology (see Section~\ref{subsec:flags}).
-  \label{tab:stars}}
+  \tablecaption{
+  Ages of Kepler target stars derived from rotation periods.  The
+  full machine-readable table includes \nuniqstarsantosrot\ stars
+  with reported rotation periods from \citetalias{Santos_2019} and
+  \citetalias{Santos_2021}, \nuniqstarfinitegyroage\ of which have
+  finite reported gyrochrone ages.  A random set of these stars is
+  shown here to give an idea for form and content.  The quality
+  bit-flag is as in Table~\ref{tab:planets}; requiring bits zero to
+  nine to be null yields \nuniqstarsantosrotgyroappl\ stars for
+  which gyrochronology is likely to be valid.  \label{tab:stars}}
 	%\toprule
 	%\midrule
 	%\endhead
 	\startdata
-  KIC & Gaia &  $T_{\rm eff}$ & $P_{\rm rot}$ & $t_{\rm gyro}$ & $Q_{\rm gyro}$ \\
+  KIC & Gaia DR3 &  $T_{\rm eff}$ & $P_{\rm rot}$ & $t_{\rm gyro}$ & $Q_{\rm gyro}$ \\
   -- &   -- & K & days &  Myr &    int  \\
 	\hline
-  %FIXME make it!
-	%\input{table_gyrostars} %\\
+	\input{table_star_gyro} %\\
 	%\hline
 	\enddata
 %	\tablecomments{This table includes X, Y, Z... The machine-readable version,
