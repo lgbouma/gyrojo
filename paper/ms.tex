@@ -92,7 +92,7 @@
 
 %\title{Gyrochrone and Lithium Ages for Stars and Planets Observed by Kepler}
 %Ages of the Kepler Stars and Planets
-\title{Ages of the Kepler Stars and Planets}
+\title{A Dearth of Young Stars and Planets in the Kepler Field}
 
 \correspondingauthor{Luke G. Bouma}
 \email{luke@astro.caltech.edu}
@@ -145,23 +145,22 @@
   and \nplwgyroagenograzing\ planets for which we believe
   gyrochronology is probably valid.
   %
-  The independent lithium ages show X,Y,Z, though they are subject to their own systematic issues.
+  The independent lithium ages show X,Y,Z, though they are subject to
+  their own systematic issues.
   %
   The relative statistical precisions from rotation, $\sigma_{t_{\rm
   gyro}} / t_{\rm gyro}$, are XX +YY -ZZ\%, which is X.X +Y.Y -Z.Z more
   statistically precise than isochronal ages for the same stars, and
   $\approx$X.X times less precise than cluster-based ages.
   %
-  The results include \nplyounggyrotwosigma\
-  planets younger than 1\,Gyr at 2$\sigma$ (\nplyounggyrothreesigma\
-  planets at 3$\sigma$).
+  The results include \nplyounggyrotwosigma\ planets younger than
+  1\,Gyr at 2$\sigma$ (\nplyounggyrothreesigma\ planets at 3$\sigma$).
   %
   While lithium provides only marginal added information for most of
-  this sample,
-  we report new robust ages from both rotation and lithium for 14
-  confirmed $<$500\,Myr planets, including five mini-Neptunes, five
-  super-Earths, three Earths and sub-Earths, and a Neptune-sized
-  planet.
+  this sample, we report new robust ages from both rotation and
+  lithium for 14 confirmed $<$500\,Myr planets, including five
+  mini-Neptunes, five super-Earths, three Earths and sub-Earths, and a
+  Neptune-sized planet.
   %
   In the broader Kepler target star sample, we find that the
   gyrochrone age distribution rises linearly from 0 to 3\,Gyr, with
@@ -172,23 +171,6 @@
   young and old planets detectable not only by Kepler, but also by
   future wide-field transit surveys.
   %
-%  The sample of detected Kepler planets has a similar age
-%  distribution, though it is slightly deficient at $\lesssim$0.2\,Gyr,
-%  likely due to decreased detection sensitivity.
-  %
-  %Combining our stellar age catalog with Kepler's completeness products, we perform
-  %a hierarchical bayesian analysis to infer the average number of planets per star
-  %as a function of both stellar and planetary parameters.
-  %
-  %While we recover many previously known correlations with stellar mass and metallicity,
-  %our analysis also highlights the importance of age in shaping the ``sub-Saturn desert'',
-  %and in influencing the evolution of the mini-Neptune and super-Earth populations.
-  %TODO will this be the case?
-%  We also comment on a few previously reported evolutionary trends in
-%  the size evolution of close-in mini-Neptunes (2-4\,\rearth) and
-%  super-Earths (1-2\,\rearth), a few of which we recover at comparable
-%  ($\sim$3$\sigma$) significance to previous work, and one of which we
-%  note for the first time.
 \end{abstract}
 
 \keywords{Exoplanet evolution (491), Stellar ages (1581)}
@@ -197,18 +179,25 @@
 \label{sec:intro}
 
 Exoplanet science is in an age of abundance, fueled by the discovery
-of thousands of worlds orbiting close to their host stars (CITE, CITE,
-CITE).
-However, most known exoplanets have ages comparable to that of the solar
+of thousands of worlds orbiting close to their host stars
+\citep{Borucki10,2015JATIS...1a4003R}.
+Most of these exoplanets have ages comparable to that of the solar
 system.
-This unfortunate fact leaves many gaps in our knowledge of
-exoplanetary origins, particularly regarding to degree to which
-dynamical migration (CITE), thermal cooling (CITE), and atmospheric
-loss (CITE) sculpt planetary systems after the disk disperses.
-Finding and characterizing young ($<$1\,Gyr) exoplanets offers one
-possible workaround, since these objects can show both individual (CITE,
-CITE) and population-level (CITE) evidence for these types of
-evolutionary processes.
+This fact leaves many gaps in our knowledge of what exact dynamical
+and physical processes produce these objects.
+Finding and characterizing young ($\lesssim$1\,Gyr) exoplanets offers
+one possible workaround.
+The reason is that processes such as thermal cooling, atmospheric
+loss, and dynamical instability occur over $\approx$10\,Myr to
+$\approx$1\,Gyr timescales in a way that can leave observable imprints in
+the properties of young planets (CITE theory reviews).
+Individual exemplars include V1298~Tau \citep{David_2019}, an
+adolescent resonant chain of four transiting puffy planets,
+and HIP~67522 \citep{Rizzuto_2020}, a Jupiter-sized planet with a
+Neptunian mass (CITE).
+Population-level examples include tentative differences in the size
+distribution of young vs.~old planets
+(CITEVach,CITEChristianse,CiteDavid).
 
 Discovering a young planet requires solving two problems: find the
 planet, and measure the star's age.  Each problem admits a range of
@@ -229,20 +218,6 @@ Studies of exoplanets forming in disks (CITE), and of exoplanets
 evolving shortly after disk dispersal (CITE CITE), are therefore
 capped in their maximum achievable sample sizes by the tyranny of the
 Galactic star formation rate.
-
-%While the youngest 0.1\% of stars ($\lesssim$10\,million
-%years; Myr) are perhaps the most constraining for studies of planet
-%formation, they are extremely challenging targets for close-in
-%exoplanet detection 
-%\citep[see e.g.][]{Damasso_2020,Bouma_2020_ptfo,Donati_2020}.  Studies of
-%the early orbital, structural, and atmospheric evolution of exoplanets
-%are perhaps most technically feasible for the 
-%$\approx$1\% of stars
-%with ages between 10 and 100\,Myr, or perhaps even the 10\% of stars
-%younger than 1\,Gyr.  However, since stellar ages are roughly
-%uniformly distributed in the solar neighborhood, there is a limit on
-%the sample size of young planets that will be detectable in these age
-%regimes, particularly relative to their older breathren.
 
 %TODO mention the RV approach?  at least the Hyades etc work...
 
@@ -274,37 +249,34 @@ would expect a larger fraction of the Kepler planets---perhaps 10\%,
 or 400 planets---to be younger than 1\,Gyr, based on our order of
 magnitude reasonsing.
 
-%\begin{figure}[!t]
-%	\begin{center}
-%		\leavevmode
-%		\includegraphics[width=0.49\textwidth]{f1.pdf}
-%	\end{center}
-%	\vspace{-0.6cm}
-%	\caption{
-%		{\bf Radii, orbital periods, and ages of transiting exoplanets}.
-%    Planets younger than 1\,Gyr with ages more precise than a
-%    factor of three are emphasized. 
-%    ({\bf cite relevant papers?})
-%    Parameters are from the \citet{PSCompPars}.
-%		\label{fig:rp_period_age}
-%	}
-%\end{figure}
-
-Have these young Kepler planets already been found?  If they have, 
-it would probably have been by
-\citet{Berger_2020b_rpage}, \citet{David_2021} or
-\citet{Petigura_2022}.  The \citeauthor{Berger_2020b_rpage} and
-\citeauthor{Petigura_2022} studies focused on
-isochronal age-dating of individual stars, which is most precise 
-for stars whose luminosities and temperature separate them from the
-main-sequence.  The \citeauthor{David_2021} study leveraged both isochronal
-ages from an earlier analogous study
+Have these young Kepler planets already been found?  If they have, it
+would probably have been by \citet{Berger_2020b_rpage},
+\citet{David_2021} or \citet{Petigura_2022}.  The
+\citeauthor{Berger_2020b_rpage} and \citeauthor{Petigura_2022} studies
+focused on isochronal age-dating of individual stars, which is most
+precise for stars whose luminosities and temperature separate them
+from the main-sequence.  The \citeauthor{David_2021} study leveraged
+both isochronal ages from an earlier analogous study
 \citep{Fulton_Petigura_2018_cks_vii}, and, in their core analysis, a
 relative gyrochrone age-ranking approach that sorted stars based on
 whether they rotated faster or slower than a gyrochrone age of
-$\approx$2.6\,Gyr \citep{Meibom_2015,Curtis_2020}.
-(TODO: note that there's a lot more literature on "young" field Kepler
-planets than these few sentences betray).
+$\approx$2.6\,Gyr \citep{Meibom_2015,Curtis_2020}.  (TODO: note that
+there's a lot more literature on "young" field Kepler planets than
+these few sentences betray).
+
+%     While the youngest 0.1\% of stars ($\lesssim$10\,million
+%     years; Myr) are perhaps the most constraining for studies of planet
+%     formation, they are extremely challenging targets for close-in
+%     exoplanet detection 
+%     \citep[see e.g.][]{Damasso_2020,Bouma_2020_ptfo,Donati_2020}.  Studies of
+%     the early orbital, structural, and atmospheric evolution of exoplanets
+%     are perhaps most technically feasible for the 
+%     $\approx$1\% of stars
+%     with ages between 10 and 100\,Myr, or perhaps even the 10\% of stars
+%     younger than 1\,Gyr.  However, since stellar ages are roughly
+%     uniformly distributed in the solar neighborhood, there is a limit on
+%     the sample size of young planets that will be detectable in these age
+%     regimes, particularly relative to their older breathren.
 
 %      Theoretical predictions for planet evolution in the Kepler sample are
 %      most important in the context of mini-Neptunes and super-Earths, since
@@ -400,23 +372,23 @@ planets than these few sentences betray).
 %      parameters is as high as possible.
 
 Gyrochronology offers ages precise to $\lesssim$30\% for FGK stars
-between 0.5-4\,Gyr, and can also provide useful age limits at
-earlier times \citep{Bouma_2023}.  The idea of using a star's
-spin-down as a clock is quite old
+between 0.5-4\,Gyr, and can also provide useful age limits at earlier
+times \citep{Bouma_2023}.  The idea of using a star's spin-down as a
+clock is quite old
 \citep{Skumanich_1972,Noyes_1984,Kawaler_1989,Barnes03,Mamajek_2008,Angus_2015},
 and physics-based models for the spin-down itself can clarify many
 aspects of how the stellar winds, internal structure, and magnetic
 dynamo all evolve
-\citep[e.g.][]{Matt_2015,Gallet_Bouvier_2015,Spada_2020}.  
-Today however, measurements of stellar rotation periods in open
-clusters provide the most accurate empirical calibrations of
-rotation-based ages (\citealt{Bouma_2023}, and references therein).
-This approach ultimately ties the rotation age scale to the cluster
-age scale, and is limited in precision by the intrisic scatter in the
-$P_{\rm rot}$ sequences, and in accuracy by systematic uncertainties
-in the evolving spin-down rates, and in the cluster ages themselves.
-The oldest cluster for which this method has been calibrated is
-currently M67 \citep[$\approx$4\,Gyr][]{2022ApJ...938..118D}.
+\citep[e.g.][]{Matt_2015,Gallet_Bouvier_2015,Spada_2020}.  Today
+however, measurements of stellar rotation periods in open clusters
+provide the most accurate empirical calibrations of rotation-based
+ages (\citealt{Bouma_2023}, and references therein).  This approach
+ultimately ties the rotation age scale to the cluster age scale, and
+is limited in precision by the intrisic scatter in the $P_{\rm rot}$
+sequences, and in accuracy by systematic uncertainties in the evolving
+spin-down rates, and in the cluster ages themselves.  The oldest
+cluster for which this method has been calibrated is currently M67
+\citep[$\approx$4\,Gyr][]{2022ApJ...938..118D}.
 
 Lithium ages includes two qualitatively distinct regimes: depletion
 boundary ages derived for M-dwarfs in star clusters, and the less
@@ -1059,15 +1031,26 @@ To calculate lithium ages, we use \texttt{EAGLES} (git commit
 \texttt{gyro-interp}, and was calibrated on stars observed by the
 Gaia-ESO spectroscopic survey in 52 open clusters with ages spanning 2
 to 6{,}000\,Myr \citep{Jeffries_2023}.  We adopt a linear prior in
-age, spanning $10^6$ to $10^{10.1}$\,yr, and symmetrize our EW
+age, spanning $10^6$ to $10^{10}$\,yr, and symmetrize our EW
 uncertainties for purposes of interfacing with \texttt{EAGLES} by
 taking the maximum of the measured positive and negative 1$\sigma$
 uncertainty intervals.
 Certain quality flags described in Section~\ref{subsec:flags} are also
 relevant for lithium ages, specifically those associated with
-crowding and binarity since those effects can produce both systematic
-and astrophysical biases in EW measurements.
+crowding and binarity.
+For instance, rapid rotators are more common in binaries, and they also
+generally have higher lithium abundances than slow-rotating stars of the
+same mass (CITE).
+Stars for which rotation-based age dating is dubious heavily overlap
+with those for which lithium-based ages are dubious.
 
+In part because many of our EWs are upper limits, 
+many of the lithium ages are lower limits.
+In such cases,  the inferred age posterior is strongly influenced by
+{\it i)} the assumed intrinsic dispersion in the lithium model,
+and {\it ii)} by the prior.
+For instance, 
+ we quote the 3$\sigma$ (99.7$^{\rm th}$ percentile) limits.
 
 
 \section{Results}

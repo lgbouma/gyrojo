@@ -130,11 +130,11 @@ def make_star_table(
     sdf = sdf.rename(mapdict, axis='columns')
 
     # trim out all columns except those above...
-    sdf = sdf[mapdict.values()]
+    _sdf = sdf[mapdict.values()]
 
     latexpath = join(PAPERDIR, 'table_star_gyro.tex')
     np.random.seed(42)
-    sdf.sample(n=42).to_latex(
+    _sdf.sample(n=42).to_latex(
         latexpath, index=False, na_rep='--', escape=False, formatters=formatters
     )
 
@@ -148,11 +148,8 @@ def make_star_table(
         print(f"Wrote {texpath}")
 
     csvpath = join(PAPERDIR, 'table_star_gyro.csv')
-    sdf.to_csv(csvpath, index=False)
-    #FIXME TODO should these CSV files have formatting applied???
+    _sdf.to_csv(csvpath, index=False)
     print(f'Wrote {csvpath}')
-
-    import IPython ; IPython.embed()
 
 
 if __name__ == "__main__":
