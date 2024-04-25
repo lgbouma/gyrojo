@@ -38,6 +38,13 @@ sel = select_by_quality_bits(df, [0, 4, 5], [0, 0, 0])
 N = len(df[sel])
 ulkvp('nuniqstarsantosrotteffcut', N)
 
+# Number of unique stars with finite gyro ages.  (i.e. did your gyrointerp
+# routine produce gyro ages for all stars noted above?)
+N2 = np.sum(~pd.isnull(df[sel].gyro_median))
+ulkvp('nuniqstarfinitegyroage', N2)
+assert N == N2
+
+
 # Number of unique stars with Santos+ rotation period reported, and
 # 3800<Teff<6200K (i.e. can compute a gyro age).
 
