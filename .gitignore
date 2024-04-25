@@ -52,3 +52,4 @@ gyrojo/data/raw/20240407_JUMP_kepler_lithium_sample_no_iodine_constraint.csv
 gyrojo/data/interim/kic_X_dr3_supp.csv
 gyrojo/data/interim/koi_jump_getter_koi_X_JUMP.csv
 gyrojo/data/interim/Li_EW_HIRES_koi_X_JUMP/
+paper/table_star_gyro.csv
