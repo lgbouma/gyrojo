@@ -183,18 +183,19 @@ of thousands of worlds orbiting close to their host stars
 \citep{Borucki10,2015JATIS...1a4003R}.
 Most of these exoplanets have ages comparable to that of the solar
 system.
-This fact leaves many gaps in our knowledge of what exact dynamical
-and physical processes produce these objects.
+This fact leaves many gaps in our knowledge of the exact dynamical
+and physical processes that produce these objects.
 Finding and characterizing young ($\lesssim$1\,Gyr) exoplanets offers
 one possible workaround.
 The reason is that processes such as thermal cooling, atmospheric
 loss, and dynamical instability occur over $\approx$10\,Myr to
-$\approx$1\,Gyr timescales in a way that can leave observable imprints in
+$\approx$1\,Gyr timescales, and so they can leave observable imprints in
 the properties of young planets (CITE theory reviews).
 Individual exemplars include V1298~Tau \citep{David_2019}, an
 adolescent resonant chain of four transiting puffy planets,
 and HIP~67522 \citep{Rizzuto_2020}, a Jupiter-sized planet with a
 Neptunian mass (CITE).
+% And perhaps also TOI837, now with a uber massive core!
 Population-level examples include tentative differences in the size
 distribution of young vs.~old planets
 (CITEVach,CITEChristianse,CiteDavid).
@@ -421,13 +422,13 @@ the planet sample are discussed in Section~\ref{sec:results}.
 A few conclusions are offered in Section~\ref{sec:conclusions}.
 
 
-\section{Selecting the Stellar and Planetary Samples}
+\section{Selecting the Stars and Planets}
 \label{sec:selection}
 
 \begin{figure*}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.47\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
+			\includegraphics[width=0.49\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
 		}
 %	
 %		\subfloat{
@@ -435,7 +436,7 @@ A few conclusions are offered in Section~\ref{sec:conclusions}.
 %		}
 %		\vspace{-0.5cm}
 		\subfloat{
-		\includegraphics[width=0.47\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
+		\includegraphics[width=0.49\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
 		}
 %		\subfloat{
 %			\includegraphics[width=0.5\textwidth]{st_params_dr3_phot_g_mean_mag_vs_adopted_Teff.pdf}
@@ -799,26 +800,14 @@ scatter into the precision with which the age can be inferred.
 Figure~\ref{fig:models} highlights this problem, particularly in
 regions where the 0.1-1\,Gyr stars overlap.
 
-The three main assumptions required for a rotation-based age dating
-method like \texttt{gyro-interp} to be valid are as follows.  {\it 1)}
-The target star must be near the main sequence, {\it 2)} its spindown
-must not be influenced by binary companions, and {\it 3)} the rotation
-period distribution for field stars of a given mass and age must be
-identical to that of equally aged open clusters (metallicity
-differences, for instance, are ignored).  Regarding the former two
-assumptions: pre-main-sequence contraction and post-main-sequence
-expansion influence surface stellar rotation periods in ways that we
-do not model.  Stars in e.g.~ close binaries might be subject to tidal
-effects that we do not treat.
-
 Using our adopted effective temperatures and rotation periods, we ran
 \texttt{gyro-interp} over an age grid of 0 to 4\,Gyr, linearly spaced
-over 500 grid points.  \texttt{gyro-interp} itself is calibrated
-out to 4\,Gyr, the adopted age of the M67 cluster
-\citep[see][]{2022ApJ...938..118D,Gruner_2023}.  To estimate the stellar
-spin-down rate as a function of time and stellar temperature, the
-framework interpolates between reference open clusters using smooth
-cubic hermite polynomials.  We calculate the probability of the
+over 500 grid points.  \texttt{gyro-interp} itself is calibrated out
+to 4\,Gyr, the age of M67
+\citep[see][]{2022ApJ...938..118D,Gruner_2023}.  To estimate the
+stellar spin-down rate as a function of time and stellar temperature,
+the framework interpolates between reference open clusters using
+smooth cubic hermite polynomials.  We calculate the probability of the
 rotation-based age $t_{\rm gyro}$, given the observed rotation
 periods, effective temperatures, and their uncertainties by
 integrating Equation~1 of \citet{Bouma_2023} at the default grid
@@ -844,6 +833,25 @@ binary companion \citep{Bouma_2022a}; the latter is on a grazing orbit
 gyro}$, enables selecting for or against such cases by selecting from
 the following bits.
 
+As a general philosophy, three assumptions must hold for a
+rotation-based age dating method like \texttt{gyro-interp} to be
+valid.  {\it 1)} The evolutionary state of the target star must be
+well-specified by its temperature and its age, {\it 2)} the star's
+spindown must not be influenced by binary companions, and {\it 3)} the
+rotation period distribution for field stars of a given temperature
+and age must be identical to that of equally aged open clusters
+(metallicity differences, for instance, are ignored).  A rephrasing of
+the first condition is that the star must be ``near the main
+sequence'', because during post main sequence evolution, the
+temperatures of stars change.  From $\approx$0.08 to $\approx$3\,Gyr,
+the stars of interest in this work (3800--6200\,K,
+0.5--1.2\,$M_\odot$) have temperatures constant to $\approx$1\%
+\citep{Choi_2016}.  From $\approx$3--4\,Gyr, a 1.2\,$M_\odot$ star's
+temperature drops from $\approx$6200\,K to $\approx$6000\,K
+($\approx$3\%), because its outer layers expand as it begins hydrogen
+shell burning as a subgiant.  We treat this issue in a somewhat
+convoluted manner, discussed in ``bit 9'' below.
+
 {\it Temperature range (bit 0)}---We require stars to have effective
 temperatures $T_{\rm eff}$ between 3800 and 6200\,K in order to report
 gyrochrone ages \citep{Bouma_2023}.   Stars hotter than 6200\,K spin
@@ -861,8 +869,9 @@ cross-matched against \citet{Berger_2020a_catalog}.
 {\it Absolute luminosity (bit 2)}---We calculated the absolute Gaia
 DR3 $G$-band luminosity, ignoring reddening, using the reported
 apparent $G$-band magnitude and parallaxes.  We flag stars with
-$M_{\rm G} < 3.9$, corresponding to main-sequence spectral types
-earlier than $\approx$F8V \citep{Pecaut_2013}.
+$M_{\rm G} < 3.9$ or $M_{\rm G} > 8.5$, corresponding to main-sequence
+spectral types earlier than $\approx$F8V or later than $\approx$M0.5V
+\citep{Pecaut_2013}.
 
 {\it Known eclipsing binaries (bit 3)}---We flagged any stars reported
 to be in the final Kepler eclipsing binary catalog (KEBC;
@@ -894,13 +903,13 @@ within $\Delta G$$<$$0.5$\,mag are noted using bit flag 5.
 flags known eclipsing, astrometric, and spectroscopic binaries.  We
 directly include this column.
 
-{\it RUWE (bit 7)}---We flagged stars with a Gaia DR3 renormalized
+{\it RUWE (bit 7)}---We inspected diagrams of the Gaia DR3 renormalized
 unit weight error
-(RUWE) %\footnote{\url{https://gea.esac.esa.int/archive/documentation/GDR3/Gaia_archive/chap_datamodel/sec_dm_main_source_catalogue/ssec_dm_gaia_source.html}})
-exceeding 1.4 as possible binaries.  Such astrometric outliers can be
-either bona fide astrometric binaries, or more often are marginally
-resolved point sources for which the single-source PSF model used in
-the Gaia pipeline induces spurious astrometric scatter.
+(RUWE) as a function of other stellar parameters, %\footnote{\url{https://gea.esac.esa.int/archive/documentation/GDR3/Gaia_archive/chap_datamodel/sec_dm_main_source_catalogue/ssec_dm_gaia_source.html}})
+and flag stars with RUWE$>$1.4 as possible binaries.  Such astrometric
+outliers can be either bona fide astrometric binaries, or more often
+are marginally resolved point sources for which the single-source PSF
+model used in the Gaia pipeline induces spurious astrometric scatter.
 
 {\it Crowding (bit 8)}---We searched the Gaia DR3 point source catalog
 for stars within 1 Kepler pixel (4$''$) of every target star.  While
@@ -919,22 +928,30 @@ far from the main-sequence include unresolved photometric binaries,
 and {\it ii}) effects other than magnetic braking influence the
 rotation periods of bona fide single stars far from the main-sequence.
 The added complications of reddening and metallicity make defining a
-simple cut in any two dimensions challenging.  We explored various
-options, and found that the $+1$$\sigma$ relative isochronal
-uncertainty reported by \citet{Berger_2020a_catalog}, $+\sigma_{t,{\rm
-B20,iso}}/t_{\rm B20,iso}$, reasonably separated FGK stars ``near'' and
-``far'' from the main-sequence.  We therefore selected stars with
-$t_{\rm B20,iso}/(+\sigma_{t,{\rm B20,iso}})\approx 3$, and fitted an
-an $N^{\rm th}$-order polynomial in the $\log g$-$T_{\rm eff}$ plane
-to these stars between 4100 and 5800\,K.  We let the order of the fit
-vary from $N$=1 to 10, and minimizing the Bayesian Information Criterion
-yielded $N$=6.  The resulting locus is shown in
-Figure~\ref{fig:stellarprops}.  While the details of this procedure
-are entirely arbitrary, the overall purpose is to exclude stars for
-which there is photometric evidence that gyrochronology may not be
-reliable.  The rotation period distribution of sources excluded in
-this manner includes a larger fraction of ``rapid rotators'', likely
-due to a combination of astrophysical and systematic effects.
+simple cut in any two dimensions challenging.  
+We explored various options, and settled on the orange locus in the
+$\log g$--$T_{\rm eff}$ plane shown in Figure~\ref{fig:stellarprops}.
+While the details of how exactly this locus is constructed are
+arbitrary and convoluted,\footnote{In practice, for K dwarfs we fitted an
+$N^{\rm th}$-order polynomial to the set of stars for which $t_{\rm
+B20,iso}/(+\sigma_{t,{\rm B20,iso}})\approx 3$, where
+$t_{\rm B20,iso}$ was the isochronal age reported by
+\citet{Berger_2020a_catalog}. We let the order of the fit vary from
+$N$=1 to 10, minimized the Bayesian Information Criterion,
+and found $N$=6.  For F and G dwarfs, this procedure failed to produce
+a reasonable locus because of shifts in the relative precision of
+the isochrone ages.  We therefore visually selected KOIs that appeared
+to be near the ``main sequence'', fitted a separate polynomial to
+their locations, and then stitched the resulting polynomials from the
+F and G dwarfs to that of the K dwarfs.} the general 
+aim is to exclude stars for which there is photometric evidence
+that gyrochronology may not be reliable.  The rotation period
+distribution of sources excluded in this manner includes a relatively
+larger fraction of ``rapid rotators'' than the main sequence sources,
+likely due to a combination of astrophysical and systematic effects.
+See for instance Figure~8a of \citet{2022AJ....164..137K} or Figures~12 and 13
+of \citet{2023ApJS..268....4F}.
+
 
 {\it Candidate pulsators and close-in binaries (bit
 10)}---\citeauthor{Santos_2021} included in a flag for candidate
@@ -946,8 +963,9 @@ majority of $\lesssim$5\,day bona fide young planets.  While we
 propagate this flag into our set of quality flags, we therefore
 generally ignore it.
 
+{\it How do we use the bit-flags?)}
 An important decision for our subsequent analysis is how to combine
-the above flags in order to decide whether or not a star is suited for
+the above quality indicators in order to decide whether or not a star is suited for
 gyrochronology.  By default, we assume that a star is suitable for
 gyrochronology if none of bits zero through nine (inclusive) are
 raised.
@@ -965,8 +983,8 @@ the quality of a planet, $Q_{\rm planet}$.
 ``planet candidates'' and ``confirmed planets''.
 
 {\it Candidate S/N (bit 1)}---the false positive rate increases
-greatly toward Kepler's noise floor for planet detection (CITE).  We
-required a S/N in excess of the usual floor, through a cut on the
+greatly toward the noise floor for planet detection in any transit survey \citep[e.g.][]{2002ApJ...564..495J}.  We
+required a S/N in excess of Kepler's usual 7.1$\sigma$ floor, through a cut on the
 ``multiple event statistic'' (MES): we required ${\rm MES}$$>$10.
 
 {\it Grazing planets (bit 2)}---grazing objects ($b$>0.8) often
@@ -1010,8 +1028,8 @@ rotation-based ages orbiting
 (\nplhoststarwgyroagejusthighruwe\ of these stars with ``high'' RUWE).
 If we additionally require the planets to be non-grazing ($b<0.8$)
 based on the Markov Chain Monte Carlo (MCMC) fits from
-\citet{Thompson_2018}, we are left with \nplwgyroagenograzing\ and
-\nplhoststarwgyroagenograzing\ planets and stars, respectively.
+\citet{Thompson_2018}, we are left with \nplwgyroagenograzing\ planets and
+\nplhoststarwgyroagenograzing\ stars, respectively.
 
 
 
