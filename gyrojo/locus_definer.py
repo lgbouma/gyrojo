@@ -130,8 +130,11 @@ def evaluate_models(data, max_degree):
 
         # Plot the data and the fitted polynomial
         plt.figure(figsize=(10, 6))
-        plt.scatter(data['adopted_Teff'], data['adopted_logg'], s=10, label='Data Points')
-        plt.plot(np.sort(data['adopted_Teff']), p(np.sort(data['adopted_Teff'])), color='red', label=f'Polynomial Degree {N}')
+        plt.scatter(data['adopted_Teff'], data['adopted_logg'], s=10,
+                    label='Data Points')
+        plt.plot(np.sort(data['adopted_Teff']),
+                 p(np.sort(data['adopted_Teff'])), color='red',
+                 label=f'Polynomial Degree {N}')
         plt.xlabel('Adopted_Teff')
         plt.ylabel('Adopted_logg')
         plt.title(f'Polynomial Degree {N} Fit')
@@ -145,17 +148,21 @@ def evaluate_models(data, max_degree):
     return pd.DataFrame(results)
 
 
-def constrained_polynomial_function(temperatures, coeffs):
+def constrained_polynomial_function(temperatures, coeffs, selfn=None):
     """
-    Vectorized function to evaluate the constrained polynomial function over an array of temperatures.
+    Vectorized function to evaluate the constrained polynomial function over an
+    array of temperatures.
 
     Args:
-        temperatures (np.ndarray): Array of temperature values where the logg should be evaluated.
+        temperatures (np.ndarray): Array of temperature values where the logg
+        should be evaluated.
+
         coeffs (np.ndarray): Coefficients of the polynomial.
 
     Returns:
         np.ndarray: Array of logg values with constraints applied.
     """
+    assert selfn in ['simple', 'complex', 'manual']
 
     if isinstance(temperatures, float):
         temperatures = np.array([temperatures])
@@ -163,25 +170,36 @@ def constrained_polynomial_function(temperatures, coeffs):
     # Calculate polynomial values
     poly_vals = np.polyval(coeffs, temperatures)
 
-    # Apply the floor of 4.25 to logg values
-    logg_vals = np.maximum(poly_vals, 4.25)
+    logg_vals = poly_vals*1.
 
-    logg_vals = np.where(
-        (temperatures > 5800),
-        4.25,
-        logg_vals
-    )
+    if selfn  in ['simple','complex']:
+        # Apply the floor of 4.25 to logg values
+        logg_vals = np.maximum(poly_vals, 4.25)
 
-    logg_vals = np.where(
-        (temperatures < 3800) | (temperatures > 6200),
-        np.nan,  # Replace 'None' with 'np.nan' for array operations
-        logg_vals
-    )
-
-    if len(temperatures[(temperatures > 3800) & (temperatures < 4100)]) > 0:
         logg_vals = np.where(
-            (temperatures > 3800) & (temperatures < 4100),
-            np.min(logg_vals[(temperatures > 3800) & (temperatures < 4200)]),
+            (temperatures > 5800),
+            4.25,
+            logg_vals
+        )
+
+        logg_vals = np.where(
+            (temperatures < 3800) | (temperatures > 6200),
+            np.nan,  # Replace 'None' with 'np.nan' for array operations
+            logg_vals
+        )
+
+        if len(temperatures[(temperatures > 3800) & (temperatures < 4100)]) > 0:
+            logg_vals = np.where(
+                (temperatures > 3800) & (temperatures < 4100),
+                np.min(logg_vals[(temperatures > 3800) & (temperatures < 4200)]),
+                logg_vals
+            )
+
+    else:
+
+        logg_vals = np.where(
+            (temperatures < 3800) | (temperatures > 6200),
+            np.nan,  # Replace 'None' with 'np.nan' for array operations
             logg_vals
         )
 
