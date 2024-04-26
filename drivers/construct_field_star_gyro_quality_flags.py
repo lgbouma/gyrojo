@@ -69,7 +69,7 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240405'):
 
     df['flag_logg'] = df['adopted_logg'] < 4.2
 
-    df['flag_dr3_M_G'] = df['M_G'] < 3.9
+    df['flag_dr3_M_G'] = (df['M_G'] < 3.9) | (df['M_G'] > 8.5)
 
     if sample == 'gyro':
         df['flag_is_CP_CB'] = ~(
@@ -153,37 +153,33 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240405'):
     # RELATIVE AGE FLAG #
     #####################
     from gyrojo.locus_definer import constrained_polynomial_function
-    csvpath = join(DATADIR, "interim", "logg_teff_locus_coeffs.csv")
+    # made by tests/test_logg_teff_locus.py ; if you want to redefine this
+    # particular quality flag, you need to rerun that rescript.
+    selfn = 'manual'
+    csvpath = join(DATADIR, "interim", f"logg_teff_locus_coeffs_{selfn}.csv")
     coeffs = pd.read_csv(csvpath).values.flatten()
-    logg_locus = constrained_polynomial_function(nparr(df['adopted_Teff']), coeffs)
-    df['flag_farfrommainsequence'] = df['adopted_logg'] < logg_locus
+    _teff = nparr(df['adopted_Teff'])
+    logg_locus = constrained_polynomial_function(
+        _teff, coeffs, selfn=selfn
+    )
+    if selfn in ['simple', 'complex']:
+        df['flag_farfrommainsequence'] = df['adopted_logg'] < logg_locus
+    elif selfn == 'manual':
+        # the logic behind this line is mixed.  it's basically "iso age
+        # precision no better than a factor of three below around ~5400K, and
+        # just not too far from where most KOIs are above it".
+        csvpath = join(DATADIR, "interim", f"logg_teff_locus_coeffs_simple.csv")
+        _coeffs = pd.read_csv(csvpath).values.flatten()
+        _y = constrained_polynomial_function(_teff, _coeffs, selfn='simple')
+        p = constrained_polynomial_function(_teff, coeffs, selfn=selfn)
+        _y0 = p - 0.12
+        # 'top'
+        y0 = np.maximum(_y, _y0)
+        df['flag_farfrommainsequence'] = df['adopted_logg'] < y0
 
+    # calculate for ater
     df['b20t2_rel_E_Age'] = np.abs(df['b20t2_E_Age'])/df['b20t2_Age']
     df['b20t2_rel_e_Age'] = np.abs(df['b20t2_e_Age'])/df['b20t2_Age']
-    # DEPRECATED:
-    # df['b20t2_max_rel_Age'] = np.maximum(df['b20t2_rel_E_Age'], df['b20t2_rel_e_Age'])
-    # df['flag_b20t2_rel_E_Age'] = df['b20t2_rel_E_Age'] < 0.4
-
-    #    DEPRECATED::
-    #    #############
-    #    # CAMD flag #
-    #    #############
-    #    
-    #    #TODO: need CAMD flag constructed via Green19 map
-    #    # this is a hacky selection in M_G vs (BP-RP), no extinction.  made in
-    #    # "session_{datestr}_phot_single_selection_and_other_fun_subsets.glu"
-    #    # and 20240405 is just a copy of 20230529
-    #    
-    #    manual_path = join(
-    #        RESULTSDIR,
-    #        "glue_interactive_viz",
-    #        f"field_gyro_posteriors_{datestr}_GDR3_S19_S21_B20_phot_single.csv"
-    #    )
-    #    manual_phot_single_df = pd.read_csv(manual_path, dtype={'KIC':str})
-    #    
-    #    df['KIC'] = df.KIC.astype(str)
-    #    
-    #    df['flag_camd_outlier'] = ~(df.KIC.isin(manual_phot_single_df.KIC))
 
     ################################
     # finally, is gyro applicable? #
