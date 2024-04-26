@@ -1942,11 +1942,49 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
 
     if ykey == 'adopted_logg' and xkey == 'adopted_Teff':
         from gyrojo.locus_definer import constrained_polynomial_function
-        csvpath = join(DATADIR, "interim", "logg_teff_locus_coeffs.csv")
+        selfn = 'manual'
+        csvpath = join(DATADIR, "interim", f"logg_teff_locus_coeffs_{selfn}.csv")
         coeffs = pd.read_csv(csvpath).values.flatten()
         _teff = np.linspace(3801,6199,1000)
-        ax.plot(_teff, constrained_polynomial_function(_teff, coeffs),
-                zorder=5, c='C1', lw=0.5)
+        if selfn in ['simple', 'complex']:
+            ax.plot(_teff, constrained_polynomial_function(_teff, coeffs),
+                    zorder=5, c='C1', lw=0.5)
+        elif selfn == 'manual':
+            csvpath = join(DATADIR, "interim", f"logg_teff_locus_coeffs_simple.csv")
+            _coeffs = pd.read_csv(csvpath).values.flatten()
+            _y = constrained_polynomial_function(_teff, _coeffs, selfn='simple')
+            p = constrained_polynomial_function(_teff, coeffs, selfn=selfn)
+            # 'top'
+            _y0 = p - 0.12
+            y0 = np.maximum(_y, _y0)
+            # 'bottom'
+            y1 = p + 0.1
+            ax.plot(_teff, y0, zorder=5, c='C1', lw=0.5)
+           # ax.plot(_teff, y1, zorder=5, c='C1', lw=0.5)
+            ax.plot(_teff, p, zorder=5, c='C1', lw=0.2, alpha=0.3)
+
+            # 4 gyr isochrone, MIST v1.2 with rotation
+            #colors = ['cyan', 'hotpink', 'lime', 'magenta']
+            colors = plt.cm.Spectral(np.linspace(0, 1, 4))
+            csvnames = ["MIST_iso_662b04a781d06_3gyr.iso.cmd",
+                        "MIST_iso_662b02fe7d746_4gyr.iso.cmd",
+                        "MIST_iso_662b0653ce559_5gyr.iso.cmd",
+                        "MIST_iso_662b0684a43eb_6gyr.iso.cmd"]
+            csvpaths = [join(DATADIR, "literature", n) for n in csvnames]
+            for ix, (csvpath, c) in enumerate(zip(csvpaths, colors)):
+                mistdf = pd.read_csv(csvpath, delim_whitespace=True, comment='#')
+                mist_teff = 10**mistdf.log_Teff
+                mist_logg = mistdf.log_g
+                ax.plot(mist_teff, mist_logg, zorder=5, c=c, lw=0.2, alpha=1)
+                bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
+                if ix == 0:
+                    ax.text(6400, 4.15, '3 Gyr', ha='right', va='center',
+                            fontsize='small', bbox=bbox, zorder=49, color=c)
+                elif ix == 3:
+                    ax.text(5950, 4.15, '6 Gyr', ha='left', va='center',
+                            fontsize='small', bbox=bbox, zorder=49, color=c)
+
+
         #print(constrained_polynomial_function(np.array([5070]), coeffs))
 
     if xkey == 'dr3_bp_rp':
@@ -1961,7 +1999,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
         ylim = [15.5, -3.5]
     elif ykey == 'adopted_logg':
         ylabel = '$(\log g)_\mathrm{adopted}$ [dex]'
-        ylim = [5.5, 3.0]
+        ylim = [5.5, 3.4]
     elif ykey == 'dr3_phot_g_mean_mag':
         ylabel = '$G$ [mag]'
         ylim = [21, 5]
@@ -1984,7 +2022,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
         handletextpad=0.1, borderaxespad=0.5, borderpad=0.5
     )
 
-    ax.grid(linestyle=':', linewidth=0.5, color='gray', alpha=0.7, zorder=-1)
+    #ax.grid(linestyle=':', linewidth=0.5, color='gray', alpha=0.7, zorder=-1)
 
     # set naming options
     s = f'_{ykey}_vs_{xkey}'
