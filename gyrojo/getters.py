@@ -310,8 +310,9 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
 
         # For "allageinfo", you want the "flag_is_ok_planetcand" KOIs, with any
         # available rotation-based or lithium-based age information.
+        # (i.e. no cuts on whether or not gyro is ok).
 
-        skic_df = kic_df[sel]
+        skic_df = kic_df
         # gyro-applicable stars
         rot_df = skoi_df.merge(skic_df, how='inner', left_on='kepid',
                                right_on='KIC', suffixes=('','_KIC'))

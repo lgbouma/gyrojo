@@ -4,7 +4,7 @@ _1_ Run the KOI lithium analysis
 _2_ Build everything needed for the manuscript
 
 Deprecated:
-_X_ (Deprecated) Run the KOI gyrochronology analysis
+_X_ (Deprecated) Run the "KOI only" gyrochronology analysis
 _Y_ (Deprecated) Multiply the gyro and lithium age posteriors
 
 --------------------
