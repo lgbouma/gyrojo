@@ -484,6 +484,7 @@ def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
     ).reshape((2, len(li_ew[det])))
 
     if not nodata:
+        N_det = len(Teffs[det])
         ax.errorbar(
             Teffs[det], li_ew[det], #xerr=Teff_errs,
             yerr=yerr,
@@ -491,11 +492,14 @@ def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
             markersize=1, zorder=5
         )
 
+        N_upperlim = len(Teffs[upperlim])
         ax.scatter(
             Teffs[upperlim], li_ew_upper_lims,
             marker='$\downarrow$', s=2, color='k', zorder=4,
             linewidths=0
         )
+        print(f"N_det: {N_det}")
+        print(f"N_upperlim: {N_upperlim}")
 
     if not show_dispersionpoints:
         leg = ax.legend(loc='upper right', handletextpad=0.3, fontsize='small',
@@ -1941,6 +1945,17 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
         )
 
     if ykey == 'adopted_logg' and xkey == 'adopted_Teff':
+        xerr = dfs[2].adopted_Teff_err.mean()
+        yerr = dfs[2].adopted_logg_err.mean()
+        ax.errorbar(
+            3500, 4.2, xerr=xerr, yerr=yerr,
+            marker='o', elinewidth=0.8, capsize=1.2, lw=0, mew=0.5, color='k',
+            markersize=0, zorder=5, alpha=1
+        )
+        bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
+        ax.text(3500, 4.27, 'mean\nuncert.', ha='center', va='top',
+                fontsize='x-small', bbox=bbox, zorder=49, color='k')
+
         from gyrojo.locus_definer import constrained_polynomial_function
         selfn = 'manual'
         csvpath = join(DATADIR, "interim", f"logg_teff_locus_coeffs_{selfn}.csv")
@@ -1963,26 +1978,26 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
            # ax.plot(_teff, y1, zorder=5, c='C1', lw=0.5)
             ax.plot(_teff, p, zorder=5, c='C1', lw=0.2, alpha=0.3)
 
-            # 4 gyr isochrone, MIST v1.2 with rotation
-            #colors = ['cyan', 'hotpink', 'lime', 'magenta']
-            colors = plt.cm.Spectral(np.linspace(0, 1, 4))
-            csvnames = ["MIST_iso_662b04a781d06_3gyr.iso.cmd",
-                        "MIST_iso_662b02fe7d746_4gyr.iso.cmd",
-                        "MIST_iso_662b0653ce559_5gyr.iso.cmd",
-                        "MIST_iso_662b0684a43eb_6gyr.iso.cmd"]
-            csvpaths = [join(DATADIR, "literature", n) for n in csvnames]
-            for ix, (csvpath, c) in enumerate(zip(csvpaths, colors)):
-                mistdf = pd.read_csv(csvpath, delim_whitespace=True, comment='#')
-                mist_teff = 10**mistdf.log_Teff
-                mist_logg = mistdf.log_g
-                ax.plot(mist_teff, mist_logg, zorder=5, c=c, lw=0.2, alpha=1)
-                bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
-                if ix == 0:
-                    ax.text(6400, 4.15, '3 Gyr', ha='right', va='center',
-                            fontsize='small', bbox=bbox, zorder=49, color=c)
-                elif ix == 3:
-                    ax.text(5950, 4.15, '6 Gyr', ha='left', va='center',
-                            fontsize='small', bbox=bbox, zorder=49, color=c)
+        # overplot isochrones: MIST v1.2 with rotation
+        #colors = ['cyan', 'hotpink', 'lime', 'magenta']
+        colors = plt.cm.Spectral(np.linspace(0, 1, 4))
+        csvnames = ["MIST_iso_662b04a781d06_3gyr.iso.cmd",
+                    "MIST_iso_662b02fe7d746_4gyr.iso.cmd",
+                    "MIST_iso_662b0653ce559_5gyr.iso.cmd",
+                    "MIST_iso_662b0684a43eb_6gyr.iso.cmd"]
+        csvpaths = [join(DATADIR, "literature", n) for n in csvnames]
+        for ix, (csvpath, c) in enumerate(zip(csvpaths, colors)):
+            mistdf = pd.read_csv(csvpath, delim_whitespace=True, comment='#')
+            mist_teff = 10**mistdf.log_Teff
+            mist_logg = mistdf.log_g
+            ax.plot(mist_teff, mist_logg, zorder=5, c=c, lw=0.2, alpha=1)
+            bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
+            if ix == 0:
+                ax.text(6400, 4.15, '3 Gyr', ha='right', va='center',
+                        fontsize='small', bbox=bbox, zorder=49, color=c)
+            elif ix == 3:
+                ax.text(5950, 4.15, '6 Gyr', ha='left', va='center',
+                        fontsize='small', bbox=bbox, zorder=49, color=c)
 
 
         #print(constrained_polynomial_function(np.array([5070]), coeffs))
@@ -1991,15 +2006,15 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
         xlabel = '$G_\mathrm{BP}-G_{\mathrm{RP}}$ [mag]'
         xlim = [0.1, 4.05]
     elif xkey == 'adopted_Teff':
-        xlabel = '$T_\mathrm{eff,adopted}$ [K]'
+        xlabel = '$T_\mathrm{eff}$ [K]'
         xlim = [7500, 2500]
 
     if ykey == 'M_G':
         ylabel = '$M_\mathrm{G}$ [mag]'
         ylim = [15.5, -3.5]
     elif ykey == 'adopted_logg':
-        ylabel = '$(\log g)_\mathrm{adopted}$ [dex]'
-        ylim = [5.5, 3.4]
+        ylabel = '$\log g$ [dex]'
+        ylim = [5.4, 3.4]
     elif ykey == 'dr3_phot_g_mean_mag':
         ylabel = '$G$ [mag]'
         ylim = [21, 5]
@@ -2012,6 +2027,8 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
     })
     if ykey == 'M_G':
         ax.set_yticks([15, 10, 5, 0])
+    elif ykey == 'adopted_logg':
+        ax.set_yticks([5, 4.5, 4, 3.5])
 
     ax.legend(
         loc='lower left', fontsize='x-small',
