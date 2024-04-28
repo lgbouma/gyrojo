@@ -26,6 +26,55 @@ COMMENTDICT = {
     'K00775.03': 'Theia-520',
 }
 
+import numpy as np
+import pandas as pd
+
+def are_values_consistent(t_gyro, t_gyro_err_pos, t_gyro_err_neg, t_li,
+                          t_li_err_pos, t_li_err_neg, spec, t_li_orig, teff):
+    if int(spec) == 0:
+        return "--"
+    elif ((t_li != '--') and (not ">" in str(t_li_orig))) and t_gyro == "--":
+        # finite two-sided t_Li and no gyro shouldn't happen
+        if int(teff) >= 3800 and int(teff) <= 6200:
+            return "No"
+        else:
+            return "--"
+    elif str(t_li).startswith(">") and t_gyro != '--':
+        t_li_limit = float(str(t_li)[2:])
+        t_gyro_upper = t_gyro + t_gyro_err_pos
+        if t_li_limit <= t_gyro_upper:
+            return "Yes"
+        elif t_li_limit <= t_gyro_upper + 2 * t_gyro_err_pos:
+            return "Maybe"
+        else:
+            return "No"
+    elif not pd.isna(t_gyro) and t_gyro != '--' and not pd.isna(t_li) and t_li != "--":
+        t_gyro_lower = float(t_gyro) - float(t_gyro_err_neg)
+        t_gyro_upper = float(t_gyro) + float(t_gyro_err_pos)
+        t_li_lower = float(str(t_li).split("^")[0]) - t_li_err_neg
+        t_li_upper = float(str(t_li).split("^")[0]) + t_li_err_pos
+        combined_err = np.sqrt(t_gyro_err_pos**2 + t_li_err_pos**2)
+        if (t_li_lower <= t_gyro_upper) and (t_gyro_lower <= t_li_upper):
+            return "Yes"
+        elif (abs(float(str(t_li).split("^")[0]) - t_gyro) <= 3 * combined_err):
+            return "Maybe"
+        else:
+            return "No"
+    else:
+        return "--"
+
+def extract_value_and_error(value):
+    value = str(value).replace("$", "").replace("{", "").replace("}", "")
+    if pd.isna(value) or value == "--" or str(value).startswith(">"):
+        return value, np.nan, np.nan
+    else:
+        parts = value.split("^")
+        main_value = float(parts[0].split("_")[0])
+        error_pos = float(parts[1].split("_")[0].replace("+", ""))
+        error_neg = float(parts[1].split("_")[1].replace("-", ""))
+        return main_value, error_pos, error_neg
+
+
 def make_table(
     # ...with age results
     drop_highruwe = 1,
@@ -75,7 +124,8 @@ def make_table(
         "li_median,li_+1sigma,li_-1sigma,li_eagles_limlo,li_eagles_limlo_formatted,"
         "li_eagles_limlo_forsort,"
         "adopted_rp,adopted_period,"
-        "flag_dr3_ruwe_outlier,flag_koi_is_grazing,flag_gyro_quality,flag_planet_quality,has_hires"
+        "flag_dr3_ruwe_outlier,flag_koi_is_grazing,flag_gyro_quality,"
+        "flag_planet_quality,has_hires"
     ).split(",")
     pdf = df[selcols].sort_values(
         by=['koi_disposition','min_age','li_eagles_limlo_forsort','kepler_name','kepoi_name'],
@@ -178,6 +228,7 @@ def make_table(
         "Li_EW": "Li_EW",
         "t_gyro": r"$t_{\rm gyro}$",
         "t_li": r"$t_{\rm Li}$",
+        'are_gyro_and_li_consistent': 'are_gyro_and_li_consistent',
         "adopted_rp": r"$R_{\rm p}$",
         "adopted_period": r"$P$",
         #"flag_dr3_ruwe_outlier": r"$f_{\rm RUWE}$",
@@ -198,6 +249,22 @@ def make_table(
     invdict = {v:k for k,v in mapdict.items()}
 
     pdf = pdf.rename(mapdict, axis='columns')
+
+    pdf[['_t_gyro', '_t_gyro_err_pos', '_t_gyro_err_neg']] = (
+        pdf[r'$t_{\rm gyro}$'].apply(lambda x: pd.Series(extract_value_and_error(x)))
+    )
+    pdf[['_t_li', '_t_li_err_pos', '_t_li_err_neg']] = (
+        pdf[r'$t_{\rm Li}$'].apply(lambda x: pd.Series(extract_value_and_error(x)))
+    )
+    pdf['are_gyro_and_li_consistent'] = pdf.apply(lambda row: are_values_consistent(
+        row['_t_gyro'], row['_t_gyro_err_pos'], row['_t_gyro_err_neg'],
+        row['_t_li'], row['_t_li_err_pos'], row['_t_li_err_neg'],
+        row['Spec?'], row[r"$t_{\rm Li}$"], row[r"$T_{\rm eff}$"]), axis=1
+    )
+
+    pdf = pdf.drop(columns=['_t_gyro', '_t_gyro_err_pos', '_t_gyro_err_neg'])
+    pdf = pdf.drop(columns=['_t_li', '_t_li_err_pos', '_t_li_err_neg'])
+
 
     if SELECT_YOUNG:
         sel = (pdf.koi_disposition == 'CONFIRMED')
