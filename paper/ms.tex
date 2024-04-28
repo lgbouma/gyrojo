@@ -1084,13 +1084,22 @@ For instance,
 	\vspace{-0.6cm}
 	\caption{
 		{\bf Kepler's demographic cliff,} visible in the
-		rotation-derived age distribution of stars (left) and planet hosts
+		rotation-derived ages of stars (left) and planet hosts
 		(right) in the Kepler field.
-		The
-		light gray histogram does not impose any requires on factors such as
-		binarity, crowding, or the star's evolutionary state;
-		the age calculation was more likely to be valid for stars that meet the criteria
-		discussed in Section~\ref{subsec:flags} (black).
+		The 
+		light gray histograms correspond to all
+		\nuniqstarsantosrotteffcut\
+		$T_{\rm eff}\in[3800,6200]\,$K Kepler stars with reported
+		rotation periods, and all 
+		\nplhoststarwgyroage\ planet-hosting stars with reported
+		rotation periods.
+		The black histograms impose necessary quality cuts
+		on factors such as
+		binarity, crowding, and the star's evolutionary state
+		( Section~\ref{subsec:flags}).
+		In detail, these ``histograms'' are resampled from the posterior
+		probability distributions.
+		{\bf todo: numbers dont match.  why?}
 		\label{fig:hist_tgyro}
 	}
 \end{figure*}
