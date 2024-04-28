@@ -1071,11 +1071,12 @@ def plot_process_koi_li_posteriors(outdir, cache_id, sampleid, li_method='eagles
 
 
 
-def plot_age_comparison(outdir, logscale=1, iso_v_gyroli=0, ratio_v_gyroli=0,
+def plot_age_comparison(outdir, logscale=1, iso_v_gyro=0, ratio_v_gyro=0,
                         hist_age_unc_ratio=0):
 
     # get data
-    df = get_joint_results(COMPARE_AGE_UNCS=1)
+    df = get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=1,
+                         grazing_is_ok=0, drop_highruwe=1)
 
     # plot all stars
     plt.close("all")
@@ -1088,7 +1089,7 @@ def plot_age_comparison(outdir, logscale=1, iso_v_gyroli=0, ratio_v_gyroli=0,
         (~pd.isnull(df['P22S_age-iso']))
     )
 
-    if iso_v_gyroli:
+    if iso_v_gyro:
 
         ax.errorbar(
             1e6*df.loc[sel, 'adopted_age_median'], 1e9*df.loc[sel, 'P22S_age-iso'],
@@ -1105,7 +1106,7 @@ def plot_age_comparison(outdir, logscale=1, iso_v_gyroli=0, ratio_v_gyroli=0,
             zorder=-2, lw=2
         )
 
-    if ratio_v_gyroli:
+    if ratio_v_gyro:
 
         ax.errorbar(
             1e6*df.loc[sel, 'adopted_age_median'],
@@ -1122,18 +1123,31 @@ def plot_age_comparison(outdir, logscale=1, iso_v_gyroli=0, ratio_v_gyroli=0,
 
     if hist_age_unc_ratio:
 
-        gyroli_m1sig = np.abs(1e6*df.loc[sel, 'adopted_age_-1sigma'])
-        gyroli_p1sig = 1e6*df.loc[sel, 'adopted_age_+1sigma']
+        gyro_m1sig = np.abs(1e6*df.loc[sel, 'adopted_age_-1sigma'])
+        gyro_p1sig = 1e6*df.loc[sel, 'adopted_age_+1sigma']
+        gyro_med = 1e6*df.loc[sel, 'adopted_age_median']
+
+        gyro_p1rel = gyro_p1sig / gyro_med
+        gyro_m1rel = gyro_m1sig / gyro_med
+
+        gyro_p1sig[gyro_p1rel<0.1] = 0.1*gyro_med
+        gyro_m1sig[gyro_m1rel<0.1] = 0.1*gyro_med
+
         iso_m1sig = np.abs(1e9*df.loc[sel, 'P22S_e_age-iso'])
         iso_p1sig = 1e9*df.loc[sel, 'P22S_E_age-iso']
 
-        iso_gyroli_p1sig_ratio = iso_p1sig / gyroli_p1sig
-        iso_gyroli_m1sig_ratio = iso_m1sig / gyroli_m1sig
+        iso_gyro_p1sig_ratio = iso_p1sig / gyro_p1sig
+        iso_gyro_m1sig_ratio = iso_m1sig / gyro_m1sig
+        print(42*'-')
+        print(iso_gyro_p1sig_ratio.describe())
+        print(iso_gyro_m1sig_ratio.describe())
+        print(42*'-')
 
-        bins = np.logspace(-1.5,3,10)
-        ax.hist(iso_gyroli_p1sig_ratio, bins=bins, color='C0', alpha=0.5,
+        #bins = np.logspace(-1.5,3,10)
+        bins = np.logspace(-1.5,3,19)
+        ax.hist(iso_gyro_p1sig_ratio, bins=bins, color='C0', alpha=0.5,
                 density=False, histtype='step')
-        ax.hist(iso_gyroli_m1sig_ratio, bins=bins, color='C1', alpha=0.5,
+        ax.hist(iso_gyro_m1sig_ratio, bins=bins, color='C1', alpha=0.5,
                 density=False, histtype='step')
 
 
@@ -1143,9 +1157,9 @@ def plot_age_comparison(outdir, logscale=1, iso_v_gyroli=0, ratio_v_gyroli=0,
         "$N_\mathrm{p}$ = " + f"{n_pl}\n"
         "$N_\mathrm{s}$ = " + f"{n_st}"
     )
-    if iso_v_gyroli:
+    if iso_v_gyro:
         xloc, yloc, va, ha = 0.97, 0.03, 'bottom', 'right'
-    if ratio_v_gyroli:
+    if ratio_v_gyro:
         xloc, yloc, va, ha = 0.97, 0.97, 'top', 'right'
     if hist_age_unc_ratio:
         xloc, yloc, va, ha = 0.05, 0.97, 'top', 'left'
@@ -1158,31 +1172,36 @@ def plot_age_comparison(outdir, logscale=1, iso_v_gyroli=0, ratio_v_gyroli=0,
         ax.text(0.97, 0.92, '-1σ', transform=ax.transAxes, ha='right',
                 va='top', color='C1')
 
-    if iso_v_gyroli:
-        ax.set_xlabel("Age Gyro+Li [yr]")
-        ax.set_ylabel("Age Iso [yr] (Petigura+22)")
-    if ratio_v_gyroli:
-        ax.set_xlabel("Age Gyro+Li [yr]")
-        ax.set_ylabel("Age Iso / Age Gyro+Li")
+    if iso_v_gyro:
+        ax.set_xlabel("Rotation Age [years]")
+        ax.set_ylabel("P+22 Isochrone Age [years]")
+    if ratio_v_gyro:
+        ax.set_xlabel("Rotation Age [years]")
+        ax.set_ylabel("(P+22 Isochrone Age)/(Rotation Age)")
     if hist_age_unc_ratio:
-        ax.set_xlabel(r"σ$_{\rm Iso}^{\rm Petigura\!+\!\!22}$ / σ$_{\rm Gyro+Li}^{\rm This\ Work}$")
+        ax.set_xlabel(r"Age Precision Gain, σ$_{\rm Iso}^{\rm P\!+\!\!22}$ / σ$_{\rm Rotn}^{\rm This\ Work}$")
         ax.set_ylabel("Count")
 
     if logscale:
         ax.set_xscale("log")
         ax.set_yscale("log")
 
-    if iso_v_gyroli:
+    if iso_v_gyro and logscale:
         ax.set_xlim([3e7, 20e9])
         ax.set_ylim([3e7, 20e9])
+
+    if iso_v_gyro and not logscale:
+        ax.set_xlim([0, 10e9])
+        ax.set_ylim([0, 10e9])
+
 
     s = ''
     if logscale:
         s += '_logscale'
-    if iso_v_gyroli:
-        s += '_iso_v_gyroli'
-    if ratio_v_gyroli:
-        s += '_ratio_v_gyroli'
+    if iso_v_gyro:
+        s += '_iso_v_gyro'
+    if ratio_v_gyro:
+        s += '_ratio_v_gyro'
     if hist_age_unc_ratio:
         s += '_hist_age_unc_ratio'
 
