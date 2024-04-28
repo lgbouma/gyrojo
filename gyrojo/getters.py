@@ -480,12 +480,12 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
         a_rp_err1 = df['E_Rp']
         a_rp_err2 = df['e_Rp']
 
-
     else:
         # just the KOI radii.  crappy uncertainties.
         a_rp = df['koi_prad']
         a_rp_err1 = df['koi_prad_err1'] # upper
         a_rp_err2 = np.abs(df['koi_prad_err2']) # lower
+
 
     if GET_BESTGUESS_RADII and COMPARE_AGE_UNCS:
 
@@ -507,7 +507,6 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
         mdf = df.merge(pdf, how='left', on='kepoi_number_str')
 
         return mdf
-
 
     a_period = df['koi_period']
 
@@ -542,6 +541,11 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
 
     df['adopted_rp'] = a_rp
     df['adopted_period'] = a_period
+
+    df.loc[df.kepoi_name=='K07368.01','adopted_rp'] = 2.22 # source: me, 2022b
+    df.loc[df.kepoi_name=='K05245.01','adopted_rp'] = 3.789 # source: me, 2022a
+
+    assert df.adopted_rp.isna().sum() == 0
 
     return df, paramdict, st_ages
 
