@@ -135,42 +135,34 @@
   rates and lithium content of FGK stars evolve during the first few
   billion years of their lives.
   %
-  Here we apply this knowledge to stars observed by the
-  primary Kepler mission, and calculate the implied rotation and
-  lithium-based ages.
+  Here we apply this knowledge to stars observed by the primary Kepler
+  mission to calculate rotation and lithium-based ages.
   %
   Rotation periods are drawn from previous Kepler analyses; lithium is
   measured from new and archival HIRES spectra.
   %
   We report rotation-based ages for \nuniqstarsantosrotgyroappl\ stars
   and \nplwgyroagenograzing\ planets for which we believe
-  gyrochronology is valid.
+  gyrochronology is valid;
+  these rotation-based ages are $\approx$15-20$\times$ more precise
+  than isochrone-based ages for our sample of FGK stars.
   %
-  The independent lithium ages show X,Y,Z, though they are subject to
-  their own systematic issues.
+  The independent lithium ages are consistent for XX\% of cases;
+  however this method is less precise than rotation-based age dating
+  for most of our sample.
   %
-  The relative statistical precisions from rotation, $\sigma_{t_{\rm
-  gyro}} / t_{\rm gyro}$, are XX +YY -ZZ\%, which is X.X +Y.Y -Z.Z more
-  statistically precise than isochronal ages for the same stars, and
-  $\approx$X.X times less precise than cluster-based ages.
+  Our resulting catalog of planetary ages includes
+  \nplyounggyrotwosigma\ planets younger than 1\,Gyr at 2$\sigma$
+  (\nplyounggyrothreesigma\ planets at 3$\sigma$).
   %
-  The results include \nplyounggyrotwosigma\ planets younger than
-  1\,Gyr at 2$\sigma$ (\nplyounggyrothreesigma\ planets at 3$\sigma$).
+  In the broader sample of stars in the Kepler field, we find that the
+  rotation-based age distribution decreases linearly from 3\,Gyr ago
+  to present day, implying a linearly decreasing star formation rate.
   %
-  While lithium provides only marginal added information for most of
-  this sample, we report new robust ages from both rotation and
-  lithium for 14 confirmed $<$500\,Myr planets, including five
-  mini-Neptunes, five super-Earths, three Earths and sub-Earths, and a
-  Neptune-sized planet.
-  %
-  In the broader Kepler target star sample, we find that the
-  gyrochrone age distribution rises linearly from 0 to 3\,Gyr, with
-  stars 2\,Gyr old being twice as common in the Kepler field as stars
-  1\,Gyr old.
-  %
-  This parent stellar age distribution bounds the relative balance of
-  young and old planets detectable not only by Kepler, but also by
-  future wide-field transit surveys.
+  While this parent stellar age distribution has implications for the
+  star formation history of our Galaxy, it also bounds the relative
+  balance of young and old planets detectable using both Kepler and
+  also future wide-field transit surveys.
   %
 \end{abstract}
 
@@ -1104,7 +1096,7 @@ For instance,
 	}
 \end{figure*}
 
-\subsection{Age distribution}
+\subsection{The Demographic Cliff}
 
 Figure~\ref{fig:hist_tgyro} shows the gyrochone age distributions of
 stars and planet-hosts in the Kepler field.
@@ -1506,6 +1498,12 @@ Our rotation analysis blindly recovered the 14 known Kepler planets in
 clusters (Section~\ref{subsec:clusterplanets}), and provided accurate
 independent ages for their host stars.
 
+While lithium provides only marginal added information for most of
+this sample, we report new robust ages from both rotation and
+lithium for 14 confirmed $<$500\,Myr planets, including five
+mini-Neptunes, five super-Earths, three Earths and sub-Earths, and a
+Neptune-sized planet.
+
 
 
 
@@ -1545,7 +1543,9 @@ All authors assisted in manuscript revision.
 	\tabletypesize{\scriptsize}
   \tablecaption{Ages of Kepler planets and planet candidates.  This
   version of the table is truncated to include the youngest fifty
-  confirmed Kepler planets, and the twenty youngest candidates.  The
+  confirmed Kepler planets, and the twenty youngest candidates,
+  sorted by the minimum of either the rotation or lithium-based
+  age.  The
   full machine-readable table contains ages and age limits for
   \nnonfopkoissomeageinfo\ non-false positive KOIs with MES$>$10.  
   \label{tab:planets}}
@@ -1562,9 +1562,7 @@ All authors assisted in manuscript revision.
 %	\rule
 	\input{table_subgyr_candidate}
 	\enddata
-	\tablecomments{Rows
-		are sorted by the minimum of either the rotation or lithium-based
-		age, and ``confirmed'' planets appear before``candidate'' planets.
+	\tablecomments{``Confirmed'' planets appear before``candidate'' planets.
 		The bit quality flags for the rotation-based ages,
 		$Q_{\rm gyro}$, are described in Section~\ref{subsec:flags}.
 		Concisely summarized, they are:
