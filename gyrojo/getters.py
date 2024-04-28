@@ -219,7 +219,6 @@ def get_li_data(sampleid, whichwindowlen=7.5):
     return mldf
 
 
-
 def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
                     grazing_is_ok=0, drop_highruwe=1,
                     manual_includes=None):
@@ -245,8 +244,9 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
     koi_df = get_koi_data('cumulative-KOI', grazing_is_ok=grazing_is_ok)
     koi_df['kepid'] = koi_df['kepid'].astype(str)
 
-    kic_df = get_gyro_data('Santos19_Santos21_dquality')
-    kic_df['KIC'] = kic_df['KIC'].astype(str)
+    # rotators... with Berger+S19+S21 teffs...
+    kicrot_df = get_gyro_data('Santos19_Santos21_dquality')
+    kicrot_df['KIC'] = kicrot_df['KIC'].astype(str)
 
     # made by plot_process_koi_li_posteriors.py
     li_method = 'eagles'
@@ -266,20 +266,25 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
     # change what this means based on the kwargs.  Otherwise, (for
     # "allageinfo") just note whether or not gyro is supposedly applicable.
     if drop_highruwe:
-        sel = (kic_df['flag_is_gyro_applicable'])
-        skic_df = kic_df[sel]
+        sel = select_by_quality_bits(
+            kicrot_df,
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],  # drop high ruwe...
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        )
+        kicrot_df['flag_is_gyro_applicable'] = sel
+        sel = (kicrot_df['flag_is_gyro_applicable'])
     else:
         sel = select_by_quality_bits(
-            kic_df,
+            kicrot_df,
             [0, 1, 2, 3, 4, 5, 6, 8, 9],  # leaving high ruwe...
             [0, 0, 0, 0, 0, 0, 0, 0, 0]
         )
-        kic_df['flag_is_gyro_applicable'] = sel
-        sel = (kic_df['flag_is_gyro_applicable'])
+        kicrot_df['flag_is_gyro_applicable'] = sel
+        sel = (kicrot_df['flag_is_gyro_applicable'])
 
     if isinstance(manual_includes, list):
         for m in manual_includes:
-            sel |= kic_df.KIC.astype(str).str.contains(m)
+            sel |= kicrot_df.KIC.astype(str).str.contains(m)
 
     st_ages = None
 
@@ -289,12 +294,12 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
         # KOIs with the KIC information.  (In other words, 'gyro_li' requires a
         # rotation period for the stars).
 
-        skic_df = kic_df[sel]
+        skicrot_df = kicrot_df[sel]
 
         # parent sample age distribution
-        st_ages = 1e6*nparr(skic_df['gyro_median'])
+        st_ages = 1e6*nparr(skicrot_df['gyro_median'])
 
-        df = skoi_df.merge(skic_df, how='inner', left_on='kepid',
+        df = skoi_df.merge(skicrot_df, how='inner', left_on='kepid',
                            right_on='KIC', suffixes=('','_KIC'))
 
     if whichtype == 'gyro_li':
@@ -312,9 +317,8 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
         # available rotation-based or lithium-based age information.
         # (i.e. no cuts on whether or not gyro is ok).
 
-        skic_df = kic_df
         # gyro-applicable stars
-        rot_df = skoi_df.merge(skic_df, how='inner', left_on='kepid',
+        rot_df = skoi_df.merge(kicrot_df, how='inner', left_on='kepid',
                                right_on='KIC', suffixes=('','_KIC'))
         rot_df = rot_df.drop_duplicates(subset='kepid', keep='first')
 
@@ -342,6 +346,32 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
             ~pd.isnull(df.li_eagles_LiEW)
         )
         df = df[sel]
+
+        # for Li-only detections, adopted_Teff is not propagated because of the
+        # left-join logic above.  in such cases, draw from cgkic_df...
+        sel = pd.isnull(df.adopted_Teff)
+        missing_kepids = df[sel].kepid
+
+        # all KIC, with only Berger+ teffs...
+        cgkic_df = get_kicstar_data("allKIC_Berger20_dquality")
+        foo = pd.DataFrame({'kepid': missing_kepids})
+        selcols = ['adopted_Teff', 'adopted_Teff_err',
+                   'adopted_Teff_provenance', 'adopted_logg',
+                   'adopted_logg_err', 'adopted_logg_provenance',
+                   'flag_gyro_quality', 'kepid']
+        cgkic_df['kepid'] = cgkic_df['kepid'].astype(str)
+        mfoo = foo.merge(cgkic_df[selcols], left_on='kepid', right_on='kepid', how='left')
+
+        for c in selcols[:-1]:
+            df.loc[sel, c] = np.array(mfoo[c])
+
+        #~600->30 nan teffs.  here, correct the remainder.
+        sel = pd.isnull(df.adopted_Teff)
+        df.loc[sel,'adopted_Teff'] = df.loc[sel,'koi_steff']
+        df.loc[sel,'adopted_Teff_provenance'] = 'Mathur_2017_DR25'
+
+        assert pd.isnull(df.adopted_Teff).sum() == 0
+        assert pd.isnull(df.adopted_Teff_provenance).sum() == 0
 
     #
     # in all instances, use the gyro age as the adopted age...
