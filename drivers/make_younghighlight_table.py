@@ -9,8 +9,9 @@ from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 from gyrojo.papertools import (
     format_lowerlimit, cast_to_int_string, replace_nan_string
 )
+from collections import Counter
 
-from gyrojo.paths import PAPERDIR, DATADIR
+from gyrojo.paths import PAPERDIR, DATADIR, TABLEDIR
 
 COMMENTDICT = {
     'K05245.01': "Cep-Her",
@@ -77,8 +78,8 @@ def extract_value_and_error(value):
 
 def make_table(
     # ...with age results
-    drop_highruwe = 1,
-    grazing_is_ok = 0,
+    drop_highruwe = 0,
+    grazing_is_ok = 1,
     #manual_includes = [
     #    '10736489', # KIC10736489 = KOI-7368: adopted_logg = 4.448...teff=5068.2... cutoff 4.48
     #    '8873450', # KOI-7913 binary
@@ -117,7 +118,7 @@ def make_table(
         df = _df[sel]
 
     selcols = (
-        "kepoi_name,kepler_name,koi_disposition,"
+        "kepid,kepoi_name,kepler_name,koi_disposition,"
         "min_age,"
         "adopted_Teff,Prot,li_eagles_LiEW,li_eagles_eLiEW,"
         "gyro_median,gyro_+1sigma,gyro_-1sigma,"
@@ -145,7 +146,7 @@ def make_table(
             pdf[c] = pdf[c].apply(cast_to_int_string)
 
     pcols = (
-        "kepoi_name,kepler_name,gyro_median,"
+        "kepid,kepoi_name,kepler_name,gyro_median,"
         "gyro_+1sigma,gyro_-1sigma,li_median,li_+1sigma,li_-1sigma,"
         "adopted_rp,adopted_period,"
         "flag_dr3_ruwe_outlier,flag_koi_is_grazing,"
@@ -221,6 +222,7 @@ def make_table(
 
     # These columns will be written.
     mapdict = {
+        'kepid': 'kepid',
         'kepoi_name': "KOI",
         "kepler_name": "Kepler",
         "adopted_Teff": r"$T_{\rm eff}$",
@@ -265,6 +267,41 @@ def make_table(
     pdf = pdf.drop(columns=['_t_gyro', '_t_gyro_err_pos', '_t_gyro_err_neg'])
     pdf = pdf.drop(columns=['_t_li', '_t_li_err_pos', '_t_li_err_neg'])
 
+    print("Are gyro and lithium consistent?")
+
+    sample = ['allages', 'minageltonegyr']
+    dfs = [pdf, pdf[pdf.min_age < 1e3]]
+
+    for s, _df in zip(sample, dfs):
+
+        nyes = len(np.unique(_df[_df.are_gyro_and_li_consistent == 'Yes'].kepid))
+        nmaybe = len(np.unique(_df[_df.are_gyro_and_li_consistent == 'Maybe'].kepid))
+        nno = len(np.unique(_df[_df.are_gyro_and_li_consistent == 'No'].kepid))
+
+        frac_consistent = int(np.round(100*(
+            (nyes) / (nyes + nmaybe + nno)
+        ),0))
+        frac_potentiallyconsistent = int(np.round(100*(
+            (nyes+nmaybe) / (nyes + nmaybe + nno)
+        ),0))
+
+        if not SELECT_YOUNG:
+            ulkvp(f'{s}yesconsistent', nyes)
+            ulkvp(f'{s}maybeconsistent', nmaybe)
+            ulkvp(f'{s}noconsistent', nno)
+            ulkvp(f'fracconsistent{s}', frac_consistent)
+            ulkvp(f'fracpotentiallyconsistent{s}', frac_potentiallyconsistent)
+
+            consistent_df = (
+                pd.DataFrame(Counter(_df.are_gyro_and_li_consistent),
+                             index=["Consistent?"])
+            )
+            print(consistent_df.T)
+            print(f"{s}: {frac_consistent}% are consistent")
+            print(10*'-')
+
+    pdf = pdf.drop(columns=['kepid'])
+    mapdict.pop('kepid')
 
     if SELECT_YOUNG:
         sel = (pdf.koi_disposition == 'CONFIRMED')
@@ -290,6 +327,14 @@ def make_table(
 
     pdf = pdf.drop(columns=['li_eagles_limlo', 'li_eagles_limlo_formatted',
                             'li_eagles_limlo_forsort', 'min_age'])
+
+    if SELECT_YOUNG:
+        outtxt = join(TABLEDIR, 'inconsistent_tli_tgyro.txt')
+        with open(outtxt, 'w') as f:
+            f.writelines(
+                pdf[(pdf.are_gyro_and_li_consistent == 'No')].to_string(max_colwidth=None)
+            )
+        print(f'Made {outtxt}')
 
     if not SELECT_YOUNG:
 
