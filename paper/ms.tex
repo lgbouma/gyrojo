@@ -136,7 +136,7 @@
   billion years of their lives.
   %
   Here we apply this knowledge to stars observed by the primary Kepler
-  mission to curate catalogs of rotation and lithium-based ages.
+  mission in order to derive rotation and lithium-based ages.
   %
   Rotation periods are drawn from previous Kepler analyses; lithium is
   measured from new and archival HIRES spectra.
@@ -147,17 +147,19 @@
   these rotation-based ages are $\approx$15-20$\times$ more precise
   than isochrone ages for our sample of FGK stars.
   %
-  While the independent lithium ages are consistent with XX\% of the rotation ages,
-  this method is significantly less precise than rotation-based age dating
-  for most of our sample.
+  While the independent lithium and rotation-based ages agree
+  for $\approx$90\% of stars, the timescales of lithium depletion are
+  such that rotation is the more precise age diagnostic for the
+  majority of our stellar sample.
   %
   Our resulting catalog of planetary ages includes
   \nplyounggyrotwosigma\ planets younger than 1\,Gyr at 2$\sigma$
   (\nplyounggyrothreesigma\ planets at 3$\sigma$).
   %
-  In the broader sample of stars in the Kepler field, we find that the
-  rotation-based age distribution decreases linearly from 3\,Gyr ago
-  to present day, implying a linearly decreasing star formation rate.
+  For both planet-hosts, and for the broader sample of stars in the
+  Kepler field, we find that the stellar age distribution decreases
+  linearly from 3\,Gyr ago to present day, implying a linearly
+  decreasing star formation rate.
   %
   While this parent stellar age distribution has implications for the
   star formation history of our Galaxy, it also bounds the relative
@@ -1314,6 +1316,54 @@ rot}$=10.25$\pm$0.10\,days.
 	}
 \end{figure*}
 
+\subsubsection{Rotation vs.~Lithium Age Comparison}
+
+We judged the consistency of the independent rotation and
+lithium-based ages by comparing the point-estimates of the posteriors,
+when available.
+There are three cases of interest:
+
+\begin{enumerate}
+  \item Two-sided posteriors available for both $t_{\rm gyro}$ and
+    $t_{\rm Li}$: then if their values were consistent within
+    2$\sigma$, we judged them to be consistent; if they were
+    consistent within 2-3$\sigma$, we suggest them to be ``maybe''
+    consistent.  Otherwise, they are in disagreement.
+\item If $t_{\rm Li}$ is a lower limit, we compare the 3$\sigma$
+  $t_{\rm Li}$ lower limit with the $1\sigma$ upper limit from $t_{\rm
+    gyro}$; if the two overlapped, we judge the age estimates to be
+    consistent.
+\item If $t_{\rm Li}$ provides a two-sided posterior, and no rotation
+  is reported, we judge the age estimates to be inconsistent.
+  This is because such constraints can only be provided for G and K
+  stars $\lesssim$2\,Gyr old, and Kepler should have been sensitive to
+  the rotation periods of such stars.
+\end{enumerate}
+
+In the entire sample, this yielded 
+\allagesyesconsistent\ consistent cases,
+\allagesmaybeconsistent\ ``maybe'' cases, and
+\allagesnoconsistent\ inconsistent.
+Restricting our attention to the $\lesssim$1\,Gyr stars, for which
+lithium ages are more constraining,
+the relevant numbers are
+\minageltonegyryesconsistent, \minageltonegyrmaybeconsistent, and
+\minageltonegyrnoconsistent.
+Rephrased, in the overall sample, \fracconsistentallages\%
+of stars have consistent rotation and lithium-based ages
+(\fracpotentiallyconsistentallages\% potentially consistent).
+In the sample of sub-gigayear stars,
+\fracconsistentminageltonegyr\ of these ages are
+consistent (\fracpotentiallyconsistentminageltonegyr\% potentially
+consistent).
+We feel it necessary to distinguish ``maybe'' consistent cases because
+of lingering uncertainties in how the dispersion of the lithium data
+evolve over the first gigayear.
+In Appendix~\ref{app:inconsistent}, we discuss the
+\minageltonegyrnoconsistent\ discrepant cases in detail.
+
+
+
 \subsubsection{Systems with Rotation and Lithium in Agreement}
 %
 Whenever both rotation and lithium find a star to be in a
@@ -1398,23 +1448,6 @@ find a 420-440\,Myr age.  {\it LGB TODO What is up with the size?}.
 %  1.0\,$R_\oplus$, 12.2\,day Earth-sized Kepler-1482b.
 
 
-
-\subsubsection{Systems with Rotation and Lithium in Disagreement}
-
-For Kepler-957, $T_{\rm eff}$=4947\,K, and $P_{\rm rot}$=4.52\,days,
-This implies a rotation-based age of $96_{-72}^{+192}$\,Myr.  The
-rotational broadening of the spectrum ($v\sin
-i$$\approx$9.8$\pm$1.0\kms) is consistent with the nominal stellar
-rotation period.  However, if this star were $\lesssim$500\,Myr old,
-lithium should have been detectable at $>$50\,m\AA.  Lithium is
-marginally if at all present in the spectrum ({\bf  EW$_{\rm
-Li}$$<$XX\,m\AA at 2$\sigma$ }).  While the planet (nominally
-6.9\,$R_\oplus$ on a 5.9\,day orbit) has been statistically validated
-\citep{Morton_2016}, inspecting the data validation reports this is
-somewhat surprising.  The light curve shows greater scatter in-transit
-than out of transit, appears near-grazing, and has a suggestion of a
-strong odd-even depth difference.  This is a surprising system that
-merits further attention.
 
 \subsubsection{Need spectra}
 Kepler-1938...
@@ -1613,6 +1646,8 @@ All authors assisted in manuscript revision.
 		Bit 0: Candidate not reliable?
 		Bit 1: MES$<$10?
 		Bit 2: Grazing?
+		For a star to have a high likelihood of being ``reliable for gyrochronology'' we suggest $Q_{\rm star}$ bits
+		zero to nine to not be raised, and for a planet to be ``reliabe'', we suggested $Q_{\rm planet}$ to be zero.
 	}
 \end{deluxetable*}
 
@@ -1651,8 +1686,45 @@ All authors assisted in manuscript revision.
 \bibliography{bibliography}
 
 \appendix
-%\section{Can you avoid appendices?}
-%\label{app:interp}
+\section{Cases With Inconsistent Rotation and Lithium-Based Ages}
+\label{app:inconsistent}
+
+For Kepler-957, $T_{\rm eff}$=4947\,K, and $P_{\rm rot}$=4.52\,days,
+This implies a rotation-based age of $96_{-72}^{+192}$\,Myr.  The
+rotational broadening of the spectrum ($v\sin
+i$$\approx$9.8$\pm$1.0\kms) is consistent with the nominal stellar
+rotation period.  However, if this star were $\lesssim$500\,Myr old,
+lithium should have been detectable at $>$50\,m\AA.  Lithium is
+marginally if at all present in the spectrum ({\bf  EW$_{\rm
+Li}$$<$XX\,m\AA at 2$\sigma$ }).  While the planet (nominally
+6.9\,$R_\oplus$ on a 5.9\,day orbit) has been statistically validated
+\citep{Morton_2016}, inspecting the data validation reports this is
+somewhat surprising.  The light curve shows greater scatter in-transit
+than out of transit, appears near-grazing, and has a suggestion of a
+strong odd-even depth difference.  This is a surprising system that
+merits further attention.
+
+% from inconsitent_tli_tgyro cases:
+Kepler-1644 b
+Kepler-1699 b
+ Kepler-786 b
+
+these have finite Li ages, but no rotation age (perhaps b/c of the missing prots...)
+Kepler-1943 b
+ Kepler-101 b
+ Kepler-108 b
+ Kepler-108 c
+  Kepler-63 b
+Kepler-1312 b
+Kepler-1312 c
+   Kepler-1 b
+
+K02680.01
+K02639.01
+
+
+
+
 
 \section{Figure dump}
 
