@@ -636,7 +636,7 @@ def get_kicstar_data(sampleid):
              'Fl5':'s19_flag5'},
             axis='columns'
         )
-        s19_df['Provenance'] = 'Santos2019'
+        s19_df['Prot_provenance'] = 'Santos2019'
         for ix in range(1,6):
             s19_df[f"s21_flag{ix}"] = np.nan
 
@@ -647,7 +647,7 @@ def get_kicstar_data(sampleid):
         # 'flag1', 'flag2', 'flag3', 'flag4', 'flag5', 'KCat', 'Simbad', '_RA', '_DE'
         catalogs = Vizier.get_catalogs("J/ApJS/255/17")
         s21_df = catalogs[0].to_pandas()
-        s21_df['Provenance'] = 'Santos2021'
+        s21_df['Prot_provenance'] = 'Santos2021'
         s21_df = s21_df.rename(
             {'flag1':'s21_flag1', 'flag2':'s21_flag2', 'flag3':'s21_flag3',
              'flag4':'s21_flag4', 'flag5':'s21_flag5'},
@@ -659,7 +659,7 @@ def get_kicstar_data(sampleid):
         selcols = [
             'KIC', 'Kpmag', 'Q', 'Teff', 'E_Teff', 'e_Teff', 'logg', 'E_logg',
             'e_logg', 'Mass', 'E_Mass', 'e_Mass', 'Prot', 'E_Prot', 'Sph', 'E_Sph',
-            'Provenance',
+            'Prot_provenance',
             's19_flag1', 's19_flag2', 's19_flag3', 's19_flag4', 's19_flag5',
             's21_flag1', 's21_flag2', 's21_flag3', 's21_flag4', 's21_flag5'
         ]
@@ -678,7 +678,7 @@ def get_kicstar_data(sampleid):
         for c in selcols:
             if c not in bonusdf:
                 bonusdf[c] = np.nan
-        bonusdf['Provenance'] = 'SantosPrivComm'
+        bonusdf['Prot_provenance'] = 'SantosPrivComm'
 
         _df = pd.concat((
             s19_df[selcols], s21_df[selcols], bonusdf[selcols])
