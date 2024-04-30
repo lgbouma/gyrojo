@@ -1563,7 +1563,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405')
     savefig(fig, outpath, writepdf=1, dpi=400)
 
 
-def plot_field_gyro_posteriors(outdir, cache_id):
+def plot_field_gyro_posteriors(outdir, cache_id, sampleid):
 
     from gyrointerp.helpers import get_summary_statistics
 
@@ -1642,7 +1642,6 @@ def plot_field_gyro_posteriors(outdir, cache_id):
         df.to_csv(cachecsvpath, index=False)
         print(f"Wrote {cachecsvpath}")
 
-    sampleid = 'Santos19_Santos21_all'
     kdf = get_kicstar_data(sampleid)
     kdf['KIC'] = kdf['KIC'].astype(str)
 
