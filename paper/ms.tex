@@ -132,12 +132,12 @@
 
 % <250 words
 \begin{abstract}
-  Recent studies of stars in open clusters have shown how the rotation
-  rates and lithium content of FGK stars evolve during the first few
-  billion years of their lives.
+  Recent studies of the rotation rates and lithium content of FGK
+  stars in open clusters have revealed how these quantities evolve
+  during the first few billion years of a star's life.
   %
-  Here we apply this knowledge to stars observed by the primary Kepler
-  mission in order to derive rotation and lithium-based ages.
+  Here we apply this knowledge to stars observed by Kepler in order to
+  derive rotation and lithium-based ages.
   %
   Rotation periods are drawn from previous Kepler analyses; lithium is
   measured from new and archival HIRES spectra.
@@ -148,21 +148,20 @@
   these rotation-based ages are $\approx$15-20$\times$ more precise
   than isochrone ages for our sample of FGK stars.
   %
-  While the independent lithium and rotation-based ages agree
-  for $\approx$90\% of stars, the timescales of lithium depletion are
-  such that rotation is the more precise age diagnostic for the
-  majority of our stellar sample.
+  The independent lithium and rotation-based ages agree for
+  $\approx$90\% of stars.  However, the timescales of lithium
+  depletion are such that rotation is the more precise age diagnostic
+  for the majority of our stellar sample.
   %
   Our resulting catalog of planetary ages includes
   \nplyounggyrotwosigma\ planets younger than 1\,Gyr at 2$\sigma$
   (\nplyounggyrothreesigma\ planets at 3$\sigma$).
   %
-  For both planet-hosts, and for the broader sample of stars in the
-  Kepler field, we find that the stellar age distribution decreases
-  linearly from 3\,Gyr ago to present day, implying a linearly
-  decreasing star formation rate.
+  More broadly, we find that the age distribution of stars in the
+  Kepler field decreases linearly from 3\,Gyr ago to present day,
+  for both known planet hosts as well as the parent stellar sample.
   %
-  While this parent stellar age distribution has implications for the
+  While this stellar age distribution has implications for the
   star formation history of our Galaxy, it also bounds the relative
   balance of young and old planets detectable using both Kepler and
   also future wide-field transit surveys.
@@ -609,67 +608,113 @@ high-resolution spectra suitable for lithium analysis
 \label{subsec:rotsel}
 
 To select stars with rotation periods, we turn to previous work.
-Studies of stellar rotation across the entire Kepler field include
-those by \citet{McQuillan_2014} (\citetalias{McQuillan_2014}),
-\citet{Reinhold_2015}, \citet{Santos_2019} (\citetalias{Santos_2019}),
+Many investigators have derived rotation periods both specifically of
+the Kepler Objects of Interest
+\citep{McQuillan_2013,Walkowicz_2013,Mazeh_2015,Angus_2018,David_2021},
+and also of the broader set of all Kepler target stars
+\citep{McQuillan_2014,Reinhold_2015,Santos_2019,Santos_2021}.
+These studies used a range of detection methods and selection
+functions.
+We are interested in understanding the age distribution of not only
+the KOIs but also the Kepler target stars.
+Out of these studies, the only homogeneous analysis of both Kepler
+targets and KOIs were the studies by
+\citet{Santos_2019} (\citetalias{Santos_2019}),
 and \citet{Santos_2021} (\citetalias{Santos_2021}).
-\citetalias{McQuillan_2014} used an approach based on the
-autocorrelation function to detect 34{,}030 rotation periods for
-main-sequence Kepler targets cooler than 6500\,K, and excluded known
-eclipsing binaries and KOIs.  \citet{Reinhold_2015} used an iterative
-Lomb-Scargle based approach to analyze $\approx$40{,}000 stars with a
-variability range $R_{\rm var}>0.3$\% that were not known EBs, planet
-candidates, or pulsators; they reported primary rotation periods for
-24{,}124 of these stars.  \citet{Reinhold_2015} also reported
-secondary periods for two thirds of the stars with primary periods,
-which could be caused by differential rotation or finite spot
-lifetimes.  Finally, \citetalias{Santos_2019} and
+\citetalias{Santos_2019} and
 \citetalias{Santos_2021} combined a wavelet analysis and
 autocorrelation-based approach, and cumulatively reported rotation
 periods for 55{,}232 main-sequence and subgiant FGKM stars.
-\citetalias{Santos_2019} and \citetalias{Santos_2021} included known
-KOIs and binaries, and assigned them specific quality flags.  The
-rotation periods of KOIs have received considerable additional
-scrutiny
-\citep[e.g.][]{Walkowicz_2013,Mazeh_2015,Angus_2018,David_2021}.
+They included known KOIs and binaries in their analysis, and assigned
+them specific quality flags, while removing transits and eclipses
+during the stellar rotation measurement process. 
 
-We choose to adopt the results of \citetalias{Santos_2019} and
+%Studies of stellar rotation across the entire Kepler field include
+%those by \citet{McQuillan_2014} (\citetalias{McQuillan_2014}),
+%\citet{Reinhold_2015}, \citet{Santos_2019} (\citetalias{Santos_2019}),
+%and \citet{Santos_2021} (\citetalias{Santos_2021}).
+%\citetalias{McQuillan_2014} used an approach based on the
+%autocorrelation function to detect 34{,}030 rotation periods for
+%main-sequence Kepler targets cooler than 6500\,K, and excluded known
+%eclipsing binaries and KOIs.  \citet{Reinhold_2015} used an iterative
+%Lomb-Scargle based approach to analyze $\approx$40{,}000 stars with a
+%variability range $R_{\rm var}>0.3$\% that were not known EBs, planet
+%candidates, or pulsators; they reported primary rotation periods for
+%24{,}124 of these stars.  \citet{Reinhold_2015} also reported
+%secondary periods for two thirds of the stars with primary periods,
+%which could be caused by differential rotation or finite spot
+%lifetimes.  Finally, \citetalias{Santos_2019} and
+%\citetalias{Santos_2021} combined a wavelet analysis and
+%autocorrelation-based approach, and cumulatively reported rotation
+%periods for 55{,}232 main-sequence and subgiant FGKM stars.
+%\citetalias{Santos_2019} and \citetalias{Santos_2021} included known
+%KOIs and binaries, and assigned them specific quality flags.  The
+%rotation periods of KOIs have received considerable additional
+%scrutiny
+%\citep[e.g.][]{Walkowicz_2013,Mazeh_2015,Angus_2018,David_2021}.
+
+We therefore adopt the results of \citetalias{Santos_2019} and
 \citetalias{Santos_2021} as our default rotation periods.
-\citetalias{Santos_2021} provides a detailed comparison against
+\citetalias{Santos_2021} provided a comparison against
 \citetalias{McQuillan_2014}; the brief summary is that the periods
 agree for 99.0\% of the 31{,}038 period detections in common between
 the two studies.  \citetalias{Santos_2021} classified the 2{,}992
 remaining stars from \citetalias{McQuillan_2014} as not showing
 rotation periods based on updated knowledge of contaminants
 (e.g.~giant stars and eclipsing binaries) and visual inspection.  In
-addition, \citetalias{Santos_2021} report rotation periods for
+addition, \citetalias{Santos_2021} reported rotation periods for
 24{,}182 main-sequence and subgiant FGKM stars that were not reported
 as periodic by \citetalias{McQuillan_2014}.  Many of these reported
-detections have lower variability amplitudes, and longer periods, than
+detections have lower variability amplitudes and longer periods than
 those reported by \citetalias{McQuillan_2014}.  A relevant flag for
 stars missing \citetalias{McQuillan_2014} periods is included in
-Table~\ref{tab:stars}.  Reviewing the resulting
-period detections, we learned that 32 KOIs with orbital and rotation
-periods within $\approx$20\% were excluded from the
+Table~\ref{tab:stars}.
+
+Analyzing the compilation of \citetalias{Santos_2019} and
+\citetalias{Santos_2021} rotation periods for the KOI hosts, we
+noticed that some known KOIs with rotation periods were missing.
+This is not surprising, in that the rotation periods of KOIs have
+received considerably more scrutiny than those of ordinary Kepler
+stars.
+We therefore decided to split our subsequent analysis into a
+homogeneous portion that used only the \citetalias{Santos_2019} and
+\citetalias{Santos_2021} data, and an inhomogeneous portion that also
+considered a broader set of available KOI rotation periods.
+For the latter portion, we first included 32 KOIs with orbital and
+rotation periods within $\approx$20\% that had been
+excluded\footnote{Excluding stars in this category would impose a bias
+against young close-in planets, due to the natural commensurability
+between the rotation rates of young stars, and Kepler's increased
+sensitivity to short-period objects.  Although some of these KOIs are
+known false positives, our analysis excludes such objects at later
+steps.}%  As one motivating example, this subset of stars includes {\it
+%e.g.}~Kepler~1643 (KIC~8653134), with $P_{\rm orb}$=5.34\,days and
+%$P_{\rm rot}$=5.05\,days, which is known to be $\approx$40\,Myr old
+%based on membership in RSG-5 \citep{Bouma_2022b}.  }
+from the
 \citetalias{Santos_2019} and \citetalias{Santos_2021} catalogs
-(A.~Santos, priv.~comm.); we choose to include these
-objects.\footnote{In general, excluding stars in this category would
-impose a bias against young close-in planets, due to the natural
-commensurability between the rotation rates of young stars, and
-Kepler's increased sensitivity to short-period objects.  While some of
-these KOIs are known false positives, our analysis naturally excludes
-such objects at later steps.  As one motivating example, this subset
-of stars happens to include {\it e.g.}~Kepler~1643 (KIC~8653134), with
-$P_{\rm orb}$=5.34\,days and $P_{\rm rot}$=5.05\,days, which is known
-to be $\approx$40\,Myr old based on membership in RSG-5
-\citep{Bouma_2022b}.  } The final tally of stars from
+(A.~Santos, private communication).
+We then incorporated an additional \nnewdavidtwentyone\ rotation
+periods for KOI hosts that
+\citet{David_2021} had described as either ``reliable'' or ``highly
+reliable'' in their visual analysis of previously reported KOI
+rotation periods from \citet{McQuillan_2013,Walkowicz_2013,Mazeh_2015}
+and \citet{Angus_2018}.
+Inclusion of these additional KOI rotation periods is a
+supplementary measure aimed at completeness in our final KOI age
+catalog; the provenances of the individual adopted periods are all
+noted in the relevant tables.
+
+Finally, since our scope is focused on rotation-based age dating, 
+we restricted our attention to stars with reported $P_{\rm
+rot}$$<$45\,days.
+FGK stars with slower rotation periods spin much slower than the stars
+in the oldest open clusters currently used to calibrate empirical
+gyrochronal models.
+
+The resulting tally of stars from
 \citetalias{Santos_2019}, \citetalias{Santos_2021}, and our corrected
 KOI list is \nuniqstarsantosrot\ Kepler stars with rotation periods.
-
-%  %TODO is it?
-%  We verified that the main conclusions of our analysis do not change if
-%  we were to adopt only the periods from \citetalias{McQuillan_2014}.
-%  %TODO have you?
 
 As a sanity check on the statistical uncertainties of these rotation
 periods, we compared our adopted \citetalias{Santos_2019} and
