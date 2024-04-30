@@ -14,6 +14,8 @@ bit 9: T if above logg/Teff locus (iso age precision, cutting subgiant FGKs & ph
 plus, not relevant for gyro:
 
 bit 10: T if in CP/CB from Santos [lossy...]
+bit 11: T if period was not reported in the Santos19/Santos21 samples
+(i.e. it was from the David21 meta-analysis, or Santos+priv comm -- both of which are KOI-only samples)
 
 ...all in service of the one flag that can be used to rule them all:
     "flag_is_gyro_applicable"
@@ -27,7 +29,7 @@ from gyrojo.paths import DATADIR, RESULTSDIR, LOCALDIR, TABLEDIR
 from numpy import array as nparr
 
 
-def build_gyro_quality_flag(sample='gyro', datestr='20240405'):
+def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
 
     if sample == 'gyro':
         csvpath = join(
@@ -181,6 +183,15 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240405'):
     df['b20t2_rel_E_Age'] = np.abs(df['b20t2_E_Age'])/df['b20t2_Age']
     df['b20t2_rel_e_Age'] = np.abs(df['b20t2_e_Age'])/df['b20t2_Age']
 
+    ##############################
+    # ROTATION PERIOD PROVENANCE #
+    ##############################
+    df['flag_Prot_provenance'] = ~(
+        (df.Prot_provenance == 'Santos2019')
+        |
+        (df.Prot_provenance == 'Santos2021')
+    )
+
     ################################
     # finally, is gyro applicable? #
     ################################
@@ -197,7 +208,8 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240405'):
         'flag_dr3_ruwe_outlier': 7,
         'flag_dr3_crowding': 8,
         'flag_farfrommainsequence': 9,
-        'flag_is_CP_CB': 10
+        'flag_is_CP_CB': 10,
+        'flag_Prot_provenance': 11,
     }
 
     # Iterate over the flag columns and update the flag_gyro_quality column
@@ -230,5 +242,6 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240405'):
     print(f"Wrote {outcsv}")
 
 if __name__ == "__main__":
-    build_gyro_quality_flag(sample='allKIC', datestr='20240405')
-    build_gyro_quality_flag(sample='gyro', datestr='20240405')  # ie with rotation
+    datestr = '20240430'
+    build_gyro_quality_flag(sample='allKIC', datestr=datestr)
+    build_gyro_quality_flag(sample='gyro', datestr=datestr)  # ie with rotation

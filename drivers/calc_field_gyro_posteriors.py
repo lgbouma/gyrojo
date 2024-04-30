@@ -21,8 +21,8 @@ def calc_field_gyro_posteriors():
     ################
     # update these #
     ################
-    sampleid = 'Santos19_Santos21_all' # i.e. dquality hasn't been computed
-    cache_id = "field_gyro_posteriors_20240405"
+    sampleid = 'Santos19_Santos21_litsupp_all' # S19,S21,Santos supp,David21 supp
+    cache_id = "field_gyro_posteriors_20240430"
     ################
 
     df = get_kicstar_data(sampleid)
