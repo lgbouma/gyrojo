@@ -52,9 +52,7 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
 
     assert sampleid in [
         'Santos19_Santos21_dquality',
-        'koi_X_S19S21dquality',
-        'deprecated_all',
-        'deprecated_sel_2s'
+        'koi_X_S19S21dquality'
     ]
 
     if sampleid in ['Santos19_Santos21_dquality', 'koi_X_S19S21dquality']:
@@ -83,41 +81,6 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
         )
         return df
 
-
-    if sampleid in ['deprecated_all', 'deprecated_sel_2s']:
-        # 864 rows: step0, +requiring consisting rotation period measurements
-        csvpath = join(
-            RESULTSDIR, "koi_gyro_posteriors_20230110",
-            "step0_koi_gyro_ages_X_GDR3_B20_S19_S21_M14_M15.csv"
-        )
-
-        # merge against the sel_2s sample.
-        # NOTE TODO: might want to just check the entire sample once this is fully
-        # automated.  but for now, this is where the good science is at.
-        kdf = pd.read_csv(csvpath)
-        if sampleid == 'deprecated_all':
-            pass
-        elif sampleid == 'deprecated_sel_2s':
-            sel_2s = kdf['median'] + kdf['+2sigma'] < 1000
-            kdf = kdf[sel_2s]
-
-        Prots = kdf['mean_period']
-        from gyrojo.prot_uncertainties import get_empirical_prot_uncertainties
-        Prot_errs = get_empirical_prot_uncertainties(np.array(Prots))
-
-        kdf['Prot_err'] = Prot_errs
-
-        # manual hard drop.
-        bad = (
-            (kdf.kepler_name == 'Kepler-1563 b') # Teff=5873, Prot=46.4 days. >5sigma outlier.
-            |
-            (kdf.kepler_name == 'Kepler-1676 b') # Teff=6165, Prot=32.4 days. >5sigma outlier.
-        )
-        kdf = kdf[~bad]
-
-        # yields 862 planets, for 638 stars.
-
-    return kdf
 
 
 def get_li_data(sampleid, whichwindowlen=7.5):
