@@ -17,12 +17,16 @@ from os.path import join
 from glob import glob
 from numpy import array as nparr
 
+from astroquery.vizier import Vizier
+Vizier.ROW_LIMIT = -1
+
 from astropy.io import fits
 from astropy.table import Table
 
 from gyrointerp.helpers import prepend_colstr, left_merge
 
 from gyrojo.paths import LOCALDIR, DATADIR, RESULTSDIR, TABLEDIR
+from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 
 
 def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
@@ -579,12 +583,16 @@ def get_kicstar_data(sampleid):
     """
 
     assert sampleid in [
+        'Santos19_Santos21_litsupp_all',
         'Santos19_Santos21_all',
         'Santos19_Santos21_dquality',
         'allKIC_Berger20_dquality'
     ]
     # 'Santos19_Santos21_clean0', 'Santos19_Santos21_logg' both
     # deprecated
+
+    if sampleid == 'Santos19_Santos21_litsupp_all':
+        csvpath = join(DATADIR, 'interim', 'S19_S21_KOIbonus_litsupp_merged_X_GDR3_X_B20.csv')
 
     if sampleid == 'Santos19_Santos21_all':
         csvpath = join(DATADIR, 'interim', 'S19_S21_KOIbonus_merged_X_GDR3_X_B20.csv')
@@ -621,9 +629,6 @@ def get_kicstar_data(sampleid):
         return df
 
     if not os.path.exists(csvpath):
-        from astroquery.vizier import Vizier
-        Vizier.ROW_LIMIT = -1
-
         # Santos+2019: M+K stars
         # https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJS/244/21
         # 'KIC', 'Kpmag', 'Q', 'Teff', 'E_Teff', 'e_Teff', 'logg', 'E_logg',
@@ -684,6 +689,81 @@ def get_kicstar_data(sampleid):
             s19_df[selcols], s21_df[selcols], bonusdf[selcols])
         )
 
+        if sampleid == 'Santos19_Santos21_litsupp_all':
+
+            # considered pulling W13, M13, M14, M15, A18, D21.  However, D21
+            # already did A18, M13, M15, and W13.  **and** vetted them... But
+            # did so only for the CKS sample.  Also, M14 supposedly omitted
+            # KOIs.  (...At least, those known at the time).
+
+            perioddata = {
+                #'Walkowicz2013': ['wb13', "J/MNRAS/436/1883", "Per", "KIC"],
+                #'McQuillan2013': ['m13', "J/ApJ/775/L11", "Prot", "KIC"],
+                #'McQuillan2014': ['m14', "J/ApJS/211/24", "Prot", "KIC"],
+                #'Mazeh2015': ['m15', "J/ApJ/801/3", "Prot", "KIC"],
+                #'Angus2018': ['a18', "J/MNRAS/474/2094", "Per", "KOI"],
+                'David2021': ['d21', "J/AJ/161/265", "Prot", "KIC"]
+            }
+
+            shortkey = 'd21'
+            periodkey = "Prot"
+            kicidkey = "KIC"
+            _v = Vizier(columns=["**"])
+            _v.ROW_LIMIT = -1
+            catalogs = _v.get_catalogs("J/AJ/161/265")
+            litdf = catalogs[0].to_pandas()
+            litdf = prepend_colstr(f"{shortkey}_", litdf)
+
+            # David+21 CKS stars with either "reliable" or "highly reliable"
+            # periods.  If they are not already in our rotation period catalog,
+            # then merge in the reported periods.  This is a small perturbation
+            # on the overall *stellar* sample, but adds 178 stars to the planet
+            # sample.  (10-20% increase?).  Worth the headache for
+            # completeness, and to help this study really go further.
+            sel = (
+                (
+                    (litdf.d21_f_Prot == 2)
+                    |
+                    (litdf.d21_f_Prot == 3)
+                )
+                &
+                (~litdf['d21_KIC'].astype(str).isin(_df.KIC.astype(str)))
+            )
+
+            ulkvp('nnewdavidtwentyone', sel.sum())
+
+            sdf = litdf[sel]
+
+            # NaN "d21_Prot" column, but the David+21 period in d21_D21Per is
+            # good
+            selkics = [8222813, 9634821, 8416523]
+            for selkic in selkics:
+                _sel = sdf.d21_KIC.astype(str) == str(selkic)
+                sdf.loc[_sel, 'd21_Prot'] = sdf.loc[_sel, 'd21_D21Per']
+                sdf.loc[_sel, 'd21_r_Prot'] = "D21"
+
+            _selcols = 'd21_Prot,d21_KIC,d21_r_Prot'.split(",")
+            sdf = sdf[_selcols]
+            renamedict = {
+                'd21_Prot':"Prot",
+                'd21_KIC':"KIC",
+                'd21_r_Prot':"Prot_provenance"
+            }
+            sdf = sdf.rename(renamedict, axis='columns')
+            sdf.to_csv(
+                join(TABLEDIR, 'david2021_extra_koi_info.csv'), index=False
+            )
+
+            bonus_david21_koi_df = deepcopy(sdf)
+
+            _df = pd.concat((
+                s19_df[selcols], s21_df[selcols],
+                bonusdf[selcols], bonus_david21_koi_df
+            ))
+
+            assert np.sum(pd.isnull(_df['Prot'])) == 0
+
+
         # Berger+2020: Gaia-Kepler stellar properties catalog.
         _v = Vizier(columns=["**"])
         _v.ROW_LIMIT = -1
@@ -714,7 +794,6 @@ def get_kicstar_data(sampleid):
         mdf1 = left_merge(mdf0, b20t2_df, 'KIC', 'b20t2_KIC')
         mdf2 = left_merge(mdf1, cgk_df, 'KIC', 'kepid')
 
-        from copy import deepcopy
         df = deepcopy(mdf2)
 
         df.to_csv(csvpath, index=False)
@@ -750,7 +829,24 @@ def get_kicstar_data(sampleid):
     _sel = pd.isnull(df['adopted_Teff'])
     df.loc[_sel, 'adopted_Teff'] = df.loc[_sel, 'Teff']
     df.loc[_sel, 'adopted_Teff_err'] = df.loc[_sel, 'e_Teff']
-    df.loc[_sel, 'adopted_Teff_provenance'] = df.loc[_sel, 'Provenance']
+    df.loc[_sel, 'adopted_Teff_provenance'] = df.loc[_sel, 'Prot_provenance']
+
+    # else, Mathur+2017 (like four cases)
+    _v = Vizier(columns=["**"])
+    _v.ROW_LIMIT = -1
+    catalogs = _v.get_catalogs("J/ApJS/229/30")
+    m17_df = catalogs[0].to_pandas()
+    m17_df.KIC = m17_df.KIC.astype(str)
+    _sel = pd.isnull(df['adopted_Teff'])
+    _mdf = pd.DataFrame(df.loc[_sel, 'KIC'].astype(str)).merge(
+        m17_df, how='left', on='KIC'
+    )
+    df.loc[_sel, 'adopted_Teff'] = np.array(_mdf.Teff)
+    df.loc[_sel, 'adopted_Teff_err'] = np.nanmean([
+        np.array(np.abs(_mdf.E_Teff)),
+        np.array(np.abs(_mdf.e_Teff))
+    ])
+    df.loc[_sel, 'adopted_Teff_provenance'] = "Mathur2017"
 
     assert np.sum(pd.isnull(df['adopted_Teff'])) == 0
     assert np.sum(pd.isnull(df['adopted_Teff_err'])) == 0
@@ -776,7 +872,19 @@ def get_kicstar_data(sampleid):
     _sel = pd.isnull(df['adopted_logg'])
     df.loc[_sel, 'adopted_logg'] = df.loc[_sel, 'logg']
     df.loc[_sel, 'adopted_logg_err'] = df.loc[_sel, 'e_logg']
-    df.loc[_sel, 'adopted_logg_provenance'] = df.loc[_sel, 'Provenance']
+    df.loc[_sel, 'adopted_logg_provenance'] = df.loc[_sel, 'Prot_provenance']
+
+    # else, Mathur+2017 (like four cases)
+    _sel = pd.isnull(df['adopted_logg'])
+    _mdf = pd.DataFrame(df.loc[_sel, 'KIC'].astype(str)).merge(
+        m17_df, how='left', on='KIC'
+    )
+    df.loc[_sel, 'adopted_logg'] = np.array(_mdf['log_g_'])
+    df.loc[_sel, 'adopted_logg_err'] = np.nanmean([
+        np.array(np.abs(_mdf.E_log_g_)),
+        np.array(np.abs(_mdf.e_log_g_))
+    ])
+    df.loc[_sel, 'adopted_logg_provenance'] = "Mathur2017"
 
     assert np.sum(pd.isnull(df['adopted_logg'])) == 0
     assert np.sum(pd.isnull(df['adopted_logg_err'])) == 0
@@ -800,89 +908,6 @@ def get_kicstar_data(sampleid):
     ##################################
 
     sel = df.Prot < 45
-
-    if sampleid == 'Santos19_Santos21_logg':
-        sel &= df.logg > 4.2
-
-    if sampleid == 'Santos19_Santos21_clean0':
-        # S21 flags:
-        #
-        # s21_flag1: CP/CB candidate flag: 
-        #   [0 == "no rotation modulation" (6 occurrences)
-        #   [1 == "type 1 CP/CB classical pulsator / close-in binary) candidate (2251 occurrences)
-        #
-        # s21_flag2: Subsample
-        #
-        #       Note (G1): Flag as follows:
-        #               1 = main-sequence or subgiant solar-like targets in
-        #                       DR25 Mathur+ (2017, J/ApJS/229/30) and Berger+ (2020, J/AJ/159/280);
-        #               2 = main-sequence or subgiant solar-like targets only in
-        #                       DR25 Mathur et al. (2017, J/ApJS/229/30);
-        #               3 = main-sequence or subgiant solar-like targets only in
-        #                       DR25 Berger et al. (2020, J/AJ/159/280).
-        #
-        # s21_flag3: binarity flag
-        #
-        #   0 = single stars in Berger+ (2018, J/ApJ/866/99) and/or in
-        #       Simonian+ (2019, J/ApJ/871/174);
-        #   1 = binary candidates in Berger+ (2018, J/ApJ/866/99);
-        #   2 = binary candidates in Simonian+ (2019, J/ApJ/871/174)
-        #   3 = binary candidates in Berger+ (2018, J/ApJ/866/99) and in
-        #       Simonian+ (2019, J/ApJ/871/174).
-        #
-        # s21_flag4: KOI flag
-        #
-        #       Flag as follows:
-        #           0 = confirmed;
-        #           1 = candidate;
-        #           2 = false positive. 
-        #
-        # s21_flag5: stellar property source flag
-        #   
-        #       Flag as follows:
-        #   0 = Berger et al. (2020, J/AJ/159/280);
-        #   1 = Mathur et al. (2017, J/ApJS/229/30)
-        #
-        # S19 flags:
-        #
-        # s19_flag1: CP/CB candidate flag: 
-        #    (1): We distinguish between three types of classical pulsator (CP)
-        #        candidates. Type-1 candidates show a behavior somewhat similar to RR
-        #        Lyrae and Cepheids: high-amplitude and stable flux variations, beating
-        #        patterns, and a large number of harmonics. Interestingly, a
-        #        significant fraction of these targets were identified as Gaia binary
-        #        candidates. Therefore, it is possible that these targets are not CPs
-        #        but close-in binaries (CB). If that is the case, the signal may still
-        #        be related to rotation, but may be distinct from the rotational
-        #        behavior of single stars. We refer to these targets (350) as Type-1
-        #        CP/CB candidates.
-        #
-        # s19_flag2: Gaia binary flag
-        #
-        # s19_flag3: Gaia subgiant flag
-        #   Gaia binary (Gaia Bin.) and subgiant (Gaia Subg.) candidate flags from Berger
-        #   et al. (2018), where 0 corresponds to single star and main-sequence star,
-        #   respectively, and 1 corresponds to binary system and subgiant star,
-        #   respectively
-        #
-        # s19_flag4: KOI flag
-        #
-        # s19_flag5: FlipPer Class flag
-        #   FliPerClass (FPC) indicates targets that are possibly solar-type stars (0),
-        #   classical pulsators (1), and binary systems/photometric pollution (2).
-        #
-        #   Counter({0.0: 14056, 2.0: 799, 1.0: 191})
-        #   ...rest nan
-
-        sel &= df.logg > 4.2
-
-        sel &= (
-            df.Sph >= 500
-        )
-
-        not_CP_CB = pd.isnull(df.s21_flag1) & pd.isnull(df.s19_flag1)
-
-        sel &= not_CP_CB
 
     df = df[sel]
 
