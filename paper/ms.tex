@@ -110,7 +110,8 @@
 \altaffiliation{51 Pegasi b Fellow}
 \affiliation{\caltech}
 
-\author{and coauthors!}
+\author{coauthors!}
+
 %
 %% Early experiments for Kepler rotation samples
 %\author[0000-0001-7967-1795]{Elsa~K.~Palumbo}
@@ -132,12 +133,12 @@
 
 % <250 words
 \begin{abstract}
-  Recent studies of the rotation rates and lithium content of FGK
-  stars in open clusters have revealed how these quantities evolve
-  during the first few billion years of a star's life.
+  Recent studies of FGK stars in open clusters have quantitatively
+  shown how stellar rotation rates and lithium content evolve over
+  the first few billion years.
   %
-  Here we apply this knowledge to stars observed by Kepler in order to
-  derive rotation and lithium-based ages.
+  Here we apply this knowledge to stars observed by Kepler to compute
+  rotation and lithium-based ages.
   %
   Rotation periods are drawn from previous Kepler analyses; lithium is
   measured from new and archival HIRES spectra.
@@ -146,7 +147,7 @@
   and \nplwgyroagenograzing\ planets for which we believe
   gyrochronology is valid;
   these rotation-based ages are $\approx$15-20$\times$ more precise
-  than isochrone ages for our sample of FGK stars.
+  than isochrone ages in our sample of FGK stars.
   %
   The independent lithium and rotation-based ages agree for
   $\approx$90\% of stars.  However, the timescales of lithium
@@ -159,12 +160,12 @@
   %
   More broadly, we find that the age distribution of stars in the
   Kepler field decreases linearly from 3\,Gyr ago to present day,
-  for both known planet hosts as well as the parent stellar sample.
+  for both planet hosts as well as for the overall stellar sample.
   %
   While this stellar age distribution has implications for the
   star formation history of our Galaxy, it also bounds the relative
-  balance of young and old planets detectable using both Kepler and
-  also future wide-field transit surveys.
+  balance of young and old planets detectable through
+  transit surveys of nearby stars in the thin disk.
   %
 \end{abstract}
 
@@ -267,7 +268,7 @@ stars based on whether they rotated faster or slower than a gyrochrone
 age of $\approx$2.6\,Gyr \citep{Meibom_2015,Curtis_2020}.  These
 studies were conducted in the broader context of investigating trends
 in exoplanet demographics, which have been shown to depend on both
-stellar metallicity and mass \citet{Petigura_2018}, at levels likely
+stellar metallicity and mass \citep{Petigura_2018}, at levels likely
 stronger than age (at least over gigayear timescales).  However, these
 studies offered limited sensitivity to the ages of the youngest
 planets, due to the limitations of isochronal dating.
@@ -1043,15 +1044,17 @@ of \citet{2023ApJS..268....4F}.
 
 {\it Candidate pulsators and close-in binaries (bit
 10)}---\citeauthor{Santos_2021} included in a flag for candidate
-``classical pulsators'' (e.g. RR~Lyrae, Cepheids) and candidate
+``classical pulsators'' (e.g.\ RR~Lyrae, Cepheids) and candidate
 close-in binaries.  Visual inspection of the rotation periods as a
 function of temperature shows that although this flag selects many
 bona fide objects in these classes, it also selects the overwhelming
-majority of $\lesssim$5\,day bona fide young planets.  While we
+majority of $\lesssim$5\,day bona fide young planets.  In our view this is
+erroneous because they these objects are neither classical pulsators nor
+close binaries.  While we
 propagate this flag into our set of quality flags, we therefore
 generally ignore it.
 
-{\it How do we use the bit-flags?)}
+{\it How do we use the bit-flags}
 An important decision for our subsequent analysis is how to combine
 the above quality indicators in order to decide whether or not a star is suited for
 gyrochronology.  By default, we assume that a star is suitable for
@@ -1061,28 +1064,37 @@ raised.
 
 \subsection{Planet Quality Flags}
 \label{subsec:plflags}
-For the subset of our analysis that focuses on the properties of
-planets, we use the following additional quality indicators to assess 
-the quality of a planet, $Q_{\rm planet}$.
+Not all planets are born equal.
+We use the following additional quality indicators to assess 
+the reliability and utility of a planet, and assemble them into a separate bit-flag,
+$Q_{\rm planet}$.
 
 % see Erik's 2022 discussion; might want to shift to include a cut on
 % disposition score.
-{\it Candidate reliability (bit 0)}---no false positives; only
-``planet candidates'' and ``confirmed planets''.
+{\it Candidate reliability (bit 0)}---The NEA's Kepler Objects of Interest Table
+includes both an overall planet-candidate disposition status
+({\it koi\_disposition}), as well as a disposition based only on the Kepler
+data ({\it koi\_pdisposition}).
+We require both to include only
+``planet candidates'' and ``confirmed planets''; we are generally less interested
+in the age distribution of planet candidates that are known false positives.
 
-{\it Candidate S/N (bit 1)}---the false positive rate increases
-greatly toward the noise floor for planet detection in any transit survey \citep[e.g.][]{2002ApJ...564..495J}.  We
+{\it Candidate S/N (bit 1)}---In any transit survey, the false positive rate increases
+greatly toward the noise floor for planet detection \citep[e.g.][]{2002ApJ...564..495J}.  We
 required a S/N in excess of Kepler's usual 7.1$\sigma$ floor, through a cut on the
-``multiple event statistic'' (MES): we required ${\rm MES}$$>$10.
+maximum
+``multiple event statistic'' (MES, {\it koi\_max\_mult\_ev}): we required ${\rm MES}$$>$10.
 
-{\it Grazing planets (bit 2)}---grazing objects ($b$>0.8) often
-provide non-robust planetary sizes due to the size-impact parameter
-degeneracy.  Particularly for large planets, they can also include
-astrophysical false positives at higher rates (due to the same
-degeneracy).  While we include a flag for such objects, we by default
-do not exclude them from our analysis; this is because...{\bf
-justify}.
-
+{\it Grazing planets (bit 2)}---Grazing objects, for which the impact
+parameter $b$ is greater than $1-R_{\rm p}/R_\star$,
+often yield biased planetary parameters
+\citep[e.g.][]{2022AJ....163..111G}.
+Particularly for large planets, they can also include
+astrophysical false positives at higher rates \citep{2016ApJ...822...86M}, which is
+in part due to the size-impact parameter degeneracy.
+We flag planet candidates as potentially grazing if $b>0.8$, 
+using the impact parameters reported in the Markov Chain
+Monte Carlo (MCMC) fits from \citet{Thompson_2018}.
 
 
 \subsection{Tally}
@@ -1096,7 +1108,7 @@ DR3 crossmatch yielded \nuniqstarsantosrot\ stars.  Further requiring
 these rotating stars to have temperatures 3800$<$$T_{\rm
 eff}$/K$<$6200, which is the range over which \texttt{gyro-interp}
 returns finite age posteriors, yields \nuniqstarsantosrotteffcut\
-stars.  Further requiring them to be apparently single, near the main
+stars.  Further requiring the stars to be apparently single, near the main
 sequence, with $\log g$$>$4.2, $M_{\rm G}>3.9$, and not flagged as
 eclipsing binaries yielded \nuniqstarsantosallbutruwe\ rotators
 potentially amenable for gyrochronology.  Finally, imposing RUWE$<$1.4
@@ -1116,8 +1128,8 @@ rotation-based ages orbiting
 (\nplhoststarwgyroagejusthighruwe\ of these stars with ``high'' RUWE).
 If we additionally require the planets to be non-grazing ($b<0.8$)
 based on the Markov Chain Monte Carlo (MCMC) fits from
-\citet{Thompson_2018}, we are left with \nplwgyroagenograzing\ planets and
-\nplhoststarwgyroagenograzing\ stars, respectively.
+\citet{Thompson_2018}, we are left with \nplwgyroagenograzing\ planets orbiting
+\nplhoststarwgyroagenograzing\ stars.
 
 
 
@@ -1129,13 +1141,16 @@ based on the Markov Chain Monte Carlo (MCMC) fits from
 Figure~\ref{fig:li_vs_teff} shows our measured lithium equivalent
 widths, plotted over the mean isochrone models from
 \texttt{EAGLES} \citep{Jeffries_2023}.  We declare an upper-limit for
-plotting purposes if ${EW}-\sigma_{\rm EW}$$<$10\,m\AA.  However, our
+plotting purposes if the 1$\sigma$ lower limit on the equivalent width
+is below 10\,m\AA.  Our measured
 EWs span -40 to 250\,m\AA; all negative EWs have uncertainties that
 are statistically consistent with zero.
 
 To calculate lithium ages, we use \texttt{EAGLES} (git commit
-\texttt{ac09637}), which uses a similar method as
-\texttt{gyro-interp}, and was calibrated on stars observed by the
+\texttt{ac09637}), which, similar to
+\texttt{gyro-interp}, is based on a purely empirical interpolation
+approach.  \texttt{EAGLES} however was calibrated on lithium measurements of
+stars observed by the
 Gaia-ESO spectroscopic survey in 52 open clusters with ages spanning 2
 to 6{,}000\,Myr \citep{Jeffries_2023}.  We adopt a linear prior in
 age, spanning $10^6$ to $10^{10}$\,yr, and symmetrize our EW
@@ -1182,7 +1197,7 @@ For instance,
     (Section~\ref{subsec:flags}).
     In detail, these ``histograms'' are resampled from the posterior
     probability distributions.
-    Completeness is near unity until $\approx$3\,Gyr
+    Completeness is near unity at t$\lesssim$3\,Gyr
     \citep{2022ApJ...937...94M}.
     {\bf todo: numbers dont match.  why?}
     \label{fig:hist_tgyro}
@@ -1665,12 +1680,12 @@ All authors assisted in manuscript revision.
   %\tabletypesize{\footnotesize}
   \tabletypesize{\scriptsize}
   \tablecaption{Ages of Kepler planets and planet candidates.  This
-  version of the table is truncated to include the youngest fifty
-  confirmed Kepler planets, and the twenty youngest candidates,
+  version of the table is truncated to include only the youngest confirmed Kepler planets,
   sorted by the minimum of either the rotation or lithium-based
   age.  The
   full machine-readable table contains ages and age limits for
   \nnonfopkoissomeageinfo\ non-false positive KOIs with MES$>$10.  
+  A shell script to decode the $Q_{\rm gyro}$ quality flag is {\bf \href{https://gist.github.com/lgbouma/20368253f1a98da1b39cf32fdda0be13}{available online}}.
   \label{tab:planets}}
   %\toprule
   %\midrule
@@ -1683,15 +1698,15 @@ All authors assisted in manuscript revision.
   \hline
   \input{table_subgyr_confirmed} %\\
 % \rule
-  \input{table_subgyr_candidate}
+%  \input{table_subgyr_candidate}
   \enddata
-  \tablecomments{``Confirmed'' planets appear before``candidate'' planets.
+  \tablecomments{``Confirmed'' planets appear in the machine-readable version before``candidate'' planets.
     The bit quality flags for the rotation-based ages,
     $Q_{\rm gyro}$, are described in Section~\ref{subsec:flags}.
     Concisely summarized, they are:
     Bit 0: $T_{\rm eff}/{\rm K} \in [ 3800-6200]$ ?
     Bit 1: $\log g$$<$4.2?
-    Bit 2: $M_{\rm G}$<3.9?
+    Bit 2: $M_{\rm G}$<3.9 or $M_{\rm G}>8.5$?
     Bit 3: In KEBC?
     Bit 4: Large $d_{\rm xm,Kep-Gaia}$?
     Bit 5: Confused Kep-Gaia crossmatch?
@@ -1760,7 +1775,7 @@ lithium should have been detectable at $>$50\,m\AA.  Lithium is
 marginally if at all present in the spectrum ({\bf  EW$_{\rm
 Li}$$<$XX\,m\AA at 2$\sigma$ }).  While the planet (nominally
 6.9\,$R_\oplus$ on a 5.9\,day orbit) has been statistically validated
-\citep{Morton_2016}, inspecting the data validation reports this is
+\citep{2016ApJ...822...86M}, inspecting the data validation reports this is
 somewhat surprising.  The light curve shows greater scatter in-transit
 than out of transit, appears near-grazing, and has a suggestion of a
 strong odd-even depth difference.  This is a surprising system that
