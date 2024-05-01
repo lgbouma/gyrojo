@@ -197,7 +197,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
         cumulative-KOI table, which are "OK" planet candidates.
 
     "gyro_li" all "flag_is_ok_planetcand" and "flag_is_gyro_applicable" KOIs,
-        with both gyro and optionally lithium results.
+        **with gyro results**, and optionally lithium results.
 
     "allageinfo": all "flag_is_ok_planetcand" KOIs, with any available
         rotation-based or lithium-based age information.

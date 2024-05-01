@@ -118,7 +118,7 @@ def cast_to_int_string(value):
     if pd.isna(value):
         return np.nan
     else:
-        return str(int(value))
+        return str(int(np.round(value,0)))
 
 def replace_nan_string(value):
     if pd.isna(value) or 'nan' in str(value).lower():
