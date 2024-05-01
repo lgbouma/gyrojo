@@ -1086,10 +1086,16 @@ def get_koi_data(sampleid, grazing_is_ok=0):
 
     koi_df = pd.read_csv(koipath, comment='#', sep=',')
 
-    koi_df['flag_koi_is_fp'] = ~(
-        (koi_df.koi_disposition == "CONFIRMED")
+    koi_df['flag_koi_is_fp'] = (
+        (~(
+            (koi_df.koi_disposition == "CONFIRMED")
+            |
+            (koi_df.koi_disposition == "CANDIDATE")
+        ))
         |
-        (koi_df.koi_disposition == "CANDIDATE")
+        (
+            koi_df.koi_pdisposition != "CANDIDATE"
+        )
     ).astype(bool)
 
     # NOTE: Petigura+22 and Petigura+20 describe how, since b is nearly
