@@ -1139,7 +1139,9 @@ def plot_age_comparison(outdir, logscale=1, iso_v_gyro=0, ratio_v_gyro=0,
         iso_gyro_p1sig_ratio = iso_p1sig / gyro_p1sig
         iso_gyro_m1sig_ratio = iso_m1sig / gyro_m1sig
         print(42*'-')
+        print("+1σ...")
         print(iso_gyro_p1sig_ratio.describe())
+        print("-1σ...")
         print(iso_gyro_m1sig_ratio.describe())
         print(42*'-')
 
@@ -1317,7 +1319,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     plt.close("all")
     set_style('clean')
-    fig, axs = plt.subplots(ncols=3, figsize=(0.9*6, 0.9*3),
+    fig, axs = plt.subplots(ncols=3, figsize=(0.9*6, 0.9*2.7),
                             constrained_layout=True)
 
     koi_df = get_koi_data('cumulative-KOI', grazing_is_ok=1)
