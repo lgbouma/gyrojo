@@ -100,6 +100,8 @@ def read_latex_key_value_pairs(
                 # Check if the value contains a decimal point
                 if "." in value:
                     value = float(value)
+                elif "$" in value:
+                    value = str(value)
                 else:
                     value = int(value)
 

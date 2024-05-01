@@ -102,8 +102,10 @@ sdf['t_gyro'] = sdf.apply(lambda row: "$"+ f"{row['gyro_median']}"+ "^{+"+
                           f"{row['gyro_-1sigma']}" +"} $", axis=1)
 sel = sdf.kepler_name.str.contains("Kepler-66 b")
 kepsixsixtgyro = sdf.loc[sel, 't_gyro'].iloc[0]
+ulkvp('kepsixsixtgyro', kepsixsixtgyro)
 sel = sdf.kepler_name.str.contains("Kepler-67 b")
 kepsixseventgyro = sdf.loc[sel, 't_gyro'].iloc[0]
+ulkvp('kepsixseventgyro', kepsixseventgyro)
 
 ##########################################
 
