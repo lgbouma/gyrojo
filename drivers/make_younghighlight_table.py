@@ -306,7 +306,7 @@ def make_table(
     if SELECT_YOUNG:
         sel = (pdf.koi_disposition == 'CONFIRMED')
         latexpath1 = join(PAPERDIR, 'table_subgyr_confirmed.tex')
-        pdf[sel][mapdict.values()].head(n=50).to_latex(
+        pdf[sel][mapdict.values()].head(n=95).to_latex(
             latexpath1, index=False, na_rep='--', escape=False, formatters=formatters
         )
 
