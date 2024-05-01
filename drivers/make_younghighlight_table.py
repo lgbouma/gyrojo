@@ -17,6 +17,7 @@ COMMENTDICT = {
     'K05245.01': "Cep-Her",
     'K07368.01': "Cep-Her",
     'K06186.01': "Cep-Her",
+    'K07913.01': "Cep-Her",
     'K03876.01': "MELANGE-3",
     'K01838.01': "MELANGE-3",
     'K01833.01': 'Theia-520',
