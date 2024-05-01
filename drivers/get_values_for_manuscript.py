@@ -8,6 +8,10 @@ from gyrojo.getters import (
 from gyrojo.paths import DATADIR
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 from gyrojo.papertools import read_latex_key_value_pairs
+from gyrojo.papertools import (
+    format_lowerlimit, cast_to_int_string, replace_nan_string
+)
+
 
 ##########################################
 # cumulative KOI table
@@ -38,8 +42,8 @@ sel = select_by_quality_bits(df, [0, 4, 5], [0, 0, 0])
 N = len(df[sel])
 ulkvp('nuniqstarsantosrotteffcut', N)
 
-# Number of unique stars with finite gyro ages.  (i.e. did your gyrointerp
-# routine produce gyro ages for all stars noted above?)
+# Number of unique stars with finite gyro ages.  (i.e. did gyrointerp produce
+# gyro ages for all stars noted above?)
 N2 = np.sum(~pd.isnull(df[sel].gyro_median))
 ulkvp('nuniqstarfinitegyroage', N2)
 assert N == N2
@@ -86,6 +90,22 @@ df, _, _ = get_age_results(
     whichtype='gyro_li', grazing_is_ok=1, drop_highruwe=0
 )
 assert pd.isnull(df.gyro_median).sum() == 0
+
+##########################################
+# specifics for special stars / planets
+sdf = df[~df.kepler_name.isna()]
+for c in sdf.columns:
+    if 'gyro_' in c:
+        sdf[c] = sdf[c].apply(cast_to_int_string)
+sdf['t_gyro'] = sdf.apply(lambda row: "$"+ f"{row['gyro_median']}"+ "^{+"+
+                          f"{row['gyro_+1sigma']}"+ "}_{-"+
+                          f"{row['gyro_-1sigma']}" +"} $", axis=1)
+sel = sdf.kepler_name.str.contains("Kepler-66 b")
+kepsixsixtgyro = sdf.loc[sel, 't_gyro'].iloc[0]
+sel = sdf.kepler_name.str.contains("Kepler-67 b")
+kepsixseventgyro = sdf.loc[sel, 't_gyro'].iloc[0]
+
+##########################################
 
 # Number of planets with a gyro age, including grazing & high ruwe cases
 N = len(df)
