@@ -55,24 +55,21 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
         'koi_X_S19S21dquality'
     ]
 
-    if sampleid in ['Santos19_Santos21_dquality', 'koi_X_S19S21dquality']:
+    if sampleid == 'Santos19_Santos21_dquality':
         # made by construct_field_star_gyro_quality_flags.py driver
         csvpath = join(
             TABLEDIR,
-            'field_gyro_posteriors_20240405_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
+            'field_gyro_posteriors_20240430_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
         )
         fdf = pd.read_csv(
             csvpath, dtype={
                 'dr3_source_id':str, 'KIC':str, 'kepid':str
             }
         )
+        # return dataframe of stars only
+        return fdf
 
-        if sampleid == 'Santos19_Santos21_dquality':
-            # return dataframe of stars only
-            return fdf
-
-        else:
-            assert sampleid == 'koi_X_S19S21dquality'
+    elif sampleid == 'koi_X_S19S21dquality':
 
         df, paramdict, st_ages = get_age_results(
             whichtype='gyro', COMPARE_AGE_UNCS=0,
@@ -80,6 +77,9 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
             drop_highruwe=drop_highruwe
         )
         return df
+
+    else:
+        raise NotImplementedError
 
 
 

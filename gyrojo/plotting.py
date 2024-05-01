@@ -1230,7 +1230,8 @@ def plot_reinhold_2015(outdir):
     savefig(fig, outpath)
 
 
-def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405'):
+def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
+                              datestr='20240405', s19s21only=0):
 
     from gyrointerp.paths import CACHEDIR
     csvdir = join(CACHEDIR, f"samples_field_gyro_posteriors_{datestr}")
@@ -1264,7 +1265,12 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405')
     print(f"Got {N_post_samples} posterior samples...")
 
     kdf = get_gyro_data("Santos19_Santos21_dquality", grazing_is_ok=1)
-    skdf = kdf[kdf.flag_is_gyro_applicable]
+    if s19s21only:
+        skdf = kdf[(kdf.flag_is_gyro_applicable) & (~kdf.flag_Prot_provenance)]
+        santosstr = '_s19s21only'
+    else:
+        skdf = kdf[(kdf.flag_is_gyro_applicable)]
+        santosstr = ''
     skdf['KIC'] = skdf.KIC.astype(str)
     mdf['KIC'] = mdf.KIC.astype(str)
     sel_gyro_ok = mdf.KIC.isin(skdf.KIC)
@@ -1292,7 +1298,10 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405')
         'ylabel': 'Count (10x over-rep)',
         'xlim': [xmin, xmax],
     })
-    outpath = os.path.join(outdir, f'hist_samples_field_gyro_ages_{cache_id}_maxage{MAXAGE}.png')
+    outpath = os.path.join(
+        outdir,
+        f'hist_samples_field_gyro_ages_{cache_id}_maxage{MAXAGE}{santosstr}.png'
+    )
     savefig(fig, outpath, writepdf=1, dpi=400)
 
     #################################################
@@ -1305,6 +1314,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405')
     koi_df = get_koi_data('cumulative-KOI', grazing_is_ok=1)
     koi_df['kepid'] = koi_df['kepid'].astype(str)
     skoi_df = koi_df[koi_df['flag_is_ok_planetcand']]
+
     sel_planets = mdf.KIC.isin(skoi_df.kepid)
 
     N = int(len(mdf)/10)
@@ -1440,7 +1450,9 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405')
                   borderaxespad=2.0, borderpad=0.8, framealpha=0,
                   loc='lower right')
 
-    outpath = os.path.join(outdir, f'hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}.png')
+    outpath = os.path.join(
+        outdir, f'hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}{santosstr}.png'
+    )
     fig.tight_layout(h_pad=2)
     savefig(fig, outpath, writepdf=1, dpi=400)
 
@@ -1532,35 +1544,14 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000, datestr='20240405')
               borderaxespad=2.0, borderpad=0.8, framealpha=0,
               loc='lower right')
 
-    outpath = os.path.join(outdir, f'merged_hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}.png')
+    outpath = os.path.join(
+        outdir,
+        f'merged_hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}{santosstr}.png'
+    )
     fig.tight_layout()
     savefig(fig, outpath, writepdf=1, dpi=400)
 
     ##########
-
-    # ok, now just plot the histogram of the median values...
-    csvpath = join(RESULTSDIR, "field_gyro_posteriors_20230529",
-                   "field_gyro_posteriors_20230529_gyro_ages_X_GDR3_S19_S21_B20.csv")
-    df = pd.read_csv(csvpath)
-
-    plt.close("all")
-    set_style('clean')
-    fig, ax = plt.subplots()
-
-    ax.hist(df['median'], bins=bins, color='lightgray', density=True)
-
-    xmin = 0
-    xmax = MAXAGE
-    ax.update({
-        'xlabel': 'Age [Myr]',
-        'ylabel': 'Fraction',
-        'xlim': [xmin, xmax],
-    })
-    outpath = os.path.join(
-        outdir,
-        f'hist_medianvals_field_gyro_ages_{cache_id}_maxage{MAXAGE}.png'
-    )
-    savefig(fig, outpath, writepdf=1, dpi=400)
 
 
 def plot_field_gyro_posteriors(outdir, cache_id, sampleid):
