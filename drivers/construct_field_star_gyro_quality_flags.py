@@ -186,11 +186,14 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
     ##############################
     # ROTATION PERIOD PROVENANCE #
     ##############################
-    df['flag_Prot_provenance'] = ~(
-        (df.Prot_provenance == 'Santos2019')
-        |
-        (df.Prot_provenance == 'Santos2021')
-    )
+    if sample == 'gyro':
+        df['flag_Prot_provenance'] = ~(
+            (df.Prot_provenance == 'Santos2019')
+            |
+            (df.Prot_provenance == 'Santos2021')
+        )
+    elif sample == 'allKIC':
+        df['flag_Prot_provenance'] = np.zeros(len(df)).astype(bool)
 
     ################################
     # finally, is gyro applicable? #
