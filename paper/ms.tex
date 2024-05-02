@@ -1046,11 +1046,15 @@ Figure~\ref{fig:hist_tgyro} tells us that there are \ratioobtoybstars\
 times as many old stars in the Kepler field as young stars.
 Similarly, there are \ratioobtoybplanets\ times as many old planet
 hosts as young planet hosts. 
+Focusing only on the tails of the distributions (0-0.3\,Gyr and
+2.7-3\,Gyr), the implication is that the formation rate of stars in
+the Kepler field decreased by a factor of \ratiosfr$\pm$\uncratiosfr\
+over the past three billion years.
 
 In terms of detected planet counts, our rotation-based ages for the
 Kepler sample yield \{\nplyounggyro, \nplmidgyro, \nploldgyro\}
 detected planets in the 0-1\,Gyr, 1-2\,Gyr, and 2-3\,Gyr bins.  For
-the sub-gigayear bin in particular, which holds specific weight in
+the sub-gigayear bin in particular, which holds extra weight in
 studies of planet evolution, while there are \nplyounggyro\ planets
 with median ages below 1\,Gyr, requiring $t_{\rm gyro}$$<$1\,Gyr at
 2$\sigma$ confidence yields \nplyounggyrotwosigma\ planets orbiting
@@ -1333,6 +1337,11 @@ gigayear.
 
 \subsection{Caveats}
 
+The fact that only $\approx$90\% of the rotation-based and
+lithium-based ages agree 
+
+While hopefully clear from our extensive use of quality flags, 
+
 \subsection{Future Directions}
 
 %   \subsubsection{Evolutionary trends in time}
@@ -1358,28 +1367,27 @@ gigayear.
 \section{Conclusions}
 \label{sec:conclusions}
 
-We began this article by asking two questions: how wrong is the assumption
-of a uniform age distribution for stars in the galactic thin disk?
-And why are only $\approx$50 sub-gigayear transiting planets
-known, rather than the $\approx$500 that would be expected under the 
-assumption of a uniform star formation history for
-the $\approx$5{,}000 known planets?
+We began this article by asking two questions: how wrong is the
+assumption of a uniform age distribution for stars in the galactic
+thin disk?  And why are only $\approx$50 sub-gigayear transiting
+planets known, rather than the $\approx$500 that would be expected
+under the assumption of a uniform star formation history for the
+$\approx$5{,}000 known planets?
 
-In an attempt to answer these questions, we curated a sample of rotation
-periods, lithium equivalent widths, and stellar temperatures using a combination
-of archival and new data.
-We derived new ages using empirical interpolation-based age scales
-that have been calibrated against the latest available open cluster data.
+In an attempt to answer these questions, we curated a sample of
+rotation periods, lithium equivalent widths, and stellar temperatures
+using a combination of archival and new data.  We derived new ages
+using empirical interpolation-based age scales that have been
+calibrated against the latest available open cluster data.
 
 Our analysis blindly recovered all 14 known Kepler planets in
-clusters, with ages in agreement with the more precise cluster-based ages.
-Although lithium provided only marginal added information for most of
-the sample, the independent lithium and rotation ages agreed for
-$\approx$90\% of cases.  In particular, we reported 
-14 confirmed $<$500\,Myr planets
-with strong age
-constraints from both rotation and lithium, including five mini-Neptunes, five super-Earths,
-three Earths and sub-Earths, and a Neptune-sized planet.
+clusters, with ages in agreement with the more precise cluster-based
+ages.  Although lithium provided only marginal added information for
+most of the sample, the independent lithium and rotation ages agreed
+for $\approx$90\% of cases.  In particular, we reported 14 confirmed
+$<$500\,Myr planets with strong age constraints from both rotation and
+lithium, including five mini-Neptunes, five super-Earths, three Earths
+and sub-Earths, and a Neptune-sized planet.
 
 Our three main conclusions with respect to our original questions are
 as follows.
@@ -1551,13 +1559,25 @@ Kepler-1699 b
  Kepler-786 b
 
 these have finite Li ages, but no rotation age (perhaps b/c of the missing prots...)
+
 Kepler-1943 b
+
  Kepler-101 b
- Kepler-108 b
- Kepler-108 c
+
+\paragraph{Kepler-108 b and Kepler-108 c}---This sytem of two mutually
+inclined giant planets \citep{2017AJ....153...45M} has a host star
+that is entering the red giant branch.  This has been previously noted
+through asteroseismology \citep{2013ApJ...767..127H}, and an analysis
+of the Keck/HIRES spectrum with \texttt{SpecMatch-Synth} concurs, with
+$T_{\rm eff}$=5668$\pm$100\,K, $\log g$=3.8$\pm$0.1,
+[Fe/H]=0.38$\pm$0.06, and $v\sin i$=3.2$\pm$1.0\kms.
+
+
+
   Kepler-63 b
-Kepler-1312 b
-Kepler-1312 c
+
+Kepler-1312 b Kepler-1312 c
+
    Kepler-1 b
 
 K02680.01
@@ -1586,6 +1606,16 @@ star's temperature ($\approx$4900\,K) puts it in a regime where the
 observations for a while
 \citep[e.g.][Fig.~9]{2008ApJ...687.1264M}.  Our adopted age of
 $\approx$780$\pm$170\,Myr agrees with the open cluster calibrators.
+
+Kepler~108 was reported by \citet{2020ApJ...903...55P} to be a member
+of NGC6811 based ``on APOGEE radial velocities and Gaia-DR2 proper
+motions''.  The cluster has $\mu_\alpha\approx-3.4$mas/yr and
+$\mu_\delta \approx -8.8$mas/yr.  Kepler~108 has
+$\mu_\alpha=-1.5\pm0.1$mas/yr and $\mu_\delta \approx
+-1.2\pm0.1$mas/yr \citep{Gaia_DR3_2022}.  This is quite discrepant.
+
+
+
 
 %  Kepler-63b is interesting in that it is {\it missing} from our
 %  catalog.  This 6.1\,$R_\oplus$ ``sub-Saturn'' has been shown to be in
