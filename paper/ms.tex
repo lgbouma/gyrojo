@@ -96,7 +96,7 @@
 \altaffiliation{51 Pegasi b Fellow}
 \affiliation{\caltech}
 
-\author{coauthors, to include but not limited to
+\author{coauthors, possibly including but not limited to
 Hillenbrand, Howard, Isaacson, Palumbo}
 
 % <250 words
@@ -106,8 +106,8 @@ Hillenbrand, Howard, Isaacson, Palumbo}
   %billion years.
   %
   Recent analyses of FGK stars in open clusters have helped clarify
-  the precision with which a star's rotation rate, and its lithium
-  content, can be used as empirical indicators for its age.
+  the precision with which a star's rotation rate and lithium content
+  can be used as empirical indicators for its age.
   %
   Here we apply this knowledge to stars observed by Kepler.
   %
@@ -131,14 +131,13 @@ Hillenbrand, Howard, Isaacson, Palumbo}
   at 3$\sigma$).
   %
   More broadly, we find that the star formation rate in the Kepler
-  field has dropped by a factor of \ratiosfr$\pm$\uncratiosfr over the
-  past 3\,Gyr, for both planet hosts as well as for the overall
+  field has dropped by a factor of \ratiosfr$\pm$\uncratiosfr\ over the
+  past 3\,Gyr, equally for both planet hosts and for the overall
   stellar sample.
   %
-  This ``demographic cliff'' has implications for the star formation
-  history of our Galaxy, and it helps clarify the relative balance of
-  young and old planets that have been detected in transit surveys of nearby
-  stars in the Galaxy.
+  This ``demographic cliff'' is connected to the star formation
+  history of the Galaxy, and it helps clarify the relative balance of
+  young and old planets that have so far been detected using transits.
   %
 \end{abstract}
 
@@ -153,13 +152,13 @@ of thousands of worlds orbiting close to their host stars
 \citep{Borucki10,2015JATIS...1a4003R}.  Most of these exoplanets are
 billions of years old, similar to the Earth.  This fact leaves many
 gaps in our knowledge of what exact dynamical and physical processes
-produce the observed exoplanet archetypes.    The reason is that
+produce these objects.    The reason is that
 processes such as thermal cooling \citep{2007ApJ...659.1661F},
 atmospheric loss \citep{2019AREPS..47...67O}, giant impacts
 \citep{2014prpl.conf..595R}, and dynamical instabilities
 \citep{2017MNRAS.470.1750I} are expected to be most efficient over
 $\approx$10\,Myr to $\approx$1\,Gyr timescales; when we observe most
-known exoplanets, these processes are done, and not much is happening.
+known exoplanets, these processes have completed, and not much is happening.
 
 Finding and characterizing young ($<$1\,Gyr) exoplanets is one 
 possible path toward building a timeline for exoplanet evolution.
@@ -263,7 +262,7 @@ empirical models have been previously applied to derive rotation-based
 ages for subsets of the Kepler data
 \citep{Walkowicz_2013,Reinhold_2015,Angus_2018}.
 There have been major improvements since these pioneering studies in:
-\begin{enumerate}[label={\it \roman*)}]
+\begin{enumerate}[label={\it \roman*)},leftmargin=*]
   \item The extent of the Kepler Object of Interest catalog, as well
     as our understanding of which of these objects are false
     positives;
@@ -338,6 +337,7 @@ A few conclusions are offered in Section~\ref{sec:conclusions}.
   \caption{
     {\bf The stars.}  Our analysis focuses on stars observed by Kepler
     with previously reported rotation periods (dark gray points).
+    The rotation periods were primarily measured by \citet{Santos_2019} and \citet{Santos_2021}.
     About half of these rotators are suitable for gyrochronology
     (black points), based on factors including their temperatures,
     surface gravities, non-binarity, and proximity to the main
@@ -345,7 +345,7 @@ A few conclusions are offered in Section~\ref{sec:conclusions}.
     ``confirmed'' or ``candidate'' Kepler Objects of Interest that
     meet an additional set of planetary quality criteria (blue points;
     Section~\ref{subsec:plflags}).  Surface gravities and effective
-    temperatures are primarily from \citet{Berger_2020a_catalog}.
+    temperatures were derived photometrically by \citet{Berger_2020a_catalog}.
   }
   \label{fig:stellarprops}
 \end{figure*}
@@ -364,12 +364,12 @@ A few conclusions are offered in Section~\ref{sec:conclusions}.
   \caption{
     {\bf The models.}
     Points represent $10^4$ draws from model probability distributions
-    that have been fitted to observed rotation periods
+    that have been fitted to rotation periods
     \citep{Bouma_2023} and lithium equivalent widths
     \citep[EWs;][]{Jeffries_2023} of stars in open clusters.  Lines
     are the ``mean models'' at various ages; the asymmetric intrinsic
     dispersion in rotation and lithium about these mean models, which
-    is what the models fit, sets the theoretical precision limit for
+    is what the models fit, sets the theoretical precision floor for
     both age-dating methods.    Additional sources of uncertainty,
     including measurement uncertainty, impose further limits on
     achievable age precision.  These models are calibrated using open
@@ -393,16 +393,18 @@ A few conclusions are offered in Section~\ref{sec:conclusions}.
   \vspace{-0.5cm}
   \caption{
     {\bf Rotation periods for Kepler target stars (left) and known
-    planet hosts (right)}.  The periods are from \citet{Santos_2019}
+    planet hosts (right)}.  As in Figure~\ref{fig:stellarprops}, periods are from \citet{Santos_2019}
     and \citet{Santos_2021} (\citetalias{Santos_2019} and
-    \citetalias{Santos_2021}).  The gray lines are ``mean fits'' from
-    Figure~\ref{fig:models} to the slow rotation sequences of M67,
+    \citetalias{Santos_2021}).  The gray lines are ``mean fits'' 
+    to the slow rotation sequences of M67,
     Ruprecht~147, NGC~6811, Praesepe, and a trio of 120\,Myr open
     clusters.  The stellar sample includes only apparently single stars
     near the main sequence with $\log g$$>$4.2, RUWE$<$1.4,
     and 3800$<$$T_{\rm eff}$/K$<$6200.  The displayed planets require
     the same stellar cuts, and include only the confirmed and candidate planets
     described in Section~\ref{subsec:plflags}.
+    An order of magnitude estimate for the number of young planets discovered
+    by Kepler follows by counting planets below the mean rotational isochrones.
   }
   \label{fig:prot_vs_teff}
 \end{figure*}
@@ -416,7 +418,7 @@ A few conclusions are offered in Section~\ref{sec:conclusions}.
   \caption{
     {\bf Equivalent widths (EW) of the \ion{Li}{1} 6708\,\AA\ doublet
       for planet-hosting stars.} These measurements were made from
-    Keck/HIRES spectra collected between 2009 and 2024 comprising
+    Keck/HIRES spectra collected between 2009 and 2024 that comprised
     \nhireshours\,hours of open-shutter time.  Lines are the ``mean''
     isochrones from the same models as in Figure~\ref{fig:models}; the
     intrinsic dispersion beyond $\approx$1\,Gyr becomes much larger
@@ -522,12 +524,12 @@ homogeneous portion that used only the \citetalias{Santos_2019} and
 considered a broader set of available KOI rotation periods.
 For the latter portion, we first included 32 KOIs with orbital and
 rotation periods within $\approx$20\% that had been
-excluded\footnote{Excluding stars in this category would impose a bias
-against young close-in planets, due to the natural commensurability
-between the rotation rates of young stars, and Kepler's increased
-sensitivity to short-period objects.  Although some of these KOIs are
-known false positives, our analysis excludes such objects at later
-steps.}%  As one motivating example, this subset of stars includes {\it
+excluded %\footnote{Excluding stars in this category would impose a bias
+%against young close-in planets, due to the natural commensurability
+%between the rotation rates of young stars, and Kepler's increased
+%sensitivity to short-period objects.  Although some of these KOIs are
+%known false positives, our analysis excludes such objects at later
+%steps.}%  As one motivating example, this subset of stars includes {\it
 %e.g.}~Kepler~1643 (KIC~8653134), with $P_{\rm orb}$=5.34\,days and
 %$P_{\rm rot}$=5.05\,days, which is known to be $\approx$40\,Myr old
 %based on membership in RSG-5 \citep{Bouma_2022b}.  }
@@ -578,8 +580,8 @@ of 30 days.
 We considered planets in the NASA Exoplanet Archive's cumulative KOI
 table, which included the best knowledge available on any given planet
 candidate as of 6 June 2023, while also incorporating human-based
-vetting.\footnote{See
-\url{https://exoplanetarchive.ipac.caltech.edu/docs/PurposeOfKOITable.html}}
+vetting. %\footnote{See
+%\url{https://exoplanetarchive.ipac.caltech.edu/docs/PurposeOfKOITable.html}}
 These planets represent a superset of those in the fully automated
 Q1-Q17 DR25 KOI Table \citep{Thompson_2018}, which could be adopted in
 future work for planet occurrence rate calculations.  This version of
@@ -807,7 +809,7 @@ accessed 15 April 2024.  We used 4$''$ rather than the 1$''$ match
 because 91 KOIs are omitted in the 1$''$ match, 23 of which have
 either ``candidate'' or ``confirmed'' status.  Almost all of these 23
 are M dwarfs with high proper motions.  Performing the same crossmatch
-at 4 arcseconds, only two KOIs (KOI-3993 and KOI-6531), both known
+at 4$''$, only two KOIs (KOI-3993 and KOI-6531), both known
 false positives, fail to yield Gaia DR3 crossmatches.}, which is a
 crossmatch of the NASA Exoplanet Archive
 \texttt{q1\_q17\_dr25\_stellar} catalog with Gaia DR3.  The separation
@@ -1160,7 +1162,6 @@ rotation period to be diagnostic of the stellar age.
     \includegraphics[width=0.7\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pdf}
   \end{center}
   \vspace{-0.5cm}
-  
   \caption{
     {\bf Sizes, orbital periods, and rotation-based ages of transiting
     exoplanets younger than one billion years.} Stars denote
@@ -1185,7 +1186,7 @@ We judged the consistency of the independent rotation and
 lithium-based ages by comparing the point-estimates of the posteriors,
 when available.  There are three cases of interest:
 
-\begin{enumerate}
+\begin{enumerate}[leftmargin=*]
   \item Two-sided posteriors available for both $t_{\rm gyro}$ and
     $t_{\rm Li}$: if their values were consistent within 2$\sigma$, we
     judged them to be consistent; if they were consistent within
@@ -1393,7 +1394,7 @@ three Earths and sub-Earths, and a Neptune-sized planet.
 
 With respect to our original questions, we have 
 three main conclusions.
-\begin{enumerate}
+\begin{enumerate}[leftmargin=*]
   %FIXME: 120 number
   \item From the rotation rates of Kepler planet-hosting stars, we
     have identified  \nplyounggyrotwosigma\ planets younger than
