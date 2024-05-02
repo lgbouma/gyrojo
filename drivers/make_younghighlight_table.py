@@ -81,17 +81,12 @@ def make_table(
     # ...with age results
     drop_highruwe = 0,
     grazing_is_ok = 1,
-    #manual_includes = [
-    #    '10736489', # KIC10736489 = KOI-7368: adopted_logg = 4.448...teff=5068.2... cutoff 4.48
-    #    '8873450', # KOI-7913 binary
-    #    '9471268', # Kepler-326 700myr multi
-    #],
     SELECT_YOUNG = 0,
 ):
 
     _df, _, _ = get_age_results(
         whichtype='allageinfo', grazing_is_ok=grazing_is_ok,
-        drop_highruwe=drop_highruwe#, manual_includes=manual_includes
+        drop_highruwe=drop_highruwe
     )
     _ldf = pd.read_csv(join(
         DATADIR, 'interim', 'koi_jump_getter_koi_X_JUMP.csv'
@@ -121,6 +116,7 @@ def make_table(
     selcols = (
         "kepid,kepoi_name,kepler_name,koi_disposition,"
         "min_age,"
+        #"adopted_logg,"
         "adopted_Teff,Prot,li_eagles_LiEW,li_eagles_eLiEW,"
         "gyro_median,gyro_+1sigma,gyro_-1sigma,"
         "li_median,li_+1sigma,li_-1sigma,li_eagles_limlo,li_eagles_limlo_formatted,"
