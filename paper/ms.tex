@@ -96,14 +96,11 @@
 \altaffiliation{51 Pegasi b Fellow}
 \affiliation{\caltech}
 
-\author{coauthors, possibly including but not limited to
+\author{coauthors, including but not limited to
 Hillenbrand, Howard, Isaacson, Palumbo}
 
 % <250 words
 \begin{abstract}
-  %Recent analyses of FGK stars in open clusters have revealed how
-  %stellar rotation rates and lithium content evolve over the first few
-  %billion years.
   %
   Recent analyses of FGK stars in open clusters have helped clarify
   the precision with which a star's rotation rate and lithium content
@@ -123,8 +120,6 @@ Hillenbrand, Howard, Isaacson, Palumbo}
   The independent lithium ages agree with the rotation-based ages for
   $\approx$90\% of cases, suggesting that most of the rotation-based
   ages are not only precise, they are also accurate.
-  %However, the timescales of lithium depletion are such that
-  %rotation-based ages are more precise for most of our stellar sample.
   %
   Our resulting catalog includes \nplyounggyrotwosigma\ planets
   younger than 1\,Gyr at 2$\sigma$ (\nplyounggyrothreesigma\ planets
@@ -152,84 +147,80 @@ of thousands of worlds orbiting close to their host stars
 \citep{Borucki10,2015JATIS...1a4003R}.  Most of these exoplanets are
 billions of years old, similar to the Earth.  This fact leaves many
 gaps in our knowledge of what exact dynamical and physical processes
-produce these objects.    The reason is that
-processes such as thermal cooling \citep{2007ApJ...659.1661F},
-atmospheric loss \citep{2019AREPS..47...67O}, giant impacts
+produce these objects.    The reason is that processes such as thermal
+cooling \citep{2007ApJ...659.1661F}, atmospheric loss
+\citep{2019AREPS..47...67O}, giant impacts
 \citep{2014prpl.conf..595R}, and dynamical instabilities
 \citep{2017MNRAS.470.1750I} are expected to be most efficient over
 $\approx$10\,Myr to $\approx$1\,Gyr timescales; when we observe most
-known exoplanets, these processes have completed, and not much is happening.
+known exoplanets, most of the action is in the past.
 
-Finding and characterizing young ($<$1\,Gyr) exoplanets is one 
-possible path toward building a timeline for exoplanet evolution.
+Finding and characterizing young ($<$1\,Gyr) exoplanets is one
+potential path toward building a timeline for exoplanet evolution.
 Informative individual young systems include V1298~Tau, an adolescent
 resonant chain of four transiting puffy planets that is a likely
 precusor to the compact multiplanet systems \citep{David_2019}, and
 HIP~67522, a Jupiter-sized planet with a Neptunian mass
-(\citealt{Rizzuto_2020}; Thao et al.~submitted).
-% And perhaps also TOI837, now with a uber massive core!
-Population-level analyses have similarly suggested differences in the
-size distribution of young exoplanets relative to their older
-counterparts
+(\citealt{Rizzuto_2020}; Thao et al.~submitted).  Population-level
+analyses have similarly suggested differences in the size distribution
+of young exoplanets relative to their older counterparts
 \citep{Berger_2020b_rpage,David_2021,Sandoval_2021,2023AJ....166..248C,2024arXiv240303261V}.
 
 Discovering a young planet requires solving two problems: find the
 planet, and measure the star's age.  Each problem admits a range of
 solutions \citep[e.g.][]{2008Sci...322.1348M,2012ApJ...756L..33Q}.  In
-this article we will consider planets previously known from
-transits, and infer new stellar ages using rotation and lithium.
+this article we will consider planets previously known from transits,
+and infer new stellar ages using rotation and lithium.
 
-To begin, imagine that the age distribution of stars within a few
-hundred parsecs of the Sun is uniform between 0 and 10\,Gyr
+To begin, imagine that the ages of nearby stars in the Galaxy are
+uniformly distributed between 0 and 10\,Gyr
 \citep[e.g.][]{Nordstrom_2004}.  This approximation clarifies the
 rarity of young stars: under these assumptions, $\approx$1\% of nearby
 stars have $t$$<$100\,Myr, and $\approx$10\% have $t$$<$1\,Gyr.
-Entire fields focused on studying forming protoplanets
-\citep{2018A&A...617A..44K}, and on watching exoplanets evolve shortly
-after disk dispersal \citep[e.g.][]{2022MNRAS.512.5067K}, are thereby
-capped in their maximum achievable sample sizes by the tyranny of the
-Galactic star formation rate.
+Studies of currently forming protoplanets \citep{2018A&A...617A..44K},
+or of exoplanets evolving just after disk dispersal
+\citep[e.g.][]{2022MNRAS.512.5067K}, are thereby capped in their
+maximum achievable sample sizes by the tyranny of the Galactic star
+formation rate.
 
 Despite the observational challenges, young close-in planet discovery
-has done well over the past decade.  This has been primarily enabled
+has done well over the past decade, primarily due to
 by Kepler, K2, TESS, and Gaia
 \citep[e.g.][]{Meibom_2013,Mann_K2_25_2016,Mann_2017,Curtis_2018,Livingston_2018,David_2019,Bouma_2020_toi837,Rizzuto_2020,Plavchan_2020,Newton_2021,Nardiello_2022,Tofflemire_2021,Barber_2022,Bouma_2022a,Bouma_2022b,Zhou_2022,Zakhozhay_2022,Wood_2023}.
-The original strategy from around 2010 to 2020 was to focus on stars
-with known ages---obvious members of open clusters---and to search
-them for transiting planets.  The resulting stellar ages are precise
-at the $\approx$10\% level, and planets discovered in this way are
-generally assumed to have the same age as the host cluster.  A more
-recent development, facilitated by the second Gaia data release, is
-the idea that finding transiting planets can often be easier than
+The strategy pursued by most groups during the 2010s was to focus on
+stars with known ages---obvious members of open clusters---and to
+search them for transiting planets.  The resulting stellar ages are
+precise at the $\approx$10\% level, and planets discovered in this way
+are generally assumed to have the same age as the host cluster.  A
+more recent development, facilitated by the second Gaia data release,
+is the idea that finding transiting planets can often be easier than
 finding and characterizing the host stellar association
 \citep[e.g.][]{Tofflemire_2021}.
 
-Despite recent advances, the main problem with the ``cluster-first''
-approach is that only $\approx$1\% of stars within the nearest few
-hundred parsecs are currently associated with their birth cluster
+The main problem with the ``cluster-first'' approach is that most
+nearby sub-gigayear stars are in the field.  Only $\approx$1\% of
+stars within the nearest $\approx$500\,pc are currently associated
+with their birth cluster
 \citep[e.g.][]{Zari_2018,CantatGaudin_2020,Kounkel_2020,Kerr_2021}.
-Most nearby sub-gigayear stars are in the field, and are omitted by
-cluster-only planet searches.  
 One can appreciate the problem by querying NASA's Exoplanet Archive
-\citep[NEA;][]{2013PASP..125..989A}
-for transiting planets younger than 1\,Gyr.  Imposing reasonable
-precision requirements\footnote{For instance $t$$<$1\,Gyr at 2$\sigma$, or else
-ages precise to say S/N$=$3.} gives $\approx$50 ``young''
-transiting planets at the time of writing.  Most of these planets are
-in clusters, and have been discovered by Kepler, K2, or TESS.
-However, combined, those surveys have discovered $\approx$5{,}000
-planets.  Unless there is a major bias against the discovery of
-sub-gigayear old planets (with precisely constrained ages), we would
-expect an order of magnitude more young transiting planets to be
-known.
+\citep[NEA;][]{2013PASP..125..989A} for transiting planets younger
+than 1\,Gyr.  Imposing reasonable precision requirements\footnote{For
+instance $t$$<$1\,Gyr at 2$\sigma$, or else ages precise to say
+S/N$=$3.} gives $\approx$50 ``young'' transiting planets at the time
+of writing.  Most of these planets are in clusters, and have been
+discovered by Kepler, K2, or TESS.  However, combined, those surveys
+have discovered $\approx$5{,}000 planets.  Unless there is a major
+bias against the discovery of sub-gigayear old planets with precisely
+constrained ages, we would expect an order of magnitude more young
+transiting planets to be known.
 
-This study aims to resolve two main questions.  First, there is the
-question of how wrong it is to assume a uniform age distribution for
-stars in the galactic thin disk, particularly young stars.  Second,
-where are the missing young transiting planets?  Briefly, we will find
-that uniform is incorrect by a factor of a few, and that the missing
-young transiting planets mostly have imprecise age measurements which
-can be improved.
+This study aims to resolve two main questions.  First, how wrong it is
+to assume a uniform age distribution for stars in the galactic thin
+disk, particularly young stars?  Second, where are the missing young
+transiting planets?  Briefly, we will find that uniform is incorrect
+by a factor of a few, and that the bias against the discovery of young
+transiting plantes has, to date, primarily been in the measurement of
+theirs ages, rather than in the sensitivity of the transit searches.
 
 Given that Kepler's primary mission ended in 2013, one might be
 forgiven for assuming that the ages of the Kepler planets are already
@@ -244,25 +235,24 @@ based on whether they rotated faster or slower than a gyrochrone age
 of $\approx$2.6\,Gyr \citep{Meibom_2015,Curtis_2020}.  These studies
 were conducted in the broader context of investigating trends in
 exoplanet demographics, which also depend on stellar metallicity and
-mass \citep{Petigura_2018}.  These studies offered limited sensitivity
-to the ages of the youngest planets, due to the nature of isochronal
-dating.
+mass \citep[e.g.][]{Petigura_2018}.  These studies offered limited
+sensitivity to the ages of the youngest planets, due to the nature of
+isochronal dating.
 
 Gyrochronology offers ages precise to $\lesssim$30\% for FGK stars
 between 0.5-4\,Gyr, and can also provide useful age limits at earlier
 times \citep{Bouma_2023}.  The idea of using a star's spin-down as a
-clock is quite old
+clock has a rich history
 \citep{Skumanich_1972,Noyes_1984,Kawaler_1989,Barnes03,Mamajek_2008,Angus_2015},
 and physics-based models for the spin-down itself can clarify many
 aspects of how the stellar winds, internal structure, and magnetic
 dynamo all evolve
-\citep[e.g.][]{Matt_2015,Gallet_Bouvier_2015,Spada_2020}.  
-In the context of Kepler,
-empirical models have been previously applied to derive rotation-based
-ages for subsets of the Kepler data
-\citep{Walkowicz_2013,Reinhold_2015,Angus_2018}.
-There have been major improvements since these pioneering studies in:
-\begin{enumerate}[label={\it \roman*)},leftmargin=*]
+\citep[e.g.][]{Matt_2015,Gallet_Bouvier_2015,Spada_2020}.  In the
+context of Kepler, empirical models have been previously applied to
+derive rotation-based ages for subsets of the Kepler data
+\citep{Walkowicz_2013,Reinhold_2015,Angus_2018}.  There have been
+major improvements since these pioneering studies in:
+\begin{enumerate}[label={\it \roman*)},leftmargin=*,topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
   \item The extent of the Kepler Object of Interest catalog, as well
     as our understanding of which of these objects are false
     positives;
@@ -273,14 +263,13 @@ There have been major improvements since these pioneering studies in:
   %
   \item Our ability to model not only the mean evolution but also the
     intrinsic dispersion in rotation periods as a function of time
-    \citep{Bouma_2023}.  
-    For Sun-like stars, the new model is broadly consistent with older
-    calibrations \citep[e.g.][]{Mamajek_2008}.  However, for late G
-    dwarfs and K dwarfs, the age-calibration differs by factors of a
-    few;
+    \citep{Bouma_2023}.  For Sun-like stars, the new model is broadly
+    consistent with older calibrations \citep[e.g.][]{Mamajek_2008}.
+    However, for late G dwarfs and K dwarfs, the age-calibration
+    differs by factors of a few;
   %
-  \item Our ability to identify binary stars, which can potentially
-    problematic for estimates of rotation-based ages.
+  \item Our ability to identify binary stars, which can be problematic
+    for estimates of rotation-based ages.
 \end{enumerate}
 Today, rotation-based ages for FGK stars below $\approx$4\,Gyr are
 empirically tied to the cluster age scale and rotation sequence, and
@@ -890,7 +879,7 @@ close binaries.  While we
 propagate this flag into our set of quality flags, we therefore
 generally ignore it.
 
-{\it How do we use the bit-flags}
+{\it How do we use the bit-flags?}
 An important decision for our subsequent analysis is how to combine
 the above quality indicators in order to decide whether or not a star is suited for
 gyrochronology.  By default, we assume that a star is suitable for
@@ -1186,7 +1175,7 @@ We judged the consistency of the independent rotation and
 lithium-based ages by comparing the point-estimates of the posteriors,
 when available.  There are three cases of interest:
 
-\begin{enumerate}[leftmargin=*]
+\begin{enumerate}[leftmargin=*,topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
   \item Two-sided posteriors available for both $t_{\rm gyro}$ and
     $t_{\rm Li}$: if their values were consistent within 2$\sigma$, we
     judged them to be consistent; if they were consistent within
@@ -1392,9 +1381,9 @@ with strong age
 constraints from both rotation and lithium, including five mini-Neptunes, five super-Earths,
 three Earths and sub-Earths, and a Neptune-sized planet.
 
-With respect to our original questions, we have 
-three main conclusions.
-\begin{enumerate}[leftmargin=*]
+Our 
+three main conclusions with respect to our original questions are as follows.
+\begin{enumerate}[leftmargin=*,topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
   %FIXME: 120 number
   \item From the rotation rates of Kepler planet-hosting stars, we
     have identified  \nplyounggyrotwosigma\ planets younger than
