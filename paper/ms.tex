@@ -1381,45 +1381,36 @@ with strong age
 constraints from both rotation and lithium, including five mini-Neptunes, five super-Earths,
 three Earths and sub-Earths, and a Neptune-sized planet.
 
-Our 
-three main conclusions with respect to our original questions are as follows.
+Our three main conclusions with respect to our original questions are
+as follows.
+
 \begin{enumerate}[leftmargin=*,topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
+  %
+  \item The age distributions of both the Kepler target stars and the
+    known Kepler planet-hosts shows a demographic cliff.  There are
+    \ratioobtoybstars\ times as many ``old'' (2-3\,Gyr) stars in the
+    Kepler field as ``young'' (0-1\,Gyr) stars.  The star formation
+    rate today is \ratiosfr$\pm$\uncratiosfr\ times lower than it was
+    three billion years ago.
+  %
+  \item Rather than expecting $\approx$500 exoplanets younger than one
+    billion years, the rotation-based age distribution of stars in the
+    Kepler field implies that we should instead expect $\approx$250.
+  %
   %FIXME: 120 number
-  \item From the rotation rates of Kepler planet-hosting stars, we
-    have identified  \nplyounggyrotwosigma\ planets younger than
-    1\,Gyr at 2$\sigma$, and \nplyounggyro\ planets with median ages
-    below 1\,Gyr.
-    This implies that there are now $\approx$120-170 known
-    sub-gigayear planets with well-constrained ages.
-  %
-  \item The age distributions of both the Kepler
-    target stars and the known Kepler planet-hosts shows a
-    demographic cliff.  
-    There are \ratioobtoybstars\ times as many ``old'' (2-3\,Gyr)
-    stars in the Kepler field as ``young'' (0-1\,Gyr) stars.
-    The star formation rate today is \ratiosfr$\pm$\uncratiosfr\ times
-    lower than it was three billion years ago.
-  %
-  \item The implication of the latter age distribution is that rather
-    than expecting $\approx$500 sub-gigayear exoplanets, we should
-    instead expect $\approx$250.
-    We have therefore gone from a factor of ten discrepancy to a
-    factor of at most two.
-%    The issue is therefore mostly, although perhaps not entirely, resolved.
-%    Some of the remaining missing young
-%    transiting planets may be in the Kepler data.  Many more are
-%    likely in K2 and TESS.
+  \item Using rotation-based ages, we have reported the ages of
+    \nplyounggyrotwosigma\ Kepler planets younger than 1\,Gyr at 2$\sigma$,
+    and \nplyounggyro\ planets with median ages below 1\,Gyr.
+    Joining these planets against the existing literature yields
+    $\approx$120-170 known sub-gigayear planets with well-constrained
+    ages.  We have therefore gone from a factor of ten discrepancy to
+    a factor of at most two.
 \end{enumerate}
 
 
-% 4 CepHer, 2 MELANGE3, 6 Theia520, 2 NGC6811.
-
-
-
-
 \acknowledgements
-This work was supported by the 
-Heising-Simons 51~Pegasi~b Fellowship (LGB)
+This work was supported by the Heising-Simons 51~Pegasi~b Fellowship
+(LGB)
 and the Arthur R.~Adams SURF Fellowship (EKP).
 
 (author contribution statements will go here)
@@ -1436,29 +1427,26 @@ All authors assisted in manuscript revision.
   Gaia \citep{Gaia_DR3_2022},
   Kepler \citep{Borucki10},
   Keck:I (HIRES).
-%  TESS \citep{ricker_transiting_2015},
-%  NGTS \citep{Wheatley_2018}
 }
 
 \software{
-    astropy \citep{Astropy18},
-    matplotlib \citep{matplotlib},
-    numpy \citep{numpy},
-    scipy \citep{scipy},
+  astropy \citep{Astropy18},
+  matplotlib \citep{matplotlib},
+  numpy \citep{numpy},
+  scipy \citep{scipy},
 }
 
 \clearpage 
 
 \startlongtable
 \begin{deluxetable*}{llllllllrrrrrrl}
-  %\tabletypesize{\footnotesize}
   \tabletypesize{\scriptsize}
   \tablecaption{Ages of Kepler planets and planet candidates.  This
-  version of the table is truncated to include only the youngest confirmed Kepler planets,
-  sorted by the minimum of either the rotation or lithium-based
-  age.  The
-  full machine-readable table contains ages and age limits for
-  \nnonfopkoissomeageinfo\ non-false positive KOIs with MES$>$10.  
+  version of the table is truncated to include only the youngest
+  confirmed Kepler planets, sorted by the minimum of either the
+  rotation or lithium-based age.  The full machine-readable table
+  contains ages and age limits for \nnonfopkoissomeageinfo\ non-false
+  positive KOIs with MES$>$10.  
   A shell script to decode the $Q_{\rm gyro}$ quality flag is {\bf \href{https://gist.github.com/lgbouma/20368253f1a98da1b39cf32fdda0be13}{available online}}.
   \label{tab:planets}}
   %\toprule
@@ -1497,8 +1485,10 @@ All authors assisted in manuscript revision.
     Bit 0: Candidate not reliable?
     Bit 1: MES$<$10?
     Bit 2: Grazing?
-    For a star to have a high likelihood of being ``reliable for gyrochronology'' we suggest $Q_{\rm star}$ bits
-    zero to nine to not be raised, and for a planet to be ``reliabe'', we suggested $Q_{\rm planet}$ to be zero.
+    For a star to have a high likelihood of being ``reliable for
+    gyrochronology'' we suggest $Q_{\rm star}$ bits zero to nine to
+    not be raised, and for a planet to be ``reliabe'', we suggested
+    $Q_{\rm planet}$ to be zero.
   }
 \end{deluxetable*}
 
