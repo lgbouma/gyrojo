@@ -99,7 +99,7 @@ def get_li_data(sampleid, whichwindowlen=7.5):
     #TODO FIXME: many nan teffs bc this is all kepler... not just kois...
 
     # rotators (...& w/ the S19S21 teffs)
-    sdf1 = get_kicstar_data("Santos19_Santos21_all")
+    sdf1 = get_kicstar_data('Santos19_Santos21_litsupp_all')
     # all KIC (w/ only B21 teffs)
     sdf2 = get_cleaned_gaiadr3_X_kepler_supplemented_dataframe()
 
@@ -217,8 +217,8 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
 
     # made by plot_process_koi_li_posteriors.py
     li_method = 'eagles'
-    datestr = '20240405'
-    outdir = join(RESULTSDIR, f"koi_lithium_posteriors_{li_method}_{datestr}")
+    lidatestr = '20240405'
+    outdir = join(RESULTSDIR, f"koi_lithium_posteriors_{li_method}_{lidatestr}")
     csvpath = join( outdir, f"{li_method}_koi_X_JUMP_lithium_ages.csv" )
     li_df = pd.read_csv(csvpath)
     li_df = li_df.sort_values(by='li_eagles_lMed') # eagles median...
@@ -337,6 +337,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
         df.loc[sel,'adopted_Teff'] = df.loc[sel,'koi_steff']
         df.loc[sel,'adopted_Teff_provenance'] = 'Mathur_2017_DR25'
 
+        assert pd.isnull(df.adopted_Teff).sum() == 0
         assert pd.isnull(df.adopted_Teff).sum() == 0
         assert pd.isnull(df.adopted_Teff_provenance).sum() == 0
 
@@ -524,19 +525,26 @@ def get_kicstar_data(sampleid):
 
     Args:
         sampleid (str): Options are: [
-            'allKIC_Berger20_dquality'
+            'allKIC_Berger20_dquality',
+            'Santos19_Santos21_litsupp_all',
             'Santos19_Santos21_all',
             'Santos19_Santos21_dquality',
         ]
 
-        "Santos19_Santos21_all" concatenates Santos19 and Santos21, and then
-        crossmatches against Berger20 (tables1&2).  Adopted Teffs and adopted
-        loggs are then assigned in a rank-ordered preference scheme, as are
-        period uncertainties.
+        "Santos19_Santos21_all" concatenates Santos19 and Santos21 ,
+        and then crossmatches against Berger20 (tables1&2).  Adopted
+        Teffs and adopted loggs are then assigned in a rank-ordered
+        preference scheme, as are period uncertainties.
+
+        "Santos19_Santos21_litsupp_all" concatenates Santos19 and
+        Santos21 (with the Santos+ bonus KOIs, and the David+ bonus
+        KOIs), and then crossmatches against Berger20 (tables1&2).
+        Adopted Teffs and adopted loggs are then assigned in a
+        rank-ordered preference scheme, as are period uncertainties.
 
         "Santos19_Santos21_dquality" imposes a posteriori cuts on the returned
         dataframe (not the computed one).  This specifically just returns
-        field_gyro_posteriors_20240405_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv
+        field_gyro_posteriors_20240430_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv
 
         "allKIC_Berger20_dquality" which is the KIC/Berger20 stars, without any
         parsing of whether rotation is reported, with quality flags calculated.
@@ -563,7 +571,7 @@ def get_kicstar_data(sampleid):
     if sampleid == 'allKIC_Berger20_dquality':
         csvpath = join(
             TABLEDIR,
-            'allKIC_20240405_X_GDR3_B20_with_qualityflags.csv'
+            'allKIC_20240430_X_GDR3_B20_with_qualityflags.csv'
         )
         assert os.path.exists(csvpath)
         df = pd.read_csv(
@@ -577,7 +585,7 @@ def get_kicstar_data(sampleid):
         # made by construct_field_star_gyro_quality_flags.py driver
         csvpath = join(
             TABLEDIR,
-            'field_gyro_posteriors_20240405_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
+            'field_gyro_posteriors_20240430_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
         )
         assert os.path.exists(csvpath)
         df = pd.read_csv(
@@ -818,7 +826,7 @@ def get_kicstar_data(sampleid):
     # get loggs #
     #############
 
-    # default Teffs
+    # default loggs
     df['adopted_logg'] = df['b20t2_logg']
     df['adopted_logg_provenance'] = 'Berger2020_table2'
     df['adopted_logg_err'] = np.nanmax([
