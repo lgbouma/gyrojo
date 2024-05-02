@@ -1377,6 +1377,15 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     ulkvp('ratiombtoybstars', np.round(n_mb/n_yb, 1))
     ulkvp('ratiombtoybstars', np.round(n_mb/n_yb, 1))
     ulkvp('ratioobtoybstars', np.round(n_ob/n_yb, 1))
+
+    n_youngg = len(mdf[sel_gyro_ok][
+        (mdf[sel_gyro_ok].age > 0) & (mdf[sel_gyro_ok].age <= 300)
+    ])/10
+    n_oldd = len(mdf[sel_gyro_ok][
+        (mdf[sel_gyro_ok].age > 2700) & (mdf[sel_gyro_ok].age <= 3000)
+    ])/10
+    ulkvp('ratiosfr', np.round(n_oldd/n_youngg, 1))
+
     ##########################################
 
     axs[0].legend(loc='best', fontsize='x-small')
@@ -1453,16 +1462,16 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         })
 
     txt = 'All Kepler stars'
-    axs[0].text(.035, .99, txt, ha='left', va='top',
+    axs[0].text(.04, .98, txt, ha='left', va='top',
                 fontsize='large', zorder=5, transform=axs[0].transAxes,
                 fontdict={'fontstyle':'normal'}, color='C0')
     if MAXAGE < 4000:
         axs[0].set_xticks([0, 1, 2, 3])
 
-    axs[1].text(.035, .99, 'KOI hosts', ha='left', va='top',
+    axs[1].text(.05, .98, 'KOI hosts', ha='left', va='top',
                 fontsize='large', zorder=5, transform=axs[1].transAxes,
                 fontdict={'fontstyle':'normal'}, color='salmon')
-    axs[2].text(.035, .99, 'Comparison', ha='left', va='top',
+    axs[2].text(.04, .98, 'Comparison', ha='left', va='top',
                 fontsize='large', zorder=5, transform=axs[2].transAxes,
                 fontdict={'fontstyle':'normal'}, color='k')
 
@@ -1485,17 +1494,17 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
                     Line2D([0], [0], color='C0', lw=1, alpha=1.0 ) ]
     axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='x-small',
                   borderaxespad=0.9, borderpad=0.5, framealpha=0,
-                  loc='lower center')
+                  loc='lower right')
     custom_lines = [Line2D([0], [0], color='salmon', lw=0.5, alpha=0.4),
                     Line2D([0], [0], color='salmon', lw=1, alpha=1.0 ) ]
     axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='x-small',
                   borderaxespad=0.9, borderpad=0.5, framealpha=0,
-                  loc='lower center')
+                  loc='lower right')
     custom_lines = [Line2D([0], [0], color='C0', lw=1, alpha=1.0),
                     Line2D([0], [0], color='salmon', lw=1, alpha=1.0 ) ]
     axs[2].legend(custom_lines, [l2_1, l2_2], fontsize='x-small',
                   borderaxespad=0.9, borderpad=0.5, framealpha=0,
-                  loc='lower center')
+                  loc='lower right')
 
     outpath = os.path.join(
         outdir, f'hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}{santosstr}.png'
