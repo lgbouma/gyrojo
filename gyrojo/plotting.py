@@ -226,9 +226,8 @@ def plot_star_Prot_Teff(outdir, sampleid):
     # For KIC / all Santos stars
 
     assert sampleid in [
-        'Santos19_Santos21_all', 'Santos19_Santos21_logg',
-        'Santos19_Santos21_clean0', 'teff_age_prot_seed42_nstar20000',
-        'Santos19_Santos21_dquality'
+        'Santos19_Santos21_all', 'teff_age_prot_seed42_nstar20000',
+        'Santos19_Santos21_dquality', 'Santos19_Santos21_litsupp_all',
     ]
 
     if "Santos" in sampleid:
