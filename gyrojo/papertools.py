@@ -120,7 +120,16 @@ def cast_to_int_string(value):
     if pd.isna(value):
         return np.nan
     else:
-        return str(int(np.round(value,0)))
+        if isinstance(value, float):
+            return str(int(np.round(value,0)))
+        elif isinstance(value, int):
+            return str(int(value))
+        elif isinstance(value, str):
+            return value
+        else:
+            print(f'got value type {type(value)}')
+            import IPython; IPython.embed()
+            raise NotImplementedError
 
 def replace_nan_string(value):
     if pd.isna(value) or 'nan' in str(value).lower():
