@@ -16,4 +16,4 @@ if not os.path.exists(outdir): os.mkdir(outdir)
 
 plot_koi_mean_prot_teff(outdir, 'koi_X_S19S21dquality', grazing_is_ok=0)
 plot_koi_mean_prot_teff(outdir, 'koi_X_S19S21dquality', grazing_is_ok=1)
-plot_koi_mean_prot_teff(outdir, 'deprecated_all')
+#plot_koi_mean_prot_teff(outdir, 'deprecated_all')

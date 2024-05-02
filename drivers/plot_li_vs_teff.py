@@ -12,7 +12,6 @@ ap.plot_li_vs_teff(outdir, sampleid='koi_X_JUMP',
 ap.plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality',
                    yscale='log', limodel='eagles',
                    show_dispersion=0)
-
 ap.plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality',
                    yscale='linear', limodel='eagles', show_dispersion=0,
                    nodata=1, show_dispersionpoints=1)
