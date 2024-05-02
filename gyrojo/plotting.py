@@ -726,8 +726,9 @@ def plot_rp_vs_age(outdir, xscale='linear', elinewidth=0.1, shortylim=0,
 def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
 
     # get data
+    whichtype = 'gyro' #'allageinfo' # or "gyro"
     _df, d, st_ages = get_age_results(
-        whichtype='gyro', grazing_is_ok=1
+        whichtype=whichtype, grazing_is_ok=0, drop_highruwe=1
     )
     df = pd.DataFrame(d)
 
@@ -749,7 +750,8 @@ def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
         sel &= df['adopted_Teff'] < 5000
 
     df = df[sel]
-    st_ages = st_ages[st_ages < AGE_MAX]
+    if whichtype == 'gyro':
+        st_ages = st_ages[st_ages < AGE_MAX]
 
     df['age_pcterravg'] = np.nanmean(
         [df['age_pcterr1'], df['age_pcterr2']], axis=0
@@ -1384,7 +1386,13 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     n_oldd = len(mdf[sel_gyro_ok][
         (mdf[sel_gyro_ok].age > 2700) & (mdf[sel_gyro_ok].age <= 3000)
     ])/10
-    ulkvp('ratiosfr', np.round(n_oldd/n_youngg, 1))
+    ratiosfr = n_oldd/n_youngg
+    ulkvp('ratiosfr', f"{ratiosfr:.2f}")
+
+    σ_oldd = n_oldd**0.5/n_oldd
+    σ_youngg = n_youngg**0.5/n_youngg
+    unc_ratio = np.sqrt(σ_oldd**2 + σ_youngg**2) * ratiosfr
+    ulkvp('uncratiosfr', f"{unc_ratio:.2f}")
 
     ##########################################
 
