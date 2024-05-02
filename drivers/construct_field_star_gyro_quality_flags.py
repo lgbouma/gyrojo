@@ -69,7 +69,11 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
         (df['adopted_Teff'] > 6200)
     )
 
-    df['flag_logg'] = df['adopted_logg'] < 4.2
+    df['flag_logg'] = (
+        (df['adopted_logg'] < 4.2)
+        |
+        (pd.isnull(df['adopted_logg']))
+    )
 
     df['flag_dr3_M_G'] = (df['M_G'] < 3.9) | (df['M_G'] > 8.5)
 
