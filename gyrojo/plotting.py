@@ -1320,8 +1320,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         return poisson_uncertainties
 
     plt.close("all")
-    set_style('clean')
-    fig, axs = plt.subplots(ncols=3, figsize=(0.9*6, 0.9*2.7),
+    set_style('science')
+    fig, axs = plt.subplots(ncols=3, figsize=(0.9*6, 0.9*2.5),
                             constrained_layout=True)
 
     koi_df = get_koi_data('cumulative-KOI', grazing_is_ok=1)
@@ -1334,20 +1334,20 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     l0_0 = f'{N} with '+'P$_{\mathrm{rot}}$'
     axs[0].hist(mdf.age/1e3, bins=bins, color='C0', histtype='step',
-                weights=np.ones(len(mdf))/len(mdf), zorder=1, label=l0_0,
+                weights=np.ones(len(mdf))/len(mdf), zorder=-5, label=l0_0,
                 alpha=0.4, linewidth=0.5)
 
     N = int(len(mdf[sel_gyro_ok])/10)
     l0_1 = f'{N} gyro applicable'
     heights, bin_edges, _  = axs[0].hist(
         mdf[sel_gyro_ok].age/1e3, bins=bins, color='C0', histtype='step',
-        weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=2,
+        weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=-3,
         alpha=1, label=l0_1
     )
     l2_1 = f'{N} Kepler stars'
     _  = axs[2].hist(
         mdf[sel_gyro_ok].age/1e3, bins=bins, color='C0', histtype='step',
-        weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=99,
+        weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=-1,
         alpha=1, label=l2_1
     )
 
@@ -1356,12 +1356,12 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     axs[0].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
         elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='C0', markersize=0,
-        zorder=5, alpha=0.8
+        zorder=-3, alpha=0.8
     )
     axs[2].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
         elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='C0', markersize=0,
-        zorder=98, alpha=0.8
+        zorder=-1, alpha=0.8
     )
 
 
@@ -1404,7 +1404,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     axs[1].hist(mdf[sel_planets].age/1e3, bins=bins, color='salmon',
                 histtype='step',
                 weights=np.ones(len(mdf[sel_planets]))/len(mdf[sel_planets]),
-                zorder=1,
+                zorder=-5,
                 label=l1_0, alpha=0.4, linewidth=0.5)
     psel = sel_gyro_ok & sel_planets
     N = int(len(mdf[psel])/10)
@@ -1412,24 +1412,24 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     heights, _, _ = axs[1].hist(
         mdf[psel].age/1e3, bins=bins, histtype='step',
         weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='salmon', alpha=0.9,
-        zorder=2, label=l1_1
+        zorder=-3, label=l1_1
     )
     l2_2 = f'{N} KOI hosts'
     heights, _, _ = axs[2].hist(
         mdf[psel].age/1e3, bins=bins, histtype='step',
         weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='salmon', alpha=0.9,
-        zorder=2, label=l2_2
+        zorder=-2, label=l2_2
     )
     poisson_uncertainties = get_poisson_uncertainties(mdf[psel], bins)
     axs[1].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
         elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='salmon', markersize=0,
-        zorder=5, alpha=0.8
+        zorder=-3, alpha=0.8
     )
     axs[2].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
         elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='salmon', markersize=0,
-        zorder=5, alpha=0.8
+        zorder=-2, alpha=0.8
     )
 
     ##########################################
@@ -1470,16 +1470,16 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         })
 
     txt = 'All Kepler stars'
-    axs[0].text(.04, .98, txt, ha='left', va='top',
+    axs[0].text(.05, .95, txt, ha='left', va='top',
                 fontsize='large', zorder=5, transform=axs[0].transAxes,
                 fontdict={'fontstyle':'normal'}, color='C0')
     if MAXAGE < 4000:
         axs[0].set_xticks([0, 1, 2, 3])
 
-    axs[1].text(.05, .98, 'KOI hosts', ha='left', va='top',
+    axs[1].text(.05, .95, 'KOI hosts', ha='left', va='top',
                 fontsize='large', zorder=5, transform=axs[1].transAxes,
                 fontdict={'fontstyle':'normal'}, color='salmon')
-    axs[2].text(.04, .98, 'Comparison', ha='left', va='top',
+    axs[2].text(.05, .95, 'Comparison', ha='left', va='top',
                 fontsize='large', zorder=5, transform=axs[2].transAxes,
                 fontdict={'fontstyle':'normal'}, color='k')
 
@@ -1490,12 +1490,14 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     # AESTHETIC HAD WEIRD ISSUES...
     # Hide the right and top spines
-    for ax in axs:
-        ax.spines['right'].set_visible(False)
-        ax.spines['top'].set_visible(False)
-        # Only show ticks on the left and bottom spines
-        ax.yaxis.set_ticks_position('left')
-        ax.xaxis.set_ticks_position('bottom')
+    SHOW_RIGHTTOP = 1
+    if not SHOW_RIGHTTOP:
+        for ax in axs:
+            ax.spines['right'].set_visible(False)
+            ax.spines['top'].set_visible(False)
+            # Only show ticks on the left and bottom spines
+            ax.yaxis.set_ticks_position('left')
+            ax.xaxis.set_ticks_position('bottom')
 
     from matplotlib.lines import Line2D
     custom_lines = [Line2D([0], [0], color='C0', lw=0.5, alpha=0.4),
@@ -1581,7 +1583,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         #'xlabel': '$t_{\mathrm{gyro}}$ [Gyr]',
         'xlabel': 'Age from Rotation [Gigayears]',
         'ylabel': f'Fraction of Sample',
-        'xlim': [xmin/1e3, (xmax-20)/1e3],
+        'xlim': [xmin/1e3, (xmax+20)/1e3],
         'ylim': [0, 0.072],
         'yticks': [0, 0.02, 0.04, 0.06],
         'yticklabels': [0, 0.02, 0.04, 0.06],
