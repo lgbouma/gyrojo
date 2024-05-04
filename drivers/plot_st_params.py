@@ -6,6 +6,9 @@ outdir = os.path.join(RESULTSDIR, 'st_params')
 if not os.path.exists(outdir): os.mkdir(outdir)
 
 # logg vs Teff
+for vtangcut in ['thindisk', 'thickdisk', 'halo']:
+    ap.plot_st_params(outdir, xkey='adopted_Teff', ykey='adopted_logg',
+                      vtangcut=vtangcut)
 ap.plot_st_params(outdir, xkey='adopted_Teff', ykey='adopted_logg')
 
 # CAMDs
