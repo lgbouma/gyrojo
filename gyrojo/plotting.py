@@ -61,6 +61,8 @@ from gyrointerp.models import slow_sequence, slow_sequence_residual
 
 from aesthetic.plot import set_style, savefig
 
+from cdips.utils.gaiaqueries import propermotion_to_kms
+
 ###########
 # helpers #
 ###########
@@ -1939,7 +1941,25 @@ def plot_gyroage_vs_teff(outdir, yscale='linear', showerrs=0, showplanets=0):
     savefig(fig, outpath, dpi=400)
 
 
-def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
+def get_vtang(df):
+    # Tricky unit conversions, but this works, where v_Tang is km/s, and rest
+    # of quantities are mas.
+    # NOTE: these two are ~equivalent.
+    df['v_T'] = (
+        4.74 *
+        (1 / df.dr3_parallax)
+        *
+        np.sqrt( df.dr3_pmra**2 + df.dr3_pmdec**2 )
+    )
+
+    #  v_pmra = propermotion_to_kms(df.dr3_pmra, df.dr3_parallax)
+    #  v_pmdec = propermotion_to_kms(df.dr3_pmdec, df.dr3_parallax)
+    #  df['v_T_2'] = np.sqrt( v_pmdec**2 + v_pmra**2 )
+
+    return df
+
+
+def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
 
     # get data
 
@@ -1975,6 +1995,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
         kicdf[kicdf['flag_is_gyro_applicable']],
         koidf
     ]
+
     colors = [
         'lightgray',
         'gray',
@@ -2009,6 +2030,15 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
     for df, c, z, l, s, r in zip(
         dfs, colors, zorders, labels, sizes, rasterized
     ):
+
+        if isinstance(vtangcut, str):
+            df = get_vtang(df)
+            if vtangcut == 'thindisk':
+                df = df[(df["v_T"] < 40)]
+            elif vtangcut == 'thickdisk':
+                df = df[(df["v_T"] > 60) & (df["v_T"] < 150)]
+            elif vtangcut == 'halo':
+                df = df[(df["v_T"] > 200)]
 
         yval = nparr(df[ykey])
         xval = nparr(df[xkey])
@@ -2117,6 +2147,8 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G'):
 
     # set naming options
     s = f'_{ykey}_vs_{xkey}'
+    if isinstance(vtangcut, str):
+        s += f'_{vtangcut}'
 
     outpath = join(outdir, f'st_params{s}.png')
     savefig(fig, outpath, dpi=400)
