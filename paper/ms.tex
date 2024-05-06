@@ -1169,22 +1169,22 @@ rotation period to be diagnostic of the stellar age.
   }
 \end{figure*}
 
-\subsubsection{Rotation vs.~Lithium Ages}
+\subsubsection{Comparing Rotation and Lithium Ages}
 
-We compared the independent rotation and
-lithium-based ages using the point-estimates of the posteriors,
-when available.  There are three cases of interest:
+We compared the independent rotation and lithium-based ages using the
+point-estimates of the posteriors, when available.  There are three
+cases of interest:
 
 \begin{enumerate}[leftmargin=*,topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
-  \item Two-sided posteriors for both $t_{\rm gyro}$ and
-    $t_{\rm Li}$: if their values were consistent within 2$\sigma$, we
-    judged them to be consistent; if they were consistent within
-    2-3$\sigma$, we suggest them to be ``maybe'' consistent.
-    Otherwise, they disagree.
+  \item Two-sided posteriors for both $t_{\rm gyro}$ and $t_{\rm Li}$:
+    if their values were consistent within 2$\sigma$, we judged them
+    to be consistent; if they were consistent within 2-3$\sigma$, we
+    suggest them to be ``maybe'' consistent.  Otherwise, they
+    disagree.
     %
-  \item If $t_{\rm Li}$ is a lower limit, we compare this
-    lower limit with the $1\sigma$ upper limit from $t_{\rm gyro}$; if
-    the two overlapped, we judge the age estimates to be consistent.
+  \item If $t_{\rm Li}$ is a lower limit, we compare this lower limit
+    with the $1\sigma$ upper limit from $t_{\rm gyro}$; if the two
+    overlapped, we judge the age estimates to be consistent.
     %
   \item If $t_{\rm Li}$ provides a two-sided posterior, and no
     rotation is reported, we judge the age estimates to be
@@ -1193,55 +1193,59 @@ when available.  There are three cases of interest:
     have been sensitive to the rotation periods of such stars.
 \end{enumerate}
 
-In the entire sample (i.e.~without imposing an quality cuts)
-this yielded \allagesyesconsistent\ consistent
-cases, \allagesmaybeconsistent\ ``maybe consistent'' cases, and
-\allagesnoconsistent\ inconsistent.  Restricting our attention to the
-$\lesssim$1\,Gyr stars, for which lithium ages are more constraining,
-the respective counts are \minageltonegyryesconsistent,
-\minageltonegyrmaybeconsistent, and \minageltonegyrnoconsistent.
-Rephrased, in the overall sample, \fracconsistentallages\% of stars
-have consistent rotation and lithium-based ages
-(\fracpotentiallyconsistentallages\% potentially consistent).  In the
-sample of sub-gigayear stars, \fracconsistentminageltonegyr\% of the
-ages are consistent (\fracpotentiallyconsistentminageltonegyr\%
-potentially consistent).  We feel it necessary to distinguish
-``maybe'' consistent cases because of lingering uncertainties in how
-the dispersion of the lithium data evolve over the first gigayear.
+In the entire sample (i.e.~without imposing any quality cuts) this
+yielded \allagesyesconsistent\ consistent cases,
+\allagesmaybeconsistent\ ``maybe consistent'' cases, and
+\allagesnoconsistent\ inconsistent cases.  Rephrased, in the overall
+sample, \fracconsistentallages\% of stars have consistent rotation and
+lithium-based ages (\fracpotentiallyconsistentallages\% potentially
+consistent).
 
-In
-Appendix~\ref{app:inconsistent}, we discuss the
-systems for which at least one age indicator
-reports a sub-gigayear age in detail.
-All but one are simply cases for which the star
-is either evolved or else an unresolved binary.
-The one exception is Kepler-786 (KOI-1199), an early K dwarf with 
-$t_{\rm Li}$=\kepseveneightsix\,Myr, which would predict an obvious rotation signal.
-No photometric signal is detected; other age indicators in the
-spectrum similarly suggest that the star may not in fact be young.
+Appendix~\ref{app:inconsistent} describes all cases of ``discrepant''
+confirmed planets for which a sub-gigayear age is reported by at least
+one age indicator.  All but two systems are
+either evolved stars or else unresolved binaries, and are
+automatically flagged as such.  The two exceptions are Kepler-786
+(KOI-1199), and Kepler-1 (TrES-2).  Kepler-786 is an early K dwarf with
+$t_{\rm Li}$=\kepseveneightsix\,Myr, which would imply that
+rotation should be detectable.  However no photometric rotation signal is detected; other age
+indicators in the spectrum similarly suggest that the star may not in
+fact be young.  TrES-2 is therefore a ``lithium-young'' system for
+which we believe the high lithium EW may be
+a statistical fluke.
 
-
-{\bf FIXME BRIEF SUMMARY, e.g. N of them are because lithium is garbage,
-	M are because rotation is weird}.
+%Restricting our attention to the
+%$\lesssim$1\,Gyr stars, for which lithium ages are more constraining,
+%the respective counts are \minageltonegyryesconsistent,
+%\minageltonegyrmaybeconsistent, and \minageltonegyrnoconsistent.
+%Rephrased, in the overall sample, \fracconsistentallages\% of stars
+%have consistent rotation and lithium-based ages
+%(\fracpotentiallyconsistentallages\% potentially consistent).  In the
+%sample of sub-gigayear stars, \fracconsistentminageltonegyr\% of the
+%ages are consistent (\fracpotentiallyconsistentminageltonegyr\%
+%potentially consistent).  We feel it necessary to distinguish
+%``maybe'' consistent cases because of lingering uncertainties in how
+%the dispersion of the lithium data evolve over the first gigayear.
 
 
 \subsubsection{New Young Systems}
 %
 Whenever both rotation and lithium find a star to be in a
-narrowly-constrained age range, confidence in the true age greatly
-increases, due to the independence of the two measurement techniques.
-The empirical precision for the inferred ages as a function of $P_{\rm
-rot}$, $EW_{\rm Li}$, and $T_{\rm eff}$ has been mapped out by
-\citet{Bouma_2023} and \citet{Jeffries_2023} for rotation and lithium
-respectively.  The region of greatest overlap is dictated by the
-timescale for lithium depletion: for stars with temperatures between
-4500-5500\,K with ages $\lesssim$500\,Myr, we can hope to obtain
-independent two-sided constraints.
+narrowly-constrained age range, confidence in the true age
+increases, because the two techniques are independent.
+The region of greatest overlap between rotation and lithium ages in
+the spaces of $P_{\rm rot}$, $EW_{\rm Li}$, and $T_{\rm eff}$ is
+dictated by the timescale for lithium depletion: for stars with
+temperatures between 4500-5500\,K with ages $\lesssim$500\,Myr, we can
+hope to obtain independent two-sided constraints
+\citep{Bouma_2023,Jeffries_2023}.
 
-The youth of most of these systems, to our knowledge, is being
+The following systems, to our knowledge, are being
 well-constrained for the first time in this work.  Here we limit
 discussion to systems with $t_{\rm gyro}$$<$500\,Myr not in the clusters
 mentioned above.
+{\bf FIXME TODO: this section is boring.  come up with a better way to do this,
+and maybe automate}
 
 The new young planets
 include five 1.8-3.8\,$R_\oplus$ mini-Neptunes
@@ -1267,9 +1271,9 @@ All of these planets are on orbital periods below 50\,days.
 Of these planets, one specific highlight is Kepler-1933b, a 4.9\,day
 1.0\,$R_\oplus$ Earth-sized planet.  Its rotation-based age of
 $304^{+96}_{-112}$\,Myr agrees within $1\sigma$ of its lithium age,
-though at half the relative uncertainty.  Based on these lines of
-evidence, this system may be the youngest Earth-sized planet known,
-comparable to systems such as HD~63433d \citep[1.1\,$R_\oplus$,
+though at half the relative uncertainty.  This system may be the
+youngest Earth-sized planet currently known, comparable to systems
+such as HD~63433d \citep[1.1\,$R_\oplus$,
 $414\pm23$\,Myr][]{2024AJ....167...54C}.
 
 A less clear case is Kepler-447b, which is supposedly a 32\,$R_\oplus$
