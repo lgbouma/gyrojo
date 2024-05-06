@@ -87,27 +87,60 @@ ulkvp('nnonfpcumkoihosts', N)
 ##########################################
 # ...with age results
 df, _, _ = get_age_results(
-    whichtype='gyro_li', grazing_is_ok=1, drop_highruwe=0
+    whichtype='allageinfo', grazing_is_ok=1, drop_highruwe=0
 )
-assert pd.isnull(df.gyro_median).sum() == 0
 
 ##########################################
 # specifics for special stars / planets
 sdf = df[~df.kepler_name.isna()]
 for c in sdf.columns:
-    if 'gyro_' in c:
+    if c.startswith('gyro_') or c.startswith("li_"):
         sdf[c] = sdf[c].apply(cast_to_int_string)
 sdf['t_gyro'] = sdf.apply(lambda row: "$"+ f"{row['gyro_median']}"+ "^{+"+
                           f"{row['gyro_+1sigma']}"+ "}_{-"+
-                          f"{row['gyro_-1sigma']}" +"} $", axis=1)
+                          f"{row['gyro_-1sigma']}" +"}$", axis=1)
+sdf['t_li'] = sdf.apply(lambda row: "$"+ f"{row['li_median']}"+ "^{+"+
+                          f"{row['li_+1sigma']}"+ "}_{-"+
+                          f"{row['li_-1sigma']}" +"}$", axis=1)
+
 sel = sdf.kepler_name.str.contains("Kepler-66 b")
-kepsixsixtgyro = sdf.loc[sel, 't_gyro'].iloc[0]
-ulkvp('kepsixsixtgyro', kepsixsixtgyro)
+t = sdf.loc[sel, 't_gyro'].iloc[0]
+ulkvp('kepsixsixtgyro', t)
+
 sel = sdf.kepler_name.str.contains("Kepler-67 b")
-kepsixseventgyro = sdf.loc[sel, 't_gyro'].iloc[0]
-ulkvp('kepsixseventgyro', kepsixseventgyro)
+t = sdf.loc[sel, 't_gyro'].iloc[0]
+ulkvp('kepsixseventgyro', t)
+
+sel = sdf.kepler_name.str.contains("Kepler-1 b")
+t = sdf.loc[sel, 't_li'].iloc[0]
+ulkvp('trestwotli', t)
+
+sel = sdf.kepler_name.str.contains("Kepler-786 b")
+t = sdf.loc[sel, 't_li'].iloc[0]
+ulkvp('kepseveneightsix', t)
+
+sel = sdf.kepler_name.str.contains("Kepler-1644 b")
+t = sdf.loc[sel, 't_gyro'].iloc[0]
+ulkvp('kepsixteenfourfour', t)
+
+sel = sdf.kepler_name.str.contains("Kepler-1699 b")
+t = sdf.loc[sel, 't_gyro'].iloc[0]
+ulkvp('kepsixteenninenine', t)
+
+sel = sdf.kepler_name.str.contains("Kepler-1943 b")
+t = sdf.loc[sel, 't_li'].iloc[0]
+ulkvp('kepnineteenfourthree', t)
+
+
+
+
 
 ##########################################
+
+df, _, _ = get_age_results(
+    whichtype='gyro_li', grazing_is_ok=1, drop_highruwe=0
+)
+assert pd.isnull(df.gyro_median).sum() == 0
 
 # Number of planets with a gyro age, including grazing & high ruwe cases
 N = len(df)
