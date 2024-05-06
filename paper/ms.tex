@@ -1089,49 +1089,49 @@ yielded a total of fourteen transiting planets.
 Our analysis blindly recovers each of these planets, as well as their ages.
 
 \paragraph{Cep-Her}
-The $\approx$40\,Myr old Cep-Her complex currently has its most
+The $\approx$40\,Myr Cep-Her complex currently has its most
 constraining age measurement from relative isochrone dating of
-pre-main-sequence M dwarfs, and it contains Kepler-1627Ab,
+pre-main-sequence M dwarfs; it contains Kepler-1627Ab,
 Kepler-1643b, Kepler-1974b and Kepler-1975\,Ab
 \citep{Bouma_2022a,Bouma_2022b}.  Different sub-groups of the complex
-may be older by $\approx$50\% (\citealt{Bouma_2022b};
+may vary in age by $\approx$50\% (\citealt{Bouma_2022b};
 Kerr~et.al.~in preparation).  The planets themselves are all on
 close-in orbits (5-25\,days), with sizes from 2-4\,$R_\oplus$.  The
-rotation, lithium, and cluster ages all agree within 1$\sigma$ for
+rotation, lithium, and cluster ages all agree for
 Kepler-1627A, Kepler-1974, and Kepler-1975A.  For Kepler-1643, the
 rotation and cluster ages agree, and the lithium age is 2.0$\sigma$
-above the nominal cluster age for the RSG-5 subgroup.
+above the cluster age reported by \citet{Bouma_2022b} for the RSG-5 subgroup.
 
 \paragraph{MELANGE-3}
 \citet{2022AJ....164...88B} reported a $105\pm10$\,Myr association in
-the Kepler field and derived its age using a combination of rotation,
+the Kepler field and derived its age using rotation,
 lithium, and the isochronal pre-main-sequence.  Kepler-970 and
 Kepler-1928 harbor two transiting mini-Neptunes inside this
 association \citep{2022AJ....164...88B}.  Our rotation-based
 age-dating independently recovers these systems, with $t_{\rm
 gyro}=176_{-40}^{+120}$\,Myr and $144_{-88}^{+104}$\,Myr for
-Kepler-970 and -1928 respectively.  The former rotation-based age
+Kepler-970 and Kepler-1928 respectively.  The former rotation-based age
 being slightly older than the suggested Pleiades age for the
 assocation agrees with Figure~4 of \citet{2022AJ....164...88B}.
 
 \paragraph{Theia~520}
-Kepler-968 and Kepler-52 both have rotation-based ages of
-330-350\,Myr.  These stars were reported by
+We derive rotation-based ages of 330-350\,Myr for Kepler-968 and Kepler-52.
+These stars were reported by
 \citet{2019AJ....158..122K} to be members of an association called Theia~520
 based on their spatial and kinematic correlations with nearby stars.
-The core of this structure has been independently called UBC-1
+The core of this structure is also known as UBC-1
 \citep{2018A&A...618A..59C}; since both Kepler planet hosts
-are in diffuse regions not covered in this latter study, we use the name from
+are in diffuse regions of the cluster, we use the name from
 \citeauthor{2019AJ....158..122K}.  Based on isochrone-fitting, Theia~520
 is $247^{+64}_{-51}$\,Myr old \citep{2019AJ....158..122K}.
-An independent analysis of the cluster's core by
+An independent analysis by
 \citet{2024A&A...681A..13F} using g-mode asteroseismology,
 gyrochronology, and isochrone fitting found consistent results.
 Ongoing work by J.~Curtis et al.~broadly finds that the two
-planet-hosting stars are indeed members of this diffuse population.
+planet-hosting stars are indeed members of the diffuse population.
 Given the cluster-level and individual-star evidence, this makes
 Kepler-968 and Kepler-52 the youngest multiplanet systems currently
-known from the Kepler primary mission.
+known from the primary Kepler mission.
 
 \paragraph{NGC~6811}
 \citet{Meibom_2013} reported the discovery of Kepler-66 and -67b, two
@@ -1193,8 +1193,9 @@ when available.  There are three cases of interest:
     have been sensitive to the rotation periods of such stars.
 \end{enumerate}
 
-In the entire sample, this yielded \allagesyesconsistent\ consistent
-cases, \allagesmaybeconsistent\ ``maybe'' cases, and
+In the entire sample (i.e.~without imposing an quality cuts)
+this yielded \allagesyesconsistent\ consistent
+cases, \allagesmaybeconsistent\ ``maybe consistent'' cases, and
 \allagesnoconsistent\ inconsistent.  Restricting our attention to the
 $\lesssim$1\,Gyr stars, for which lithium ages are more constraining,
 the respective counts are \minageltonegyryesconsistent,
@@ -1206,9 +1207,20 @@ sample of sub-gigayear stars, \fracconsistentminageltonegyr\% of the
 ages are consistent (\fracpotentiallyconsistentminageltonegyr\%
 potentially consistent).  We feel it necessary to distinguish
 ``maybe'' consistent cases because of lingering uncertainties in how
-the dispersion of the lithium data evolve over the first gigayear.  In
+the dispersion of the lithium data evolve over the first gigayear.
+
+In
 Appendix~\ref{app:inconsistent}, we discuss the
-\minageltonegyrnoconsistent\ discrepant ``sub-gigayear'' stars in detail.
+systems for which at least one age indicator
+reports a sub-gigayear age in detail.
+All but one are simply cases for which the star
+is either evolved or else an unresolved binary.
+The one exception is Kepler-786 (KOI-1199), an early K dwarf with 
+$t_{\rm Li}$=\kepseveneightsix\,Myr, which would predict an obvious rotation signal.
+No photometric signal is detected; other age indicators in the
+spectrum similarly suggest that the star may not in fact be young.
+
+
 {\bf FIXME BRIEF SUMMARY, e.g. N of them are because lithium is garbage,
 	M are because rotation is weird}.
 
@@ -1605,62 +1617,126 @@ All authors assisted in manuscript revision.
 \bibliography{bibliography}
 
 \appendix
-\section{Cases With Inconsistent Rotation and Lithium-Based Ages}
+\section{Cases With ``Inconsistent'' Rotation and Lithium-Based Ages}
 \label{app:inconsistent}
 
-For Kepler-957, $T_{\rm eff}$=4947\,K, and $P_{\rm rot}$=4.52\,days,
-This implies a rotation-based age of $96_{-72}^{+192}$\,Myr.  The
-rotational broadening of the spectrum ($v\sin
-i$$\approx$9.8$\pm$1.0\kms) is consistent with the nominal stellar
-rotation period.  However, if this star were $\lesssim$500\,Myr old,
-lithium should have been detectable at $>$50\,m\AA.  Lithium is
-marginally if at all present in the spectrum ({\bf  EW$_{\rm
-Li}$$<$XX\,m\AA at 2$\sigma$ }).  While the planet (nominally
-6.9\,$R_\oplus$ on a 5.9\,day orbit) has been statistically validated
-\citep{2016ApJ...822...86M}, inspecting the data validation reports this is
-somewhat surprising.  The light curve shows greater scatter in-transit
-than out of transit, appears near-grazing, and has a suggestion of a
-strong odd-even depth difference.  This is a surprising system that
-merits further attention.
+In this section we discuss fifteen systems with confirmed planets that have nominally
+discrepant rotation and lithium-based ages.
+We find that only one of them, Kepler-786, is interesting.
 
-% from inconsitent_tli_tgyro cases:
-Kepler-1644 b
-Kepler-1699 b
- Kepler-786 b
+ \paragraph{Kepler-1}---TrES-2/Kepler-1 \citep{2006ApJ...651L..61O}
+has a G0 V primary and a $\approx$2.5\,day near-grazing transiting hot Jupiter,
+and has been studied in detail by multiple investigators
+\citep[e.g.][]{2007ApJ...664.1190S,2008ApJ...682.1283W,2011ApJ...733...36K,2011MNRAS.417.2166S}.
+Our lithium-based age of this system
+(\trestwotli\,Myr), derive from EW$_{\rm Li}$=81$\pm$3\,m\AA,
+is qualitatively in line with the previously noted lithium abundance
+\citep{2007ApJ...664.1190S}. 
+However, we detect no photometric rotation signal, and the spectroscopic $v\sin i$ is low.
+The lithium age is strongly asymmetric because
+there is significant amounts of scatter in EW$_{\rm Li}$ vs.~$T_{\rm eff}$ over ages $t$$\gtrsim$1\,Gyr for early G dwarfs.
+We calculate a $2\sigma$ upper limit on $t_{\rm Li}$ of 2.8\,Gyr, and a $3\sigma$ upper limit of 6.1\,Gyr.
+The non-detection of rotation, while mildly surprising, is not shocking if the system's true
+age is in this long tail.
 
-these have finite Li ages, but no rotation age (perhaps b/c of the missing prots...)
+\paragraph{Kepler-101}---This $\approx$5500\,K star has EW$_{\rm Li}$=100$\pm$5\,m\AA,
+nominally implying $t_{\rm Li}$$\approx$200-800\,Myr, but no rotation detection.
+Our automated flags noted that this star has a low surface gravity, high luminosity, and is far from the main sequence.
+\citet{2014A&A...572A...2B} concur: this star is a sub-giant slightly more massive than the Sun;
+no rotation detection is expected; the lithium likely simply survived over the star's
+main sequence lifetime.
 
-Kepler-1943 b
-
- Kepler-101 b
-
-\paragraph{Kepler-108 b and Kepler-108 c}---This sytem of two mutually
-inclined giant planets \citep{2017AJ....153...45M} has a host star
-that is entering the red giant branch.  This has been previously noted
-through asteroseismology \citep{2013ApJ...767..127H}, and an analysis
-of the Keck/HIRES spectrum with \texttt{SpecMatch-Synth} concurs, with
+\paragraph{Kepler-108}---This system of two mutually
+inclined giant planets \citep{2017AJ....153...45M} has a $T_{\rm eff}$$\approx$5600\,K
+host star with a strong lithium detection, and no rotation detection.
+The host star is entering the red giant branch; this has been previously noted
+through asteroseismology \citep{2013ApJ...767..127H}, and our analysis
+of the Keck/HIRES spectrum with \texttt{SpecMatch-Synth} \citep{2017AJ....154..107P} concurs, yielding
 $T_{\rm eff}$=5668$\pm$100\,K, $\log g$=3.8$\pm$0.1,
 [Fe/H]=0.38$\pm$0.06, and $v\sin i$=3.2$\pm$1.0\kms.
+Given the star's high mass, the high lithium content and lack of rotation detection
+is not surprising.
+
+%Independently, Kepler~108 was also reported by \citet{2020ApJ...903...55P} to be a member
+%of NGC6811.  The cluster has $\mu_\alpha\approx-3.4$mas/yr and
+%$\mu_\delta \approx -8.8$mas/yr.  Kepler~108 has
+%$\mu_\alpha=-1.5\pm0.1$\,mas/yr and $\mu_\delta \approx
+%-1.2\pm0.1$\,mas/yr \citep{Gaia_DR3_2022}.  We therefore suggest that it is not a member
+%of NGC6811.
+
+%
+%Our quality flags noted that this star has
+%a low surface gravity, a crowded field, high RUWE, and an ambiguous Kepler-to-Gaia crossmatch.
+
+\paragraph{Kepler-786}---This K3 V star has a surprisingly 
+high lithium content.
+The spectrum is single-lined, with
+ \texttt{SpecMatch-Synth} derived parameters of
+ $T_{\rm eff}$=4769$\pm$100\,K, $\log g$=4.5$\pm$0.1,
+ [Fe/H]=0.11$\pm$0.06, and $v\sin i$=2.4$\pm$0.6\kms.
+Yet with 
+EW$_{\rm Li}$=83$\pm$6\,m\AA,
+the lithium age of \kepseveneightsix\,Myr would predict an obvious rotation signal.
+None is present in the Kepler light curve, consistent with the low
+$v\sin i$.
+Out of all ``apparently discrepant'' lithium and rotation measurements
+discussed in this appendix, this is the only one that seems to remain discrepant after scrutiny.
+The  \ion{Ca}{2} doublet is in emission, with $R'_{\rm HK}=-4.7\pm0.5$, which
+suggests an age at least as old as the Hyades
+\citep{2008ApJ...687.1264M}.
+The Balmer lines are in absorption, and display no obvious signatures of youth.
+
+
+\paragraph{Kepler-1644}---The rotation-based age of this system (\kepsixteenfourfour\,Myr) is nominally
+much lower than the lithium limit ($>$767\,Myr).
+The Kepler light curve shows a $\approx$1\% amplitude 1.4\,day rotation signal with many flares.
+However the automated quality flags note that the star has low (photometric) surface gravity, a high RUWE (${\rm RUWE}_{\rm DR3}$=7.0),
+and that it is far from the main sequence.
+The Keck/HIRES spectrum also shows visually narrow lines, with a
+ \texttt{SpecMatch-Synth} $v \sin i \leq 2$\kms. 
+However, we performed a cross-correlation between the HIRES spectrum and 
+the nearest matches in the Keck/HIRES template library \citep{2015AJ....149...18K}, and found that on 31 July 2022 (UT)
+the system displayed
+a broad CCF with a blended second component at $\approx$$+26$\,\kms relative to
+the primary, with a best-fit flux-ratio of $\approx$3.4\%, and a preferred $T_{\rm eff,B}$$\approx$4400\,K.
+The spectrum and astrometric excess noise therefore point to this system being an unresolved
+binary, which calls the
+reliability of the rotation-based age into question.
+The non-detection of the companion
+from Robo-AO imaging at Palomar \citep{2017AJ....153...66Z} suggests that the companion(s)
+are likely within $\rho$$\lesssim$0.3$''$.
 
 
 
-  Kepler-63 b
+\paragraph{Kepler-1699}---This system is in a similar qualitative regime as Kepler-1644, with an
+apparently young $t_{\rm gyro}$=\kepsixteenninenine\,Myr derived from a $\approx$2\% amplitude
+4.2\,day rotation signal, and no evidence for lithium.
+The system has ${\rm RUWE}_{\rm DR3}$=19.1.
+From the same style of CCF analysis from the Keck/HIRES spectrum acquired on
+31 Aug 2022 (UT), we also find a double-peaked CCF, in this case with a secondary
+component at $\approx$$-16$\,\kms relative to
+the primary with $T_{\rm eff,B}$$\approx$4900\,K.
+This putative companion is similarly not detected in high-resolution imaging
+ \citep{2017AJ....153...66Z}.
+ The rotation-based age is questionable, given that we do not know which source the
+ rotation signal is from, or whether the stars have interacted.
 
-Kepler-1312 b Kepler-1312 c
+\paragraph{Kepler-1943}---This system nominally has a \kepnineteenfourthree\,Myr
+lithium age, and no reported rotation detection.
+However, the star is flagged as being over-luminous, low-surface gravity,
+and far from the main sequence.
+In other words, it is a subgiant.
 
-   Kepler-1 b
-
-K02680.01
-K02639.01
-
+\paragraph{Kepler-639, Kepler-320, Kepler-1719, Kepler-1876, Kepler-1072, Kepler-1743, Kepler-1929, Kepler-1488}---These eight systems all have nominally two-sided lithium age posteriors between 1 and 3\,Gyr, and yet lack rotation period detections.
+All are subgiants, flagged with $Q_{\rm gyro}$ under various combinations of bits 1, 2, and 9.
 
 
 \section{Notable Individual Systems}
 
-Kepler~221 is a 633$^{+120}_{-112}$\,Myr four-planet system.
-
-Kepler~51 (CITE Masuda2014) has previously been noted for its bizarre architure.
-The rotation-based age we find here is higher/lower than previously noted.
+%Kepler~221 is a 633$^{+120}_{-112}$\,Myr four-planet system.
+%
+%Kepler~51 (CITE Masuda2014) has previously been noted for its bizarre architure.
+%The rotation-based age we find here is higher/lower than previously noted.
 
 Kepler~411, a $\approx$780$\pm$170\,Myr early K dwarf with three
 transiting planets at 3.0, 7.8, and 58\,days, has a rare
@@ -1677,12 +1753,7 @@ observations for a while
 \citep[e.g.][Fig.~9]{Mamajek_2008}.  Our adopted age of
 $\approx$780$\pm$170\,Myr agrees with the open cluster calibrators.
 
-Kepler~108 was reported by \citet{2020ApJ...903...55P} to be a member
-of NGC6811 based ``on APOGEE radial velocities and Gaia-DR2 proper
-motions''.  The cluster has $\mu_\alpha\approx-3.4$mas/yr and
-$\mu_\delta \approx -8.8$mas/yr.  Kepler~108 has
-$\mu_\alpha=-1.5\pm0.1$mas/yr and $\mu_\delta \approx
--1.2\pm0.1$mas/yr \citep{Gaia_DR3_2022}.  This is quite discrepant.
+
 
 
 
@@ -1704,18 +1775,18 @@ $\mu_\alpha=-1.5\pm0.1$mas/yr and $\mu_\delta \approx
 %  rotation-based modulation.
 
 
-\section{Comparison Against Previous Literature Age Scales}
-Searching the literature for gyrochronal analyses of the Kepler field,
-the most relevant studies seemed to be those of
-\citet{Walkowicz_2013}, \citet{Reinhold_2015}, and 
-\citet{David_2021}.
-
-Also Mathur2023, which does ``magneto-gyrochronology'', including the
-Sph indicator in a model of the ages.
-
-
-\subsection{Asteroseismic Age Comparison}
-T Ceillier, J Van Saders et al 2016 MNRAS...
+%\section{Comparison Against Previous Literature Age Scales}
+%Searching the literature for gyrochronal analyses of the Kepler field,
+%the most relevant studies seemed to be those of
+%\citet{Walkowicz_2013}, \citet{Reinhold_2015}, and 
+%\citet{David_2021}.
+%
+%Also Mathur2023, which does ``magneto-gyrochronology'', including the
+%Sph indicator in a model of the ages.
+%
+%
+%\subsection{Asteroseismic Age Comparison}
+%T Ceillier, J Van Saders et al 2016 MNRAS...
 
 
 
