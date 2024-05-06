@@ -19,7 +19,8 @@ cp $r/star_Prot_Teff/prot_teff_Santos19_Santos21_dquality.pdf .
 cp $r/koi_mean_prot_teff/koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf .
 
 # plot_hist_field_gyro_ages 
-cp $r/hist_field_gyro_ages_20240430/hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage3200.pdf .
+cp $r/hist_field_gyro_ages_20240430/comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage4000.pdf .
+cp $r/hist_field_gyro_ages_20240430/comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage4000_preciseagesonly.pdf .
 
 # plot_li_vs_teff
 cp $r/li_vs_teff/li_vs_teff_koi_X_S19S21dquality_eagles_logy.pdf .
