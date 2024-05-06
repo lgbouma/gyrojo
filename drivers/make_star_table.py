@@ -134,7 +134,7 @@ def make_star_table(
 
     latexpath = join(PAPERDIR, 'table_star_gyro.tex')
     np.random.seed(42)
-    _sdf.sample(n=42).to_latex(
+    _sdf.sample(n=10).to_latex(
         latexpath, index=False, na_rep='--', escape=False, formatters=formatters
     )
 
