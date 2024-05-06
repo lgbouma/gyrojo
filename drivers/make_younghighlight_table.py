@@ -266,8 +266,14 @@ def make_table(
 
     print("Are gyro and lithium consistent?")
 
-    sample = ['allages', 'minageltonegyr']
-    dfs = [pdf, pdf[pdf.min_age < 1e3]]
+    sample = ['allages',
+              'minageltonegyr',
+              'allagesqflag',
+              'minageltonegyrqflag']
+    dfs = [pdf,
+           pdf[pdf.min_age < 1e3],
+           pdf[pdf[r"$Q_{\rm gyro}$"]=='0'],
+           pdf[(pdf.min_age < 1e3)&(pdf[r"$Q_{\rm gyro}$"]=='0')]]
 
     for s, _df in zip(sample, dfs):
 
@@ -325,7 +331,7 @@ def make_table(
     pdf = pdf.drop(columns=['li_eagles_limlo', 'li_eagles_limlo_formatted',
                             'li_eagles_limlo_forsort', 'min_age'])
 
-    if SELECT_YOUNG:
+    if not SELECT_YOUNG:
         outtxt = join(TABLEDIR, 'inconsistent_tli_tgyro.txt')
         with open(outtxt, 'w') as f:
             f.writelines(
