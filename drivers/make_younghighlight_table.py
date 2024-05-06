@@ -272,14 +272,21 @@ def make_table(
               'minageltonegyrqflag']
     dfs = [pdf,
            pdf[pdf.min_age < 1e3],
-           pdf[pdf[r"$Q_{\rm gyro}$"]=='0'],
-           pdf[(pdf.min_age < 1e3)&(pdf[r"$Q_{\rm gyro}$"]=='0')]]
+           pdf[(pdf[r"$Q_{\rm gyro}$"]=='0') &
+               (pdf.koi_disposition=='CONFIRMED')],
+           pdf[(pdf.min_age < 1e3) &
+               (pdf[r"$Q_{\rm gyro}$"]=='0') &
+               (pdf.koi_disposition=='CONFIRMED')]
+          ]
 
     for s, _df in zip(sample, dfs):
 
         nyes = len(np.unique(_df[_df.are_gyro_and_li_consistent == 'Yes'].kepid))
         nmaybe = len(np.unique(_df[_df.are_gyro_and_li_consistent == 'Maybe'].kepid))
         nno = len(np.unique(_df[_df.are_gyro_and_li_consistent == 'No'].kepid))
+
+        if s == 'minageltonegyrqflag':
+            assert nno == 2
 
         frac_consistent = int(np.round(100*(
             (nyes) / (nyes + nmaybe + nno)
