@@ -16,6 +16,7 @@ import numpy as np, pandas as pd, matplotlib.pyplot as plt
 from os.path import join
 from glob import glob
 from numpy import array as nparr
+from astropy import units as u
 
 from astroquery.vizier import Vizier
 Vizier.ROW_LIMIT = -1
@@ -443,6 +444,14 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
             df.loc[_sel, 'Rp'] = df.loc[_sel, 'koi_prad']
             df.loc[_sel, 'E_Rp'] = df.loc[_sel, 'koi_prad_err1']
             df.loc[_sel, 'e_Rp'] = np.abs(df.loc[_sel, 'koi_prad_err2'])
+
+        # Kepler-447 grazing; adopt Lillo-Box+2015 size.
+        # Bizarre that this thing showed no evidence for rotation
+        # variability...
+        _sel = df.kepoi_name == 'K01800.01'
+        df.loc[_sel, 'Rp'] = (1.65*u.Rjup).to(u.Rearth).value
+        df.loc[_sel, 'E_Rp'] = (0.59*u.Rjup).to(u.Rearth).value
+        df.loc[_sel, 'e_Rp'] = (0.56*u.Rjup).to(u.Rearth).value
 
         a_rp = df['Rp']
         a_rp_err1 = df['E_Rp']
