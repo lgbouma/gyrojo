@@ -42,6 +42,9 @@ from datetime import datetime
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
 import matplotlib as mpl
 import matplotlib.transforms as transforms
+import matplotlib.patches as patches
+import matplotlib.colors as mcolors
+
 from numpy import array as nparr
 
 from astropy.table import Table
@@ -1235,8 +1238,53 @@ def plot_reinhold_2015(outdir):
     savefig(fig, outpath)
 
 
+def get_sigma_range(result, median_age_range):
+    start, end = median_age_range
+    mid = start + 0.5*(end-start)
+    mask = (result['median_age'] >= start) & (result['median_age'] <= end)
+    filtered_result = result[mask]
+
+    mean_plus_sigma = filtered_result['+1sigma'].mean() - mid
+    mean_minus_sigma = mid - filtered_result['-1sigma'].mean()
+
+    return mean_plus_sigma, mean_minus_sigma
+
+
+def add_gradient_patch(ax, xmin, xmax, ymin, ymax, resolution=100):
+
+    # Create a grayscale gradient colormap
+    cmap = mcolors.LinearSegmentedColormap.from_list("", ["white", "black"])
+
+    # Create a rectangle patch with the specified coordinates
+    rect = patches.Rectangle((xmin, ymin), xmax - xmin, ymax - ymin, facecolor="none", edgecolor="none")
+    ax.add_patch(rect)
+
+    # Create a linear space for the gradient
+    gradient_array = np.linspace(0, 1, resolution)
+
+    # Reshape the gradient array to a 2D matrix with 1 row
+    gradient_array = gradient_array.reshape(1, -1)
+
+    # Repeat the gradient array to create a 2D image
+    gradient_image = np.repeat(gradient_array, 2, axis=0)
+
+    # Create a gradient patch using the rectangle dimensions and the high-resolution gradient image
+    gradient = ax.imshow(
+        gradient_image,
+        cmap=cmap,
+        aspect="auto",
+        extent=(xmin, xmax, ymin, ymax),
+        alpha=0.5,
+        zorder=0,
+    )
+
+    # Set the transform to match the data coordinates
+    gradient.set_transform(ax.transData)
+
+
 def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
-                              datestr='20240405', s19s21only=0):
+                              datestr='20240430', s19s21only=0,
+                              preciseagesonly=0):
 
     from gyrointerp.paths import CACHEDIR
     csvdir = join(CACHEDIR, f"samples_field_gyro_posteriors_{datestr}")
@@ -1249,13 +1297,20 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         N_post_samples = 10*len(csvpaths)
 
         df_list = []
-        for f in csvpaths:
+        for ix, f in enumerate(csvpaths):
+
+            if ix % 100 == 0:
+                print(f"{ix}/{len(csvpaths)}")
 
             bn = os.path.basename(f)
             kic_id = bn.split("_")[0]
+            prot = float(bn.split("_")[1].lstrip("Prot"))
+            teff = float(bn.split("_")[2].lstrip("Teff"))
 
             this_df = pd.read_csv(f)
             this_df['KIC'] = kic_id
+            this_df['Prot'] = prot
+            this_df['Teff'] = teff
 
             df_list.append(this_df)
 
@@ -1278,7 +1333,32 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         santosstr = ''
     skdf['KIC'] = skdf.KIC.astype(str)
     mdf['KIC'] = mdf.KIC.astype(str)
+
+    if preciseagesonly:
+        mdf = mdf[(mdf.Teff > 4400) & (mdf.Teff < 5400)]
+
     sel_gyro_ok = mdf.KIC.isin(skdf.KIC)
+
+    # run analysis for average uncertainties
+    result = mdf.groupby('KIC')['age'].agg([
+        ('mean_age', 'mean'),
+        ('median_age', 'median'),
+        ('+1sigma', lambda x: x.mean() + x.std()),
+        ('-1sigma', lambda x: x.mean() - x.std())
+    ]).reset_index()
+
+    median_age_ranges = [
+        (800, 1200),
+        (1800, 2200),
+        (2800, 3200),
+    ]
+    mean_pms = []
+    for median_age_range in median_age_ranges:
+        mean_plus_sigma, mean_minus_sigma = get_sigma_range(
+            result, median_age_range
+        )
+        mean_pms.append([mean_plus_sigma, mean_minus_sigma])
+
 
     # SAMPLES from the age posteriors
     plt.close("all")
@@ -1322,7 +1402,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     plt.close("all")
     set_style('science')
-    fig, axs = plt.subplots(ncols=3, figsize=(0.9*6, 0.9*2.5),
+    fig, axs = plt.subplots(ncols=3, figsize=(0.9*5.5, 0.9*2.9),
                             constrained_layout=True)
 
     koi_df = get_koi_data('cumulative-KOI', grazing_is_ok=1)
@@ -1333,19 +1413,20 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     N = int(len(mdf)/10)
 
-    l0_0 = f'{N} with '+'P$_{\mathrm{rot}}$'
+    l0_0 = 'P$_{\mathrm{rot}}$ '+f'({N})'
     axs[0].hist(mdf.age/1e3, bins=bins, color='C0', histtype='step',
                 weights=np.ones(len(mdf))/len(mdf), zorder=-5, label=l0_0,
                 alpha=0.4, linewidth=0.5)
 
     N = int(len(mdf[sel_gyro_ok])/10)
-    l0_1 = f'{N} gyro applicable'
+    l0_1 = f'Gyro applicable ({N})'
     heights, bin_edges, _  = axs[0].hist(
         mdf[sel_gyro_ok].age/1e3, bins=bins, color='C0', histtype='step',
         weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=-3,
         alpha=1, label=l0_1
     )
-    l2_1 = f'{N} Kepler stars'
+    ynorm = heights[0]
+    l2_1 = f'Kepler stars ({N})'
     _  = axs[2].hist(
         mdf[sel_gyro_ok].age/1e3, bins=bins, color='C0', histtype='step',
         weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=-1,
@@ -1365,6 +1446,16 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         zorder=-1, alpha=0.8
     )
 
+    axs[0].errorbar(
+        [1,2,3], [0.018,0.018,0.018], xerr=np.array(mean_pms).T/1e3, marker='o',
+        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='C0', markersize=0,
+        zorder=-3, alpha=1
+    )
+    axs[0].text(3, 0.0195, 'stat.\nuncert.', ha='center', va='bottom',
+                fontsize='xx-small', zorder=5,
+                transform=axs[0].transData,
+                fontdict={'fontstyle':'normal'}, color='C0')
+
 
     ##########################################
     # calculate ratios of "middle" and "old" bins to young bin for all stars.
@@ -1377,9 +1468,10 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     n_ob = len(mdf[sel_gyro_ok][
         (mdf[sel_gyro_ok].age > 2000) & (mdf[sel_gyro_ok].age <= 3000)
     ])/10
-    ulkvp('ratiombtoybstars', np.round(n_mb/n_yb, 1))
-    ulkvp('ratiombtoybstars', np.round(n_mb/n_yb, 1))
-    ulkvp('ratioobtoybstars', np.round(n_ob/n_yb, 1))
+    if not preciseagesonly:
+        ulkvp('ratiombtoybstars', np.round(n_mb/n_yb, 1))
+        ulkvp('ratiombtoybstars', np.round(n_mb/n_yb, 1))
+        ulkvp('ratioobtoybstars', np.round(n_ob/n_yb, 1))
 
     n_youngg = len(mdf[sel_gyro_ok][
         (mdf[sel_gyro_ok].age > 0) & (mdf[sel_gyro_ok].age <= 300)
@@ -1388,12 +1480,14 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         (mdf[sel_gyro_ok].age > 2700) & (mdf[sel_gyro_ok].age <= 3000)
     ])/10
     ratiosfr = n_oldd/n_youngg
-    ulkvp('ratiosfr', f"{ratiosfr:.2f}")
+    if not preciseagesonly:
+        ulkvp('ratiosfr', f"{ratiosfr:.2f}")
 
     σ_oldd = n_oldd**0.5/n_oldd
     σ_youngg = n_youngg**0.5/n_youngg
     unc_ratio = np.sqrt(σ_oldd**2 + σ_youngg**2) * ratiosfr
-    ulkvp('uncratiosfr', f"{unc_ratio:.2f}")
+    if not preciseagesonly:
+        ulkvp('uncratiosfr', f"{unc_ratio:.2f}")
 
     ##########################################
 
@@ -1401,7 +1495,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     N = int(len(mdf[sel_planets])/10)
 
-    l1_0 = f'{N} with '+'P$_{\mathrm{rot}}$'
+    l1_0 = 'P$_{\mathrm{rot}}$ '+f'({N})'
     axs[1].hist(mdf[sel_planets].age/1e3, bins=bins, color='salmon',
                 histtype='step',
                 weights=np.ones(len(mdf[sel_planets]))/len(mdf[sel_planets]),
@@ -1409,13 +1503,13 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
                 label=l1_0, alpha=0.4, linewidth=0.5)
     psel = sel_gyro_ok & sel_planets
     N = int(len(mdf[psel])/10)
-    l1_1 = f'{N} gyro applicable'
+    l1_1 = f'Gyro applicable ' + f"({N})"
     heights, _, _ = axs[1].hist(
         mdf[psel].age/1e3, bins=bins, histtype='step',
         weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='salmon', alpha=0.9,
         zorder=-3, label=l1_1
     )
-    l2_2 = f'{N} KOI hosts'
+    l2_2 = f'KOI hosts ({N})'
     heights, _, _ = axs[2].hist(
         mdf[psel].age/1e3, bins=bins, histtype='step',
         weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='salmon', alpha=0.9,
@@ -1445,16 +1539,20 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     n_ob = len(mdf[psel][
         (mdf[psel].age > 2000) & (mdf[psel].age <= 3000)
     ])/10
-    ulkvp('ratiombtoybplanets', np.round(n_mb/n_yb, 1))
-    ulkvp('ratioobtoybplanets', np.round(n_ob/n_yb, 1))
+    if not preciseagesonly:
+        ulkvp('ratiombtoybplanets', np.round(n_mb/n_yb, 1))
+        ulkvp('ratioobtoybplanets', np.round(n_ob/n_yb, 1))
     ##########################################
 
+    for ax in axs:
+        add_gradient_patch(ax, 3.4, 4.1, 0, 0.1)
+
     xmin = 0
-    xmax = MAXAGE
+    xmax = MAXAGE-20 if MAXAGE < 4000 else MAXAGE
     for ix, ax in enumerate(axs):
         if ix == 0:
             ax.update({
-            'ylabel': f'Fraction of Sample',
+            'ylabel': '$N$/$N_{\mathrm{max}}$',
             'yticklabels': [0, 0.02, 0.04, 0.06],
             })
         else:
@@ -1462,32 +1560,74 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
             'yticklabels': [],
             })
         if ix == 1:
-            ax.set_xlabel('Age from Rotation [Gigayears]')
+            #ax.set_xlabel('Age from Rotation [Gigayears]')
+            ax.set_xlabel('Age [Gigayears]')
+            if not preciseagesonly:
+                ax.set_title('$T_{\mathrm{eff}} \in [3800,6200]\,\mathrm{K}$')
+            else:
+                ax.set_title('$T_{\mathrm{eff}} \in [4400,5400]\,\mathrm{K}$')
         ax.update({
             #'xlabel': '$t_{\mathrm{gyro}}$ [Gyr]',
-            'xlim': [xmin/1e3, (xmax-20)/1e3],
-            'ylim': [0, 0.077],
+            'xlim': [xmin/1e3, (xmax)/1e3],
+            'ylim': [0, 0.079],
             'yticks': [0, 0.02, 0.04, 0.06],
         })
+        if MAXAGE < 4000:
+            ax.set_xticks([0, 1, 2, 3])
+        else:
+            ax.set_xticks([0, 1, 2, 3, 4])
 
-    txt = 'All Kepler stars'
+    txt = 'Kepler stars'
     axs[0].text(.05, .95, txt, ha='left', va='top',
-                fontsize='large', zorder=5, transform=axs[0].transAxes,
+                fontsize='medium', zorder=5, transform=axs[0].transAxes,
                 fontdict={'fontstyle':'normal'}, color='C0')
-    if MAXAGE < 4000:
-        axs[0].set_xticks([0, 1, 2, 3])
 
     axs[1].text(.05, .95, 'KOI hosts', ha='left', va='top',
-                fontsize='large', zorder=5, transform=axs[1].transAxes,
+                fontsize='medium', zorder=5, transform=axs[1].transAxes,
                 fontdict={'fontstyle':'normal'}, color='salmon')
-    axs[2].text(.05, .95, 'Comparison', ha='left', va='top',
-                fontsize='large', zorder=5, transform=axs[2].transAxes,
-                fontdict={'fontstyle':'normal'}, color='k')
+    #axs[2].text(.05, .95, 'Comparison', ha='left', va='top',
+    #            fontsize='large', zorder=5, transform=axs[2].transAxes,
+    #            fontdict={'fontstyle':'normal'}, color='k')
 
-    if MAXAGE < 4000:
-        axs[1].set_xticks([0, 1, 2, 3])
+    SHOW_MOR2019 = 1
+    if SHOW_MOR2019:
+        from scipy.interpolate import make_interp_spline
+        csvpath = join(DATADIR, "literature", 'Mor_2019_sfr_vs_age.csv')
+        data = pd.read_csv(csvpath)
+        age_gyr = data['age_gyr'].values
+        sfr = data['sfr_msun_per_gyr_per_pcsq'].values
+        x_new = np.linspace(0, 10, 100)
+        spl = make_interp_spline(age_gyr, sfr, k=3)
+        y_new = spl(x_new)
+        factor = 167 #spl(0.7)/ynorm
+        l2_3 = 'Mor+19'
+        print(42*'~')
+        print(f'{l2_3}: {factor:.1f}')
+        axs[2].plot(
+            x_new, y_new/factor, c='k', lw=0.5, zorder=-10, ls='--',
+            label=l2_3
+        )
 
-    #axs[1].set_yticklabels([])
+    SHOW_RUIZLARA2020 = 1
+    if SHOW_RUIZLARA2020:
+        from scipy.interpolate import make_interp_spline
+        csvpath = join(DATADIR, "literature",
+                       'RuizLara_2020_sfr_vs_age.csv')
+        data = pd.read_csv(csvpath)
+        age_gyr = data['age_gyr'].values
+        sfr = data['sfr_au'].values
+        x_new = np.linspace(0.05, 10, 100)
+        spl = make_interp_spline(age_gyr, sfr, k=3)
+        y_new = spl(x_new)
+        factor = 18 # 0.9*spl(0.8)/ynorm
+        l2_4 = 'Ruiz-Lara+20'
+        print(42*'~')
+        print(f'{l2_4}: {factor:.1f}')
+        axs[2].plot(
+            x_new, y_new/factor, c='k', lw=0.5, zorder=-10, ls='--',
+            label=l2_4, alpha=0.2
+        )
+
 
     # AESTHETIC HAD WEIRD ISSUES...
     # Hide the right and top spines
@@ -1511,14 +1651,23 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='x-small',
                   borderaxespad=0.9, borderpad=0.5, framealpha=0,
                   loc='lower right')
-    custom_lines = [Line2D([0], [0], color='C0', lw=1, alpha=1.0),
-                    Line2D([0], [0], color='salmon', lw=1, alpha=1.0 ) ]
-    axs[2].legend(custom_lines, [l2_1, l2_2], fontsize='x-small',
+    custom_lines = [
+        Line2D([0], [0], color='C0', lw=1, alpha=1.0),
+        Line2D([0], [0], color='salmon', lw=1, alpha=1.0),
+        Line2D([0], [0], color='k', lw=0.5, alpha=1.0, ls='--'),
+        Line2D([0], [0], color='k', lw=0.5, alpha=0.2, ls='--'),
+    ]
+    axs[2].legend(custom_lines, [l2_1, l2_2, l2_3, l2_4], fontsize='xx-small',
                   borderaxespad=0.9, borderpad=0.5, framealpha=0,
                   loc='lower right')
 
+    s = ''
+    if preciseagesonly:
+        s += '_preciseagesonly'
+
     outpath = os.path.join(
-        outdir, f'hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}{santosstr}.png'
+        outdir,
+        f'comp_hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}{santosstr}{s}.png'
     )
     fig.tight_layout(h_pad=2)
     savefig(fig, outpath, writepdf=1, dpi=400)
