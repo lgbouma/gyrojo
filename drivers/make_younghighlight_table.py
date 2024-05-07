@@ -224,29 +224,25 @@ def make_table(
         pdf, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     )
-    _sel = (
+    _sel0 = (
         (pdf.min_age < 1000) &
         sel_gyro_quality &
         (pdf.flag_planet_quality=='0') &
         (pdf.koi_disposition == 'CONFIRMED') &
         (pdf.li_eagles_limlo == -1.)
     )
-    print(42*'~')
-    print(pdf[_sel])
-    ulkvp(f'ltonegyrhighqconfirmedtwosided', len(pdf[_sel]))
-    print(42*'~')
-    for k in pdf[_sel].kepoi_name:
+    for k in pdf[_sel0].kepoi_name:
         if k not in COMMENTDICT:
             COMMENTDICT[k] = '\checkmark \checkmark'
 
-    _sel = (
+    _sel1 = (
         (pdf.min_age < 1000) &
         sel_gyro_quality &
         (pdf.flag_planet_quality=='0') &
         (pdf.koi_disposition == 'CONFIRMED') &
         (pdf.li_eagles_limlo > -1.)
     )
-    for k in pdf[_sel].kepoi_name:
+    for k in pdf[_sel1].kepoi_name:
         if k not in COMMENTDICT:
             COMMENTDICT[k] = '\checkmark'
 
@@ -353,7 +349,7 @@ def make_table(
     if SELECT_YOUNG:
         sel = (pdf.koi_disposition == 'CONFIRMED')
         latexpath1 = join(PAPERDIR, 'table_subgyr_confirmed.tex')
-        pdf[sel][mapdict.values()].head(n=87).to_latex(
+        pdf[sel][mapdict.values()].head(n=95).to_latex(
             latexpath1, index=False, na_rep='--', escape=False, formatters=formatters
         )
 
@@ -376,12 +372,40 @@ def make_table(
                             'li_eagles_limlo_forsort', 'min_age'])
 
     if not SELECT_YOUNG:
+
         outtxt = join(TABLEDIR, 'inconsistent_tli_tgyro.txt')
         with open(outtxt, 'w') as f:
             f.writelines(
                 pdf[(pdf.are_gyro_and_li_consistent == 'No')].to_string(max_colwidth=None)
             )
         print(f'Made {outtxt}')
+
+        outtxt = join(TABLEDIR, 'consistent_tli_tgyro_twosided.txt')
+
+        _s = (pdf.are_gyro_and_li_consistent != 'No')
+        ulkvp(f'ltonegyrhighqconfirmedtwosided', len(pdf[_sel0 & _s]))
+        ulkvp(f'ltonegyrhighqconfirmedonesided', len(pdf[_sel1 & _s]))
+
+        with open(outtxt, 'w') as f:
+            f.writelines(
+                pdf[_sel0 & _s].to_string(max_colwidth=None)
+            )
+        print(f'Made {outtxt}')
+
+        outtxt = join(TABLEDIR, 'consistent_tli_tgyro_onesided.txt')
+        with open(outtxt, 'w') as f:
+            f.writelines(
+                pdf[_sel1 & _s].to_string(max_colwidth=None)
+            )
+        print(f'Made {outtxt}')
+
+        seldf = pdf[(_sel0 & _s) | (_sel1 & _s)]
+        #FIXME TODO: count earths, SEs, MNs, and larger.
+        #FIXME TODO: count earths, SEs, MNs, and larger.
+        #FIXME TODO: count earths, SEs, MNs, and larger.
+        #FIXME TODO: count earths, SEs, MNs, and larger. (put into discn)
+
+
 
     if not SELECT_YOUNG:
 
