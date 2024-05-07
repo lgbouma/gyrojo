@@ -231,6 +231,10 @@ def make_table(
         (pdf.koi_disposition == 'CONFIRMED') &
         (pdf.li_eagles_limlo == -1.)
     )
+    print(42*'~')
+    print(pdf[_sel])
+    ulkvp(f'ltonegyrhighqconfirmedtwosided', len(pdf[_sel]))
+    print(42*'~')
     for k in pdf[_sel].kepoi_name:
         if k not in COMMENTDICT:
             COMMENTDICT[k] = '\checkmark \checkmark'
