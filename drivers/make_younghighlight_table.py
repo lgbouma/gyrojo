@@ -3,7 +3,8 @@ from os.path import join
 from copy import deepcopy
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
 from gyrojo.getters import (
-    get_gyro_data, get_age_results, get_koi_data
+    get_gyro_data, get_age_results, get_koi_data,
+    select_by_quality_bits
 )
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 from gyrojo.papertools import (
@@ -26,6 +27,9 @@ COMMENTDICT = {
     'K00775.02': 'Theia-520',
     'K00775.01': 'Theia-520',
     'K00775.03': 'Theia-520',
+    'K06228.01': 'Unres. Binary',
+    'K03933.01': 'Unres. Binary',
+    'K01199.01': 'Mystery',
 }
 
 import numpy as np
@@ -213,6 +217,35 @@ def make_table(
                  'li_+1sigma', 'li_-1sigma', "li_eagles_LiEW", "li_eagles_eLiEW"]
     )
 
+    # Look for consistent cases with positive evidence from both rotation and
+    # lithium.
+    pdf['flag_gyro_quality'] = pdf['flag_gyro_quality'].astype(int)
+    sel_gyro_quality = select_by_quality_bits(
+        pdf, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    )
+    _sel = (
+        (pdf.min_age < 1000) &
+        sel_gyro_quality &
+        (pdf.flag_planet_quality=='0') &
+        (pdf.koi_disposition == 'CONFIRMED') &
+        (pdf.li_eagles_limlo == -1.)
+    )
+    for k in pdf[_sel].kepoi_name:
+        if k not in COMMENTDICT:
+            COMMENTDICT[k] = '\checkmark \checkmark'
+
+    _sel = (
+        (pdf.min_age < 1000) &
+        sel_gyro_quality &
+        (pdf.flag_planet_quality=='0') &
+        (pdf.koi_disposition == 'CONFIRMED') &
+        (pdf.li_eagles_limlo > -1.)
+    )
+    for k in pdf[_sel].kepoi_name:
+        if k not in COMMENTDICT:
+            COMMENTDICT[k] = '\checkmark'
+
     pdf['comment'] = np.repeat('', len(pdf))
     for k,v in COMMENTDICT.items():
         pdf.loc[pdf.kepoi_name == k, 'comment'] = v
@@ -272,10 +305,10 @@ def make_table(
               'minageltonegyrqflag']
     dfs = [pdf,
            pdf[pdf.min_age < 1e3],
-           pdf[(pdf[r"$Q_{\rm gyro}$"]=='0') &
+           pdf[(pdf[r"$Q_{\rm gyro}$"]==0) &
                (pdf.koi_disposition=='CONFIRMED')],
            pdf[(pdf.min_age < 1e3) &
-               (pdf[r"$Q_{\rm gyro}$"]=='0') &
+               (pdf[r"$Q_{\rm gyro}$"]==0) &
                (pdf.koi_disposition=='CONFIRMED')]
           ]
 
