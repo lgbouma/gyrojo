@@ -1393,13 +1393,55 @@ The $\approx$1\,Gyr spike however is not recovered.
 
 \subsection{Caveats, Limitations}
 
-{\it Age Accuracy and Quality Flagging}: The fact that only $\approx$90\% of the
-rotation-based and lithium-based ages agree suggests that in cases of
-disagreement, either one or both could be inaccurate.
+Most ages reported in this study come from a single source of information: rotation.
+Factors other than stellar age and mass can influence rotation rates of main sequence stars.
+Binarity is the best example of this: even intermediate-separation ($\sim$10\,AU) binaries are biased
+toward rotating anomalously
+rapidly
+\citep{Meibom_2007,2016AJ....152..115S,2019ApJ...871..174S,Gillen_2020,Bouma_2021}.
+Metallicity may also be a second-order effect
+\citep{2020MNRAS.499.3481A,2024arXiv240500779S}.
+In this work, we were interested in not only the overall
+age distribution of the Kepler field, but also in the reliability of ages for
+individual young planet hosting stars.
+The quality flagging scheme in Table~\ref{tab:planets} provides one method in support of
+this end.
+The other method is to consider the region in which we do have
+overlapping sensitivity between lithium and rotation -- 
+G and K dwarfs with $t$$\lesssim$1\,Gyr.  
+Our results for such stars include
+\ltonegyrhighqconfirmedtwosided\ planets orbiting ``high-quality''
+stars for which the two age indicators are both constraining and in agreement
+(with $Q_{\rm gyro}$ bits zero through nine not raised, and no planet quality flags raised).
+Conversely, we found only one system, Kepler-786, with a clearly
+constraining lithium age (\kepseveneightsix\,Myr) and no rotation age.
 
-{\it Old Ages}: $>$4\,Gyr problematic for gyro models, as calibrated.  Adding
-$\log g$, and perhaps metallicity, could be two useful additional axes
-along which to explore empirical gyro/isochrone fitting.
+Other age indicators may help in verifying the ages of
+the $\lesssim$3\,Gyr stars that are the focus of this work.
+Specifically, chromospheric emission in the
+X-ray, \ion{Ca}{2} HK line, and the UV can serve as an age tracer
+\citep{2008ApJ...687.1264M,2014MNRAS.441.2361V,2024ApJ...960...62E}.
+However, these age indicators are all in a sense ``rotation-powered''.  The dynamo
+converts kinetic energy into magnetic energy, which is emitted through these chromospheric
+pathways.
+We did not attempt to incorporate these indicators into this study
+due to concerns regarding sensitivity, homogeneity, and
+the question of whether they in fact provide age
+information that is truly independent from rotation.
+
+A broader question, beyond the scope of this work, concerns the ages of
+the older $\gtrsim$3\,Gyr stars that we do not treat.
+For age-dating models based only on rotation rates, or else
+on a combination of rotation and spin-modulation amplitude
+\citep{2023ApJ...952..131M}, an important challenge is that the detectability
+of the rotation signals for 3-10\,Gyr stars, especially Sun-like stars,
+is at the limits of the current data \citep{2022ApJ...937...94M}.
+In the ``old star'' regime, methods that use both the evolution of
+stellar luminosity and stellar rotation \citep{Angus_2019} seem the most
+capable of providing useful age constraints for single stars.
+Incorporating kinematics \citep{2021AJ....161..189L} seems likely to remain
+most useful for stellar ensembles, due to the stochastically of kinematic heating.
+
 
 \subsection{Future Directions}
 {\it Occurrence Rates}: Some interesting
