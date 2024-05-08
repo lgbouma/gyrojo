@@ -119,6 +119,18 @@ sel = sdf.kepler_name.str.contains("Kepler-786 b")
 t = sdf.loc[sel, 't_li'].iloc[0]
 ulkvp('kepseveneightsix', t)
 
+sel = sdf.kepler_name.str.contains("Kepler-1312 b")
+t = sdf.loc[sel, 't_gyro'].iloc[0]
+ulkvp('kepthirteentwelve', t)
+
+sel = sdf.kepler_name.str.contains("Kepler-1561 b")
+t = sdf.loc[sel, 't_gyro'].iloc[0]
+ulkvp('kepfifteensixone', t)
+
+sel = sdf.kepler_name.str.contains("Kepler-1629 b")
+t = sdf.loc[sel, 't_gyro'].iloc[0]
+ulkvp('kepsixteentwonine', t)
+
 sel = sdf.kepler_name.str.contains("Kepler-1644 b")
 t = sdf.loc[sel, 't_gyro'].iloc[0]
 ulkvp('kepsixteenfourfour', t)
