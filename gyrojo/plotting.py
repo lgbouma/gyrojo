@@ -1401,7 +1401,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     plt.close("all")
     set_style('science')
-    fig, axs = plt.subplots(ncols=3, figsize=(0.9*5.5, 0.9*2.9),
+    fig, axs = plt.subplots(ncols=3, figsize=(0.9*5.5, 0.9*2.3),
                             constrained_layout=True)
 
     koi_df = get_koi_data('cumulative-KOI', grazing_is_ok=1)
@@ -1495,7 +1495,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     N = int(len(mdf[sel_planets])/10)
 
     l1_0 = 'P$_{\mathrm{rot}}$ '+f'({N})'
-    axs[1].hist(mdf[sel_planets].age/1e3, bins=bins, color='salmon',
+    axs[1].hist(mdf[sel_planets].age/1e3, bins=bins, color='sienna',
                 histtype='step',
                 weights=np.ones(len(mdf[sel_planets]))/len(mdf[sel_planets]),
                 zorder=-5,
@@ -1505,24 +1505,24 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     l1_1 = f'Gyro applicable ' + f"({N})"
     heights, _, _ = axs[1].hist(
         mdf[psel].age/1e3, bins=bins, histtype='step',
-        weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='salmon', alpha=0.9,
+        weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='sienna', alpha=0.9,
         zorder=-3, label=l1_1
     )
     l2_2 = f'KOI hosts ({N})'
     heights, _, _ = axs[2].hist(
         mdf[psel].age/1e3, bins=bins, histtype='step',
-        weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='salmon', alpha=0.9,
+        weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='sienna', alpha=0.9,
         zorder=-2, label=l2_2
     )
     poisson_uncertainties = get_poisson_uncertainties(mdf[psel], bins)
     axs[1].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
-        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='salmon', markersize=0,
+        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='sienna', markersize=0,
         zorder=-3, alpha=0.8
     )
     axs[2].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
-        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='salmon', markersize=0,
+        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='sienna', markersize=0,
         zorder=-2, alpha=0.8
     )
 
@@ -1548,10 +1548,15 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     xmin = 0
     xmax = MAXAGE-20 if MAXAGE < 4000 else MAXAGE
+    if not preciseagesonly:
+        teffstr = '$T_{\mathrm{eff}} \in [3800,6200]\,\mathrm{K}$'
+    else:
+        teffstr = '$T_{\mathrm{eff}} \in [4400,5400]\,\mathrm{K}$'
+
     for ix, ax in enumerate(axs):
         if ix == 0:
             ax.update({
-            'ylabel': '$N$/$N_{\mathrm{max}}$',
+            'ylabel': '$N$/$N_{\mathrm{max}}$\n'+f'{teffstr}',
             'yticklabels': [0, 0.02, 0.04, 0.06],
             })
         else:
@@ -1561,10 +1566,6 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         if ix == 1:
             #ax.set_xlabel('Age from Rotation [Gigayears]')
             ax.set_xlabel('Age [Gigayears]')
-            if not preciseagesonly:
-                ax.set_title('$T_{\mathrm{eff}} \in [3800,6200]\,\mathrm{K}$')
-            else:
-                ax.set_title('$T_{\mathrm{eff}} \in [4400,5400]\,\mathrm{K}$')
         ax.update({
             #'xlabel': '$t_{\mathrm{gyro}}$ [Gyr]',
             'xlim': [xmin/1e3, (xmax)/1e3],
@@ -1578,12 +1579,12 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     txt = 'Kepler stars'
     axs[0].text(.05, .95, txt, ha='left', va='top',
-                fontsize='medium', zorder=5, transform=axs[0].transAxes,
+                fontsize='small', zorder=5, transform=axs[0].transAxes,
                 fontdict={'fontstyle':'normal'}, color='C0')
 
     axs[1].text(.05, .95, 'KOI hosts', ha='left', va='top',
-                fontsize='medium', zorder=5, transform=axs[1].transAxes,
-                fontdict={'fontstyle':'normal'}, color='salmon')
+                fontsize='small', zorder=5, transform=axs[1].transAxes,
+                fontdict={'fontstyle':'normal'}, color='sienna')
     #axs[2].text(.05, .95, 'Comparison', ha='left', va='top',
     #            fontsize='large', zorder=5, transform=axs[2].transAxes,
     #            fontdict={'fontstyle':'normal'}, color='k')
@@ -1642,17 +1643,17 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     from matplotlib.lines import Line2D
     custom_lines = [Line2D([0], [0], color='C0', lw=0.5, alpha=0.4),
                     Line2D([0], [0], color='C0', lw=1, alpha=1.0 ) ]
-    axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='x-small',
+    axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='xx-small',
                   borderaxespad=0.9, borderpad=0.5, framealpha=0,
                   loc='lower right')
-    custom_lines = [Line2D([0], [0], color='salmon', lw=0.5, alpha=0.4),
-                    Line2D([0], [0], color='salmon', lw=1, alpha=1.0 ) ]
-    axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='x-small',
+    custom_lines = [Line2D([0], [0], color='sienna', lw=0.5, alpha=0.4),
+                    Line2D([0], [0], color='sienna', lw=1, alpha=1.0 ) ]
+    axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='xx-small',
                   borderaxespad=0.9, borderpad=0.5, framealpha=0,
                   loc='lower right')
     custom_lines = [
         Line2D([0], [0], color='C0', lw=1, alpha=1.0),
-        Line2D([0], [0], color='salmon', lw=1, alpha=1.0),
+        Line2D([0], [0], color='sienna', lw=1, alpha=1.0),
         Line2D([0], [0], color='k', lw=0.5, alpha=1.0, ls='--'),
         Line2D([0], [0], color='k', lw=0.5, alpha=0.2, ls='--'),
     ]
