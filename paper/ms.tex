@@ -851,25 +851,30 @@ complicate matters.
 After exploring various options, we settled on the orange locus in the
 $\log g$--$T_{\rm eff}$ plane shown in Figure~\ref{fig:stellarprops}.
 While the details of how exactly this locus is constructed are
-arbitrary and convoluted,\footnote{In practice, for K dwarfs we fitted an
-$N^{\rm th}$-order polynomial to the set of stars for which $t_{\rm
-B20,iso}/(+\sigma_{t,{\rm B20,iso}})\approx 3$, where
-$t_{\rm B20,iso}$ was the isochronal age reported by
-\citet{Berger_2020a_catalog}. We let the order of the fit vary from
-$N$=1 to 10, minimized the Bayesian Information Criterion,
-and found $N$=6.  For F and G dwarfs, this procedure failed to produce
-a reasonable locus because of shifts in the relative precision of
-the isochrone ages.  We therefore visually selected KOIs that appeared
-to be near the ``main sequence'', fitted a separate polynomial to
-their locations, and then stitched the resulting polynomials from the
-F and G dwarfs to that of the K dwarfs.} the general 
-aim is to exclude stars for which there is photometric evidence
-that gyrochronology may not be reliable.  The rotation period
-distribution of sources excluded in this manner includes a relatively
-larger fraction of ``rapid rotators'' than the main sequence sources,
-likely due to a combination of astrophysical and systematic effects.
+arbitrary, 
+%and convoluted,\footnote{In practice, for K dwarfs we fitted an
+%$N^{\rm th}$-order polynomial to the set of stars for which $t_{\rm
+%B20,iso}/(+\sigma_{t,{\rm B20,iso}})\approx 3$, where
+%$t_{\rm B20,iso}$ was the isochronal age reported by
+%\citet{Berger_2020a_catalog}. We let the order of the fit vary from
+%$N$=1 to 10, minimized the Bayesian Information Criterion,
+%and found $N$=6.  For F and G dwarfs, this procedure failed to produce
+%a reasonable locus because of shifts in the relative precision of
+%the isochrone ages.  We therefore visually selected KOIs that appeared
+%to be near the ``main sequence'', fitted a separate polynomial to
+%their locations, and then stitched the resulting polynomials from the
+%F and G dwarfs to that of the K dwarfs.}
+the general 
+aim is to exclude stars for which there is evidence 
+based on their location in the $\log g$--$T_{\rm eff}$ plane
+that our gyrochronology model may not be reliable.  
+%The rotation period
+%distribution of sources excluded in this manner includes a relatively
+%larger fraction of ``rapid rotators'' than the main sequence sources,
+%likely due to a combination of astrophysical and systematic effects.
 See for instance Figure~8a of \citet{2022AJ....164..137K} or Figures~12 and 13
-of \citet{2023ApJS..268....4F}.
+of \citet{2023ApJS..268....4F} for examples of how this period distribution
+of this population differs from stars near the main sequence.
 
 
 {\it Candidate pulsators and close-in binaries (bit
@@ -1006,21 +1011,20 @@ For instance,
 \section{Results}
 \label{sec:results}
 
-\begin{figure*}[!p]
+\begin{figure*}[!t]
   \begin{center}
     \leavevmode
     \subfloat{
     \includegraphics[width=\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage4000.pdf}
     }
 
-	\vspace{-0.3cm}
+	\vspace{-0.35cm}
     \subfloat{
     \includegraphics[width=\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage4000_preciseagesonly.pdf}
     }
   \end{center}
   \vspace{-0.6cm}
-  \caption{
-    {\bf Kepler's demographic cliff,} visible in the rotation-derived
+  \caption{{\bf Kepler's demographic cliff,} visible in the rotation-derived
     ages of stars (left) and planet hosts (middle) in the Kepler field.
     The top row corresponds to all
     stars with $T_{\rm eff}\in[3800,6200]\,$K for which we calculated rotation-based ages.
@@ -1149,9 +1153,9 @@ rot}$$\approx$10.3\,days) is marginally hotter than the later K dwarfs
 that have ``stalled'' spindown from 0.7 to 1\,Gyr, enabling its
 rotation period to be diagnostic of the stellar age.
 
-\begin{figure*}[!t]
+\begin{figure}[!t]
   \begin{center}
-    \includegraphics[width=0.85\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pdf}
+    \includegraphics[width=0.48\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pdf}
   \end{center}
   \vspace{-0.5cm}
   \caption{
@@ -1170,7 +1174,7 @@ rotation period to be diagnostic of the stellar age.
     similarly no have quality flags raised. 
     \label{fig:rp_period_age_results}
   }
-\end{figure*}
+\end{figure}
 
 \subsubsection{Comparing Rotation and Lithium Ages}
 
@@ -1233,55 +1237,92 @@ a statistical fluke.
 
 \subsubsection{New Young Systems}
 %
-Whenever both rotation and lithium find a star to be in a
-narrowly-constrained age range, confidence in the true age
-increases, because the two techniques are independent.
-The region of greatest overlap between rotation and lithium ages in
-the spaces of $P_{\rm rot}$, EW$_{\rm Li}$, and $T_{\rm eff}$ is
-dictated by the timescale for lithium depletion: for stars with
-temperatures between 4500-5500\,K with ages $\lesssim$1\,Gyr, we can
-hope to obtain independent two-sided constraints
-\citep{Bouma_2023,Jeffries_2023}.
+%The astrophysical processes behind rotation and lithium evolution are
+%independent.
+%Therefore 
+%whenever the two age indicators agree within a
+%narrowly-constrained range, confidence in the true age
+%increases.
+%The region of greatest overlap between rotation and lithium ages is
+%dictated by the timescale for lithium depletion: for stars with
+%temperatures between 4500-5500\,K with ages $\lesssim$1\,Gyr, we can
+%hope to obtain independent two-sided constraints
+%\citep{Bouma_2023,Jeffries_2023}.
 
-The following systems, to our knowledge, are being
-well-constrained for the first time in this work.  Here we limit
-discussion to systems with $t_{\rm gyro}$$<$500\,Myr not in the clusters
-mentioned above.
-{\bf FIXME TODO: next two paragraphs are boring.  come up with a better way to do this,
-and maybe automate}
+Let us restrict our attention to blemish-free stars, with blemish-free
+``confirmed'' planets:
+$Q_{\rm gyro}$ must not have any of bits zero through nine
+raised, and $Q_{\rm planet}$ must have no quality flags raised at all.
+Under this constraint,
+our results include \ltonegyrhighqconfirmedtwosided\ systems
+younger than 1\,Gyr with two-sided $t_{\rm gyro}$ and $t_{\rm Li}$,
+and \ltonegyrhighqconfirmedonesided\ cases for which $t_{\rm gyro}$ provides
+an age constraint while $t_{\rm Li}$ is one-sided.
+%Two of the former systems are in clusters (Kepler-1643 and Kepler-1928);
+%five of the latter systems are in Theia~520.
 
-The new young planets
-include five 1.8-3.8\,$R_\oplus$ mini-Neptunes
-(Kepler-1529b $\approx$100\,Myr,
--1521b $\approx$195\,Myr,
--1467b $\approx$235\,Myr,
--955b $\approx$400\,Myr, and
--523b $\approx$440\,Myr),
-a single Neptune-sized planet
-(Kepler-971b $\approx$335\,Myr),
-five 1.1-1.8\,$R_\oplus$ super-Earths
-(Kepler-1930b $\approx$150\,Myr,
--1313b $\approx$185\,Myr,
--1565b $\approx$205\,Myr,
--1532b $\approx$400\,Myr,
--1481b $\approx$400\,Myr),
-and three Earth or sub-Earth-sized planets
-(Kepler-1933b $\approx$300\,Myr,
--1561b $\approx$420\,Myr,
--1482b $\approx$490\,Myr).
-All of these planets are on orbital periods below 50\,days.
+These planets are shown in Figure~\ref{fig:rp_period_age_results}.
+They include \nearthshighqconfirmed\ Earth-sized or smaller planets,
+no Jupiter-sized or larger planets,
+\nsubsaturnshighqconfirmed\ ``super-Neptune'' ($>$4\,$R_\oplus$) sized
+planets,
+\nminineptuneshighqconfirmed\ mini-Neptunes above the 
+radius valley (as parametrized by \citealt{2018MNRAS.479.4786V}),
+and \nsuperearthshighqconfirmed\ super-Earth sized planets below the radius valley.
+While most of these planets are on orbital periods below 50\,days,
+\nlongperiodhighqconfirmed\ are on more distant orbits.
 
-Of these planets, one specific highlight is Kepler-1933b, a 4.9\,day
-1.0\,$R_\oplus$ Earth-sized planet.  Its rotation-based age of
-$304^{+96}_{-112}$\,Myr agrees within $1\sigma$ of its lithium age,
-though at half the relative uncertainty.  This system may be the
-youngest Earth-sized planet currently known, comparable to systems
+%The new young planets
+%include five 1.8-3.8\,$R_\oplus$ mini-Neptunes
+%(Kepler-1529b $\approx$100\,Myr,
+%-1521b $\approx$195\,Myr,
+%-1467b $\approx$235\,Myr,
+%-955b $\approx$400\,Myr, and
+%-523b $\approx$440\,Myr),
+%a single Neptune-sized planet
+%(Kepler-971b $\approx$335\,Myr),
+%five 1.1-1.8\,$R_\oplus$ super-Earths
+%(Kepler-1930b $\approx$150\,Myr,
+%-1313b $\approx$185\,Myr,
+%-1565b $\approx$205\,Myr,
+%-1532b $\approx$400\,Myr,
+%-1481b $\approx$400\,Myr),
+%and three Earth or sub-Earth-sized planets
+%(Kepler-1933b $\approx$300\,Myr,
+%-1561b $\approx$420\,Myr,
+%-1482b $\approx$490\,Myr).
+
+A few new highlights from the high quality stars and planets include
+Kepler-1529, Kepler-1565, Kepler-1312, and Kepler-1629.
+Kepler-1529b is a $\approx$100$\pm$50\,Myr mini-Neptune with well-measured
+rotation and lithium ages.
+Kepler-1565b is an analogous $\approx$170-230\,Myr super-Earth.
+Kepler-1312 is a $t_{\rm gyro}$=\kepthirteentwelve\,Myr near-Solar analog with
+two known transiting planets: an Earth-sized planet on a one-day orbit,
+and a mini-Neptune on a five-day orbit.
+The Earth-sized planet, Kepler-1312c, along with the near-identical
+Kepler-1561 b ($t_{\rm gyro}$=\kepfifteensixone\,Myr), 
+could be the
+youngest Earth-sized planets currently known, comparable to systems
 such as HD~63433d \citep[1.1\,$R_\oplus$,
-$414\pm23$\,Myr][]{2024AJ....167...54C}.
+$414$$\pm$$23$\,Myr;][]{2024AJ....167...54C} and TOI-1807~b \citep[1.3\,$R_\oplus$, 180$\pm$40\,Myr;][]{2021AJ....162...54H}.
+Kepler-1629~b, with a size just two-thirds that of Earth
+(0.67$\pm$0.05\,$R_\oplus$), is marginally older, also based on rotation
+(\kepsixteentwonine\,Myr).  The lithium age from a reconnaissance 
+TRES spectrum confirms the point.
 
-A less clear case is Kepler-447b, which is supposedly a 32\,$R_\oplus$
-planet on a 7.8\,day grazing orbit.  Rotation and lithium independently
-find a 420-440\,Myr age.  {\it LGB TODO What is up with the size?}.
+
+
+%Of these planets, one specific highlight is Kepler-1933b, a 4.9\,day
+%1.0\,$R_\oplus$ Earth-sized planet.  Its rotation-based age of
+%$304^{+96}_{-112}$\,Myr agrees within $1\sigma$ of its lithium age,
+%though at half the relative uncertainty.
+
+
+
+%A less clear case is Kepler-447b, which is supposedly a 32\,$R_\oplus$
+%planet on a 7.8\,day grazing orbit.  Rotation and lithium independently
+%find a 420-440\,Myr age.  {\it LGB TODO What is up with the size?}.
 
 %  Kepler-1529b, a 5.3\,day 2.0\,$R_\oplus$ mini-Neptune is $\approx$100\,Myr old.
 %  Kepler-1930b, a 13.0\,day 1.5\,$R_\oplus$ super-Earth on a grazing orbit is $\approx$120-180\,Myr old.
@@ -1328,7 +1369,7 @@ find a 420-440\,Myr age.  {\it LGB TODO What is up with the size?}.
 
 \subsection{The Thin Disk's Star Formation History}
 
-Most of the stars observed by Kepler are in the Galaxy's thin disk.
+Most of the stars observed by Kepler are in the thin disk.
 This can be verified by following \citet{Gaia_2018}, and denoting stars with 2D tangential
 velocities $v_{\rm T}$$<$40\,\kms\ as thin disk members, and those
 with 60$<$$v_{\rm T}$$<$150\,\kms as thick disk members.  For all
@@ -1340,22 +1381,22 @@ discussed in Section~\ref{subsec:flags} yields 17{,}755
 thin-disk stars for which gyrochronology is nominally applicable, and
 2{,}462 thick-disk stars.
 
-The kinematic distinction between thin and thick disk stars helps connect
-the Kepler stars to the broader literature focused
+Classifying Kepler stars in this manner helps connect
+them to the broader literature focused
 on the history of star formation in the Galaxy.  On extragalactic
 scales, the star formation rate in spiral galaxies with mass
 comparable to the Milky Way peaked $\approx$10\,Gyr ago, and has since
-decreased by about an order of magnitude
+decreased by an order of magnitude
 \citep[e.g.][]{2004Natur.428..625H,2006ApJ...651..142H}.  For our own
 galaxy, many investigators have worked to measure similar star
 formation histories, through both CMD fitting of resolved stellar
 populations
 \citep[][]{2019A&A...624L...1M,2020NatAs...4..965R,2021MNRAS.501..302A,2022Natur.603..599X}
-and also by modelling the local white dwarf luminosity function
+and by modeling the local white dwarf luminosity function
 \citep[e.g.][]{2019ApJ...878L..11I}.  
 \citet{2019A&A...624L...1M} and \citet{2019ApJ...878L..11I} for
 instance focused on stars (and white dwarfs) within a few hundred
-parsecs, and both reported a local maximum in the galactic star
+parsecs, and both found a peak in the local star
 formation rate 2-3\,Gyr ago.  \citet{2020NatAs...4..965R} focused on
 stars in a wider 2\,kpc bubble, and reported three local maxima
 in the thin disk's star formation history 5.7, 1.9, and 1.0\,Gyr ago,
@@ -1393,19 +1434,17 @@ The $\approx$1\,Gyr spike however is not recovered.
 
 \subsection{Caveats, Limitations}
 
-Most ages reported in this study come from a single source of information: rotation.
+Most of our ages come from a single source of information: rotation.
 Factors other than stellar age and mass can influence rotation rates of main sequence stars.
-Binarity is the best example of this: even intermediate-separation ($\sim$10\,AU) binaries are biased
-toward rotating anomalously
-rapidly
-\citep{Meibom_2007,2016AJ....152..115S,2019ApJ...871..174S,Gillen_2020,Bouma_2021}.
+Binarity is one example: even intermediate-separation ($\sim$10\,AU) binaries are biased
+toward rapid rotation
+\citep[e.g.][and many studies thereafter]{Meibom_2007}. %,2016AJ....152..115S,2019ApJ...871..174S,Gillen_2020,Bouma_2021}.
 Metallicity may also be a second-order effect
 \citep{2020MNRAS.499.3481A,2024arXiv240500779S}.
 In this work, we were interested in not only the overall
-age distribution of the Kepler field, but also in the reliability of ages for
-individual young planet hosting stars.
-The quality flagging scheme in Table~\ref{tab:planets} provides one method in support of
-this end.
+age distribution of the Kepler field, but also in the reliability of individual ages for
+young planet hosting stars.
+The quality flagging scheme in Table~\ref{tab:planets} provides one path toward this end.
 The other method is to consider the region in which we do have
 overlapping sensitivity between lithium and rotation -- 
 G and K dwarfs with $t$$\lesssim$1\,Gyr.  
@@ -1414,7 +1453,7 @@ Our results for such stars include
 stars for which the two age indicators are both constraining and in agreement
 (with $Q_{\rm gyro}$ bits zero through nine not raised, and no planet quality flags raised).
 Conversely, we found only one system, Kepler-786, with a clearly
-constraining lithium age (\kepseveneightsix\,Myr) and no rotation age.
+constraining lithium age (\kepseveneightsix\,Myr), but no rotation signal.
 
 Other age indicators may help in verifying the ages of
 the $\lesssim$3\,Gyr stars that are the focus of this work.
@@ -1484,7 +1523,7 @@ identify.
 \section{Conclusions}
 \label{sec:conclusions}
 
-We began this article by asking two questions: how wrong is the
+We began this article with two questions: how wrong is the
 assumption of a uniform age distribution for stars in the galactic
 thin disk?  And why are only $\approx$50 sub-gigayear transiting
 planets known, rather than the $\approx$500 that would be expected
@@ -1493,15 +1532,17 @@ $\approx$5{,}000 known planets?
 
 In an attempt to answer these questions, we curated a sample of
 rotation periods, lithium equivalent widths, and stellar temperatures
-using a combination of archival and new data.  We derived new ages
-using empirical interpolation-based age scales that have been
-calibrated against the latest available open cluster data.
+using archival and new data.  We derived new ages
+using empirical interpolation-based methods that have been
+calibrated against the latest open cluster data.
 
 Our analysis blindly recovered all 14 known Kepler planets in
 clusters, with ages in agreement with the more precise cluster-based
 ages.  Although lithium provided only marginal added information for
 most of the sample, the independent lithium and rotation ages agreed
-for $\approx$90\% of cases.  In particular, we reported 14 confirmed
+for $\approx$90\% of cases.  
+%FIXME TODO NUMBERS
+In particular, we reported 14 confirmed
 $<$500\,Myr planets with strong age constraints from both rotation and
 lithium, including five mini-Neptunes, five super-Earths, three Earths
 and sub-Earths, and a Neptune-sized planet.
@@ -1564,7 +1605,7 @@ All authors assisted in manuscript revision.
   scipy \citep{scipy},
 }
 
-\clearpage 
+%\clearpage 
 
 \startlongtable
 \begin{deluxetable*}{llllllllrrrrrrl}
@@ -1649,7 +1690,7 @@ All authors assisted in manuscript revision.
 \end{deluxetable*}
 
 
-\clearpage
+%\clearpage
 
 \bibliographystyle{aasjournal}
 \bibliography{bibliography}
@@ -1769,7 +1810,7 @@ In other words, it is a subgiant.
 All are subgiants, flagged with $Q_{\rm gyro}$ under various combinations of bits 1, 2, and 9.
 
 
-\section{Notable Individual Systems}
+\section{Notes on Individual Systems}
 
 %Kepler~221 is a 633$^{+120}_{-112}$\,Myr four-planet system.
 %
