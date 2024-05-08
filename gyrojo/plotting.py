@@ -95,19 +95,19 @@ def _given_ax_append_spectral_types(ax):
     tax.get_yaxis().set_tick_params(which='both', direction='in')
 
 
-def get_planet_class_labels(df, OFFSET=0):
+def get_planet_class_labels(df, OFFSET=0, rpkey='rp', periodkey='period'):
     # given a dataframe with keys "rp" and "period", return a dataframe with a
     # "pl_class" key 
 
     df['pl_class'] = ''
 
-    sel = df['rp'] <= 1
+    sel = df[rpkey] <= 1
     df.loc[sel, 'pl_class'] = 'Earths'
 
-    sel = df['rp'] >= 6
+    sel = df[rpkey] >= 4
     df.loc[sel, 'pl_class'] = 'Sub-Saturns'
 
-    sel = df['rp'] >= 10
+    sel = df[rpkey] >= 10
     df.loc[sel, 'pl_class'] = 'Jupiters'
 
     # van eylen+2018
@@ -115,12 +115,12 @@ def get_planet_class_labels(df, OFFSET=0):
     a = 0.37
     fn_Rmod = lambda log10Pmod: 10**(m*log10Pmod + a)
 
-    R_mod = fn_Rmod(np.log10(df['period'])) + OFFSET
+    R_mod = fn_Rmod(np.log10(df[periodkey])) + OFFSET
 
-    sel = (df['rp'] < 6) & (df['rp'] > R_mod)
+    sel = (df[rpkey] < 4) & (df[rpkey] > R_mod)
     df.loc[sel, 'pl_class'] = 'Mini-Neptunes'
 
-    sel = (df['rp'] > 1) & (df['rp'] <= R_mod)
+    sel = (df[rpkey] > 1) & (df[rpkey] <= R_mod)
     df.loc[sel, 'pl_class'] = 'Super-Earths'
 
     return df
@@ -840,7 +840,6 @@ def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
         df = get_planet_class_labels(df, OFFSET=OFFSET)
 
         n_pl = len(df.loc[sel, 'period'])
-
         n_sn = int(np.sum( df[sel].pl_class == 'Mini-Neptunes' ))
         n_se = int(np.sum( df[sel].pl_class == 'Super-Earths' ))
         try:
