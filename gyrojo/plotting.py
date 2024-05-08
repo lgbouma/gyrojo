@@ -44,6 +44,7 @@ import matplotlib as mpl
 import matplotlib.transforms as transforms
 import matplotlib.patches as patches
 import matplotlib.colors as mcolors
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 from numpy import array as nparr
 
@@ -297,12 +298,56 @@ def plot_star_Prot_Teff(outdir, sampleid):
 
     print(f"Mean Teff error is {np.nanmean(Teff_errs):.1f} K")
 
-    ax.errorbar(
-        Teffs, Prots,
-        yerr=np.zeros(len(Prots)),
-        marker='o', elinewidth=0., capsize=0, lw=0, mew=0., color='k',
-        markersize=0.5, zorder=5
-    )
+    DO_POINTS = 0
+    if DO_POINTS:
+        ax.errorbar(
+            Teffs, Prots,
+            yerr=np.zeros(len(Prots)),
+            marker='o', elinewidth=0., capsize=0, lw=0, mew=0., color='k',
+            markersize=0.5, zorder=5
+        )
+
+    else:
+        # Define the bin sizes
+        dTeff = 100/5
+        dProt = 1/4
+
+        # Create the 2D histogram
+        hist, xedges, yedges, im = plt.hist2d(
+            Teffs, Prots,
+            bins=[np.arange(3700, 6300, dTeff),
+                  np.arange(-1, 46, dProt)]
+        )
+
+        # Create a custom colormap with white color for zero values
+        cmap = plt.cm.YlGnBu
+        cmaplist = [cmap(i) for i in range(cmap.N)]
+        cmaplist[0] = (1.0, 1.0, 1.0, 1.0)  # Set the color for zero values to white
+        cmap = mcolors.LinearSegmentedColormap.from_list('Custom YlGnBu', cmaplist, cmap.N)
+
+        ## Apply log scaling to the colorbar
+        #norm = mcolors.LogNorm(vmin=1, vmax=np.max(hist))
+        norm = mcolors.Normalize(vmin=1, vmax=7)
+        im.set_norm(norm)
+
+        # Update the colormap of the plot
+        im.set_cmap(cmap)
+
+        show_colorbar = 0
+        if show_colorbar:
+            axins1 = inset_axes(ax, width="20%", height="2%", loc='upper right',
+                                borderpad=1.0)
+
+            cb = fig.colorbar(im, cax=axins1, orientation="horizontal",
+                              extend="max", norm=norm)
+            #cb.set_ticks([1,4,7,10])
+            cb.set_ticks([1,10])
+            cb.ax.tick_params(labelsize='small')
+            cb.ax.tick_params(size=0, which='both') # remove the ticks
+            #cb.ax.yaxis.set_ticks_position('left')
+            cb.ax.xaxis.set_label_position('top')
+            cb.set_label("$N$", fontsize='small', weight='normal')
+
 
     txt = (
         "$N_\mathrm{s}$ = " + f"{n_st}"
