@@ -297,27 +297,14 @@ def plot_star_Prot_Teff(outdir, sampleid):
 
     print(f"Mean Teff error is {np.nanmean(Teff_errs):.1f} K")
 
-    #N_reported_periods = df['N_reported_periods']
-    #sel = (N_reported_periods >= 2)
-
     ax.errorbar(
-        Teffs, Prots, #xerr=Teff_errs,
+        Teffs, Prots,
         yerr=np.zeros(len(Prots)),
         marker='o', elinewidth=0., capsize=0, lw=0, mew=0., color='k',
         markersize=0.5, zorder=5
     )
 
-    ## only one reported period
-    #sel = (N_reported_periods == 1)
-    #ax.errorbar(
-    #    Teffs[sel], Prots[sel], #xerr=Teff_errs,
-    #    yerr=Prot_errs[sel],
-    #    marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='lightgray',
-    #    markersize=1, zorder=4
-    #)
-
     txt = (
-        #"$N_\mathrm{p}$ = " + f"{n_pl}\n"
         "$N_\mathrm{s}$ = " + f"{n_st}"
     )
     bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
@@ -510,10 +497,6 @@ def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
                         framealpha=0, borderaxespad=0, borderpad=0,
                         handlelength=1.6, bbox_to_anchor=(0.97, 0.97))
 
-        #leg.texts[0].set_color(colors[0])
-        #leg.texts[1].set_color(colors[1])
-        #leg.texts[2].set_color(colors[2])
-
     txt = (
         "$N_\mathrm{p}$ = " + f"{n_pl}\n"
         "$N_\mathrm{s}$ = " + f"{n_st}"
@@ -589,10 +572,6 @@ def plot_rp_vs_age(outdir, xscale='linear', elinewidth=0.1, shortylim=0,
     ax.update({'xlabel': 'Age [yr]', 'ylabel': 'Count'})
     outpath = os.path.join(outdir, f'age_hist_lt2gyr_25pctradii_singlesidedok.png')
     savefig(fig, outpath)
-
-    ##TODO: what if you sampled instead?
-    #import IPython; IPython.embed()
-
 
     plt.close("all")
     set_style("clean")
