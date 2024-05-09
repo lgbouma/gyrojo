@@ -382,7 +382,7 @@ Figure~\ref{fig:stellarprops} provides a visualization of the various samples.
 		to the slow rotation sequences of open
 		clusters.  The stellar sample (left) includes only apparently single stars
 		near the main sequence with $\log g$$>$4.2, RUWE$<$1.4,
-		and 3800$<$$T_{\rm eff}$/K$<$6200.
+		and temperatures of 3800--6200\,K.
 		The color map has a linear stretch.  %between one and ten stars per bin.
 		The planet-hosts (right) require
 		the same stellar cuts, and include only the confirmed and candidate planets
@@ -610,7 +610,7 @@ lithium-based ages.
 \begin{figure}[!t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.47\textwidth]{li_vs_teff_koi_X_JUMP_eagles_logy.pdf}
+		\includegraphics[width=0.47\textwidth]{li_vs_teff_koi_X_JUMP_eagles.pdf}
 	\end{center}
 	\vspace{-0.6cm}
 	\caption{
@@ -620,10 +620,8 @@ lithium-based ages.
 		\nhireshours\,hours of open-shutter time.  Lines are the ``mean''
 		isochrones from the same models as in Figure~\ref{fig:models}; the
 		intrinsic dispersion beyond $\approx$1\,Gyr becomes much larger
-		than changes in the mean.  The logarithmic scale highlights the
-		dynamic range of the detections and upper limits.  Some stars with
-		lithium detections do not have detected rotation periods, and
-		vice-versa.
+    than changes in the mean.  Some stars with lithium detections do
+    not have detected rotation periods, and vice-versa.
 		\label{fig:li_vs_teff}
 	}
 \end{figure}
@@ -748,7 +746,7 @@ sequences to yield statistical age uncertainties.
 \label{subsec:flags}
 We calculated gyrochrone age posteriors for all
 \nuniqstarsantosrotteffcut\ stars with reported rotation periods and
-effective temperatures between 3800\,K and 6200\,K.  To flag stars for
+effective temperatures of 3800--6200\,K.  To flag stars for
 which we suspect these ages may not in fact be valid, we built a set
 of quality flags, which we condensed into a single binary number,
 $Q_{\rm star}$.  When and how the flags represented in this should be
@@ -951,8 +949,7 @@ The rotation periods for the star and planet samples are shown
 in Figure~\ref{fig:prot_vs_teff}.  Out of the \nkeplerstars\ stars
 observed by Kepler, requiring reported rotation periods and a reliable
 DR3 crossmatch yields \nuniqstarsantosrot\ stars.  Further requiring
-these stars to have temperatures 3800$<$$T_{\rm
-eff}$/K$<$6200, yields \nuniqstarsantosrotteffcut\
+these stars to have temperatures of 3800--6200\,K, yields \nuniqstarsantosrotteffcut\
 stars.  Further requiring the stars to be apparently single, near the main
 sequence, with $\log g$$>$4.2, $M_{\rm G}>3.9$, and not flagged as
 eclipsing binaries yielded \nuniqstarsantosallbutruwe\ rotators
@@ -1040,11 +1037,11 @@ percentile) limits.
   \caption{{\bf Kepler's demographic cliff,} visible in the rotation-derived
     ages of stars (left) and planet hosts (middle) in the Kepler field.
     The top row corresponds to all
-    stars with $T_{\rm eff}\in[3800,6200]\,$K for which we calculated rotation-based ages.
+    stars with temperatures of 3800--6200\,K for which we calculated rotation-based ages.
     The darker lines impose quality cuts
     on factors such as binarity, crowding, and the star's evolutionary
     state.
-    The bottom row selects only stars with $T_{\rm eff}\in[4400,5400]\,$K, which
+    The bottom row selects only stars with temperatures of 4400-5400\,K, which
     have relatively precise ages near 2\,Gyr due to their fast spin-down
     \citep[see][]{Bouma_2023}.
     The statistical uncertainty for a mean individual star at 1, 2, and 3\,Gyr is shown, and is identical across each row.
@@ -1542,7 +1539,7 @@ $\approx$5{,}000 known planets?
 Our approach to answering these questions was to curate a sample of
 stellar rotation periods, lithium equivalent widths, and temperatures
 using archival and new data.  We derived new ages
-using empirical interpolation-based methods that have been
+using empirical methods that have been
 calibrated against an extensive set of open cluster data.
 
 Our analysis blindly recovered all 14 known Kepler planets in
