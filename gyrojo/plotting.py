@@ -387,6 +387,8 @@ def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
     upperlim = (li_ew - li_ew_merr < 10)
     det = ~upperlim
     li_ew_upper_lims = li_ew[upperlim] + li_ew_perr[upperlim]
+    if yscale in [None, 'linear']:
+        li_ew_upper_lims[li_ew_upper_lims < 0] = 1
 
     if limodel == 'baffles':
 
@@ -547,7 +549,7 @@ def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
         "$N_\mathrm{s}$ = " + f"{n_st}"
     )
     if not nodata:
-        ax.text(0.03, 0.97, txt, transform=ax.transAxes,
+        ax.text(0.04, 0.97, txt, transform=ax.transAxes,
                 ha='left',va='top', color='k')
 
     ax.set_ylabel('Li$_{6708}$ EW [m$\mathrm{\AA}$]')
@@ -562,7 +564,7 @@ def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
     if show_dispersionpoints:
         ax.set_ylim([ -5, 320 ])
     if not show_dispersion and not show_dispersionpoints:
-        ax.set_ylim([ -5, 500 ])
+        ax.set_ylim([-10, 270])
 
     s = f'_{sampleid}'
     s += f"_{limodel}"

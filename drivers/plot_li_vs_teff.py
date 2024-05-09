@@ -7,6 +7,9 @@ if not os.path.exists(outdir): os.mkdir(outdir)
 
 # most useful
 ap.plot_li_vs_teff(outdir, sampleid='koi_X_JUMP',
+                   yscale='linear', limodel='eagles',
+                   show_dispersion=0)
+ap.plot_li_vs_teff(outdir, sampleid='koi_X_JUMP',
                    yscale='log', limodel='eagles',
                    show_dispersion=0)
 ap.plot_li_vs_teff(outdir, sampleid='koi_X_S19S21dquality',
