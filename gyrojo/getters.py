@@ -1167,10 +1167,18 @@ def select_by_quality_bits(df, bit_positions, target_values):
     Returns:
         pandas.Series: A boolean mask indicating the selected data points.
 
-    Example:
+    Example 1:
+        # Select stars for which gyro is "applicable"
+        mask = select_by_quality_bits(
+            df, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        )
+        selected_df = df[mask]
+
+    Example 2:
         # Select data points where bit 4 is False (0) and bit 5 is False (0)
         mask = select_data_by_bits(df, [4, 5], [0, 0])
-        selected_data = df[mask]
+        selected_df = df[mask]
     """
     if len(bit_positions) != len(target_values):
         raise ValueError("The lengths of bit_positions and target_values must be the same.")
