@@ -95,7 +95,7 @@ def make_star_table(
         f"{row['gyro_+1sigma']}"+
         "}_{-"+
         f"{row['gyro_-1sigma']}"
-        +"} $",
+        +"}$",
         axis=1
     )
     sdf['t_gyro'] = sdf['t_gyro'].apply(replace_nan_string)
@@ -151,6 +151,13 @@ def make_star_table(
     _sdf.to_csv(csvpath, index=False)
     print(f'Wrote {csvpath}')
 
+    csvpath = join(PAPERDIR, 'table_star_gyro_allcols.csv')
+    odf = df.sort_values(
+        by=['gyro_median','KIC'],
+        ascending=[True, True]
+    ).reset_index(drop=1)
+    odf.to_csv(csvpath, index=False)
+    print(f'Wrote {csvpath}')
 
 if __name__ == "__main__":
     make_star_table()
