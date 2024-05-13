@@ -133,6 +133,11 @@ def make_table(
         by=['koi_disposition','min_age','li_eagles_limlo_forsort','kepler_name','kepoi_name'],
         ascending=[False, True, True, True, True]
     ).reset_index(drop=1)
+    longdf = df.sort_values(
+        by=['koi_disposition','min_age','li_eagles_limlo_forsort','kepler_name','kepoi_name'],
+        ascending=[False, True, True, True, True]
+    ).reset_index(drop=1)
+
 
     for c in pdf.columns:
         if 'gyro_' in c or 'adopted_Teff' in c:
@@ -175,7 +180,7 @@ def make_table(
         f"{row['gyro_+1sigma']}"+
         "}_{-"+
         f"{row['gyro_-1sigma']}"
-        +"} $",
+        +"}$",
         axis=1
     )
     pdf['t_gyro'] = pdf['t_gyro'].apply(replace_nan_string)
@@ -426,8 +431,6 @@ def make_table(
         print(f'Made {outtxt}')
 
 
-
-
     if not SELECT_YOUNG:
 
         ulkvp('nnonfopkoissomeageinfo', len(pdf))
@@ -437,6 +440,11 @@ def make_table(
         csvpath = join(PAPERDIR, 'table_allageinfo.csv')
         pdf.to_csv(csvpath, index=False)
         print(f'Wrote {csvpath}')
+
+        csvpath = join(PAPERDIR, 'table_allageinfo_allcols.csv')
+        longdf.to_csv(csvpath, index=False)
+        print(f'Wrote {csvpath}')
+
 
 
 if __name__ == "__main__":
