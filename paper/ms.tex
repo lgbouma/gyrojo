@@ -146,10 +146,10 @@ The reason is that processes such as thermal cooling
 \citep{2019AREPS..47...67O}, giant impacts
 \citep{2014prpl.conf..595R}, and dynamical instabilities
 \citep{2017MNRAS.470.1750I} are expected to be most efficient over
-$\approx$10,Myr to $\approx$1,Gyr timescales. For most known
+$\approx$10\,Myr to $\approx$1\,Gyr timescales. For most known
 exoplanets, these processes have already run their course.
 
-Young ($<$1\,Gyr) exoplanets are key to building the timeline for
+Young ($<$1\,Gyr) exoplanets represent one means of building the timeline for
 exoplanet evolution.  Informative individual young systems include
 V1298~Tau, an adolescent resonant chain of four transiting puffy
 planets that is a likely precusor to the compact multiplanet systems
@@ -162,16 +162,16 @@ counterparts
 
 Discovering a young planet requires solving two problems: find the
 planet, and measure the star's age.  Each problem admits a range of
-solutions \citep[e.g.][]{2008Sci...322.1348M,2012ApJ...756L..33Q}.  In
+solutions \citep[e.g.][]{2008Sci...322.1348M,2012ApJ...756L..33Q,2024AJ....167..193T}.  In
 this article we will consider planets previously known from transits,
 and infer new stellar ages using rotation and lithium.
 
 To begin, imagine that the ages of nearby stars in the Galaxy are
-uniformly distributed between 0 and 10\,Gyr \citep[e.g.~Fig~17
+uniformly distributed from 0--10\,Gyr \citep[e.g.~Fig~17
 of][]{Nordstrom_2004}.  This approximation clarifies the rarity of
 young stars: under this assumption, $\approx$1\% of nearby stars have
 $t$$<$100\,Myr, and $\approx$10\% have $t$$<$1\,Gyr.  Studies of
-currently forming protoplanets \citep{2018A&A...617A..44K}, or of
+currently forming protoplanets \citep{2018A&A...617A..44K}, and of
 exoplanets evolving just after disk dispersal
 \citep[e.g.][]{2022MNRAS.512.5067K}, are thereby capped in their
 maximum achievable sample sizes by the tyranny of the galactic star
@@ -1046,7 +1046,7 @@ most constraining age measurement from relative isochrone dating of
 pre-main-sequence M dwarfs; it contains Kepler-1627Ab, Kepler-1643b,
 Kepler-1974b and Kepler-1975\,Ab \citep{Bouma_2022a,Bouma_2022b}.
 Different sub-groups of the complex may vary in age by $\approx$50\%
-(\citealt{Bouma_2022b}; Kerr~et.al.~in preparation).  The planets
+(\citealt{Bouma_2022b}; Kerr~et al.,~in preparation).  The planets
 themselves are all on close-in orbits (5-25\,days), with sizes from
 2-4\,$R_\oplus$.  The rotation, lithium, and cluster ages all agree
 for Kepler-1627A, Kepler-1974, and Kepler-1975A.  For Kepler-1643, the
@@ -1335,14 +1335,14 @@ Factors other than stellar age and mass can influence rotation rates
 of main sequence stars.  Binarity is one example: even
 intermediate-separation ($\sim$10\,AU) binaries are biased toward
 rapid rotation \citep[e.g.][and many studies thereafter]{Meibom_2007}.
-Metallicity may also be a second-order effect
+Metallicity may also be relevant
 \citep{2020MNRAS.499.3481A,2024arXiv240500779S}.  In this work, we
 were interested in not only the overall age distribution of the Kepler
 field, but also in the reliability of individual ages for young planet
 hosting stars.  The quality flagging scheme in Table~\ref{tab:planets}
 provides one path toward this end.  The other method is to consider
-the region in which we do have overlapping sensitivity between lithium
-and rotation -- G and K dwarfs with $t$$\lesssim$1\,Gyr.  Our results
+the cases for which lithium
+and rotation overlap in sensitivity -- G and K dwarfs with $t$$\lesssim$1\,Gyr.  Our results
 for such stars include \ltonegyrhighqconfirmedtwosided\ planets
 orbiting ``high-quality'' stars for which the two age indicators are
 both constraining and in agreement (with $Q_{\rm star}$ bits zero
@@ -1505,7 +1505,11 @@ All authors assisted in manuscript revision.
   rotation or lithium-based age.  The full machine-readable table
   contains ages and age limits for \nnonfopkoissomeageinfo\ non-false
   positive KOIs with MES$>$10.  
-  A shell script to decode the $Q_{\rm star}$ quality flag is {\bf \href{https://gist.github.com/lgbouma/20368253f1a98da1b39cf32fdda0be13}{available online}}.
+  A bash script to decode any given $Q_{\rm star}$ quality flag is
+  {\bf
+  \href{https://gist.github.com/lgbouma/20368253f1a98da1b39cf32fdda0be13}{available
+  online}}.  A python script to select stars with specific bit flags
+  is {\bf \href{https://gist.github.com/lgbouma/87ad8bde42625e766a5a8857cc5a183a}{also available}}.
   \label{tab:planets}}
   %\toprule
   %\midrule
@@ -1520,33 +1524,36 @@ All authors assisted in manuscript revision.
 % \rule
 %  \input{table_subgyr_candidate}
   \enddata
-  \tablecomments{``Confirmed'' planets appear in the machine-readable version before``candidate'' planets.
-    The bit quality flags for the rotation-based ages,
-    $Q_{\rm star}$, are described in Section~\ref{subsec:flags}.
-    Concisely summarized, they are:
-    Bit 0: $T_{\rm eff}/{\rm K} \in [ 3800-6200]$ ?
-    Bit 1: $\log g$$<$4.2?
-    Bit 2: $M_{\rm G}$<3.9 or $M_{\rm G}>8.5$?
-    Bit 3: In KEBC?
-    Bit 4: Large $d_{\rm xm,Kep-Gaia}$?
-    Bit 5: Confused Kep-Gaia crossmatch?
-    Bit 6: Gaia DR3 non-single star?
-    Bit 7: RUWE$>$1.4?
-    Bit 8: Crowded?
-    Bit 9: Far from main-sequence?
-    Bit 10: \citetalias{Santos_2021} CP/CB?
-    Bit 11: $P_{\rm rot}$ not in the homogeneous
-    \citetalias{Santos_2019} \citetalias{Santos_2021} sample?
-    As an example, Kepler-1627 has $Q_{\rm star}$ flagged with bit 10 and bit 7.
-    The analogous planet quality bit-flag, $Q_{\rm planet}$, has the
-    following meaning.
-    Bit 0: Candidate not reliable?
-    Bit 1: MES$<$10?
-    Bit 2: Grazing?
-    For a star to have a high likelihood of being ``reliable for
-    gyrochronology'' we suggest $Q_{\rm star}$ bits zero to nine to
-    not be raised, and for a planet to be ``reliabe'', we suggested
-    $Q_{\rm planet}$ to be zero.
+  \tablecomments{Two checkmarks denotes systems with two-sided $t_{\rm
+  gyro}$ and $t_{\rm Li}$ for which no important quality flags are
+  raised.  One checkmark denotes two-sided $t_{\rm gyro}$ only. 
+  ``Confirmed'' planets appear in the machine-readable
+  version before``candidate'' planets.  The bit quality flags for the
+  rotation-based ages, $Q_{\rm star}$, are described in
+  Section~\ref{subsec:flags}.  Concisely summarized, they are:
+  Bit 0: $T_{\rm eff}/{\rm K} \in [ 3800-6200]$ ?
+  Bit 1: $\log g$$<$4.2?
+  Bit 2: $M_{\rm G}$<3.9 or $M_{\rm G}>8.5$?
+  Bit 3: In KEBC?
+  Bit 4: Large $d_{\rm xm,Kep-Gaia}$?
+  Bit 5: Confused Kep-Gaia crossmatch?
+  Bit 6: Gaia DR3 non-single star?
+  Bit 7: RUWE$>$1.4?
+  Bit 8: Crowded?
+  Bit 9: Far from main-sequence?
+  Bit 10: \citetalias{Santos_2021} CP/CB?
+  Bit 11: $P_{\rm rot}$ not in the homogeneous
+  \citetalias{Santos_2019} \citetalias{Santos_2021} sample?
+  As an example, Kepler-1627 has $Q_{\rm star}$ flagged with bit 10 and bit 7.
+  The analogous planet quality bit-flag, $Q_{\rm planet}$, has the
+  following meaning.
+  Bit 0: Candidate not reliable?
+  Bit 1: MES$<$10?
+  Bit 2: Grazing?
+  For a star to have a high likelihood of being ``reliable for
+  gyrochronology'' we suggest $Q_{\rm star}$ bits zero to nine to
+  not be raised, and for a planet to be ``reliabe'', we suggested
+  $Q_{\rm planet}$ to be zero.
   }
 \end{deluxetable*}
 
