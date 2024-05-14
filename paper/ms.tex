@@ -136,7 +136,7 @@ stars (2103), Exoplanet evolution (491), Milky Way evolution (1052)}
 \section{Introduction}
 \label{sec:intro}
 
-Exoplanet science is in an age of abundance, fueled by the discovery
+Exoplanet science is enjoying an age of abundance, fueled by the discovery
 of thousands of worlds orbiting close to their host stars
 \citep{Borucki10,2015JATIS...1a4003R}.  Most of these exoplanets are
 billions of years old.  This fact leaves many gaps in our knowledge of
@@ -190,9 +190,9 @@ is the idea that finding transiting planets is often easier than
 finding the host stellar association \citep[e.g.][]{Tofflemire_2021}.
 
 The main problem with the ``cluster-first'' approach is that most
-nearby young stars are in the field.  Only $\approx$1\% of stars
-within the nearest $\approx$500\,pc are associated with their birth
-cluster
+nearby sub-gigayear stars are in the field.  In other words,
+$\lesssim$1\% of stars within the nearest $\approx$500\,pc have been
+associated with their birth cluster
 \citep[e.g.][]{Zari_2018,CantatGaudin_2020,Kounkel_2020,Kerr_2021}.
 One can appreciate the problem by querying NASA's Exoplanet Archive
 \citep[NEA;][]{2013PASP..125..989A} for transiting planets younger
@@ -201,17 +201,17 @@ than 1\,Gyr.  Imposing reasonable precision requirements
 gives $\approx$50 ``young'' transiting planets at the time of writing.
 Most of these planets are in clusters, and were found by Kepler, K2,
 or TESS.  However, combined, those surveys have discovered
-$\approx$5{,}000 planets.  Unless there is a major bias against the
-discovery of sub-gigayear old planets with precisely constrained ages,
-a constant star formation history implies that an order of magnitude
+$\approx$5{,}000 planets.  
+Barring a major discovery bias against sub-gigayear planets,
+a constant star formation history would imply that an order of magnitude
 more young transiting planets should be known.
 
 This study aims to resolve two main questions.  First, how wrong is it
 to assume a uniform age distribution for transiting planet host stars?
 Second, where are the missing young planets?  Briefly, we will find
-that uniform is wrong by a factor of a few, and that at least one bias
-against the discovery of young planets is in the measurement of their
-ages.
+that uniform is wrong by a factor of a few, and that increased stellar
+activity for young stars may be a less important bias than the
+challenge of determining precise ages for field stars.
 
 %FIXME these paragraphs need improvements in how they incorporate
 %Lu+21 (meh), but certainly Mathur+2023.
@@ -267,7 +267,7 @@ analysis to be necessary.
 
 However, beyond rotation-based ages, recent years have also yielded
 improvements in the lithium age scale.  Lithium ages include two
-distinct regimes: depletion boundary ages for M-dwarfs in star
+distinct regimes: depletion boundary ages for M dwarfs and brown dwarfs in star
 clusters, and the less precise decline-based ages for individual field
 FGK stars \citep{Soderblom_2010}.  Here we focus on the latter
 approach, which relies on the observation that the Li abundances of
@@ -330,14 +330,14 @@ are offered in Section~\ref{sec:conclusions}.
 This work is focused on Kepler stars for which ages can be inferred
 using either rotation, lithium, or both.  These ``age-dateable stars''
 are a minority of the \nkeplerstars\ Kepler targets.  Rotation periods
-have been reported for $\approx$one in three Kepler targets
+have been reported for roughly one in three Kepler targets
 \citep[e.g.][]{McQuillan_2014,Santos_2021}.  High-resolution spectra
 suitable for measurement of the \ion{Li}{1} 6708\,\AA\ doublet have
 only been acquired for the Kepler objects of interest (KOIs), which
 comprise a few percent of Kepler's targets.  In the following, we will
 describe the set of stars that we adopt with measured rotation periods
-(Section~\ref{subsec:rotsel}), the set of objects we adopt as planets
-(Section~\ref{subsec:planetsel}), and the set of planets with
+(Section~\ref{subsec:rotsel}), the set of objects we adopt as hosting planets
+(Section~\ref{subsec:planetsel}), and the subset of these with
 high-resolution spectra suitable for lithium analysis
 (Section~\ref{subsec:lithiumsel}).  Figure~\ref{fig:stellarprops}
 provides a visualization of the various samples.
@@ -383,8 +383,8 @@ studies used a range of detection methods and selection functions.  We
 are interested in understanding the age distribution of all Kepler
 target stars irrespective of KOI status.  Out of these studies, the
 only homogeneous analysis of both Kepler targets and KOIs were the
-studies by \citet{Santos_2019,Santos_2021} (\citetalias{Santos_2019}
-and \citetalias{Santos_2021}).  \citetalias{Santos_2019} and
+studies by \citet{Santos_2019,Santos_2021}, hereafter \citetalias{Santos_2019}
+and \citetalias{Santos_2021}.  \citetalias{Santos_2019} and
 \citetalias{Santos_2021} combined a wavelet analysis and
 autocorrelation-based approach, and cumulatively reported rotation
 periods for 55{,}232 main-sequence and subgiant FGKM stars.  They
@@ -495,15 +495,14 @@ set to require 3\% $P_{\rm rot}$ uncertainties at rotation periods of
 \subsection{Kepler Objects of Interest}
 \label{subsec:planetsel}
 
-We considered planets in the NEA cumulative KOI table, which included
-the best knowledge available on any given planet candidate as of 6
-June 2023, while also incorporating human-based vetting.  These
-planets represent a superset of those in the fully automated Q1-Q17
-DR25 KOI Table \citep{Thompson_2018}, which could be adopted in future
-work for planet occurrence rate calculations.  This version of the
-cumulative KOI table included \nkoisnofp\ objects that are either
-``confirmed'' or ``candidate'' planets, after excluding known false
-positives. 
+We considered planets in the NEA cumulative KOI table as of 6 June
+2023, which included the best knowledge available on any given planet
+candidate while also incorporating human-based vetting.  These planets
+represent a superset of those in the fully automated Q1-Q17 DR25 KOI
+Table \citep{Thompson_2018}, which could be adopted in future work for
+planet occurrence rate calculations.  This version of the cumulative
+KOI table included \nkoisnofp\ objects that are either ``confirmed''
+or ``candidate'' planets, after excluding known false positives. 
 
 \subsection{High Resolution Spectra}
 \label{subsec:lithiumsel}
@@ -523,20 +522,23 @@ range in which lithium is most likely to yield useful age constraints.
 % stat from _estimate_new_lithium_timefrac.py
 Lithium equivalent widths and abundances for the Kepler Objects of
 Interest were already analyzed by \citet{2018ApJ...855..115B} for
-$\approx$three quarters of the spectra in our sample.  However, new
+roughly three quarters of the spectra in our sample.  However, new
 spectra have since been acquired, and our approach and selection
-function are different.  We therefore perform our own processing of
+function are different.  We therefore perform our own line width
+measurements on
 the reduced HIRES spectra.
 
-We queried the CPS archive to collect all blaze-corrected HIRES
-spectra that were available for all non-false positive Kepler Objects
-of Interest with a MES$>$10.  This yielded at least one spectrum for
-\nlithiumstars\ stars and \nlithiumplanets\ planets.  For stars with
-multiple spectra available at varying ranges of signal-to-noise (S/N),
-we analyzed only the spectrum with the highest number of counts.  The
-resulting spectra were acquired between 6 September 2009 and 16 May
-2024, and cumulatively comprise \nhireshours\,hours of open-shutter
-time.
+We collected all blaze-corrected HIRES spectra from our group's
+observations of non-false positive Kepler Objects of Interest with a
+``multiple event statistic'' (MES, {\it koi\_max\_mult\_ev}) of at
+least 10.  This yielded at least one spectrum for \nstwithspec\
+stars hosting \nplwithspec\ planets.  About half of these stars have
+rotation periods (\nstwithspecandprot\ stars and
+\nplwithspecandprot, respectively).   For stars with multiple spectra
+available at varying ranges of signal-to-noise (S/N), we analyzed only
+the spectrum with the highest number of counts.  The resulting spectra
+were acquired between 6 September 2009 and 16 May 2024, and
+cumulatively comprise \nhireshours\,hours of open-shutter time.
 
 We measured the lithium equivalent widths using a procedure adapted
 from previous work \citep{Bouma_2021}.  Our stars of interest are FGK
@@ -564,11 +566,11 @@ lithium equivalent widths with those reported by
 \citet{2018ApJ...855..115B}.  For the \nbergeroverlap\ stars in both
 samples, we found broad agreement at $>$30\,m\AA, and significant
 differences at $<$30\,m\AA\ because \citet{2018ApJ...855..115B}
-required positive EWs, while we allow for negative ones.  At
+required positive EWs, while we allow for statistically negative ones.  At
 $>$30\,m\AA, there is however a small offset in our respective scales,
 such that (B24-B18)$=$7.50$\pm$8.55\,m\AA.  This offset is caused by
 our non-treatment of the iron blend.  We therefore directly subtract
-the constant mean value noted above when calculating lithium-based
+this constant mean value (7.50\,m\AA) when calculating lithium-based
 ages.
 
 \begin{figure}[!t]
@@ -582,7 +584,7 @@ ages.
     for planet-hosting stars.} These measurements were made from
     Keck/HIRES spectra collected between 2009 and 2024 that comprised
     \nhireshours\,hours of open-shutter time.  Lines are the ``mean''
-    isochrones from the same models as in Figure~\ref{fig:models}; the
+    isochrones from the same models as in Figure~\ref{fig:models}.  The
     intrinsic dispersion beyond $\approx$1\,Gyr becomes much larger
     than changes in the mean.  Some stars with lithium detections do
     not have detected rotation periods, and vice-versa.
@@ -658,7 +660,7 @@ calibration sequences of the open clusters.
     Points represent $10^4$ draws from models that have been fitted to
     rotation periods \citep{Bouma_2023} and lithium equivalent widths
     \citep[EWs;][]{Jeffries_2023} of stars in open clusters.  Lines
-    are the ``mean models'' at various ages; the intrinsic dispersion
+    are the ``mean models'' at various ages.  The intrinsic dispersion
     in rotation and lithium about these mean models, which is what the
     models fit, sets the theoretical precision floor for the
     age-dating methods.    Additional sources of uncertainty,
@@ -688,7 +690,7 @@ to 4\,Gyr, the age of M67
 \citep[see][]{2022ApJ...938..118D,Gruner_2023}.  To estimate the
 stellar spin-down rate as a function of time and stellar temperature,
 the framework interpolates between reference open clusters using cubic
-hermite polynomials.  We calculate the probability of the
+Hermite polynomials.  We calculate the probability of the
 rotation-based age $t_{\rm gyro}$, given the observed rotation
 periods, effective temperatures, and their uncertainties by
 integrating Equation~1 of \citet{Bouma_2023} at the default grid
@@ -857,10 +859,10 @@ zero.
 
 \subsection{Planet Quality Flags}
 \label{subsec:plflags}
-Some planets are more reliable than others.  We use the following
-additional quality indicators to assess the reliability and utility of
-a planet, and assemble them into a separate bit-flag, $Q_{\rm
-planet}$.
+Some planets are more reliably identified than others.  We use the
+following additional quality indicators to assess the reliability and
+utility of a planet, and assemble them into a separate bit-flag,
+$Q_{\rm planet}$.
 
 % see Erik's 2022 discussion; might want to shift to include a cut on
 % disposition score?
@@ -911,7 +913,7 @@ to be valid.
 In the planet sample, the cumulative KOI table included
 \nnonfpcumkois\ confirmed and candidate planets, orbiting
 \nnonfpcumkoihosts\ stars.  Assume that we apply all the same stellar
-cuts, save for that on RUWE.  Then, require these confirmed and
+cuts, save for that on RUWE.  We can then require these confirmed and
 candidate planets to have MES$>$10.  This combination of selection
 criteria yield \nplwgyroagewithgrazingandhighruwe\ planets with
 rotation-based ages orbiting
@@ -938,7 +940,7 @@ statistically consistent with zero.
 
 To calculate lithium ages, we use \texttt{EAGLES} (git commit
 \texttt{ac09637}), which, similar to \texttt{gyro-interp}, is based on
-a purely empirical interpolation approach.  \texttt{EAGLES} however
+a purely empirical interpolation approach.  \texttt{EAGLES} 
 was calibrated on lithium measurements of stars observed by the
 Gaia-ESO spectroscopic survey in 52 open clusters with ages spanning 2
 to 6{,}000\,Myr \citep{Jeffries_2023}.  We adopt a linear prior in
@@ -998,8 +1000,9 @@ distributions by drawing ten random samples from each posterior
 distribution, and then computing the histogram of the resulting
 samples.  We truncated the plots near $4$\,Gyr since this is the
 cluster age out to which our interpolation-based method is calibrated.
+
 For Sun-like stars, the fraction of rotation signals detectable by
-Kepler has been found to be near-unity up to $\approx$3\,Gyr, and it
+Kepler is near unity up to $\approx$3\,Gyr, and it
 drops to almost zero by $\approx$5\,Gyr \citep{2022ApJ...937...94M}.
 This trend has the opposite functional form from our derived age
 distributions.
@@ -1017,29 +1020,30 @@ formation rate of stars in the Kepler field decreased by a factor of
 
 In terms of detected planet counts, our rotation-based ages for the
 Kepler sample yield \{\nplyounggyro, \nplmidgyro, \nploldgyro\}
-detected planets in the 0-1\,Gyr, 1-2\,Gyr, and 2-3\,Gyr bins.  For
-the sub-gigayear bin in particular, which holds extra weight in
-studies of planet evolution, while there are \nplyounggyro\ planets
-with median ages below 1\,Gyr, requiring $t_{\rm gyro}$$<$1\,Gyr at
-2$\sigma$ confidence yields \nplyounggyrotwosigma\ planets orbiting
-\nplhostsyounggyrotwosigma\ stars.  The stellar and planetary
-properties of this latter sample of young planets are given in
+detected planets in the 0-1\,Gyr, 1-2\,Gyr, and 2-3\,Gyr bins.  
+The stellar ages and planetary
+properties of all of these systems are given in
 Table~\ref{tab:planets}.
 
 
 \subsection{Planets Younger Than One Billion Years}
 
-What are the most notable confirmed planets with well-measured ages?
-These planets can be split into two classes: those in clusters, and
-those with independent and consistent rotation and lithium-based ages.
+Sub-gigayear planets hold particular weight in studies of planet
+evolution.
+While our catalog has \nplyounggyro\ confirmed planets
+with median ages below 1\,Gyr, requiring $t_{\rm gyro}$$<$1\,Gyr at
+2$\sigma$ confidence yields \nplyounggyrotwosigma\ planets orbiting
+\nplhostsyounggyrotwosigma\ stars.  
+The most notable of these planets can be split into two classes: those
+in clusters, and those with independent and consistent rotation and
+lithium-based ages.
 
 \subsubsection{Planets in Clusters}
 \label{subsec:clusterplanets}
 
-There are currently four known stellar ensembles in the Kepler field
-that have yielded a total of fourteen transiting planets.  Our
-analysis blindly recovers each of these planets, as well as their
-ages.
+Four stellar ensembles in the Kepler field have to date yielded a
+total of fourteen transiting planets.  Our analysis blindly recovers
+the youth of these planets.
 
 {\it Cep-Her}---The $\approx$40\,Myr Cep-Her complex currently has its
 most constraining age measurement from relative isochrone dating of
@@ -1119,9 +1123,9 @@ rotation period to be diagnostic of the stellar age.
 
 \subsubsection{Comparing Rotation and Lithium Ages}
 
-We compared the independent rotation and lithium-based ages using the
-point-estimates of the posteriors, when available.  There are three
-cases of interest:
+We compared the independent rotation and lithium-based ages of the
+known planet hosts using the point-estimates of the available
+posteriors.  There are three cases of interest:
 
 \begin{enumerate}[leftmargin=*,topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
   \item Two-sided posteriors for both $t_{\rm gyro}$ and $t_{\rm Li}$:
@@ -1141,7 +1145,7 @@ cases of interest:
     have been sensitive to the rotation periods of such stars.
 \end{enumerate}
 
-In the entire sample (i.e.~without imposing any quality cuts) this
+In the entire planet sample (i.e.~without imposing any quality cuts) this
 yielded \allagesyesconsistent\ consistent cases,
 \allagesmaybeconsistent\ ``maybe consistent'' cases, and
 \allagesnoconsistent\ inconsistent cases.  Rephrased, in the overall
