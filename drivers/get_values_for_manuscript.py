@@ -90,6 +90,18 @@ df, _, _ = get_age_results(
     whichtype='allageinfo', grazing_is_ok=1, drop_highruwe=0
 )
 
+hasjump = ~pd.isnull(df.filename)
+hasprot = ~pd.isnull(df.Prot)
+n_pl_jump = len(df[hasjump].kepid)
+n_st_jump = len(df[hasjump].kepid.unique())
+n_pl_jump_prot = len(df[hasjump & hasprot].kepid)
+n_st_jump_prot = len(df[hasjump & hasprot].kepid.unique())
+
+ulkvp('nstwithspec', n_st_jump)
+ulkvp('nplwithspec', n_pl_jump)
+ulkvp('nstwithspecandprot', n_st_jump_prot)
+ulkvp('nplwithspecandprot', n_pl_jump_prot)
+
 ##########################################
 # specifics for special stars / planets
 sdf = df[~df.kepler_name.isna()]
