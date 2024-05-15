@@ -265,7 +265,7 @@ been major improvements since these pioneering studies in:
 These improvements form the basis for why we believe the present
 analysis to be necessary.
 
-However, beyond rotation-based ages, recent years have also yielded
+Beyond rotation-based ages, recent years have also yielded
 improvements in the lithium age scale.  Lithium ages include two
 distinct regimes: depletion boundary ages for M dwarfs and brown dwarfs in star
 clusters, and the less precise decline-based ages for individual field
@@ -276,9 +276,9 @@ partially-convective stars gradually decline as they age
 this decline is debated
 \citep[e.g.][]{1995ApJ...441..865C,2010ApJ...716.1269D,2019MNRAS.485.4052C}.
 Empirical understanding has however improved due to the work by
-\citet{Jeffries_2023}, who built a model for how the equivalent width
-(EW) of the \ion{Li}{1} 6708\,\AA\ doublet evolves as a function of
-stellar effective temperature and age for a set of 6{,}200 stars in 52
+\citet{Jeffries_2023}, who modeled the evolution of 
+the \ion{Li}{1} 6708\,\AA\ doublet equivalent width (EW) through
+time using a set of 6{,}200 stars in 52
 open clusters.  Two-sided lithium ages are useful for Kepler (FGK)
 stars between $\approx$0.03-0.5\,Gyr, with a strong dependence on
 spectral type since the K dwarfs lose their surface lithium much
@@ -605,8 +605,8 @@ Our default source for stellar temperatures and surface gravities is
 the Gaia-Kepler Stellar Properties Catalog (GKSP;
 \citealt{Berger_2020a_catalog}).  The GKSP parameters were reported
 for stars with ``AAA'' 2MASS photometry, measured parallaxes in Gaia
-DR2,  and $g$-band photometry from either the KIC or the Kepler-INT
-survey.  The parameters themselves were derived using
+DR2,  and $g$-band photometry available from either SDSS or else Kepler-INT
+\citep{2012AJ....144...24G}.  The parameters themselves were derived using
 \texttt{isoclassify} \citep{2017ApJ...844..102H} to interpolate over
 the MIST isochrone grids \citep{Choi_2016,2016ApJS..222....8D}, given
 the SDSS $g$ and 2MASS $K_{\rm s}$ photometry, the Gaia DR2
@@ -1488,7 +1488,9 @@ All authors assisted in manuscript revision.
 \facilities{
   Gaia \citep{Gaia_DR3_2022},
   Kepler \citep{Borucki10},
-  Keck:I (HIRES).
+  Keck:I (HIRES),
+	2MASS \citep{Skrutskie06},
+	SDSS \citep{2000AJ....120.1579Y}.
 }
 
 \software{
@@ -1737,6 +1739,21 @@ observations for a while
 \citep[e.g.][Fig.~9]{Mamajek_2008}.  Our adopted age of
 $\approx$780$\pm$170\,Myr agrees with the open cluster calibrators.
 
+\section{TODO's}
+
+\begin{enumerate}
+  \item Compare Mathur2023 ages against my ages, and (more interestingly) against the
+    cluster scale using NGC6811, Theia520, Melange3, and CepHer stars.
+    Could compare against asteroseis too.
+    %
+  \item Intro needs better discussion of Mathur2023 and Lu2021
+    %
+  \item Consider moving the bit list description to its own appendix.
+    %
+  \item Rerun gyro calculation with denser grid, fixing quantization
+    and extending upper limit to 5gyr.  (Will use updated Teff
+    uncertainties)
+\end{enumerate}
 
 
 %\section{Comparison Against Previous Literature Age Scales}
