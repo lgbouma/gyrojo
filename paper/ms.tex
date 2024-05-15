@@ -850,7 +850,7 @@ flag is set for the KOIs with rotation periods drawn from a source
 other than \citet{Santos_2019,Santos_2021}.
 
 
-{\it How do we use the bit-flags?} By default, we assume that a star
+{\it How do we use the bitmasks?} By default, we assume that a star
 is suitable for gyrochronology if none of bits zero through nine
 (inclusive) are raised.  For analyses that require a homogeneous
 stellar rotation selection function, we also require bit 11 to be
@@ -861,7 +861,7 @@ zero.
 \label{subsec:plflags}
 Some planets are more reliably identified than others.  We use the
 following additional quality indicators to assess the reliability and
-utility of a planet, and assemble them into a separate bit-flag,
+utility of a planet, and assemble them into a separate bitmask,
 $Q_{\rm planet}$.
 
 % see Erik's 2022 discussion; might want to shift to include a cut on
@@ -993,22 +993,42 @@ quote the 3$\sigma$ (99.7$^{\rm th}$ percentile) limits.
 
 \subsection{The Demographic Cliff}
 
-Figure~\ref{fig:hist_tgyro} shows the gyrochone age distributions of
-stars and known planet-hosts in the Kepler field.  In detail, these
+The stellar ages and planetary properties of the systems discussed in
+the previous sections are given in Tables~\ref{tab:planets}
+and~\ref{tab:stars}.  Figure~\ref{fig:hist_tgyro} shows the gyrochone
+age distributions of the stars and known planet-hosts.  These
 ``histograms'' are sampled from the posterior probability
 distributions by drawing ten random samples from each posterior
-distribution, and then computing the histogram of the resulting
-samples.  We truncated the plots near $4$\,Gyr since this is the
-cluster age out to which our interpolation-based method is calibrated.
+distribution, and then computing the re-weighted histogram of the
+resulting samples.  The uncertainties assume Poisson statistics.  We
+truncated the plots near $4$\,Gyr since this is the cluster age out to
+which our interpolation-based method is calibrated.
+We refer to this as a ``demographic cliff'' in reference to an
+impending crisis expected to befall higher education.
 
-For Sun-like stars, the fraction of rotation signals detectable by
-Kepler is near unity up to $\approx$3\,Gyr, and it
-drops to almost zero by $\approx$5\,Gyr \citep{2022ApJ...937...94M}.
-This trend has the opposite functional form from our derived age
-distributions.
+The age distributions of Kepler stars and planet hosts are
+statistically quite similar.  A simple diagnostic of whether the two
+distributions are drawn from the same underlying distribution is the
+Kolmogorov-Smirnov test;  we calculated this statistic in a manner
+that accounts for the Poisson uncertainties by performing 100 random
+draws of 70\% of the stars from each sample.  The resulting median
+$p$-values were $\approx$0.01 for both rows of
+Figure~\ref{fig:hist_tgyro}.  This degree of similarity suggests that
+the ``common wisdom'' that young transiting planets are hard to detect
+because their host stars are photometrically variable requires some
+nuance.  If true, this statement only holds for the very youngest
+stars, since at the age resolution of this study, there appears to be
+little to no selection bias against sub-gigayear planets. 
 
-To quantify the amount by which young stars are more rare than old, we
-can group stars between 0-1\,Gyr, 1-2\,Gyr, and 2-3\,Gyr as ``young'',
+An important separate selection effect concerns Kepler's ability to
+detect the rotation signals.  \citet{2022ApJ...937...94M} studied this
+issue, and found for Sun-like stars that the fraction of rotation
+signals detectable by Kepler is near unity up to $\approx$3\,Gyr, and
+that it drops to almost zero by $\approx$5\,Gyr .  This trend is
+opposite in functional form to our derived age distributions.
+
+We can quantify the relative counts of stars as a function of age by
+labelling stars between 0-1\,Gyr, 1-2\,Gyr, and 2-3\,Gyr as ``young'',
 ``intermediate-age'', and ``old''.  A simple counting exercise from
 Figure~\ref{fig:hist_tgyro} tells us that there are \ratioobtoybstars\
 times as many old stars in the Kepler field as young stars.
@@ -1021,9 +1041,6 @@ formation rate of stars in the Kepler field decreased by a factor of
 In terms of detected planet counts, our rotation-based ages for the
 Kepler sample yield \{\nplyounggyro, \nplmidgyro, \nploldgyro\}
 detected planets in the 0-1\,Gyr, 1-2\,Gyr, and 2-3\,Gyr bins.  
-The stellar ages and planetary
-properties of all of these systems are given in
-Table~\ref{tab:planets}.
 
 
 \subsection{Planets Younger Than One Billion Years}
@@ -1305,27 +1322,35 @@ $\approx$1\,Gyr spike however is not recovered.
 
 %\subsection{Lithium Age Comparison}
 
-\subsection{Caveats, Limitations}
+\subsection{Caveats \& Limitations}
 
-Most of our ages come from one source of information: rotation.
-Factors other than stellar age and mass can influence rotation rates
-of main sequence stars.  Binarity is one example: even
+Our most constraining ages tend to come from one source of
+information: rotation.  Factors other than stellar age and mass can
+influence stellar rotation rates.  Binarity is one example: even
 intermediate-separation ($\sim$10\,AU) binaries are biased toward
 rapid rotation \citep[e.g.][and many studies thereafter]{Meibom_2007}.
 Metallicity may also be relevant
-\citep{2020MNRAS.499.3481A,2024arXiv240500779S}.  In this work, we
-were interested in not only the overall age distribution of the Kepler
-field, but also in the reliability of individual ages for young planet
-hosting stars.  The quality flagging scheme in Table~\ref{tab:planets}
-provides one path toward this end.  The other method is to consider
-the cases for which lithium
-and rotation overlap in sensitivity -- G and K dwarfs with $t$$\lesssim$1\,Gyr.  Our results
-for such stars include \ltonegyrhighqconfirmedtwosided\ planets
-orbiting ``high-quality'' stars for which the two age indicators are
-both constraining and in agreement (with $Q_{\rm star}$ bits zero
-through nine not raised, and no planet quality flags raised).
-Conversely, we found only one system, Kepler-786, with a precise
-lithium age (\kepseveneightsix\,Myr), but no rotation signal.
+\citep{2020MNRAS.499.3481A,2024arXiv240500779S}.  An additional caveat
+is that our rotation-based ages used photometric effective
+temperatures (Section~\ref{sec:stellarprops}), even though
+spectroscopic temperatures are available for the planet-hosting
+subset.  This decision was driven by a desire for homogeneity 
+irrespective of planet-hosting status.  It may however have
+incurred small systematic errors in the implied ages.
+
+In this work, we were interested in not only the overall age
+distribution of the Kepler field, but also in the reliability of
+individual ages for young stars known to host planets.  The quality
+bitmask scheme in Table~\ref{tab:planets} provided one path toward
+this end.  Our other method was to compare the cases for which lithium
+and rotation overlap in sensitivity -- G and K dwarfs with
+$t$$\lesssim$1\,Gyr.  Our results for such stars include
+\ltonegyrhighqconfirmedtwosided\ planets orbiting ``high-quality''
+stars for which the two age indicators are both constraining and in
+agreement (stars with $Q_{\rm star}$ bits zero through nine not
+raised, and no planet quality flags raised).  Conversely, we found
+only one system, Kepler-786, with a precise lithium age
+(\kepseveneightsix\,Myr), but no rotation signal.
 
 Other age indicators may help in verifying the ages of the
 $\lesssim$3\,Gyr stars that are the focus of this work.  Specifically,
@@ -1368,13 +1393,14 @@ analysis to a separate publication.
 
 {\it Field star ages from other surveys}:
 While this study focused on deriving rotation and lithium-based ages
-for Kepler planets, surveys such as K2, TESS, HAT, WASP, NGTS, ZTF, and
-ATLAS have different selection functions.
-Applying rotation-based age dating to their discoveries could clarify
-the youth and evolutionary trends of these populations.  Future
-missions like PLATO \citep{Rauer14} and Roman Galactic Plane Time
-Domain Survey  will further expand the sample of stars with precisely
-determined ages, including those known to host planets.
+for Kepler planets, surveys such as K2, TESS, HAT, WASP, NGTS, ZTF,
+and ATLAS have different selection functions.  Applying rotation-based
+age dating to their discoveries could clarify the youth and
+evolutionary trends of these populations.  Future prospects like PLATO
+\citep{Rauer14}, Earth 2.0 \citep{2022arXiv220606693G}, and the Roman
+Galactic Plane Time Domain Survey seem poisted to further expand the
+sample of stars with precisely determined ages, including those known
+to host planets.
 
 {\it Searches for new associations}:
 Some of the youngest systems in Table~\ref{tab:planets} have been
@@ -1524,7 +1550,7 @@ All authors assisted in manuscript revision.
   Bit 11: $P_{\rm rot}$ not in the homogeneous
   \citetalias{Santos_2019} \citetalias{Santos_2021} sample?
   As an example, Kepler-1627 has $Q_{\rm star}$ flagged with bit 10 and bit 7.
-  The analogous planet quality bit-flag, $Q_{\rm planet}$, has the
+  The analogous planet quality bitmask, $Q_{\rm planet}$, has the
   following meaning.
   Bit 0: Candidate not reliable?
   Bit 1: MES$<$10?
@@ -1546,7 +1572,7 @@ All authors assisted in manuscript revision.
   \citetalias{Santos_2021}, \nuniqstarfinitegyroage\ of which have
   finite reported gyrochrone ages.  A random set of these stars is
   shown here to give an idea for form and content.  The quality
-  bit-flag is as in Table~\ref{tab:planets}; requiring bits zero to
+  bitmask is as in Table~\ref{tab:planets}; requiring bits zero to
   nine to be null yields \nuniqstarsantosrotgyroappl\ stars for
   which gyrochronology is likely to be valid.  \label{tab:stars}}
   %\toprule
