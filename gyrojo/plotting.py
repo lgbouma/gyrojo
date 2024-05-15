@@ -1702,13 +1702,26 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     ###########################################
 
     from scipy import stats
-    sel_age = mdf.age < 3.2e9
-    D, p_value = stats.ks_2samp(
-        mdf.loc[sel_gyro_ok & sel_age, 'age'],
+    sel_age = mdf.age < 3.e9
+
+    star_ages = nparr(
+        mdf.loc[sel_gyro_ok & sel_age, 'age']
+    )
+    plhost_ages = nparr(
         mdf.loc[sel_gyro_ok & sel_planets & sel_age, 'age']
     )
 
-    txt = f'D={D:.2f}, p={p_value:.2e} 2-sample KS'
+    from gyrojo.stats import (
+        bootstrap_ks_2samp, crossvalidate_ks_2samp
+    )
+    p_value_mean, p_value_std, p_value_median, p_value_ci = (
+        crossvalidate_ks_2samp(star_ages, plhost_ages)
+    )
+
+    txt = (f'preciseagesonly={bool(preciseagesonly)}: '
+           f'med(p)={p_value_median:.1e}, '
+           f'<p value>={p_value_mean:.1e}, σ_pval={p_value_std:.1e}, '
+           f'2.5-97.5% CI: {p_value_ci[0]:.1e} - {p_value_ci[1]:.1e} 2-sample KS')
     print(42*'-')
     print(txt)
     print(42*'-')
