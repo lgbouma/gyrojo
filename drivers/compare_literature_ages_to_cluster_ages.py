@@ -66,9 +66,12 @@ def get_cluster_dfs():
 
     # 
     # Get Theia520
+    # The regex is a negative lookahead assertion that ensures the character
+    # immediately following the end digit (e.g. UBC_"1") is not a digit.
     #
-    t520_sdf = sdf[sdf.cluster.str.contains("kcs20group_520") |
-                   sdf.cluster.str.contains("UBC_1")]
+    t520_sdf = sdf[sdf.cluster.str.contains("kcs20group_520(?!\d)") |
+                   sdf.cluster.str.contains(r"UBC_1(?!\d)")
+                   ]
     print(Counter(t520_sdf.reference_bibcode).most_common(n=10))
     theia520_df = t520_sdf.merge(gk_df, how='inner', on='source_id')
 
