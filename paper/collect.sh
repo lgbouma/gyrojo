@@ -37,8 +37,4 @@ cp $r/rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pd
 r="/Users/luke/Dropbox/proj/gyrojo/results"
 cp $r/gyroage_vs_teff/gyroage_vs_teff_errs_showplanets_linear.png .
 
-cp $r/lit_ages_vs_cluster_ages/NGC6811_lit_ages_vs_cluster_ages.pdf .
-cp $r/lit_ages_vs_cluster_ages/Cep-Her_lit_ages_vs_cluster_ages.pdf .
-cp $r/lit_ages_vs_cluster_ages/NGC6819_lit_ages_vs_cluster_ages.pdf .
-cp $r/lit_ages_vs_cluster_ages/Melange3_lit_ages_vs_cluster_ages.pdf .
-cp $r/lit_ages_vs_cluster_ages/Theia520_lit_ages_vs_cluster_ages.pdf .
+cp $r/lit_ages_vs_cluster_ages/merged_lit_ages_vs_cluster_ages.pdf .
