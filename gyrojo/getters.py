@@ -915,6 +915,7 @@ def get_cleaned_gaiadr3_X_kepler_dataframe():
     positives, fail to yield Gaia DR3 crossmatches.
     """
 
+    # Bedell's list...
     kepler_dr3_path = join(LOCALDIR, "kepler_dr3_4arcsec.fits")
     hdul = fits.open(kepler_dr3_path)
     gk_df = Table(hdul[1].data).to_pandas()
