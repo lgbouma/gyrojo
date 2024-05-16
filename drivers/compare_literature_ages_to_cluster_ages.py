@@ -19,6 +19,7 @@ from gyrojo.getters import select_by_quality_bits
 from gyrointerp.helpers import prepend_colstr, left_merge
 from astroquery.vizier import Vizier
 from aesthetic.plot import set_style, savefig
+from collections import Counter
 
 Vizier.ROW_LIMIT = -1
 
@@ -50,6 +51,7 @@ def get_cluster_dfs():
     # Plus another 200 from Kounkel+2020.
     nsdf = sdf[sdf.cluster.str.contains("6811") &
                ~sdf.cluster.str.contains("kcs20group_6811")]
+    print(Counter(nsdf.reference_bibcode).most_common(n=10))
 
     # Now xmatch against the kic <-> dr2 xmatch...
     ngc6811_df = nsdf.merge(gk_df, how='inner', on='source_id')
@@ -59,6 +61,7 @@ def get_cluster_dfs():
     #
     nsdf = sdf[sdf.cluster.str.contains("6819") &
                ~sdf.cluster.str.contains("kcs20group_6819")]
+    print(Counter(nsdf.reference_bibcode).most_common(n=10))
     ngc6819_df = nsdf.merge(gk_df, how='inner', on='source_id')
 
     # 
@@ -66,6 +69,7 @@ def get_cluster_dfs():
     #
     t520_sdf = sdf[sdf.cluster.str.contains("kcs20group_520") |
                    sdf.cluster.str.contains("UBC_1")]
+    print(Counter(t520_sdf.reference_bibcode).most_common(n=10))
     theia520_df = t520_sdf.merge(gk_df, how='inner', on='source_id')
 
     #
@@ -90,12 +94,14 @@ def get_cluster_dfs():
 
     ##########################################
 
-    cluster_dfs = [ngc6811_df, theia520_df, melange3_df, cepher_df, ngc6819_df]
-    cluster_names = ['NGC6811 (1 Gyr)', 'Theia520 (300 Myr)',
-                     'Melange3 (150 Myr)', # Δv$_\mathrm{T}$<2km/s 
+    cluster_dfs = [ngc6811_df, cepher_df, ngc6819_df, melange3_df, theia520_df]
+    cluster_names = ['NGC6811 (1 Gyr)',
                      'Cep-Her (40 Myr)', #$w$>0.1 
-                     'NGC6819 (2.5 Gyr)']
-    true_ages = [1, 0.3, 0.15, 0.04, 2.5]
+                     'NGC6819 (2.5 Gyr)',
+                     'Melange3 (150 Myr)', # Δv$_\mathrm{T}$<2km/s 
+                     'Theia520 (300 Myr)'
+                    ]
+    true_ages = [1, 0.04, 2.5, 0.15, 0.3]
 
     return cluster_dfs, cluster_names, true_ages
 
@@ -216,7 +222,7 @@ for cluster_df, cluster_full_name, true_age in zip(
 
 
     #
-    # Make plot!
+    # Make individual plots!
     #
     plt.close("all")
     set_style("clean")
@@ -250,7 +256,7 @@ for cluster_df, cluster_full_name, true_age in zip(
     ]
 
     texts = [
-        'gyro-interp (This Work)', 'kiauhoku (Mathur+23)',
+        'gyro-interp (Bouma+24)', 'kiauhoku (Mathur+23)',
         #'STAREVOL (Mathur+23)',
         'Isochrones (Berger+20)',
         'gyro-kinematic (Lu+21)', 'gyro (Lu+24)'
@@ -311,4 +317,122 @@ for cluster_df, cluster_full_name, true_age in zip(
 
 
 ## okay, now make the mega 5x5 plot
-#plt.close("all")
+plt.close("all")
+set_style("clean")
+
+fig, axs = plt.subplots(nrows=5, ncols=5, figsize=(0.8*7,4.5*0.8*1.8))
+#axs = axs.flatten()
+
+for ix, (cluster_df, cluster_full_name, true_age) in enumerate(zip(
+    cluster_dfs, cluster_names, true_ages
+)):
+
+    cluster_short_name = cluster_full_name.split(" ")[0]
+
+    sb24df, sm23_df, sm23_df3, sb20_df, sl21_df, sl24_df = (
+        _get_lit_cluster_dfs(cluster_df)
+    )
+
+    #
+    # Make individual plots!
+    #
+
+    # STAREVOL from SM23 qualtiatively similar, but mildly worse.
+    dfs = [
+        sb24df, sm23_df, #sm23_df3,
+        sb20_df, sl21_df, sl24_df
+    ]
+    xvalnames = [
+        'gyro_median', 'Age', #'Age',
+        'b20t2_Age', 'kinage', "Age"
+    ]
+
+    # "E_" means upper err, "e_" means lower.  Note that "e_" is signed, so
+    # that all entries in these columns are negative.
+    xmerrnames = [
+        'gyro_-1sigma', 'e_Age', #'e_Age',
+        'b20t2_e_Age', 'e_kinage', "e_Age"
+    ]
+    xperrnames = [
+        'gyro_+1sigma', 'E_Age', #'E_Age',
+        'b20t2_E_Age', 'e_kinage', "E_Age"
+    ]
+    div1ks = [
+        1, 0, #0,
+        0, 0, 0
+    ]
+
+    texts = [
+        'gyro-interp\n(This work)', 'kiauhoku\n(Mathur+23)',
+        #'STAREVOL (Mathur+23)',
+        'Isochrones\n(Berger+20)',
+        'gyro-kinematic\n(Lu+21)', 'gyro\n(Lu+24)'
+    ]
+
+    for iy, (df, xkey, xmerrkey, xperrkey, div1k, txt) in enumerate(zip(
+        dfs, xvalnames, xmerrnames, xperrnames, div1ks, texts
+    )):
+
+        ax = axs[ix, iy]
+
+        if div1k:
+            f = 1e3
+        else:
+            f = 1
+
+        yval = np.linspace(0, 1, len(df))
+
+        xerr = np.array(
+            [np.abs(df[xmerrkey])/f, df[xperrkey]/f]
+        ).reshape((2, len(df)))  / (true_age)
+        xval = ( df[xkey]/f ) / true_age
+        ax.errorbar(
+            xval, yval, xerr=xerr,
+            marker='o', elinewidth=0.3, capsize=0, lw=0, mew=0.5, color=f'C{iy}',
+            markersize=0.5, zorder=5
+        )
+
+        for lval in [0.01, 0.1, 1, 10, 100]:
+            lw = 0.5 if lval != 1 else 0.5
+            ls = ':' if lval != 1 else '-'
+            color = 'lightgray' if lval != 1 else 'k'
+            ax.vlines(lval, 0, 1, zorder=-99, color=color, ls=ls, lw=lw)
+
+        _txt = f'N={len(df)}'
+        ax.text(
+            0.1, 0.9, _txt, ha='left', va='top', fontsize='xx-small',
+            zorder=10, color='k', transform=ax.transAxes
+        )
+
+        ax.set_xlim([0.003, 300])
+        ax.set_xscale('log')
+
+        ax.set_yticks([])
+        ax.set_yticklabels([])
+        ax.set_xticks([0.01,1,100])
+        if ix == 4:
+            ax.set_xticklabels(['0.01', '1', '100'])
+        else:
+            ax.set_xticklabels([])
+
+        ax.spines['left'].set_visible(False)
+
+        if iy == 0:
+            ax.set_ylabel(f'{cluster_full_name}', fontsize='medium')
+        if ix == 0:
+            ax.set_title(txt, fontsize='medium')
+
+        if ix == 4 and iy == 2:
+            ax.set_xlabel('Reported Stellar Age / Cluster Age',
+                          fontsize='medium')
+
+#fig.text(0.5,-0.01, 'Reported Stellar Age / Cluster Age', ha='center', fontsize='medium')
+
+outdir = '../results/lit_ages_vs_cluster_ages'
+if not os.path.exists(outdir): os.mkdir(outdir)
+outpath = join(outdir, f"merged_lit_ages_vs_cluster_ages.png")
+fig.tight_layout()
+savefig(fig, outpath, dpi=400)
+
+
+
