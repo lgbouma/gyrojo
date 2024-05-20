@@ -20,6 +20,7 @@ from gyrointerp.helpers import prepend_colstr, left_merge
 from astroquery.vizier import Vizier
 from aesthetic.plot import set_style, savefig
 from collections import Counter
+from operator import itemgetter
 
 Vizier.ROW_LIMIT = -1
 
@@ -144,7 +145,11 @@ l21_df = ascii.read(tabpath, format='mrt').to_pandas()
 tabpath = join(DATADIR, "literature", "Lu_2024_ajad28b9t2_mrt.txt")
 l24_df = ascii.read(tabpath, format='mrt').to_pandas()
 
-def _get_lit_cluster_dfs(cluster_df):
+def _get_cluster_xm_lit_dfs(cluster_df):
+    """
+    Given "cluster dataframe" with some set of kepler id's, get the
+    crossmatches between literature data and that cluster.
+    """
 
     # Bouma24
     s0 = select_by_quality_bits(
@@ -220,7 +225,7 @@ for cluster_df, cluster_full_name, true_age in zip(
     cluster_short_name = cluster_full_name.split(" ")[0]
 
     sb24df, sm23_df, sm23_df3, sb20_df, sl21_df, sl24_df = (
-        _get_lit_cluster_dfs(cluster_df)
+        _get_cluster_xm_lit_dfs(cluster_df)
     )
 
 
@@ -319,6 +324,10 @@ for cluster_df, cluster_full_name, true_age in zip(
     savefig(fig, outpath, dpi=400)
 
 
+##########################################
+##########################################
+##########################################
+
 ## okay, now make the mega 5x5 plot
 plt.close("all")
 set_style("clean")
@@ -333,7 +342,7 @@ for ix, (cluster_df, cluster_full_name, true_age) in enumerate(zip(
     cluster_short_name = cluster_full_name.split(" ")[0]
 
     sb24df, sm23_df, sm23_df3, sb20_df, sl21_df, sl24_df = (
-        _get_lit_cluster_dfs(cluster_df)
+        _get_cluster_xm_lit_dfs(cluster_df)
     )
 
     #
@@ -437,5 +446,154 @@ outpath = join(outdir, f"merged_lit_ages_vs_cluster_ages.png")
 fig.tight_layout()
 savefig(fig, outpath, dpi=400)
 
+##########################################
+##########################################
+##########################################
+
+# todo: resort!
+
+## okay, now make the 5x1 plot
+plt.close("all")
+set_style("clean")
+
+fig, axs = plt.subplots(nrows=5, ncols=5, figsize=(0.8*7,4.5*0.8*1.8))
+
+fig = plt.figure(figsize=(0.8*7,0.8*5))
+axd = fig.subplot_mosaic(
+    """
+    AABBCC
+    .DDEE.
+    """#,
+    #gridspec_kw={
+    #    "width_ratios": [6,1,1,1,1],
+    #}
+)
+
+axs = [axd['A'], axd['B'], axd['C'], axd['D'], axd['E']]
+
+inds = np.argsort(true_ages)
+
+np.random.seed(42)
+
+for ix, (cluster_df, cluster_full_name, true_age) in enumerate(zip(
+    [cluster_dfs[i] for i in inds],
+    [cluster_names[i] for i in inds],
+    [true_ages[i] for i in inds]
+)):
+
+    cluster_short_name = cluster_full_name.split(" ")[0]
+
+    sb24df, sm23_df, sm23_df3, sb20_df, sl21_df, sl24_df = (
+        _get_cluster_xm_lit_dfs(cluster_df)
+    )
+
+    #
+    # Make individual plots!
+    #
+
+    # STAREVOL from SM23 qualtiatively similar, but mildly worse.
+    dfs = [
+        sb24df, sm23_df, #sm23_df3,
+        sb20_df, sl21_df, sl24_df
+    ]
+    xvalnames = [
+        'gyro_median', 'Age', #'Age',
+        'b20t2_Age', 'kinage', "Age"
+    ]
+
+    # "E_" means upper err, "e_" means lower.  Note that "e_" is signed, so
+    # that all entries in these columns are negative.
+    xmerrnames = [
+        'gyro_-1sigma', 'e_Age', #'e_Age',
+        'b20t2_e_Age', 'e_kinage', "e_Age"
+    ]
+    xperrnames = [
+        'gyro_+1sigma', 'E_Age', #'E_Age',
+        'b20t2_E_Age', 'e_kinage', "E_Age"
+    ]
+    div1ks = [
+        1, 0, #0,
+        0, 0, 0
+    ]
+
+    texts = [
+        'gyro-interp\n(This work)', 'kiauhoku\n(Mathur+23)',
+        #'STAREVOL (Mathur+23)',
+        'Isochrones\n(Berger+20)',
+        'gyro-kinematic\n(Lu+21)', 'gyro\n(Lu+24)'
+    ]
+
+    for iy, (df, xkey, xmerrkey, xperrkey, div1k, txt) in enumerate(zip(
+        dfs, xvalnames, xmerrnames, xperrnames, div1ks, texts
+    )):
+
+        ax = axs[iy]
+
+        if div1k:
+            f = 1e3
+        else:
+            f = 1
+
+        #yval = np.linspace(0, 1, len(df))
+
+        xerr = np.array(
+            [np.abs(df[xmerrkey])/f, df[xperrkey]/f]
+        ).reshape((2, len(df)))  / (true_age)
+        xval = ( df[xkey]/f ) / true_age
+
+        eps = np.random.normal(loc=0, scale=0.12, size=len(xval))
+
+        ax.errorbar(
+            eps+ix*np.ones_like(xval), xval, yerr=xerr,
+            marker='o', elinewidth=0.2, capsize=0, lw=0, mew=0.5, color=f'C{iy}',
+            markersize=0.5, zorder=5
+        )
+
+        for lval in [0.01, 0.1, 1, 10, 100]:
+            lw = 0.5 if lval != 1 else 0.5
+            ls = ':' if lval != 1 else '-'
+            color = 'lightgray' if lval != 1 else 'k'
+            ax.hlines(lval, -2, 6, zorder=-99, color=color, ls=ls, lw=lw)
+
+        _txt = f'N={len(df)}'
+        #ax.text(
+        #    0.1, 0.9, _txt, ha='left', va='top', fontsize='xx-small',
+        #    zorder=10, color='k', transform=ax.transAxes
+        #)
+
+        ax.set_xlim([-0.5, 4.5])
+        ax.set_ylim([0.03, 300])
+        ax.set_yscale('log')
+
+        ax.set_xticks([0, 1, 2, 3, 4])
+        ax.set_xticklabels([
+            'Cep-Her\n(40 Myr)',
+            'Melange-3\n(150 Myr)',
+            'Theia 520\n(300 Myr)',
+            'NGC6811\n(1 Gyr)',
+            'NGC6819\n(2.5 Gyr)'
+        ], rotation=75, fontsize='x-small')
+        ax.set_yticks([0.1,1,10,100])
+        if iy in [0, 3]:
+            ax.set_yticklabels(['0.1', '1', '10', '100'])
+            ax.set_ylabel('Star Age / Cluster Age', fontsize='medium')
+        else:
+            ax.set_yticklabels(['0.1', '1', '10', '100'])
+
+        #ax.spines['left'].set_visible(False)
+
+        #if iy == 0:
+        #    ax.set_ylabel(f'{cluster_full_name}', fontsize='medium')
+        #if ix == 0:
+        ax.set_title(txt, fontsize='medium')
+
+#fig.text(-0.01,0.5, 'Reported Star Age / Cluster Age', va='center',
+#         fontsize='medium', rotation=90)
+
+outdir = '../results/lit_ages_vs_cluster_ages'
+if not os.path.exists(outdir): os.mkdir(outdir)
+outpath = join(outdir, f"olympic_merged_lit_ages_vs_cluster_ages.png")
+fig.tight_layout(w_pad=0.1)
+savefig(fig, outpath, dpi=400)
 
 
