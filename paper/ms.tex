@@ -35,8 +35,12 @@
 % INSTITUTIONS %
 %%%%%%%%%%%%%%%%
 \newcommand{\caltech}{Department of Astronomy, MC 249-17, California Institute of Technology, Pasadena, CA 91125, USA}
-\newcommand{\mitkavli}{MIT Kavli Institute and Department of Physics, 77 Massachusetts Avenue, Cambridge, MA 02139}
-\newcommand{\berkeley}{Astronomy Department, University of California, Berkeley, CA 94720, USA}
+\newcommand{\mitkavli}{MIT Kavli Institute and Department of Physics,
+77 Massachusetts Avenue, Cambridge, MA 02139, USA}
+\newcommand{\berkeley}{Astronomy Department, University of California,
+Berkeley, CA 94720, USA}
+\newcommand{\cmu}{Department of Statistics \& Data Science, Carnegie
+Mellon University, Pittsburgh, PA 15213, USA}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,12 +90,23 @@
 \shortauthors{Bouma et al.}
 
 \author[0000-0002-0514-5538]{Luke~G.~Bouma}
-%\altaffiliation{51 Pegasi b Fellow}
+\altaffiliation{51 Pegasi b Fellow}
 \affiliation{\caltech}
-\affiliation{51 Pegasi b Fellow}
+%\affiliation{51 Pegasi b Fellow}
 
-\author{coauthors, including but not limited to
-Hillenbrand, Howard, Isaacson, Palumbo}
+\author{and coauthors, including but not limited to...}
+
+\author{Lynne~A.~Hillenbrand}
+\affiliation{\caltech}
+
+\author[0000-0001-8638-0320]{Andrew W. Howard}
+\affiliation{\caltech}
+
+\author[0000-0002-0531-1073]{Howard Isaacson}
+\affiliation{\berkeley}
+
+\author[0000-0001-7967-1795]{Elsa~K.~Palumbo}
+\affiliation{\cmu}
 
 % <250 words
 \begin{abstract}
@@ -110,16 +125,16 @@ Hillenbrand, Howard, Isaacson, Palumbo}
   applicable.
   %
   We find that our rotation-based ages accurately recover ages of
-  known Kepler field clusters; they also agree with
+  stars in open clusters; they also agree with
   $\gtrsim$90\% of the independent lithium ages.
   %
-  Our resulting catalog includes \nplyounggyrotwosigma\ planets
+  The results include \nplyounggyrotwosigma\ planets
   younger than 1\,Gyr at 2$\sigma$ (\nplyounggyrothreesigma\ planets
   at 3$\sigma$).
   %
   More broadly, we find that the star formation rate in the Kepler field
   has dropped by a factor of \ratiosfr$\pm$\uncratiosfr\ over the past
-  3\,Gyr.  This trend holds true for both planet hosts and the overall
+  3\,Gyr.  This trend holds for both planet hosts and for the overall
   stellar sample.
   %
   This ``demographic cliff'' is a known feature of the Galaxy's star
@@ -554,13 +569,13 @@ $T_{\rm eff}$$\approx$5000\,K and $v\sin i$$\approx$5\,\kms, which
 puts it in the middle of our sample's temperature range and gives it
 mild line-broadening.  We then trimmed the Doppler-corrected spectra
 to a local window centered on the lithium line, using a window width
-of 15\,\AA\ (we considered 10\,\AA\ and 20\,\AA; the results were
+of 15\,\AA\ (we also considered 10\,\AA\ and 20\,\AA; the results were
 consistent).  We continuum-normalized by fitting a third-degree
 Chebyshev series, while excluding regions with absorption lines.  We
 then numerically integrated the resulting spectrum using a
 one-component Gaussian with free amplitude, width, and mean, and
 estimated uncertainties on the line width through a Monte Carlo
-procedure that bootstraped against the local scatter in the continuum.
+procedure that bootstrapped against the local scatter in the continuum.
 
 Our EW measurement approach does not correct for the neighboring
 \ion{Fe}{1} 6707.44\,\AA\ blend.  To evaluate the accuracy and
@@ -586,10 +601,9 @@ ages.
 	\caption{
     {\bf Equivalent widths (EW) of the \ion{Li}{1} 6708\,\AA\ doublet
     for planet-hosting stars.} These measurements were made from
-    Keck/HIRES spectra collected between 2009 and 2024 that comprised
-    \nhireshours\,hours of open-shutter time.  Lines are the ``mean''
+    Keck/HIRES spectra collected between 2009 and 2024.  Lines are the ``mean''
     isochrones from the same models as in Figure~\ref{fig:models}.  The
-    intrinsic dispersion beyond $\approx$1\,Gyr becomes much larger
+    intrinsic dispersion at $\gtrsim$1\,Gyr becomes much larger
     than changes in the mean.  Some stars with lithium detections do
     not have detected rotation periods, and vice-versa.
 		\label{fig:li_vs_teff}
@@ -929,6 +943,30 @@ are left with \nplwgyroagenograzing\ planets orbiting
 
 
 
+\begin{figure*}[!t]
+	\begin{center}
+		\subfloat{
+			\includegraphics[width=0.98\textwidth]{olympic_merged_lit_ages_vs_cluster_ages.pdf}
+		}
+	\end{center}
+	\vspace{-0.5cm}
+	\caption{
+		{\bf Literature age comparison.}
+		Each point denotes a reported age,
+		normalized by the age of a stellar ensemble in which the star
+		is a candidate member.
+		We used candidate cluster members as reported by previous studies based on spatial and kinematic
+		information.  Although some field interlopers may be present in the 
+		membership lists,
+		any outliers can be compared between different methods on a
+		relative basis.
+		The number of stars in any given cluster follows by crossmatching every study against
+		this fixed cluster list; certain methods report ages for more stars than others.
+		Horizontal scatter is artificially added to visually
+		clarify the statistical age uncertainties.
+	}
+	\label{fig:agescalecompone}
+\end{figure*}
 
 \section{Ages From Lithium}
 \label{sec:liage}
@@ -959,102 +997,86 @@ the lithium model, and by the prior.  In these instances, we
 quote the 3$\sigma$ (99.7$^{\rm th}$ percentile) limits.
 
 
+
+
 \section{Cluster Age Comparison}
 \label{sec:litagecomparison}
 
-Stars that formed in the same birth cluster, at approximately the same time,
+Stars that formed in the same birth cluster 
 are the gold standard for the astronomical age scale
-\citep{Soderblom10}.
-Before Gaia, only a handful of $\gtrsim$1\,Gyr open clusters
-were known in the Kepler field.
+\citep{Soderblom_2010}.
+Before Gaia, the few $\gtrsim$1\,Gyr open clusters
+known in the Kepler field had been visually identified by
+\citet{1864RSPT..154....1H}.
+Gaia proper motions and distances 
+enabled the discovery of stellar ensembles that are typically more diffuse,
+but which nonetheless
+share a common age 
+based on e.g.~isochrone, rotation, and lithium dating
+\cite[e.g.][]{2019AJ....158..122K,Bouma_2022b,Barber_2022}.
 
-
-The gold standard for stellar ages comes from open clusters
-
-
-Figure~\ref{fig:agescalecompone} shows the result of a literature
-comparison against ages reported by \citet{Berger_2020a_catalog},
+In Figure~\ref{fig:agescalecompone}, we compare 
+ages from the literature against the ages of stars in the richest
+clusters in the Kepler field.
+In particular, we drew ages for Kepler stars from \citet{Berger_2020a_catalog},
 \citet{2021AJ....161..189L}, \citet{2023ApJ...952..131M}, and
 \citet{2024AJ....167..159L}.
 We followed any guidance available from these respective studies for
-removing ages that were flagged as unreliable.
-Rather than comparing the ages of the stars directly against each other,
-we compared them against a common benchmark: open clusters.
+removing ages that were explicitly flagged as unreliable.
 
 Cluster memberships are a delicate subject.
-Figure~\ref{fig:agescalecompone} is showing putative ages for
-a set of spatially and kinematically selected candidate cluster members.  For NGC6811 and NGC6819, we
+Figure~\ref{fig:agescalecompone} is showing reported ages for
+a set of spatially and kinematically selected set of stars that could be cluster members, or
+they could be field interlopers.  For NGC6811 and NGC6819, we
 adopted candidate members from
 \citet{2018A&A...618A..93C,CantatGaudin_2020} and
 \citet{Kounkel_2020}. 
-For Melange-3 we used the candidate members reported by
-\citet{2022AJ....164...88B} and required ``offset'' tangential
-velocities below 2\kms.  For Cep-Her we
+For Melange-3 we used the candidates reported by
+\citet{Barber_2022} and required ``offset'' tangential
+velocities below 2\,\kms.  For Cep-Her we
 used candidate members from Table~2 of \citet{Bouma_2022b}, requiring
 ``weights'' exceeding 0.1.
-These lists almost certainly include non-members, in fractions that we
-do not aim to quantify.  Even with these contaminants, we can compare
-the relative age distributions derived by the different studies.
+Even with contaminants, we can compare
+the relative age distributions derived by the different studies because in all
+instances we are comparing reported ages against a fixed list of stars.
 
-There are two main metrics for success in this test: the first is
-whether the reported ages agree with the cluster age (accuracy).  The
-second is whether the reported age precisions agree with their
+There are two main metrics for success in this test: accuracy
+in whether the reported ages agree with the cluster age, and precision in
+whether the reported age uncertainties agree with their
 dispersion around the cluster age.
 
-Starting with the isochrone ages from \citet{Berger_2020a_catalog},
-the results should not be particularly surprising.
-The isochrone ages are most accurate and precise (in relative terms)
-for the oldest cluster, NGC6819.
-For the 1\,Gyr NGC6811, about half the stars have ages overestimated
-by a factor of three.
-For the youngest clusters, the disagreement is greater.
-The uncertainties seem accurate at 2.5\,Gyr, but perhaps less so at
-$\lesssim$1\,Gyr.
-An important virtue of these isochrone ages is that they are
-calculated for far more stars in the two largest clusters than the
-other methods.
-They are calculable for far more stars than rotation-based ages.
+The point of Figure~\ref{fig:agescalecompone} is hopefully clear.
+While previous studies have been able to derive accurate ages for
+stars $\gtrsim$1\,Gyr old, the ages of sub-gigayear stars have historically been
+overestimated by anywhere from 0.5--2\,dex.
+The situation is particularly severe for the 40\,Myr stars in Cep-Her,
+but it extends out to 150--300\,Myr stars in Melange-3 and Theia~520.
+For isochrone and kinematic ages,
+this is not surprising because these methods use stellar parameters that do
+not appreciably change at $t$$\lesssim$1\,Gyr.
+For the rotation-based ages quoted by
+\citet{2023ApJ...952..131M} and \citet{2024AJ....167..159L}, the discrepancy
+between their ages and the cluster age scale is likely caused by details of the calibration 
+methodologies.
+The physical spin-down model used by
+\citet{2023ApJ...952..131M},
+and the gyro-kinematic calibration ages used by \citet{2024AJ....167..159L},
+may not reproduce
+the rotation sequences of open clusters such as Praesepe, the Hyades, and the Pleiades.
+The statistical age uncertainties yielded by these approaches
+similarly may not marginalize over the intrinsic
+scatter in rotation periods present in stars of a fixed mass at any given age.
 
-The ``gyro-kinematic'' ages from \citet{2021AJ....161..189L} do...
-{\bf todo explain}
+%The rotation-based ages that we have calculated have a precision
+%limited by the intrinsic scatter in the cluster rotation sequences.
+%Within the age range accessible through the clusters, they seem to be
+%mostly accurate,
+%with the one exception being that our ages for stars in Cep-Her 
+%have a typical median of $\approx$80\,Myr, rather than 40\,Myr.
+%The reason is that 80\,Myr is the lower bound of 
+%the \texttt{gyro-interp}  age grid; pre-main-sequence
+%spin-up is outside of our calibration regime.
 
-The rotation-only ages calculated using the model described by
-\citet{2024AJ....167..159L} have some peculiarities compared against
-cluster ages.
-While NGC6811 seems to be in general agreement, NGC6819 has an
-abnormally large population of young reported systems, with apparently
-precise ages.  All the younger cluster members ($<$300\,Myr) similarly
-have reported ages that are biased old, with narrow uncertainties.
-
-\citet{2023ApJ...952..131M} looks great.  {\bf todo explain method}.
-However it still fails for the youngest clusters.
-
-
-
-\begin{figure*}[!t]
-	\begin{center}
-		\subfloat{
-			\includegraphics[width=0.98\textwidth]{olympic_merged_lit_ages_vs_cluster_ages.pdf}
-		}
-	\end{center}
-	\vspace{-0.5cm}
-	\caption{
-		{\bf Literature age comparison.}
-		Each point denotes a reported age,
-		normalized by the age of a stellar ensemble in which the star
-		is a candidate member.
-		We used candidate cluster members as reported by previous studies based on spatial and kinematic
-		information.  Although some field interlopers may be present in the 
-		membership lists,
-		any outliers can be compared between different methods on a
-		relative basis.
-		The number of stars in any given cluster follows by crossmatching every study against
-		this fixed cluster list; certain methods report ages for more stars than others.
-		Horizontal scatter is artificially added to visually
-		clarify the statistical age uncertainties.
-	}
-	\label{fig:agescalecompone}
-\end{figure*}
 
 
 
@@ -1440,18 +1462,29 @@ subset.  This decision was driven by a desire for homogeneity
 irrespective of planet-hosting status.  It may however have
 incurred small systematic errors in the implied ages.
 
-In this work, we were interested in not only the overall age
+We were interested in not only the overall age
 distribution of the Kepler field, but also in the reliability of
-individual ages for young stars known to host planets.  The quality
-bitmask scheme in Table~\ref{tab:planets} provided one path toward
-this end.  Our other method was to compare the cases for which lithium
-and rotation overlap in sensitivity -- G and K dwarfs with
-$t$$\lesssim$1\,Gyr.  Our results for such stars include
+individual ages for young stars known to host planets.  
+We assessed this reliability using
+quality
+bitmasks (Table~\ref{tab:planets}), 
+a comparison against open cluster ages (Section~\ref{sec:litagecomparison}),
+and a comparison between rotation and lithium ages.
+The open cluster comparison suggested that our ages were generally
+accurate at $\ll$0.5\,dex across 0.04--2.5\,Gyr, comparable to their
+stated precision level.
+Nonetheless,
+outliers do exist in the upper-left panel of Figure~\ref{fig:agescalecompone},
+typically at most 10\% of the population in each cluster.
+These stars could be either field star contaminants, or else anomalous
+stars whose physical rotation histories were altered by processes not
+captured by our statistical uncertainties.
+Similarly, although
+we found $t_{\rm gyro}$ and $t_{\rm Li}$ to agree
+for 
 \ltonegyrhighqconfirmedtwosided\ planets orbiting ``high-quality''
-stars for which the two age indicators are both constraining and in
-agreement (stars with $Q_{\rm star}$ bits zero through nine not
-raised, and no planet quality flags raised).  Conversely, we found
-only one system, Kepler-786, with a precise lithium age
+stars, we did find
+one system, Kepler-786, with a precise lithium age
 (\kepseveneightsix\,Myr), but no rotation signal.
 
 Other age indicators may help in verifying the ages of the
@@ -1467,7 +1500,7 @@ sensitivity, homogeneity, and the question of whether they in fact
 provide age information that is truly independent from rotation.
 
 A broader question, beyond the scope of this work, concerns the ages
-of the older $\gtrsim$3\,Gyr stars that we do not treat.  For
+of stars $\gtrsim$4\,Gyr old.  For
 age-dating models based only on rotation rates, or else on a
 combination of rotation and spin-modulation amplitude
 \citep{2023ApJ...952..131M}, an important challenge is that the
@@ -1480,7 +1513,7 @@ evolution of stellar luminosity and stellar rotation
 \citep{Angus_2019} seem the most capable of providing useful age
 constraints for single stars.  Incorporating kinematics
 \citep{2021AJ....161..189L} seems likely to remain most useful for
-stellar ensembles, due to the stochastically of kinematic heating.
+stellar ensembles, due to the stochasticity of kinematic heating.
 
 
 \subsection{Future Directions}
@@ -1704,7 +1737,7 @@ All authors assisted in manuscript revision.
 
 
 
-
+\appendix
 \section{Cases With ``Inconsistent'' Rotation and Lithium-Based Ages}
 \label{app:inconsistent}
 
@@ -1849,11 +1882,11 @@ $\approx$780$\pm$170\,Myr agrees with the open cluster calibrators.
 \section{TODO's}
 
 \begin{enumerate}
-  \item Compare Mathur2023 ages against my ages, and (more interestingly) against the
-    cluster scale using NGC6811, Theia520, Melange3, and CepHer stars.
-    Could compare against asteroseis too.
-    %
-  \item Intro needs better discussion of Mathur2023 and Lu2021
+%  \item Compare Mathur2023 ages against my ages, and (more interestingly) against the
+%    cluster scale using NGC6811, Theia520, Melange3, and CepHer stars.
+%    Could compare against asteroseis too.
+%    %
+%  \item Intro needs better discussion of Mathur2023 and Lu2021
     %
   \item Consider moving the bit list description to its own appendix.
     %
