@@ -264,7 +264,7 @@ factors are as follows.
   %
   \item New open clusters in various stages of dissolution have been
     found in the Kepler field
-    \cite[e.g.][]{2019AJ....158..122K,Bouma_2022b,2022AJ....164...88B}.
+    \cite[e.g.][]{2019AJ....158..122K,Bouma_2022b,Barber_2022}.
     These clusters offer a sample of stars for which we can test the
     reliability of single-star age-dating methods.
 \end{enumerate}
@@ -691,7 +691,7 @@ Using our effective temperatures and rotation periods, we ran
 \texttt{gyro-interp} over an age grid of 0 to 4\,Gyr, linearly spaced
 over 500 grid points.  \texttt{gyro-interp} itself is calibrated out
 to 4\,Gyr, the age of M67
-\citep[see][]{2022ApJ...938..118D,Gruner_2023}.  To estimate the
+\citep[see][]{Dungee_2022,Gruner_2023}.  To estimate the
 stellar spin-down rate as a function of time and stellar temperature,
 the framework interpolates between reference open clusters using cubic
 Hermite polynomials.  We calculate the probability of the
@@ -1003,7 +1003,7 @@ and~\ref{tab:stars}.  Figure~\ref{fig:hist_tgyro} shows the gyrochone
 age distributions of all the stars (left column) and the known
 planet-hosts (middle column).  These ``histograms'' are sampled from
 the posterior probability distributions by drawing ten random samples
-from each posterior distribution, and then computing the re-weighted
+from each posterior, and then computing the re-weighted
 histogram of the resulting samples.  The uncertainties assume Poisson
 statistics.  We truncated the plots near $4$\,Gyr since this is the
 cluster age out to which our interpolation-based method is calibrated.
@@ -1011,7 +1011,7 @@ We refer to the overall slope as a ``demographic cliff'' in reference
 to an impending human phenomenon forecasted to happen in coming years.
 
 The age distributions of Kepler stars and planet hosts are
-statistically quite similar.  A simple diagnostic of whether the two
+nearly indistinguishable.  A simple diagnostic of whether the two
 distributions are drawn from the same underlying distribution is the
 Kolmogorov-Smirnov test;  we calculated this statistic in a manner
 that accounts for the Poisson uncertainties by performing 100 random
@@ -1079,16 +1079,16 @@ rotation and cluster ages agree, and the lithium age is 2.0$\sigma$
 above the cluster age reported by \citet{Bouma_2022b} for the RSG-5
 subgroup.
 
-{\it MELANGE-3}---\citet{2022AJ....164...88B} reported a
+{\it MELANGE-3}---\citet{Barber_2022} reported a
 $105\pm10$\,Myr association in the Kepler field and derived its age
 using rotation, lithium, and the isochronal pre-main-sequence.
 Kepler-970 and Kepler-1928 harbor two transiting mini-Neptunes inside
-this association \citep{2022AJ....164...88B}.  Our rotation-based
+this association.  Our rotation-based
 age-dating independently recovers these systems, with $t_{\rm
 gyro}=176_{-40}^{+120}$\,Myr and $144_{-88}^{+104}$\,Myr for
 Kepler-970 and Kepler-1928 respectively.  The former rotation-based
 age being slightly older than the suggested Pleiades age for the
-assocation agrees with Figure~4 of \citet{2022AJ....164...88B}.
+assocation agrees with Figure~4 of \citet{Barber_2022}.
 
 {\it Theia~520}---We derive rotation-based ages of 330-350\,Myr for
 Kepler-968 and Kepler-52.  These stars were reported by
