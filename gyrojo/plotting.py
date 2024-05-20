@@ -475,9 +475,9 @@ def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
         color = 'k'
         alpha = 0.9
         if not show_dispersion and not show_dispersionpoints:
-            alpha = 0.4
+            alpha = 0.8
         ax.plot(
-            Teff_model, li_model, color='k', linewidth=1, zorder=10,
+            Teff_model, li_model, color=f'C{ix}', linewidth=1, zorder=10,
             alpha=alpha, ls=ls, label=agestr
         )
 
