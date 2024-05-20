@@ -933,7 +933,6 @@ are left with \nplwgyroagenograzing\ planets orbiting
 \section{Ages From Lithium}
 \label{sec:liage}
 
-
 Figure~\ref{fig:li_vs_teff} shows our measured equivalent widths for
 the lithium 6708\AA\ absorption doublet, plotted over the mean
 isochrone models from \texttt{EAGLES} \citep{Jeffries_2023}.  We
@@ -958,6 +957,105 @@ ages are lower limits.  In such cases,  the inferred age posterior is
 strongly influenced by the assumed intrinsic dispersion in
 the lithium model, and by the prior.  In these instances, we
 quote the 3$\sigma$ (99.7$^{\rm th}$ percentile) limits.
+
+
+\section{Cluster Age Comparison}
+\label{sec:litagecomparison}
+
+Stars that formed in the same birth cluster, at approximately the same time,
+are the gold standard for the astronomical age scale
+\citep{Soderblom10}.
+Before Gaia, only a handful of $\gtrsim$1\,Gyr open clusters
+were known in the Kepler field.
+
+
+The gold standard for stellar ages comes from open clusters
+
+
+Figure~\ref{fig:agescalecompone} shows the result of a literature
+comparison against ages reported by \citet{Berger_2020a_catalog},
+\citet{2021AJ....161..189L}, \citet{2023ApJ...952..131M}, and
+\citet{2024AJ....167..159L}.
+We followed any guidance available from these respective studies for
+removing ages that were flagged as unreliable.
+Rather than comparing the ages of the stars directly against each other,
+we compared them against a common benchmark: open clusters.
+
+Cluster memberships are a delicate subject.
+Figure~\ref{fig:agescalecompone} is showing putative ages for
+a set of spatially and kinematically selected candidate cluster members.  For NGC6811 and NGC6819, we
+adopted candidate members from
+\citet{2018A&A...618A..93C,CantatGaudin_2020} and
+\citet{Kounkel_2020}. 
+For Melange-3 we used the candidate members reported by
+\citet{2022AJ....164...88B} and required ``offset'' tangential
+velocities below 2\kms.  For Cep-Her we
+used candidate members from Table~2 of \citet{Bouma_2022b}, requiring
+``weights'' exceeding 0.1.
+These lists almost certainly include non-members, in fractions that we
+do not aim to quantify.  Even with these contaminants, we can compare
+the relative age distributions derived by the different studies.
+
+There are two main metrics for success in this test: the first is
+whether the reported ages agree with the cluster age (accuracy).  The
+second is whether the reported age precisions agree with their
+dispersion around the cluster age.
+
+Starting with the isochrone ages from \citet{Berger_2020a_catalog},
+the results should not be particularly surprising.
+The isochrone ages are most accurate and precise (in relative terms)
+for the oldest cluster, NGC6819.
+For the 1\,Gyr NGC6811, about half the stars have ages overestimated
+by a factor of three.
+For the youngest clusters, the disagreement is greater.
+The uncertainties seem accurate at 2.5\,Gyr, but perhaps less so at
+$\lesssim$1\,Gyr.
+An important virtue of these isochrone ages is that they are
+calculated for far more stars in the two largest clusters than the
+other methods.
+They are calculable for far more stars than rotation-based ages.
+
+The ``gyro-kinematic'' ages from \citet{2021AJ....161..189L} do...
+{\bf todo explain}
+
+The rotation-only ages calculated using the model described by
+\citet{2024AJ....167..159L} have some peculiarities compared against
+cluster ages.
+While NGC6811 seems to be in general agreement, NGC6819 has an
+abnormally large population of young reported systems, with apparently
+precise ages.  All the younger cluster members ($<$300\,Myr) similarly
+have reported ages that are biased old, with narrow uncertainties.
+
+\citet{2023ApJ...952..131M} looks great.  {\bf todo explain method}.
+However it still fails for the youngest clusters.
+
+
+
+\begin{figure*}[!t]
+	\begin{center}
+		\subfloat{
+			\includegraphics[width=0.98\textwidth]{olympic_merged_lit_ages_vs_cluster_ages.pdf}
+		}
+	\end{center}
+	\vspace{-0.5cm}
+	\caption{
+		{\bf Literature age comparison.}
+		Each point denotes a reported age,
+		normalized by the age of a stellar ensemble in which the star
+		is a candidate member.
+		We used candidate cluster members as reported by previous studies based on spatial and kinematic
+		information.  Although some field interlopers may be present in the 
+		membership lists,
+		any outliers can be compared between different methods on a
+		relative basis.
+		The number of stars in any given cluster follows by crossmatching every study against
+		this fixed cluster list; certain methods report ages for more stars than others.
+		Horizontal scatter is artificially added to visually
+		clarify the statistical age uncertainties.
+	}
+	\label{fig:agescalecompone}
+\end{figure*}
+
 
 
 \section{Results}
@@ -1603,94 +1701,6 @@ All authors assisted in manuscript revision.
 \bibliographystyle{aasjournal}
 \bibliography{bibliography}
 
-\appendix
-\section{Literature Age Scale Comparison}
-\label{app:litagecomparison}
-
-Figure~\ref{fig:agescalecompone} shows the result of a literature
-comparison against ages reported by \citet{Berger_2020a_catalog},
-\citet{2021AJ....161..189L}, \citet{2023ApJ...952..131M}, and
-\citet{2024AJ....167..159L}.
-We followed any guidance available from these respective studies for
-removing ages that were flagged as unreliable.
-Rather than comparing the ages of the stars directly against each other,
-we compared them against a common benchmark: open clusters.
-
-Cluster memberships are a delicate subject.
-Figure~\ref{fig:agescalecompone} is showing putative ages for
-a set of spatially and kinematically selected candidate cluster members.  For NGC6811 and NGC6819, we
-adopted candidate members from
-\citet{2018A&A...618A..93C,CantatGaudin_2020} and
-\citet{Kounkel_2020}. 
-For Melange-3 we used the candidate members reported by
-\citet{2022AJ....164...88B} and required ``offset'' tangential
-velocities below 2\kms.  For Cep-Her we
-used candidate members from Table~2 of \citet{Bouma_2022b}, requiring
-``weights'' exceeding 0.1.
-These lists almost certainly include non-members, in fractions that we
-do not aim to quantify.  Even with these contaminants, we can compare
-the relative age distributions derived by the different studies.
-
-There are two main metrics for success in this test: the first is
-whether the reported ages agree with the cluster age (accuracy).  The
-second is whether the reported age precisions agree with their
-dispersion around the cluster age.
-
-Starting with the isochrone ages from \citet{Berger_2020a_catalog},
-the results should not be particularly surprising.
-The isochrone ages are most accurate and precise (in relative terms)
-for the oldest cluster, NGC6819.
-For the 1\,Gyr NGC6811, about half the stars have ages overestimated
-by a factor of three.
-For the youngest clusters, the disagreement is greater.
-The uncertainties seem accurate at 2.5\,Gyr, but perhaps less so at
-$\lesssim$1\,Gyr.
-An important virtue of these isochrone ages is that they are
-calculated for far more stars in the two largest clusters than the
-other methods.
-They are calculable for far more stars than rotation-based ages.
-
-The ``gyro-kinematic'' ages from \citet{2021AJ....161..189L} do...
-{\bf todo explain}
-
-The rotation-only ages calculated using the model described by
-\citet{2024AJ....167..159L} have some peculiarities compared against
-cluster ages.
-While NGC6811 seems to be in general agreement, NGC6819 has an
-abnormally large population of young reported systems, with apparently
-precise ages.  All the younger cluster members ($<$300\,Myr) similarly
-have reported ages that are biased old, with narrow uncertainties.
-
-\citet{2023ApJ...952..131M} looks great.  {\bf todo explain method}.
-However it still fails for the youngest clusters.
-
-
-
-\begin{figure*}[!t]
-	\begin{center}
-		\subfloat{
-			\includegraphics[width=0.98\textwidth]{merged_lit_ages_vs_cluster_ages.pdf}
-		}
-	\end{center}
-	\vspace{-0.5cm}
-	\caption{
-    {\bf Literature age scale comparison.}
-    Each point denotes the reported age of a star observed by Kepler,
-    normalized by the age of a stellar ensemble in which the star
-    is a candidate member.
-    We used memberships from spatio-kinematic estimates in the
-    literature.
-    Rows show the available stellar ensembles, and columns show the
-    various age-measurement techniques described in
-    Appendix~\ref{app:litagecomparison}.
-    Stars are sorted according to their median reported ages, and
-    clusters are sorted by descending richness.
-    Note that the horizontal axis is logarithmic; the first dotted line
-    to the right of unity corresponds to a reported age ten times older
-    than the cluster age.
-	}
-	\label{fig:agescalecompone}
-\end{figure*}
 
 
 
