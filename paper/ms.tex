@@ -347,7 +347,7 @@ are offered in Section~\ref{sec:conclusions}.
 \end{figure*}
 
 This work is focused on Kepler stars for which ages can be inferred
-using either rotation, lithium, or both.  These ``age-dateable stars''
+using either rotation, lithium, or both.  Such stars
 are a minority of the \nkeplerstars\ Kepler targets.  Rotation periods
 have been reported for roughly one in three Kepler targets
 \citep[e.g.][]{McQuillan_2014,Santos_2021}.  High-resolution spectra
@@ -475,17 +475,18 @@ catalogs (A.~Santos, private communication).  We then incorporated an
 additional \nnewdavidtwentyone\ rotation periods for KOI hosts that
 \citet{David_2021} had described as either ``reliable'' or ``highly
 reliable'' in their visual analysis of previously reported KOI
-rotation periods from \citet{McQuillan_2013,Walkowicz_2013,Mazeh_2015}
+rotation periods from \citet{McQuillan_2013}, \citet{Walkowicz_2013}, \citet{Mazeh_2015}
 and \citet{Angus_2018}.  Inclusion of these additional KOI rotation
 periods is a supplementary measure aimed at completeness in our final
 KOI age catalog; the provenances of the individual adopted periods are
 noted in the relevant tables.
 
-Finally, since our scope is focused on rotation-based age dating, we
+Finally, since our scope is focused on rotation-based ages, we
 restricted our attention to stars with reported $P_{\rm
-rot}$$<$45\,days.  FGK stars with slower rotation periods spin much
-slower than the stars in the oldest open clusters currently used to
-calibrate our gyrochronology model.  Figure~\ref{fig:prot_vs_teff}
+rot}$$<$45\,days.  The slowest-rotating FGK
+stars in the open clusters used to
+calibrate our gyrochronology model have $P_{\rm rot}$$\approx$35\,days.
+Figure~\ref{fig:prot_vs_teff}
 shows the resulting \nuniqstarsantosrot\ Kepler stars with rotation
 periods compiled from \citetalias{Santos_2019},
 \citetalias{Santos_2021}, and our extended KOI list.
@@ -527,7 +528,7 @@ or ``candidate'' planets, after excluding known false positives.
 \label{subsec:lithiumsel}
 
 The final piece of our analysis involves assessing ages based on the
-\ion{Li}{1} 6708\,\AA\ doublet.  Specifically, we analyzed spectra
+\ion{Li}{1} 6708\,\AA\ doublet.  We analyzed spectra
 from the High Resolution Echelle Spectrometer (HIRES;
 \citealt{vogt_hires_1994}) on the Keck I 10m telescope.  These spectra
 were primarily collected through the California Kepler Survey
@@ -543,7 +544,7 @@ Lithium equivalent widths and abundances for the Kepler Objects of
 Interest were already analyzed by \citet{2018ApJ...855..115B} for
 roughly three quarters of the spectra in our sample.  However, new
 spectra have since been acquired, and our approach and selection
-function are different.  We therefore perform our own line width
+function are different.  We therefore performed our own line width
 measurements on
 the reduced HIRES spectra.
 
@@ -552,9 +553,9 @@ observations of non-false positive Kepler Objects of Interest with a
 ``multiple event statistic'' (MES, {\it koi\_max\_mult\_ev}) of at
 least 10.  This yielded at least one spectrum for \nstwithspec\
 stars hosting \nplwithspec\ planets.  About half of these stars have
-rotation periods (\nstwithspecandprot\ stars and
+measured rotation periods (\nstwithspecandprot\ stars and
 \nplwithspecandprot, respectively).   For stars with multiple spectra
-available at varying ranges of signal-to-noise (S/N), we analyzed only
+available, we analyzed only
 the spectrum with the highest number of counts.  The resulting spectra
 were acquired between 6 September 2009 and 16 May 2024, and
 cumulatively comprise \nhireshours\,hours of open-shutter time.
@@ -562,7 +563,7 @@ cumulatively comprise \nhireshours\,hours of open-shutter time.
 We measured the lithium equivalent widths using a procedure adapted
 from previous work \citep{Bouma_2021}.  Our stars of interest are FGK
 stars, and so the continuum in the vicinity of the \ion{Li}{1}
-6708\,\AA\ doublet is well-defined.  We Doppler corrected the spectra
+6708\,\AA\ doublet is well-defined.  We Doppler-corrected the spectra
 to a common reference wavelength by cross-correlating against a high
 S/N template for Kepler-1698, chosen because $|\gamma|$$<$10\kms,
 $T_{\rm eff}$$\approx$5000\,K and $v\sin i$$\approx$5\,\kms, which
@@ -787,7 +788,8 @@ Kepler-to-Gaia crossmatch %\footnote{\url{https://gaia-kepler.fun}, last
 %false positives, fail to yield Gaia DR3 crossmatches.}, 
 %which is a
 %crossmatch
-of the NEA \texttt{q1\_q17\_dr25\_stellar} catalog with Gaia DR3.  The
+of the NEA \texttt{q1\_q17\_dr25\_stellar} catalog with Gaia DR3 (accessible
+online at \url{https://gaia-kepler.fun}).  The
 separation distribution of the Kepler-Gaia DR3 crossmatches is such
 that 99.2\% of candidate matches are within 1$''$.   We nonetheless
 noted an upturn in the candidate match rate from 3-4$''$; such sources
@@ -823,23 +825,38 @@ Figure~\ref{fig:stellarprops}.  This is a challenge for rotation-based
 ages because {\it i)} point sources far from the main sequence include
 unresolved photometric binaries, and {\it ii}) effects other than
 magnetic braking influence the rotation periods of bona fide single
-stars far from the main sequence.  The added complications of
+stars far from the main sequence.  The added concerns of
 reddening and metallicity further complicate matters.  After exploring
 various options, we settled on the orange locus in the $\log
 g$--$T_{\rm eff}$ plane shown in Figure~\ref{fig:stellarprops}.  While
-the details of how exactly this locus is constructed are arbitrary, 
-%and convoluted,\footnote{In practice, for K dwarfs we fitted an
-%$N^{\rm th}$-order polynomial to the set of stars for which $t_{\rm
-%B20,iso}/(+\sigma_{t,{\rm B20,iso}})\approx 3$, where
-%$t_{\rm B20,iso}$ was the isochronal age reported by
-%\citet{Berger_2020a_catalog}. We let the order of the fit vary from
-%$N$=1 to 10, minimized the Bayesian Information Criterion,
-%and found $N$=6.  For F and G dwarfs, this procedure failed to produce
-%a reasonable locus because of shifts in the relative precision of
-%the isochrone ages.  We therefore visually selected KOIs that appeared
-%to be near the ``main sequence'', fitted a separate polynomial to
-%their locations, and then stitched the resulting polynomials from the
-%F and G dwarfs to that of the K dwarfs.}
+the exact details of how this locus is constructed are arbitrary\footnote{For purposes of reproducibility, 
+	the method was as follows.
+The orange line in Figure~\ref{fig:stellarprops} is	defined as
+the maximum of two numerically-determined functions, $f_0(T_{\rm eff})$ and $f_1(T_{\rm eff})$.
+We defined $f_0$ by fitting an
+$N^{\rm th}$-order polynomial to the stars with rotation periods for which $t_{\rm
+B20,iso}/(+\sigma_{t,{\rm B20,iso}})\approx 3$
+and $T_{\rm eff}\in[3700,5900]$\,K, where
+$t_{\rm B20,iso}$ was the isochronal age reported by
+\citet{Berger_2020a_catalog}.  We let the order of the fit vary from
+$N$=1 to 10, minimized the Bayesian Information Criterion,
+and found $N$=6.  
+By eye, this yielded a plausible locus for $T_{\rm eff}$$\lesssim$5300\,K.
+However for F and G dwarfs, the resulting locus
+allowed for stars that were `too evolved''; the density of KOIs 
+was anomalously low in this region of the $\log g$ vs.\ $T$$_{\rm eff}$ plane.
+We therefore visually selected KOIs that appeared
+to be near the main sequence -- i.e.~ most of the blue
+points in Figure~\ref{fig:stellarprops} -- and used them to fit a separate
+polynomial $f_1$ through a similar BIC-minimization procedure,
+and found $N$=3.
+The portion of the orange locus from $\approx$5300--6200\,K
+is set as $f_1 + c$, for $c$ a constant offset that we visually tuned to be
+$\approx$0.1\,dex above the ``KOI main sequence''.
+The exact break-point in temperature is automatically set by ${\rm max}(f_0, f_1+c)$.
+We emphasize that for stars
+surface gravities above the orange locus, we do report rotation based ages;
+they are simply flagged as not being near the main sequence.  }
 the general aim is to flag stars for which there is evidence based on
 their location in the $\log g$--$T_{\rm eff}$ plane that our
 gyrochronology model may not be reliable.  
@@ -1530,15 +1547,17 @@ exoplanet demographics also depend on stellar metallicity and mass
 \citep[e.g.][]{Petigura_2018}.  
 
 {\it Field star ages from other surveys}:
-While this study focused on deriving rotation and lithium-based ages
-for Kepler planets, surveys such as K2, TESS, HAT, WASP, NGTS, ZTF,
-and ATLAS have different selection functions.  Applying rotation-based
-age dating to their discoveries could clarify the youth and
-evolutionary trends of these populations.  Future prospects like PLATO
+While this study focused on
+Kepler, other photometric surveys (e.g.~K2, TESS, HAT, WASP, NGTS, ZTF,
+ATLAS) open opportunities for age-dating a far broader set
+of stars and planets.
+Future prospects also include PLATO
 \citep{Rauer14}, Earth 2.0 \citep{2022arXiv220606693G}, and the Roman
-Galactic Plane Time Domain Survey seem poisted to further expand the
-sample of stars with precisely determined ages, including those known
-to host planets.
+Galactic Plane Time Domain Survey.
+The long-baseline surveys 
+that specifically target different regions of the Galaxy
+seem most likely to yield new insight into its star
+formation history.
 
 {\it Searches for new associations}:
 Some of the youngest systems in Table~\ref{tab:planets} have been
