@@ -71,6 +71,13 @@ Mellon University, Pittsburgh, PA 15213, USA}
 \defcitealias{Fulton_2018}{F18}
 \defcitealias{Berger_2020a_catalog}{B20}
 
+% Redefine footnote command to not have indent
+%\makeatletter
+%\long\def@makefntext#1{\noindent\footnotesize@makefnmark#1}
+%\makeatother
+\setlength{\footnotesep}{0pt}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1026,7 +1033,7 @@ Before Gaia, the few $\gtrsim$1\,Gyr open clusters
 known in the Kepler field had been visually identified by
 \citet{1864RSPT..154....1H}.
 Gaia proper motions and distances 
-enabled the discovery of stellar ensembles that are typically more diffuse,
+enabled the discovery of stellar ensembles that are more diffuse,
 but which nonetheless
 share a common age 
 based on e.g.~isochrone, rotation, and lithium dating
@@ -1039,7 +1046,8 @@ In particular, we drew ages for Kepler stars from \citet{Berger_2020a_catalog},
 \citet{2021AJ....161..189L}, \citet{2023ApJ...952..131M}, and
 \citet{2024AJ....167..159L}.
 We followed any guidance available from these respective studies for
-removing ages that were explicitly flagged as unreliable.
+removing ages that were explicitly flagged as unreliable, and plotted
+stars within $1\sigma$ of zero as being upper limits.
 
 Cluster memberships are a delicate subject.
 Figure~\ref{fig:agescalecompone} is showing reported ages for
@@ -1075,7 +1083,7 @@ For the rotation-based ages quoted by
 \citet{2023ApJ...952..131M} and \citet{2024AJ....167..159L}, the discrepancy
 between their ages and the cluster age scale is likely caused by details of the calibration 
 methodologies.
-The physical spin-down model used by
+The physical spin-down models used by
 \citet{2023ApJ...952..131M},
 and the gyro-kinematic calibration ages used by \citet{2024AJ....167..159L},
 may not reproduce
