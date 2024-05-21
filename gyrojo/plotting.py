@@ -1650,8 +1650,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         print(42*'~')
         print(f'{l2_4}: {factor:.1f}')
         axs[2].plot(
-            x_new, y_new/factor, c='k', lw=0.5, zorder=-10, ls='--',
-            label=l2_4, alpha=0.2
+            x_new, y_new/factor, c='k', lw=0.5, zorder=-10, ls=':',
+            label=l2_4, alpha=0.7
         )
 
 
@@ -2261,10 +2261,10 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
             _coeffs = pd.read_csv(csvpath).values.flatten()
             _y = constrained_polynomial_function(_teff, _coeffs, selfn='simple')
             p = constrained_polynomial_function(_teff, coeffs, selfn=selfn)
-            # 'top'
+            # 'top' (logg too low)
             _y0 = p - 0.12
             y0 = np.maximum(_y, _y0)
-            # 'bottom'
+            # if you wanted to cut on 'bottom' (logg too high)
             y1 = p + 0.1
             ax.plot(_teff, y0, zorder=5, c='C1', lw=0.5)
            # ax.plot(_teff, y1, zorder=5, c='C1', lw=0.5)
