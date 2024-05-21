@@ -1681,7 +1681,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         Line2D([0], [0], color='C0', lw=1, alpha=1.0),
         Line2D([0], [0], color='sienna', lw=1, alpha=1.0),
         Line2D([0], [0], color='k', lw=0.5, alpha=1.0, ls='--'),
-        Line2D([0], [0], color='k', lw=0.5, alpha=0.2, ls='--'),
+        Line2D([0], [0], color='k', lw=0.5, alpha=0.7, ls=':'),
     ]
     axs[2].legend(custom_lines, [l2_1, l2_2, l2_3, l2_4], fontsize='xx-small',
                   borderaxespad=0.9, borderpad=0.5, framealpha=0,

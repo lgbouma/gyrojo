@@ -21,6 +21,7 @@ from astroquery.vizier import Vizier
 from aesthetic.plot import set_style, savefig
 from collections import Counter
 from operator import itemgetter
+from numpy import array as nparr
 
 Vizier.ROW_LIMIT = -1
 
@@ -534,20 +535,37 @@ for ix, (cluster_df, cluster_full_name, true_age) in enumerate(zip(
         else:
             f = 1
 
-        #yval = np.linspace(0, 1, len(df))
-
-        xerr = np.array(
+        yerr = nparr(
             [np.abs(df[xmerrkey])/f, df[xperrkey]/f]
         ).reshape((2, len(df)))  / (true_age)
-        xval = ( df[xkey]/f ) / true_age
+        yval = ( nparr(df[xkey]/f) ) / true_age
 
-        eps = np.random.normal(loc=0, scale=0.12, size=len(xval))
+        if 'gyro-kinematic' in txt:
+            upperlim = yval - yerr[0,:] < 0
+            if np.any(upperlim):
+                eps = np.random.normal(loc=0, scale=0.12, size=len(yval[upperlim]))
+                ax.errorbar(
+                    eps+ix*np.ones_like(yval[upperlim]), yval[upperlim],
+                    yerr=np.zeros_like(yval[upperlim]),
+                    marker='v', elinewidth=0., capsize=0, lw=0, mew=0.5, color=f'C{iy}',
+                    markersize=0.5, zorder=5, alpha=0.3
+                )
 
-        ax.errorbar(
-            eps+ix*np.ones_like(xval), xval, yerr=xerr,
-            marker='o', elinewidth=0.2, capsize=0, lw=0, mew=0.5, color=f'C{iy}',
-            markersize=0.5, zorder=5
-        )
+                eps = np.random.normal(loc=0, scale=0.12, size=len(yval[~upperlim]))
+                ax.errorbar(
+                    eps+ix*np.ones_like(yval[~upperlim]), yval[~upperlim],
+                    yerr=yerr[:, ~upperlim],
+                    marker='o', elinewidth=0.2, capsize=0, lw=0, mew=0.5, color=f'C{iy}',
+                    markersize=0.5, zorder=5
+                )
+
+        else:
+            eps = np.random.normal(loc=0, scale=0.12, size=len(yval))
+            ax.errorbar(
+                eps+ix*np.ones_like(yval), yval, yerr=yerr,
+                marker='o', elinewidth=0.2, capsize=0, lw=0, mew=0.5, color=f'C{iy}',
+                markersize=0.5, zorder=5
+            )
 
         for lval in [0.01, 0.1, 1, 10, 100]:
             lw = 0.5 if lval != 1 else 0.5
