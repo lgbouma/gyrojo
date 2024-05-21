@@ -442,12 +442,15 @@ def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
         if not show_dispersion and not show_dispersionpoints:
             ages = [100, 500, 2000, 4000]
             agestrs = ['100 Myr', '500 Myr', '2 Gyr', '4 Gyr']
+            colors = ['C0', 'C1', 'purple', 'lime']
         elif show_dispersionpoints:
             ages = [100, 500, 2000]
             agestrs = ['100 Myr', '500 Myr', '2 Gyr']
+            colors = ['C0', 'C1', 'purple', 'whatever']
         else:
             ages = [100, 500, 2000, 4000]
             agestrs = ['100 Myr', '500 Myr', '2 Gyr', '4 Gyr']
+            colors = ['C0', 'C1', 'purple', 'lime']
         lAges = [np.log10(t)+6 for t in ages]  # log age in years
 
         li_models = []
@@ -467,7 +470,6 @@ def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
         agestrs = [f"{a}" for a in ages]
 
     linestyles = ['solid', 'dotted', 'dashed', 'dashdot', 'solid']
-    colors = ['C0', 'C1', 'purple', 'whatever']
     yvals = [110, 68.5, 38, 999]
     for ix, (li_model, ls, age, _c, agestr, yval) in enumerate(
         zip(li_models, linestyles, ages, colors, agestrs, yvals)
@@ -477,7 +479,7 @@ def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
         if not show_dispersion and not show_dispersionpoints:
             alpha = 0.8
         ax.plot(
-            Teff_model, li_model, color=f'C{ix}', linewidth=1, zorder=10,
+            Teff_model, li_model, color=_c, linewidth=1, zorder=10,
             alpha=alpha, ls=ls, label=agestr
         )
 
