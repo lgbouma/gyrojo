@@ -1692,7 +1692,7 @@ and the Arthur R.~Adams SURF Fellowship (EKP).
   %\midrule
   %\endhead
   \startdata
-  KOI & Kepler &  $T_{\rm eff}$ & $P_{\rm rot}$ & EW$_{\rm Li}$ &
+  KOI & Kepler &  $T_{\rm eff}$ & $P_{\rm rot}$ & EW$_{\rm Li}^{\rm \ast}$ &
   $t_{\rm gyro}$ & $t_{\rm Li} $ & Consistent? & $R_{\rm p}$ & $P_{\rm orb}$ &
   $Q_{\rm planet}$ & $Q_{\rm star}$ &  Spec? & Comment \\
   -- &   -- & K & days & m\AA & Myr & Myr &  str &   Earths &    days &       int  & int & bool & -- \\
@@ -1701,9 +1701,10 @@ and the Arthur R.~Adams SURF Fellowship (EKP).
 % \rule
 %  \input{table_subgyr_candidate}
   \enddata
-  \tablecomments{Two checkmarks denotes systems with two-sided $t_{\rm
-  gyro}$ and $t_{\rm Li}$ for which no important quality flags are
-  raised.  One checkmark denotes two-sided $t_{\rm gyro}$ only. 
+  \tablecomments{
+  	EW$_{\rm Li}^{\rm \ast}$ is the lithium equivalent width {\it after} subtracting a constant 7.5\,m\AA\ to account for the \ion{Fe}{1} 6707.44\,\AA\ blend (see Section~\ref{subsec:lithiumsel}).
+  	Two checkmarks ($\checkmark\checkmark$) denote systems with two-sided $t_{\rm
+  gyro}$ and $t_{\rm Li}$ for which both the age and the planet are expected to be reliable.  One checkmark ($\checkmark$) denotes two-sided $t_{\rm gyro}$ only. 
   ``Confirmed'' planets appear in the machine-readable
   version before``candidate'' planets.  The bit quality flags for the
   rotation-based ages, $Q_{\rm star}$, are described in
@@ -1728,14 +1729,9 @@ and the Arthur R.~Adams SURF Fellowship (EKP).
   Bit 1: MES$<$10?
   Bit 2: Grazing?
   For a star to have a high likelihood of being ``reliable for
-  gyrochronology'' we suggest $Q_{\rm star}$ bits zero to nine to
-  not be raised, and for a planet to be ``reliable'', we suggested
+  gyrochronology'' we suggest a $Q_{\rm star}$ bitmask with bits 0--9
+  not raised, and for a planet to be ``reliable'', we suggest
   $Q_{\rm planet}$ to be zero.
-  In the comment string, a single \checkmark\ denotes systems with no
-  reliability issues for which $t_{\rm gyro}$$<$1\,Gyr but $t_{\rm
-  Li}$ is single-sided; a double \checkmark\checkmark\ denotes
-  analogous systems with two-sided rotation and lithium ages in
-  agreement.
   }
 \end{deluxetable*}
 
