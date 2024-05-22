@@ -2182,7 +2182,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
     plt.close('all')
     set_style('clean')
 
-    fig, ax = plt.subplots(figsize=(3,3))
+    fig, ax = plt.subplots(figsize=(2.5,2.7))
 
     dfs = [
         cgk_df,
@@ -2193,9 +2193,9 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
 
     colors = [
         'lightgray',
-        'gray',
-        'k',
-        'C0'
+        'silver',
+        'dimgray',
+        'yellow'
     ]
     zorders = [
         -1,
@@ -2206,7 +2206,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
     sizes = [
         0.1,
         0.3,
-        1,
+        0.8,
         1.5
     ]
     labels = [
@@ -2222,9 +2222,9 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
         False
     ]
 
-    for df, c, z, l, s, r in zip(
+    for _i, (df, c, z, l, s, r) in enumerate(zip(
         dfs, colors, zorders, labels, sizes, rasterized
-    ):
+    )):
 
         if isinstance(vtangcut, str):
             df = get_vtang(df)
@@ -2237,19 +2237,27 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
 
         yval = nparr(df[ykey])
         xval = nparr(df[xkey])
-        ax.scatter(
-            xval, yval,
-            marker='o', c=c, zorder=z, s=s, linewidths=0,
-            label=l+f" ($N$={len(xval)})", rasterized=r
-        )
+        if _i != 3:
+            ax.scatter(
+                xval, yval,
+                marker='o', c=c, zorder=z, s=s, linewidths=0,
+                label=l+f" ($N$={len(xval)})", rasterized=r
+            )
+        else:
+            ax.scatter(
+                xval, yval,
+                marker='o', c=c, zorder=z, s=s, linewidths=0.1,
+                label=l+f" ($N$={len(xval)})", rasterized=r,
+                edgecolors='k'
+            )
 
     if ykey == 'adopted_logg' and xkey == 'adopted_Teff':
         xerr = dfs[2].adopted_Teff_err.mean()
         yerr = dfs[2].adopted_logg_err.mean()
         ax.errorbar(
             3500, 4.2, xerr=xerr, yerr=yerr,
-            marker='o', elinewidth=0.8, capsize=1.2, lw=0, mew=0.5, color='k',
-            markersize=0, zorder=5, alpha=1
+            marker='o', elinewidth=0.8, capsize=1.2, lw=0, mew=0.5,
+            color='dimgray', markersize=0, zorder=5, alpha=1
         )
         bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
         ax.text(3500, 4.27, 'mean\nuncert.', ha='center', va='top',
@@ -2279,34 +2287,46 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
 
         # overplot isochrones: MIST v1.2 with rotation
         #colors = ['cyan', 'hotpink', 'lime', 'magenta']
-        colors = plt.cm.Spectral(np.linspace(0, 1, 4))
-        csvnames = ["MIST_iso_662b04a781d06_3gyr.iso.cmd",
-                    "MIST_iso_662b02fe7d746_4gyr.iso.cmd",
-                    "MIST_iso_662b0653ce559_5gyr.iso.cmd",
-                    "MIST_iso_662b0684a43eb_6gyr.iso.cmd"]
+        #colors = plt.cm.Spectral(np.linspace(0, 1, 3))
+        #colors = ['cyan', 'lime', 'magenta']
+        colors = ['k','k','k']
+        linestyles = ['--', '-', '-.']
+        csvnames = [
+            "MIST_iso_664e4474d6bb1_1gyr.iso.cmd",
+            "MIST_iso_662b04a781d06_3gyr.iso.cmd",
+            #"MIST_iso_662b02fe7d746_4gyr.iso.cmd",
+            #"MIST_iso_662b0653ce559_5gyr.iso.cmd",
+            #"MIST_iso_662b0684a43eb_6gyr.iso.cmd",
+            "MIST_iso_664e448e18d47_10gyr.iso.cmd"
+        ]
         csvpaths = [join(DATADIR, "literature", n) for n in csvnames]
-        for ix, (csvpath, c) in enumerate(zip(csvpaths, colors)):
+        for ix, (csvpath, c, ls) in enumerate(zip(csvpaths, colors, linestyles)):
             mistdf = pd.read_csv(csvpath, delim_whitespace=True, comment='#')
             mist_teff = 10**mistdf.log_Teff
             mist_logg = mistdf.log_g
-            ax.plot(mist_teff, mist_logg, zorder=5, c=c, lw=0.2, alpha=1)
+            sel = (mist_teff > 4000)
+            ax.plot(mist_teff[sel], mist_logg[sel], zorder=5, c=c, lw=0.2,
+                    alpha=1, ls=ls)
             bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
-            if ix == 0:
-                ax.text(6400, 4.15, '3 Gyr', ha='right', va='center',
-                        fontsize='small', bbox=bbox, zorder=49, color=c)
-            elif ix == 3:
-                ax.text(5950, 4.15, '6 Gyr', ha='left', va='center',
-                        fontsize='small', bbox=bbox, zorder=49, color=c)
+            if ix == 1:
+                ax.text(7500, 3.8, '1 Gyr', ha='left', va='center',
+                        fontsize='x-small', bbox=bbox, zorder=49, color=c)
+            if ix == 1:
+                ax.text(6250, 3.8, '3 Gyr', ha='center', va='center',
+                        fontsize='x-small', bbox=bbox, zorder=49, color=c)
+            elif ix == 2:
+                ax.text(5400, 3.8, '10 Gyr', ha='left', va='center',
+                        fontsize='x-small', bbox=bbox, zorder=49, color=c)
 
 
         #print(constrained_polynomial_function(np.array([5070]), coeffs))
 
     if xkey == 'dr3_bp_rp':
         xlabel = '$G_\mathrm{BP}-G_{\mathrm{RP}}$ [mag]'
-        xlim = [0.1, 4.05]
+        xlim = [0.1, 3.05]
     elif xkey == 'adopted_Teff':
         xlabel = '$T_\mathrm{eff}$ [K]'
-        xlim = [7500, 2500]
+        xlim = [7600, 2500]
 
     if ykey == 'M_G':
         ylabel = '$M_\mathrm{G}$ [mag]'
