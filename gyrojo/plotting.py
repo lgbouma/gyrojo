@@ -776,6 +776,9 @@ def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
     sel &= df['age'] < AGE_MAX
     if teffcondition == 'allteff':
         pass
+    elif teffcondition == 'sunliketeff':
+        sel &= df['adopted_Teff'] >= 5500
+        sel &= df['adopted_Teff'] <= 6000
     elif teffcondition == 'teffgt5000':
         sel &= df['adopted_Teff'] >= 5000
     elif teffcondition == 'tefflt5000':
@@ -880,6 +883,8 @@ def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
             tstr = ', Teff $\geq$ 5000 K'
         elif teffcondition == 'tefflt5000':
             tstr = ', Teff $<$ 5000 K'
+        elif teffcondition == 'sunliketeff':
+            tstr = ', Teff 5500-6000 K'
         else:
             tstr = ''
 
