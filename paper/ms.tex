@@ -976,7 +976,7 @@ are left with \nplwgyroagenograzing\ planets orbiting
 \begin{figure*}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.99\textwidth]{olympic_merged_lit_ages_vs_cluster_ages.pdf}
+			\includegraphics[width=0.98\textwidth]{olympic_merged_lit_ages_vs_cluster_ages.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
@@ -985,8 +985,8 @@ are left with \nplwgyroagenograzing\ planets orbiting
 		Each point denotes a reported age,
 		normalized by the age of a stellar ensemble in which the star
 		is a candidate member.
-		We used candidate cluster members from previous studies that used spatial and kinematic
-		information.  Although some field interlopers may be present in the 
+		Cluster membership was assessed in previous studies without knowledge of rotation.
+		Although some field interlopers may be present in the 
 		membership lists,
 		any outliers can be compared between different methods on a
 		relative basis.
@@ -1032,82 +1032,72 @@ quote the 3$\sigma$ (99.7$^{\rm th}$ percentile) limits.
 \section{Cluster Age Comparison}
 \label{sec:litagecomparison}
 
-Stars that formed in the same birth cluster 
-are the gold standard for the astronomical age scale
-\citep{Soderblom_2010}.
-Before Gaia, the few $\gtrsim$1\,Gyr open clusters
-known in the Kepler field had been visually identified by
-\citet{1864RSPT..154....1H}.
-Gaia proper motions and distances 
-have enabled the discovery of stellar ensembles that are more diffuse,
-but which nonetheless
-share a common age 
-based on e.g.~isochrone, rotation, and lithium dating
+Stars that formed in the same birth cluster are the gold standard for
+the astronomical age scale \citep{Soderblom_2010}.  Before Gaia, the
+few $\gtrsim$1\,Gyr open clusters known in the Kepler field had been
+visually identified by \citet{1864RSPT..154....1H}.  Gaia proper
+motions and distances have enabled the discovery of stellar ensembles
+that are more diffuse, but which nonetheless share a common age based
+on e.g.~isochrone, rotation, and lithium dating
 \cite[e.g.][]{2019AJ....158..122K,Bouma_2022b,Barber_2022}.
 
 In Figure~\ref{fig:agescalecompone}, we compare our rotation-based
-ages, as well as select ages from the literature, against the ages of stars in the richest
-clusters in the Kepler field.
-From previous studies, we show ages from \citet{Berger_2020a_catalog},
-\citet{2021AJ....161..189L}, \citet{2023ApJ...952..131M}, and
-\citet{2024AJ....167..159L}.
-We followed any guidance available from these respective studies for
+ages, as well as select ages from the literature, against the ages of
+stars in the richest clusters in the Kepler field.  From the
+literature, we drew ages from \citet{Reinhold_2015},
+\citet{Berger_2020a_catalog}, \citet{2021AJ....161..189L},
+\citet{2023ApJ...952..131M}, and \citet{2024AJ....167..159L}.  We
+followed any guidance available from these respective studies for
 removing ages that were explicitly flagged as unreliable, and plotted
-stars within $1\sigma$ of zero as being upper limits.
+stars within $1\sigma$ of zero as being upper limits.  For the
+\citeauthor{Reinhold_2015} ages, we used those that were calculated
+using the \citet{Mamajek_2008} calibration; for the
+\citeauthor{2023ApJ...952..131M} ages, we show those from
+\texttt{kiauhoku} \citep{Claytor2020} rather than \texttt{STAREVOL}
+\citep{Amard2019}, based on the defaults adopted by
+\citeauthor{2023ApJ...952..131M}.
 
-Cluster memberships are a delicate subject.
-Figure~\ref{fig:agescalecompone} is showing reported ages for
-a set of spatially and kinematically selected set of stars that could be cluster members, or
-they could be field interlopers.  For NGC6811 and NGC6819, we
-adopted candidate members from
+Cluster membership is a delicate subject.
+Figure~\ref{fig:agescalecompone} is showing reported ages for a set of
+spatially and kinematically selected set of stars that could be
+cluster members, or they could be field interlopers.  For NGC6811 and
+NGC6819, we adopted candidate members from
 \citet{2018A&A...618A..93C,CantatGaudin_2020} and
-\citet{Kounkel_2020}. 
-For Melange-3 we used the candidates reported by
-\citet{Barber_2022} and required ``offset'' tangential
-velocities below 2\,\kms.  For Cep-Her we
-used candidate members from Table~2 of \citet{Bouma_2022b}, requiring
-``weights'' exceeding 0.1.
-Even with contaminants, we can compare
-the relative age distributions derived by the different studies because in all
-instances we are comparing reported ages against a fixed list of stars.
+\citet{Kounkel_2020}.  For Melange-3 we used the candidates reported
+by \citet{Barber_2022} and required ``offset'' tangential velocities
+below 2\,\kms.  For Cep-Her we used candidate members from Table~2 of
+\citet{Bouma_2022b}, requiring ``weights'' exceeding 0.1.  Even with
+contaminants, we can compare the relative age distributions derived by
+the different studies because in all instances we are comparing
+reported ages against a fixed list of stars.
 
-There are two main metrics for success in this test: accuracy
-in whether the reported ages agree with the cluster age, and precision in
-whether the reported age uncertainties agree with their
-dispersion around the cluster age.
+There are two main metrics for success in this test: accuracy in
+whether the reported ages agree with the cluster age, and precision in
+whether the reported age uncertainties agree with their dispersion
+around the cluster age.
 
 The point of Figure~\ref{fig:agescalecompone} is hopefully clear.
 While previous studies have been able to derive accurate ages for
-stars $\gtrsim$1\,Gyr old, the ages of sub-gigayear stars have historically been
-overestimated by anywhere from 0.5--2\,dex.
-The situation is particularly severe for the 40\,Myr stars in Cep-Her,
-but it is also present for 150--300\,Myr stars in Melange-3 and Theia~520.
-For isochrone and kinematic ages,
-this is not surprising because these methods use stellar parameters that do
-not appreciably change at $t$$\lesssim$1\,Gyr.
-For the rotation-based ages quoted by
-\citet{2023ApJ...952..131M} and \citet{2024AJ....167..159L}, the discrepancy
-between their ages and the cluster age scale is likely caused by details of the calibration 
-methodologies.
-The physical spin-down models used by
-\citet{2023ApJ...952..131M},
-and the gyro-kinematic calibration ages used by \citet{2024AJ....167..159L},
-may not reproduce
-the rotation sequences of open clusters such as Praesepe, the Hyades, and the Pleiades.
-The statistical age uncertainties yielded by these approaches
-similarly may not marginalize over the intrinsic
-scatter in rotation periods present in stars of a fixed mass at any given age.
-
-%The rotation-based ages that we have calculated have a precision
-%limited by the intrinsic scatter in the cluster rotation sequences.
-%Within the age range accessible through the clusters, they seem to be
-%mostly accurate,
-%with the one exception being that our ages for stars in Cep-Her 
-%have a typical median of $\approx$80\,Myr, rather than 40\,Myr.
-%The reason is that 80\,Myr is the lower bound of 
-%the \texttt{gyro-interp}  age grid; pre-main-sequence
-%spin-up is outside of our calibration regime.
-
+stars $\gtrsim$1\,Gyr old, the ages of sub-gigayear stars have
+historically been overestimated by anywhere from 0.3--2\,dex.  The
+situation is particularly severe for the 40\,Myr stars in Cep-Her, but
+it is also present for 150--300\,Myr stars in Melange-3 and Theia~520.
+For isochrone and kinematic ages, this is not surprising because these
+methods rely on parameters that do not appreciably change at
+$t$$\lesssim$1\,Gyr.  For the rotation-based ages quoted by
+\citet{2023ApJ...952..131M} and \citet{2024AJ....167..159L}, the
+discrepancy is likely
+caused by details of the calibration methodologies.  The physical
+spin-down models used by \citet{2023ApJ...952..131M}, and the
+gyro-kinematic calibration ages used by \citet{2024AJ....167..159L},
+may not reproduce the rotation sequences of open clusters such as
+Praesepe, the Hyades, and the Pleiades.  The \citet{Mamajek_2008}
+calibration used by \citet{Reinhold_2015} does reproduce such
+sequences for Sun-like stars.  However the
+uncertainties determined using this approach are underestimates, because
+they do not marginalize over
+the intrinsic scatter in rotation periods present for stars of a fixed
+mass and age.
 
 
 
@@ -1118,12 +1108,12 @@ scatter in rotation periods present in stars of a fixed mass at any given age.
   \begin{center}
     \leavevmode
     \subfloat{
-    \includegraphics[width=.99\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage4000.pdf}
+    \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage4000.pdf}
     }
 
 	\vspace{-0.35cm}
     \subfloat{
-    \includegraphics[width=.99\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage4000_preciseagesonly.pdf}
+    \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage4000_preciseagesonly.pdf}
     }
   \end{center}
   \vspace{-0.66cm}
@@ -1664,12 +1654,12 @@ and the Arthur R.~Adams SURF Fellowship (EKP).
 	SDSS \citep{2000AJ....120.1579Y}.
 }
 
-\software{
-  astropy \citep{Astropy18},
-  matplotlib \citep{matplotlib},
-  numpy \citep{numpy},
-  scipy \citep{scipy},
-}
+%\software{
+%  astropy \citep{Astropy18},
+%  matplotlib \citep{matplotlib},
+%  numpy \citep{numpy},
+%  scipy \citep{scipy},
+%}
 
 %\clearpage 
 
