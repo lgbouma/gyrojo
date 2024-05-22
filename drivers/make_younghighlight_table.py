@@ -1,4 +1,5 @@
 import os
+from numpy import array as nparr
 from os.path import join
 from copy import deepcopy
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
@@ -348,6 +349,7 @@ def make_table(
             print(f"{s}: {frac_consistent}% are consistent")
             print(10*'-')
 
+    kepids = nparr(pdf['kepid'])
     pdf = pdf.drop(columns=['kepid'])
     mapdict.pop('kepid')
 
@@ -436,6 +438,11 @@ def make_table(
         ulkvp('nnonfopkoissomeageinfo', len(pdf))
 
         pdf = pdf.rename(invdict, axis='columns')
+
+        pdf['kepid'] = kepids
+        selcols = [c for c in pdf.columns]
+        selcols = [selcols[-1]] + selcols[0:-1]
+        pdf = pdf[selcols]
 
         csvpath = join(PAPERDIR, 'table_allageinfo.csv')
         pdf.to_csv(csvpath, index=False)
