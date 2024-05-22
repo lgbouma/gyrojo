@@ -132,18 +132,19 @@ Mellon University, Pittsburgh, PA 15213, USA}
   and \nplwgyroagenograzing\ planets for which our method is
   applicable.
   %
-  We find that our rotation-based ages accurately recover ages of
+  We find that our rotational ages accurately recover the ages of
   stars in open clusters spanning 0.04-2.5\,Gyr; they also agree with
   $\gtrsim$90\% of the independent lithium ages.
   %
-  The results include \nplyounggyrotwosigma\ planets
+  The resulting yield includes \nplyounggyrotwosigma\ planets
   younger than 1\,Gyr at 2$\sigma$ (\nplyounggyrothreesigma\ planets
   at 3$\sigma$).
   %
   This is far fewer than expected under the classic assumption of a uniform
-  star formation history: the star formation rate in the Kepler field
-  has dropped by a factor of \ratiosfr$\pm$\uncratiosfr\ over the past
-  3\,Gyr.  This trend holds for both planet hosts and for the overall
+  star formation history.  We find that this dearth can be attributed to the star formation
+  rate in the Kepler field
+  dropping by a factor of \ratiosfr$\pm$\uncratiosfr\ over the past
+  3\,Gyr.  This trend is observed both for known planet hosts as well as for the overall
   stellar sample.
   %
   This ``demographic cliff'' in the Galaxy's star
@@ -330,29 +331,29 @@ are offered in Section~\ref{sec:conclusions}.
 \begin{figure}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.48\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
+			\includegraphics[width=0.475\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
 		}
 	
+		\vspace{-0.3cm}
 		\subfloat{
-			\includegraphics[width=0.48\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
+			\includegraphics[width=0.475\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
-	\caption{
-    {\bf The stars.}  Our analysis focuses on stars observed by Kepler
-    with previously reported rotation periods (dark gray points).  The
+	\caption{{\bf The stars.}  Our analysis focuses on stars observed by Kepler
+    with previously reported rotation periods (gray points).  The
     rotation periods are primarily drawn from
     \citet{Santos_2019,Santos_2021}.  About half of these rotators are
-    suitable for gyrochronology (black points), based on factors
-    including their temperatures, surface gravities, non-binarity, and
-    proximity to the main sequence (see Section~\ref{subsec:flags}).
-    Some are ``confirmed'' or ``candidate'' Kepler Objects of Interest
-    that meet an additional set of planetary quality criteria (blue
+    suitable for gyrochronology (dark gray points), based on factors
+    including their non-binarity and
+    proximity to the spectroscopic main sequence (orange boundary; see Section~\ref{subsec:flags}).
+    Some are ``confirmed'' or ``candidate'' KOIs
+    that meet an additional set of planetary quality criteria (yellow
     points; Section~\ref{subsec:plflags}).  Surface gravities and
     effective temperatures were derived photometrically by
     \citet{Berger_2020a_catalog}.
-    MIST isochrones spanning 3--6\,Gyr in 1\,Gyr increments 
-    are shown in the lower panel \citep{Choi_2016} .
+    Isochrones 
+    in the lower panel are from MIST \citep{Choi_2016} .
 	}
 	\label{fig:stellarprops}
 \end{figure}
@@ -608,11 +609,10 @@ ages.
 \begin{figure}[!t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.48\textwidth]{li_vs_teff_koi_X_JUMP_eagles.pdf}
+		\includegraphics[width=0.49\textwidth]{li_vs_teff_koi_X_JUMP_eagles.pdf}
 	\end{center}
-	\vspace{-0.5cm}
-	\caption{
-    {\bf Equivalent widths (EW) of the \ion{Li}{1} 6708\,\AA\ doublet
+	\vspace{-0.25cm}
+	\caption{{\bf Equivalent widths (EW) of the \ion{Li}{1} 6708\,\AA\ doublet
     for planet-hosting stars.} These measurements were made from
     Keck/HIRES spectra collected from 2009--2024.  Lines are the ``mean''
     isochrones from the same models as in Figure~\ref{fig:models}.  The
@@ -858,16 +858,17 @@ However for F and G dwarfs, the resulting locus
 allowed for stars that were `too evolved''; the density of KOIs 
 was anomalously low in this region of the $\log g$ vs.\ $T$$_{\rm eff}$ plane.
 We therefore visually selected KOIs that appeared
-to be near the main sequence -- i.e.~ most of the blue
+to be near the main sequence -- i.e.~ most of the yellow
 points in Figure~\ref{fig:stellarprops} -- and used them to fit a separate
 polynomial $f_1$ through a similar BIC-minimization procedure,
-and found $N$=3.
+which yielded $N$=3.
+This polynomial, $f_1$, is shown in very faint opacity in Figure~\ref{fig:stellarprops}.
 The portion of the orange locus from $\approx$5300--6200\,K
 is set as $f_1 + c$, for $c$ a constant offset that we visually tuned to be
-$\approx$0.1\,dex above the ``KOI main sequence''.
+0.1\,dex above the ``KOI main sequence''.
 The exact break-point in temperature is automatically set by ${\rm max}(f_0, f_1+c)$.
-We emphasize that for stars
-surface gravities above the orange locus, we do report rotation based ages;
+We emphasize that we do report rotation-based ages for stars
+above the orange locus;
 they are simply flagged as not being near the main sequence.  }
 the general aim is to flag stars for which there is evidence based on
 their location in the $\log g$--$T_{\rm eff}$ plane that our
