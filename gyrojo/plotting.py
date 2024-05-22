@@ -1602,8 +1602,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         ax.update({
             #'xlabel': '$t_{\mathrm{gyro}}$ [Gyr]',
             'xlim': [xmin/1e3, (xmax)/1e3],
-            'ylim': [0, 0.079],
-            'yticks': [0, 0.02, 0.04, 0.06],
+            'ylim': [0, 0.086],
+            'yticks': [0, 0.02, 0.04, 0.06, 0.08],
         })
         if MAXAGE < 4000:
             ax.set_xticks([0, 1, 2, 3])
