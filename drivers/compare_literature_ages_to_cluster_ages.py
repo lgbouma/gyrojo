@@ -146,6 +146,11 @@ l21_df = ascii.read(tabpath, format='mrt').to_pandas()
 tabpath = join(DATADIR, "literature", "Lu_2024_ajad28b9t2_mrt.txt")
 l24_df = ascii.read(tabpath, format='mrt').to_pandas()
 
+# Reinhold+2015
+catalogs = _v.get_catalogs("J/A+A/583/A65")
+r15_df = catalogs[1].to_pandas() # output parameters
+r15_df = r15_df[~r15_df['tMH08'].isna()]
+
 def _get_cluster_xm_lit_dfs(cluster_df):
     """
     Given "cluster dataframe" with some set of kepler id's, get the
@@ -216,7 +221,15 @@ def _get_cluster_xm_lit_dfs(cluster_df):
     )
     sl24_df = l24_df[sel].sort_values(by='Age')
 
-    return sb24df, sm23_df, sm23_df3, sb20_df, sl21_df, sl24_df
+    #
+    # Reinhold gyro-only
+    #
+    sel = (
+        (r15_df.KIC.isin(cluster_df.kepid))
+    )
+    sr15_df = r15_df[sel].sort_values(by='tMH08')
+
+    return sb24df, sm23_df, sm23_df3, sb20_df, sl21_df, sl24_df, sr15_df
 
 
 for cluster_df, cluster_full_name, true_age in zip(
@@ -225,7 +238,7 @@ for cluster_df, cluster_full_name, true_age in zip(
 
     cluster_short_name = cluster_full_name.split(" ")[0]
 
-    sb24df, sm23_df, sm23_df3, sb20_df, sl21_df, sl24_df = (
+    sb24df, sm23_df, sm23_df3, sb20_df, sl21_df, sl24_df, sr15_df = (
         _get_cluster_xm_lit_dfs(cluster_df)
     )
 
@@ -236,13 +249,13 @@ for cluster_df, cluster_full_name, true_age in zip(
     plt.close("all")
     set_style("clean")
 
-    fig, axs = plt.subplots(nrows=1, ncols=5, figsize=(0.8*7,0.8*1.8))
+    fig, axs = plt.subplots(nrows=1, ncols=6, figsize=(0.8*7,0.8*1.8))
     axs = axs.flatten()
 
     # STAREVOL from SM23 qualtiatively similar, but mildly worse.
     dfs = [
         sb24df, sm23_df, #sm23_df3,
-        sb20_df, sl21_df, sl24_df
+        sb20_df, sl21_df, sl24_df, sr15_df
     ]
     xvalnames = [
         'gyro_median', 'Age', #'Age',
@@ -253,22 +266,22 @@ for cluster_df, cluster_full_name, true_age in zip(
     # that all entries in these columns are negative.
     xmerrnames = [
         'gyro_-1sigma', 'e_Age', #'e_Age',
-        'b20t2_e_Age', 'e_kinage', "e_Age"
+        'b20t2_e_Age', 'e_kinage', "e_Age", 'tMH08'
     ]
     xperrnames = [
         'gyro_+1sigma', 'E_Age', #'E_Age',
-        'b20t2_E_Age', 'e_kinage', "E_Age"
+        'b20t2_E_Age', 'e_kinage', "E_Age", 'e_tMH08'
     ]
     div1ks = [
         1, 0, #0,
-        0, 0, 0
+        0, 0, 0, 1
     ]
 
     texts = [
         'gyro-interp (Bouma+24)', 'kiauhoku (Mathur+23)',
         #'STAREVOL (Mathur+23)',
         'Isochrones (Berger+20)',
-        'gyro-kinematic (Lu+21)', 'gyro (Lu+24)'
+        'gyro-kinematic (Lu+21)', 'gyro (Lu+24)', 'gyro (Reinhold+15)'
     ]
 
     for ix, (ax, df, xkey, xmerrkey, xperrkey, div1k, txt) in enumerate(zip(
@@ -342,7 +355,7 @@ for ix, (cluster_df, cluster_full_name, true_age) in enumerate(zip(
 
     cluster_short_name = cluster_full_name.split(" ")[0]
 
-    sb24df, sm23_df, sm23_df3, sb20_df, sl21_df, sl24_df = (
+    sb24df, sm23_df, sm23_df3, sb20_df, sl21_df, sl24_df, sr15_df = (
         _get_cluster_xm_lit_dfs(cluster_df)
     )
 
@@ -457,20 +470,21 @@ savefig(fig, outpath, dpi=400)
 plt.close("all")
 set_style("clean")
 
-fig, axs = plt.subplots(nrows=5, ncols=5, figsize=(0.8*7,4.5*0.8*1.8))
-
 fig = plt.figure(figsize=(0.8*7,0.8*5))
+#axd = fig.subplot_mosaic(
+#    """
+#    AABBCC
+#    .DDEE.
+#    """)
 axd = fig.subplot_mosaic(
     """
     AABBCC
-    .DDEE.
-    """#,
-    #gridspec_kw={
-    #    "width_ratios": [6,1,1,1,1],
-    #}
+    DDEEFF
+    """
 )
 
-axs = [axd['A'], axd['B'], axd['C'], axd['D'], axd['E']]
+
+axs = [axd['A'], axd['B'], axd['C'], axd['D'], axd['E'], axd['F']]
 
 inds = np.argsort(true_ages)
 
@@ -484,7 +498,7 @@ for ix, (cluster_df, cluster_full_name, true_age) in enumerate(zip(
 
     cluster_short_name = cluster_full_name.split(" ")[0]
 
-    sb24df, sm23_df, sm23_df3, sb20_df, sl21_df, sl24_df = (
+    sb24df, sm23_df, sm23_df3, sb20_df, sl21_df, sl24_df, sr15_df = (
         _get_cluster_xm_lit_dfs(cluster_df)
     )
 
@@ -495,33 +509,33 @@ for ix, (cluster_df, cluster_full_name, true_age) in enumerate(zip(
     # STAREVOL from SM23 qualtiatively similar, but mildly worse.
     dfs = [
         sb24df, sm23_df, #sm23_df3,
-        sb20_df, sl21_df, sl24_df
+        sb20_df, sl21_df, sl24_df, sr15_df
     ]
     xvalnames = [
         'gyro_median', 'Age', #'Age',
-        'b20t2_Age', 'kinage', "Age"
+        'b20t2_Age', 'kinage', "Age", 'tMH08'
     ]
 
     # "E_" means upper err, "e_" means lower.  Note that "e_" is signed, so
     # that all entries in these columns are negative.
     xmerrnames = [
         'gyro_-1sigma', 'e_Age', #'e_Age',
-        'b20t2_e_Age', 'e_kinage', "e_Age"
+        'b20t2_e_Age', 'e_kinage', "e_Age", 'e_tMH08'
     ]
     xperrnames = [
         'gyro_+1sigma', 'E_Age', #'E_Age',
-        'b20t2_E_Age', 'e_kinage', "E_Age"
+        'b20t2_E_Age', 'e_kinage', "E_Age", 'e_tMH08'
     ]
     div1ks = [
         1, 0, #0,
-        0, 0, 0
+        0, 0, 0, 1
     ]
 
     texts = [
         'gyro-interp\n(This work)', 'kiauhoku\n(Mathur+23)',
         #'STAREVOL (Mathur+23)',
         'Isochrones\n(Berger+20)',
-        'gyro-kinematic\n(Lu+21)', 'gyro\n(Lu+24)'
+        'gyro-kinematic\n(Lu+21)', 'gyro\n(Lu+24)', 'gyro\n(Reinhold+15)'
     ]
 
     for iy, (df, xkey, xmerrkey, xperrkey, div1k, txt) in enumerate(zip(
