@@ -1577,7 +1577,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     ##########################################
 
     for ax in axs:
-        add_gradient_patch(ax, 3.4, 4.1, 0, 0.1)
+        add_gradient_patch(ax, 3.1, 4.1, 0, 0.1)
 
     xmin = 0
     xmax = MAXAGE-20 if MAXAGE < 4000 else MAXAGE
