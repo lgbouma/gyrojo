@@ -1315,7 +1315,7 @@ def add_gradient_patch(ax, xmin, xmax, ymin, ymax, resolution=100):
 
 
 def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
-                              datestr='20240430', s19s21only=0,
+                              datestr='20240521', s19s21only=0,
                               preciseagesonly=0):
 
     from gyrointerp.paths import CACHEDIR
@@ -1879,7 +1879,7 @@ def plot_field_gyro_posteriors(outdir, cache_id, sampleid):
                     lw=0.3, c='k', zorder=zorder)
 
         xmin = 0
-        xmax = 4000
+        xmax = 6000
         ax.update({
             'xlabel': 'Age [Myr]',
             'ylabel': 'Probability ($10^{-3}\,$Myr$^{-1}$)',
@@ -2185,38 +2185,38 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
     fig, ax = plt.subplots(figsize=(2.5,2.7))
 
     dfs = [
-        cgk_df,
+       #cgk_df,
         kicdf,
         kicdf[kicdf['flag_is_gyro_applicable']],
         koidf
     ]
 
     colors = [
-        'lightgray',
+        #'lightgray',
         'silver',
         'dimgray',
         'yellow'
     ]
     zorders = [
-        -1,
+        #-1,
         0,
         1,
         2
     ]
     sizes = [
-        0.1,
+        #0.1,
         0.3,
         0.8,
         1.5
     ]
     labels = [
-        'KIC',
-        '...w/ Prot',
+        #'KIC',
+        'Has Prot',
         '...& gyro applicable',
         '...& KOI',
     ]
     rasterized = [
-        True,
+        #True,
         True,
         True,
         False
@@ -2237,7 +2237,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
 
         yval = nparr(df[ykey])
         xval = nparr(df[xkey])
-        if _i != 3:
+        if _i != len(dfs) - 1:
             ax.scatter(
                 xval, yval,
                 marker='o', c=c, zorder=z, s=s, linewidths=0,
@@ -2252,8 +2252,8 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
             )
 
     if ykey == 'adopted_logg' and xkey == 'adopted_Teff':
-        xerr = dfs[2].adopted_Teff_err.mean()
-        yerr = dfs[2].adopted_logg_err.mean()
+        xerr = dfs[1].adopted_Teff_err.mean()
+        yerr = dfs[1].adopted_logg_err.mean()
         ax.errorbar(
             3500, 4.2, xerr=xerr, yerr=yerr,
             marker='o', elinewidth=0.8, capsize=1.2, lw=0, mew=0.5,
@@ -2330,7 +2330,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
 
     if ykey == 'M_G':
         ylabel = '$M_\mathrm{G}$ [mag]'
-        ylim = [15.5, -3.5]
+        ylim = [12.5, -1]
     elif ykey == 'adopted_logg':
         ylabel = '$\log g$ [dex]'
         ylim = [5.4, 3.4]
@@ -2345,7 +2345,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
         'xlim': xlim
     })
     if ykey == 'M_G':
-        ax.set_yticks([15, 10, 5, 0])
+        ax.set_yticks([12, 8, 4, 0])
     elif ykey == 'adopted_logg':
         ax.set_yticks([5, 4.5, 4, 3.5])
 
