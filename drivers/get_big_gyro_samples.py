@@ -7,9 +7,10 @@ import os
 import pandas as pd, numpy as np
 from numpy import array as nparr
 from glob import glob
+from gyrointerp.paths import CACHEDIR
 
-postdir = '/Users/luke/.gyrointerp_cache/field_gyro_posteriors_20240521/'
-outdir = '/Users/luke/.gyrointerp_cache/bigsamples_field_gyro_posteriors_20240521/'
+postdir = join(CACHEDIR, 'field_gyro_posteriors_20240521')
+outdir = join(CACHEDIR, 'bigsamples_field_gyro_posteriors_20240521')
 if not os.path.exists(outdir): os.mkdir(outdir)
 
 csvpaths = glob(join(postdir, "*_posterior.csv"))
