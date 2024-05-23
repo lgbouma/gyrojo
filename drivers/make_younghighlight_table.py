@@ -230,11 +230,23 @@ def make_table(
         pdf, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     )
+    sel_gyro_weakquality = select_by_quality_bits(
+        pdf, [0, 1, 2, 3, 4, 5, 6, 8, 9],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    )
     _sel0 = (
         (pdf.min_age < 1000) &
         sel_gyro_quality &
         (pdf.flag_planet_quality=='0') &
         (pdf.koi_disposition == 'CONFIRMED') &
+        (pdf.li_eagles_limlo == -1.)
+    )
+    _wsel0 = (
+        (pdf.min_age < 1000) &
+        sel_gyro_weakquality &
+        (pdf.flag_planet_quality=='0') &
+        ( ( pdf.koi_disposition == 'CONFIRMED') |
+          (pdf.koi_disposition == 'CANDIDATE') ) &
         (pdf.li_eagles_limlo == -1.)
     )
     for k in pdf[_sel0].kepoi_name:
@@ -246,6 +258,15 @@ def make_table(
         sel_gyro_quality &
         (pdf.flag_planet_quality=='0') &
         (pdf.koi_disposition == 'CONFIRMED') &
+        (pdf.li_eagles_limlo > -1.)
+    )
+    _wsel1 = (
+        (pdf.min_age < 1000) &
+        sel_gyro_weakquality &
+        (pdf.flag_planet_quality=='0') &
+        ((pdf.koi_disposition == 'CONFIRMED') |
+         (pdf.koi_disposition == 'CANDIDATE')
+        ) &
         (pdf.li_eagles_limlo > -1.)
     )
     for k in pdf[_sel1].kepoi_name:
@@ -415,6 +436,8 @@ def make_table(
 
         ulkvp(f'ltonegyrhighqconfirmedtwosided', len(pdf[_sel0 & _s]))
         ulkvp(f'ltonegyrhighqconfirmedonesided', len(pdf[_sel1 & _s]))
+        ulkvp(f'ltonegyrmediumqconfirmedtwosided', len(pdf[_wsel0 & _s]))
+        ulkvp(f'ltonegyrmediumqconfirmedonesided', len(pdf[_wsel1 & _s]))
 
         seldf = seldf.drop(
             columns=['flag_dr3_ruwe_outlier', 'flag_koi_is_grazing']
