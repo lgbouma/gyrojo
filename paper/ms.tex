@@ -340,35 +340,34 @@ are offered in Section~\ref{sec:conclusions}.
 		}
 	\end{center}
 	\vspace{-0.5cm}
-	\caption{{\bf The stars.}  Our analysis focuses on stars observed by Kepler
-    with previously reported rotation periods (gray points).  The
-    rotation periods are primarily drawn from
-    \citet{Santos_2019,Santos_2021}.  About half of these rotators are
-    suitable for gyrochronology (dark gray points), based on factors
-    including their non-binarity and
-    proximity to the spectroscopic main sequence (orange boundary; see Section~\ref{subsec:flags}).
-    Some are ``confirmed'' or ``candidate'' KOIs
-    that meet an additional set of planetary quality criteria (yellow
-    points; Section~\ref{subsec:plflags}).  Surface gravities and
-    effective temperatures were derived photometrically by
-    \citet{Berger_2020a_catalog}.
-    Isochrones 
-    in the lower panel are from MIST \citep{Choi_2016} .
+  \caption{{\bf The stars.}  Our analysis focuses on stars observed by
+  Kepler with previously reported rotation periods (gray points).  The
+  rotation periods are primarily drawn from
+  \citet{Santos_2019,Santos_2021}.  About half of these rotators are
+  suitable for gyrochronology (dark gray points), based on factors
+  including their non-binarity and proximity to the spectroscopic main
+  sequence (orange boundary; see Section~\ref{subsec:flags}).  Some
+  are ``confirmed'' or ``candidate'' KOIs that meet an additional set
+  of planetary quality criteria (yellow points;
+  Section~\ref{subsec:plflags}).  Surface gravities and effective
+  temperatures were derived photometrically by
+  \citet{Berger_2020a_catalog}.  Isochrones in the lower panel are
+  from MIST \citep{Choi_2016}.
 	}
 	\label{fig:stellarprops}
 \end{figure}
 
 This work is focused on Kepler stars for which ages can be inferred
-using either rotation, lithium, or both.  Such stars
-are a minority of the \nkeplerstars\ Kepler targets.  Rotation periods
-have been reported for roughly one in three Kepler targets
+using either rotation, lithium, or both.  Such stars are a minority of
+the \nkeplerstars\ Kepler targets.  Rotation periods have been
+reported for roughly one in three Kepler targets
 \citep[e.g.][]{McQuillan_2014,Santos_2021}.  High-resolution spectra
 suitable for measurement of the \ion{Li}{1} 6708\,\AA\ doublet have
 only been acquired for the Kepler objects of interest (KOIs), which
 comprise a few percent of Kepler's targets.  In the following, we will
 describe the set of stars that we adopt with measured rotation periods
-(Section~\ref{subsec:rotsel}), the set of objects we adopt as hosting planets
-(Section~\ref{subsec:planetsel}), and the subset of these with
+(Section~\ref{subsec:rotsel}), the set of objects we adopt as hosting
+planets (Section~\ref{subsec:planetsel}), and the subset of these with
 high-resolution spectra suitable for lithium analysis
 (Section~\ref{subsec:lithiumsel}).  Figure~\ref{fig:stellarprops}
 provides a visualization of the various samples.
@@ -615,9 +614,10 @@ ages.
 	\caption{{\bf Equivalent widths (EW) of the \ion{Li}{1} 6708\,\AA\ doublet
     for planet-hosting stars.} These measurements were made from
     Keck/HIRES spectra collected from 2009--2024.  Lines are the ``mean''
-    isochrones from the same models as in Figure~\ref{fig:models}.  The
-    intrinsic dispersion becomes much larger
-    than changes in the mean at $\gtrsim$1\,Gyr.  Some stars with lithium detections do
+    isochrones from \citet{Jeffries_2023}.  The
+    intrinsic dispersion around these isochrones becomes much larger
+    than changes in the mean at $\gtrsim$1\,Gyr (see
+    Figure~\ref{fig:models}).  Some stars with lithium detections do
     not have detected rotation periods, and vice-versa.
 		\label{fig:li_vs_teff}
 	}
@@ -841,35 +841,7 @@ stars far from the main sequence.  The added concerns of
 reddening and metallicity further complicate matters.  After exploring
 various options, we settled on the orange locus in the $\log
 g$--$T_{\rm eff}$ plane shown in Figure~\ref{fig:stellarprops}.  While
-the exact details of how this locus is constructed are arbitrary\footnote{For purposes of reproducibility, 
-	the method was as follows.
-The orange line in Figure~\ref{fig:stellarprops} is	defined as
-the maximum of two numerically-determined functions, $f_0(T_{\rm eff})$ and $f_1(T_{\rm eff})$.
-We defined $f_0$ by fitting an
-$N^{\rm th}$-order polynomial to the stars with rotation periods for which $t_{\rm
-B20,iso}/(+\sigma_{t,{\rm B20,iso}})\approx 3$
-and $T_{\rm eff}\in[3700,5900]$\,K, where
-$t_{\rm B20,iso}$ was the isochronal age reported by
-\citet{Berger_2020a_catalog}.  We let the order of the fit vary from
-$N$=1 to 10, minimized the Bayesian Information Criterion,
-and found $N$=6.  
-By eye, this yielded a plausible locus for $T_{\rm eff}$$\lesssim$5300\,K.
-However for F and G dwarfs, the resulting locus
-allowed for stars that were `too evolved''; the density of KOIs 
-was anomalously low in this region of the $\log g$ vs.\ $T$$_{\rm eff}$ plane.
-We therefore visually selected KOIs that appeared
-to be near the main sequence -- i.e.~ most of the yellow
-points in Figure~\ref{fig:stellarprops} -- and used them to fit a separate
-polynomial $f_1$ through a similar BIC-minimization procedure,
-which yielded $N$=3.
-This polynomial, $f_1$, is shown in very faint opacity in Figure~\ref{fig:stellarprops}.
-The portion of the orange locus from $\approx$5300--6200\,K
-is set as $f_1 + c$, for $c$ a constant offset that we visually tuned to be
-0.1\,dex above the ``KOI main sequence''.
-The exact break-point in temperature is automatically set by ${\rm max}(f_0, f_1+c)$.
-We emphasize that we do report rotation-based ages for stars
-above the orange locus;
-they are simply flagged as not being near the main sequence.  }
+the exact details of how this locus is constructed are arbitrary (see Appendix~\ref{app:linemethod}),
 the general aim is to flag stars for which there is evidence based on
 their location in the $\log g$--$T_{\rm eff}$ plane that our
 gyrochronology model may not be reliable.  
@@ -1094,7 +1066,7 @@ may not reproduce the rotation sequences of open clusters such as
 Praesepe, the Hyades, and the Pleiades.  The \citet{Mamajek_2008}
 calibration used by \citet{Reinhold_2015} does reproduce such
 sequences for Sun-like stars.  However the
-uncertainties determined using this approach are underestimates, because
+uncertainties determined using that method are underestimates because
 they do not marginalize over
 the intrinsic scatter in rotation periods present for stars of a fixed
 mass and age.
@@ -1330,10 +1302,10 @@ in fact be young.
 
 \subsubsection{New Young Planets}
 
-Let us restrict our attention to blemish-free stars, with blemish-free
-``confirmed'' planets: $Q_{\rm star}$ must not have any of bits zero
-through nine raised, and $Q_{\rm planet}$ must have no quality flags
-raised at all.  Under this constraint, our results include
+Let us restrict discussion to blemish-free stars with 
+confirmed planets: $Q_{\rm star}$ must not have any of bits zero
+through nine raised, and $Q_{\rm planet}$ must also have no quality flags
+raised.  Under this constraint, our results include
 \ltonegyrhighqconfirmedtwosided\ systems younger than 1\,Gyr with
 two-sided $t_{\rm gyro}$ and $t_{\rm Li}$, and
 \ltonegyrhighqconfirmedonesided\ cases for which $t_{\rm gyro}$
@@ -1344,21 +1316,21 @@ They include \nearthshighqconfirmed\ Earth-sized or smaller planets,
 no Jupiter-sized or larger planets, \nsubsaturnshighqconfirmed\
 ``super-Neptune'' ($>$4\,$R_\oplus$) sized planets,
 \nminineptuneshighqconfirmed\ mini-Neptunes above the radius valley
-(as parametrized by \citealt{2018MNRAS.479.4786V}), and
+as parametrized by \citealt{2018MNRAS.479.4786V}, and
 \nsuperearthshighqconfirmed\ super-Earth sized planets below the
 radius valley.  While most of these planets are on orbital periods
 below 50\,days, \nlongperiodhighqconfirmed\ are on more distant
 orbits.
 
-A few new highlights from the high quality stars and planets include
+A few highlights from these systems include
 Kepler-1529, Kepler-1565, Kepler-1312, and Kepler-1629.  Kepler-1529b
 is a $\approx$100$\pm$50\,Myr mini-Neptune with well-measured rotation
 and lithium ages.  Kepler-1565b is an analogous $\approx$170-230\,Myr
 super-Earth.  Kepler-1312 is a $t_{\rm gyro}$=\kepthirteentwelve\,Myr
-near-Solar analog with two transiting planets: an Earth-sized planet
+near-Solar analog with an Earth-sized planet
 on a one-day orbit, and a mini-Neptune on a five-day orbit.  The
-Earth-sized planet, Kepler-1312c, along with the near-identical
-Kepler-1561 b ($t_{\rm gyro}$=\kepfifteensixone\,Myr), rank among the
+Earth-sized planet, Kepler-1312~c, along with the near-identical
+Kepler-1561~b ($t_{\rm gyro}$=\kepfifteensixone\,Myr), rank among the
 youngest Earth-sized planets currently known, comparable to systems
 such as HD~63433d \citep[1.1\,$R_\oplus$,
 $414$$\pm$$23$\,Myr;][]{2024AJ....167...54C} and TOI-1807~b
@@ -1409,7 +1381,7 @@ reconnaissance TRES spectrum confirms the point.
 Most of the stars observed by Kepler are in the thin disk.  This can
 be verified by following \citet{Gaia_2018}, and denoting stars with 2D
 tangential velocities $v_{\rm T}$$<$40\,\kms\ as thin disk members,
-and those with 60$<$$v_{\rm T}$$<$150\,\kms as thick disk members.
+and those with 60$<$$v_{\rm T}$$<$150\,\kms\ as thick disk members.
 For all stars in the KIC, this yields 95{,}694 thin and 54{,}039 thick
 disk stars respectively.  The thin disk stars have a threefold larger
 detected rotation period fraction: 35{,}675 rotators are in the thin
@@ -1455,8 +1427,7 @@ $\approx$2\,Gyr spike reported by \citet{2020NatAs...4..965R}.  The
 $\approx$1\,Gyr spike however is not recovered.
 
 
-% compare against Berger+20, 
-% note their sentence
+% compare against Berger+20, note their sentence
 % "Encouragingly, the distribution also qualita- tively matches the red giant asteroseismology-derived age distributions in Silva Aguirre et al. (2018) and Pinsonneault et al. (2018), as well as the rotation-based ages in Claytor et al. (2020) and the Galactic Archaeology with HERMES–Gaia ages in Buder et al. (2019)."
 %
 % also compare against Mor2019 and their literature assessment
@@ -1543,7 +1514,7 @@ stellar ensembles, due to the stochasticity of kinematic heating.
 The age-dependent trends predicted for exoplanet populations, such as
 the Kelvin-Helmholtz cooling of mini-Neptunes \citep{Gupta_2019},
 time-dependent carving of the photoevaporation desert
-\citep{Owen_Lai_2018}, and the time evolution of the radius valley
+\citep{Owen2018}, and the time evolution of the radius valley
 \citep{Rogers_2021} can be explored using our data.  We defer this
 analysis to a separate publication.
 Some care is required since beyond age,
@@ -1577,7 +1548,7 @@ identifiable young neighbors.
 \section{Conclusions}
 \label{sec:conclusions}
 
-We began this article with two questions: how wrong is the assumption
+We began this study with two questions: how wrong is the assumption
 of a uniform age distribution for stars in the galactic thin disk?
 And why are only $\approx$50 sub-gigayear transiting planets known,
 rather than the $\approx$500 that would be expected under the
@@ -1591,15 +1562,24 @@ interpolation-based methods, and assessed the reliability of these ages
 by comparing them against benchmark open clusters
 (Figure~\ref{fig:agescalecompone}).
 
-Our analysis blindly recovered the youth of all 14 known Kepler planets in
-clusters, with ages that agreed with the more precise ensemble ages.
-While lithium provided only marginal added information for
-most of the sample, in cases for which comparison was possible, the independent lithium and rotation ages agreed
-$\gtrsim$90\% of the time.  In particular, we reported {\bf XX}
-confirmed $<$500\,Myr planets with strong age constraints from both
-rotation and lithium, including {\bf YY} mini-Neptunes, {\bf ZZ}
-super-Earths, {\bf AA} Earths and sub-Earths, and a Neptune-sized
-planet.
+Our analysis blindly recovered the ages of all 14 known Kepler planets
+in clusters.  While lithium provided only marginal added information
+for most of the sample, the lithium and rotation ages agreed in
+$\gtrsim$90\% of cases for which comparison was possible.
+Our resulting ages included two-sided $t_{\rm gyro}$ and $t_{\rm Li}$
+for \ltonegyrhighqconfirmedtwosided\ sub-gigayear confirmed planets, and
+two-sided $t_{\rm gyro}$ with one-sided $t_{\rm Li}$ for
+\ltonegyrhighqconfirmedonesided\ sub-gigayear confirmed planets.  Allowing for
+systems with RUWE$>$1.4 and including ``candidate'' planets
+would increase the counts to
+\ltonegyrmediumqconfirmedtwosided\ and
+\ltonegyrmediumqconfirmedonesided\ respectively; weakening other quality flags,
+such as on transit geometry, would further increase the counts.  The sizes and
+periods of the most restricted set of planets are shown in
+Figure~\ref{fig:rp_period_age_results}.   While the new young planets are
+mostly mini-Neptunes, some are near the lower boundary of the
+``sub-Jovian desert ''\citep{Owen2018}, and others include Earth-sized 
+planets a few hundred million years old.  
 
 Our three main conclusions with respect to our original questions are
 as follows.
@@ -1612,7 +1592,8 @@ as follows.
     Kepler field as ``young'' (0-1\,Gyr) stars.  The star formation
     rate today is \ratiosfr$\pm$\uncratiosfr\ times lower than it was
     three billion years ago.
-    This star formation history broadly agrees with those derived
+    This result from rotation-based ages broadly agrees with recent reports of
+    a declining star-formation rate
     from CMD fitting and white-dwarf chronology, though with
     important nuances.
   %
@@ -1763,6 +1744,37 @@ and the Arthur R.~Adams SURF Fellowship (EKP).
 
 
 \appendix
+\section{Defining An ``Isochronally Too Far From The Main Sequence'' Boundary}
+The (arbitrary) method used to construct the orange line in 
+the lower panel of Figure~\ref{fig:stellarprops} was as follows.
+The line is	defined as
+the maximum of two numerically-determined functions, $f_0(T_{\rm eff})$ and $f_1(T_{\rm eff})$.
+We defined $f_0$ by fitting an
+$N^{\rm th}$-order polynomial to the stars with rotation periods for which $t_{\rm
+	B20,iso}/(+\sigma_{t,{\rm B20,iso}})\approx 3$
+and $T_{\rm eff}\in[3700,5900]$\,K, where
+$t_{\rm B20,iso}$ was the isochronal age reported by
+\citet{Berger_2020a_catalog}.  We let the order of the fit vary from
+$N$=1 to 10, minimized the Bayesian Information Criterion,
+and found $N$=6.  
+By eye, this yielded a plausible locus for $T_{\rm eff}$$\lesssim$5300\,K.
+However for F and G dwarfs, the resulting locus
+allowed for stars that were ``too evolved''; the density of KOIs 
+was anomalously low in this region of the $\log g$ vs.\ $T$$_{\rm eff}$ plane.
+We therefore visually selected KOIs that appeared
+to be near the main sequence -- i.e.~ most of the yellow
+points in Figure~\ref{fig:stellarprops} -- and used them to fit a separate
+polynomial $f_1$ through a similar BIC-minimization procedure,
+which yielded $N$=3.
+This polynomial, $f_1$, is shown in very faint opacity in Figure~\ref{fig:stellarprops}.
+The portion of the orange locus from $\approx$5300--6200\,K
+is set as $f_1 + c$, for $c$ a constant offset that we defined to be
+0.1\,dex above the ``KOI main sequence''.
+The exact break-point in temperature is automatically set by ${\rm max}(f_0, f_1+c)$.
+We do report rotation-based ages for stars
+above this orange locus;
+they are simply flagged as not being near the main sequence. 
+
 \section{Cases With ``Inconsistent'' Rotation and Lithium-Based Ages}
 \label{app:inconsistent}
 
@@ -1770,24 +1782,24 @@ In this section we discuss the systems with confirmed planets that
 have nominally discrepant rotation and lithium-based ages.  We find
 that only one of them, Kepler-786, is interesting.
 
-\paragraph{Kepler-1}---TrES-2/Kepler-1 \citep{2006ApJ...651L..61O} has
-a G0 V primary and a $\approx$2.5\,day near-grazing transiting hot
-Jupiter, and has been studied in detail by multiple investigators
+\paragraph{Kepler-1}---TrES-2/Kepler-1 \citep{2006ApJ...651L..61O} is
+a $\approx$2.5\,day near-grazing hot Jupiter oribiting a G0 V primary
+which has been studied in detail by multiple investigators
 \citep[e.g.][]{2007ApJ...664.1190S,2008ApJ...682.1283W,2011ApJ...733...36K,2011MNRAS.417.2166S}.
-Our lithium-based age of this system (\trestwotli\,Myr), derive from
-EW$_{\rm Li}$=81$\pm$3\,m\AA, is qualitatively in line with the
+Our lithium-based age of this system (\trestwotli\,Myr), derived from
+EW$_{\rm Li}^{\ast}$=81$\pm$3\,m\AA, qualitatively agrees with the
 previously noted lithium abundance \citep{2007ApJ...664.1190S}.
 However, we detect no photometric rotation signal, and the
 spectroscopic $v\sin i$ is low.  The lithium age is strongly
-asymmetric because there is significant amounts of scatter in EW$_{\rm
-Li}$ vs.~$T_{\rm eff}$ over ages $t$$\gtrsim$1\,Gyr for early G
-dwarfs.  We calculate a $2\sigma$ upper limit on $t_{\rm Li}$ of
-2.8\,Gyr, and a $3\sigma$ upper limit of 6.1\,Gyr.  The non-detection
-of rotation, while mildly surprising, is not shocking if the system's
-true age is in this long tail.
+asymmetric because of the scatter in EW$_{\rm Li}$ vs.~$T_{\rm eff}$
+over ages $t$$\gtrsim$1\,Gyr for early G dwarfs.  We calculate a
+$2\sigma$ upper limit on $t_{\rm Li}$ of 2.8\,Gyr, and a $3\sigma$
+upper limit of 6.1\,Gyr.  The non-detection of rotation, while mildly
+surprising, is not shocking if the system's true age is in this long
+tail.
 
 \paragraph{Kepler-101}---This $\approx$5500\,K star has EW$_{\rm
-Li}$=100$\pm$5\,m\AA, nominally implying $t_{\rm
+Li}^{\ast}$=100$\pm$5\,m\AA, nominally implying $t_{\rm
 Li}$$\approx$200-800\,Myr, but no rotation detection.  Our automated
 flags noted that this star has a low surface gravity, high luminosity,
 and is far from the main sequence.  \citet{2014A&A...572A...2B}
@@ -1819,16 +1831,16 @@ not surprising.
 lithium content.  The spectrum is single-lined, with
 \texttt{SpecMatch-Synth} derived parameters of $T_{\rm
 eff}$=4769$\pm$100\,K, $\log g$=4.5$\pm$0.1, [Fe/H]=0.11$\pm$0.06, and
-$v\sin i$=2.4$\pm$0.6\kms.  Yet with EW$_{\rm Li}$=83$\pm$6\,m\AA, the
-lithium age of \kepseveneightsix\,Myr would predict an obvious
-rotation signal.  None is present in the Kepler light curve,
-consistent with the low $v\sin i$.  Out of all ``apparently
-discrepant'' lithium and rotation measurements discussed in this
-appendix, this is the only one that seems to remain discrepant after
-scrutiny.  The  \ion{Ca}{2} doublet is in emission, with $R'_{\rm
-HK}=-4.7\pm0.5$, which suggests an age at least as old as the Hyades
-\citep{Mamajek_2008}.  The Balmer lines are in absorption, and display
-no obvious signatures of youth.
+$v\sin i$=2.4$\pm$0.6\kms.  Yet with EW$_{\rm
+Li}^{\ast}$=83$\pm$6\,m\AA, the lithium age of \kepseveneightsix\,Myr
+would predict an obvious rotation signal.  None is present in the
+Kepler light curve, consistent with the low $v\sin i$.  Out of all
+``apparently discrepant'' lithium and rotation measurements discussed
+in this appendix, this is the only one that seems to remain discrepant
+after scrutiny.  The  \ion{Ca}{2} doublet is in emission, with
+$R'_{\rm HK}=-4.7\pm0.5$, which suggests an age at least as old as the
+Hyades \citep{Mamajek_2008}.  The Balmer lines are in absorption, and
+display no obvious signatures of youth.
 
 
 \paragraph{Kepler-1644}---The rotation-based age of this system
@@ -1904,21 +1916,21 @@ observations for a while
 \citep[e.g.][Fig.~9]{Mamajek_2008}.  Our adopted age of
 $\approx$780$\pm$170\,Myr agrees with the open cluster calibrators.
 
-\section{TODO's}
-
-\begin{enumerate}
-%  \item Compare Mathur2023 ages against my ages, and (more interestingly) against the
-%    cluster scale using NGC6811, Theia520, Melange3, and CepHer stars.
-%    Could compare against asteroseis too.
+%\section{TODO's}
+%
+%\begin{enumerate}
+%%  \item Compare Mathur2023 ages against my ages, and (more interestingly) against the
+%%    cluster scale using NGC6811, Theia520, Melange3, and CepHer stars.
+%%    Could compare against asteroseis too.
+%%    %
+%%  \item Intro needs better discussion of Mathur2023 and Lu2021
 %    %
-%  \item Intro needs better discussion of Mathur2023 and Lu2021
-    %
-  \item Consider moving the bit list description to its own appendix.
-    %
-  \item Rerun gyro calculation with denser grid, fixing quantization
-    and extending upper limit to 5gyr.  (Will use updated Teff
-    uncertainties)
-\end{enumerate}
+%  \item Consider moving the bit list description to its own appendix.
+%    %
+%  \item Rerun gyro calculation with denser grid, fixing quantization
+%    and extending upper limit to 5gyr.  (Will use updated Teff
+%    uncertainties)
+%\end{enumerate}
 
 
 %\section{Comparison Against Previous Literature Age Scales}
