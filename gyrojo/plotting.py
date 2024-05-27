@@ -1590,7 +1590,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         if ix == 0:
             ax.update({
             'ylabel': '$N$/$N_{\mathrm{max}}$\n'+f'{teffstr}',
-            'yticklabels': [0, 0.02, 0.04, 0.06],
+            'yticklabels': [0, 0.02, 0.04, 0.06, 0.08],
             })
         else:
             ax.update({
@@ -1709,7 +1709,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     ###########################################
 
     from scipy import stats
-    sel_age = mdf.age < 3.e9
+    sel_age = mdf.age < 3e9
 
     star_ages = nparr(
         mdf.loc[sel_gyro_ok & sel_age, 'age']
@@ -1726,9 +1726,11 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     )
 
     txt = (f'preciseagesonly={bool(preciseagesonly)}: '
-           f'med(p)={p_value_median:.1e}, '
-           f'<p value>={p_value_mean:.1e}, σ_pval={p_value_std:.1e}, '
-           f'2.5-97.5% CI: {p_value_ci[0]:.1e} - {p_value_ci[1]:.1e} 2-sample KS')
+           f'med(log10p)={np.log10(p_value_median):.1f}, '
+           f'<log10p value>={np.log10(p_value_mean):.1f}, '
+           f'log10(σ_pval)={np.log10(p_value_std):.1f}, '
+           f'2.5-97.5% CI (log10p): '
+           f'{np.log10(p_value_ci[0]):.1f} - {np.log10(p_value_ci[1]):.1f} 2-sample KS')
     print(42*'-')
     print(txt)
     print(42*'-')
