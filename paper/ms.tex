@@ -1093,17 +1093,18 @@ mass and age.
   \vspace{-0.66cm}
   \caption{{\bf Kepler's demographic cliff,} visible in the
   rotation-derived ages of stars (left) and planet hosts (middle) in
-  the Kepler field.  The top row corresponds to all stars with
+  the Kepler field.  The top row shows all stars with
   temperatures of 3800--6200\,K for which we calculated rotation-based
-  ages.  The opaque lines impose quality cuts on factors such as
-  binarity, crowding, and the star's evolutionary state.  The bottom
-  row selects only stars with temperatures of 4400-5400\,K, which have
-  relatively precise ages near 2\,Gyr due to their fast spin-down.
+  ages.  Opaque lines impose quality cuts on 
+  binarity, crowding, and the star's evolutionary state; transparent lines do not.
+  The bottom
+  shows stars with temperatures of 4400--5400\,K, which have
+  more precise ages due to their fast spin-down.
   The statistical uncertainty for a mean
   individual star at 1, 2, and 3\,Gyr is shown, and is identical
   across each row.  Finally, the right panel compares the
   rotation-derived ages against star formation histories
-  derived using CMD fitting.  Completeness in Kepler's
+  derived using CMD fitting (dashed and dotted lines).  Completeness in Kepler's
   $P$$_{\rm rot}$ detection sensitivity is near unity until
   $t$$\lesssim$3\,Gyr \citep{2022ApJ...937...94M}.
   \label{fig:hist_tgyro}
@@ -1129,14 +1130,15 @@ of a uniform age distribution.
 %stars to be present could also be dubbed a ``demographic cliff'',
 %in reference to the phenomenon from human demography.
 
-The age distributions of Kepler stars and planet hosts are
-nearly indistinguishable.  A simple diagnostic of whether the two
+The age distributions of Kepler stars and planet hosts are quite
+similar.  A simple diagnostic of whether the two
 distributions are drawn from the same underlying distribution is the
 Kolmogorov-Smirnov test;  we calculated this statistic in a manner
-that accounts for the Poisson uncertainties by performing 100 random
-draws of 70\% of the stars from each sample.  The resulting median
-$p$-values were $\approx$0.01 for both rows of
-Figure~\ref{fig:hist_tgyro}.  This degree of similarity suggests that
+that accounts for the Poisson uncertainties by performing 1000 random
+draws of 70\% of the stars from each sample.  The resulting 
+range of $\log_{\rm 10}p$-values (2.5$^{\rm th}$ to 97.5$^{\rm th}$ percentile)
+spanned -3.9 to -1.2 for the K-dwarfs only,
+and -5.2 to -2.2 for all Kepler stars.  This degree of similarity suggests that
 the ``common wisdom'' that young transiting planets are hard to detect
 because their host stars are photometrically variable requires some
 nuance.  If true, this statement only holds for the very youngest
