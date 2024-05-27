@@ -468,11 +468,11 @@ def make_table(
         pdf = pdf[selcols]
 
         csvpath = join(PAPERDIR, 'table_allageinfo.csv')
-        pdf.to_csv(csvpath, index=False)
+        pdf.to_csv(csvpath, index=False, na_rep='--', float_format='%.2f')
         print(f'Wrote {csvpath}')
 
         csvpath = join(PAPERDIR, 'table_allageinfo_allcols.csv')
-        longdf.to_csv(csvpath, index=False)
+        longdf.to_csv(csvpath, index=False, na_rep='--')
         print(f'Wrote {csvpath}')
 
 
