@@ -148,7 +148,7 @@ def make_star_table(
         print(f"Wrote {texpath}")
 
     csvpath = join(PAPERDIR, 'table_star_gyro.csv')
-    _sdf.to_csv(csvpath, index=False)
+    _sdf.to_csv(csvpath, index=False, float_format='%.2f')
     print(f'Wrote {csvpath}')
 
     csvpath = join(PAPERDIR, 'table_star_gyro_allcols.csv')
