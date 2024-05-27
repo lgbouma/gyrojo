@@ -195,6 +195,8 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
             (df.Prot_provenance == 'Santos2019')
             |
             (df.Prot_provenance == 'Santos2021')
+            |
+            (df.Prot_provenance == 'SantosPrivComm')
         )
     elif sample == 'allKIC':
         df['flag_Prot_provenance'] = np.zeros(len(df)).astype(bool)
