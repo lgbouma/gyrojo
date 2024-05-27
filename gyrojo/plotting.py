@@ -1314,6 +1314,34 @@ def add_gradient_patch(ax, xmin, xmax, ymin, ymax, resolution=100):
     gradient.set_transform(ax.transData)
 
 
+def fit_line_and_print_results(bin_centers, heights, poisson_uncertainties):
+    # Select data where bin_centers < 2.5
+    mask = bin_centers < 3
+    x_data = bin_centers[mask]
+    y_data = heights[mask]
+    yerr_data = poisson_uncertainties[mask]
+
+    # Fit a line using numpy polyfit with weighted least squares
+    coefficients, cov = np.polyfit(x_data, y_data, 1, w=1/yerr_data**2, cov=True)
+    slope = coefficients[0]
+    y_intercept = coefficients[1]
+
+    # Calculate x-intercept
+    x_intercept = -y_intercept / slope
+
+    # Calculate standard errors (1-sigma uncertainties)
+    slope_se = np.sqrt(cov[0, 0])
+    y_intercept_se = np.sqrt(cov[1, 1])
+    x_intercept_se = np.sqrt((y_intercept_se/slope)**2 + (y_intercept*slope_se/(slope**2))**2)
+
+    print(f"Slope: {slope:.3f}")
+    print(f"Slope 1-sigma uncertainty: {slope_se:.3f}")
+    print(f"Y-intercept: {y_intercept:.3f}")
+    print(f"Y-intercept 1-sigma uncertainty: {y_intercept_se:.3f}")
+    print(f"X-intercept: {x_intercept:.3f}")
+    print(f"X-intercept 1-sigma uncertainty: {x_intercept_se:.3f}")
+
+
 def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
                               datestr='20240521', s19s21only=0,
                               preciseagesonly=0):
@@ -1457,6 +1485,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=-3,
         alpha=1, label=l0_1
     )
+
     ynorm = heights[0]
     l2_1 = f'Kepler stars ({N})'
     _  = axs[2].hist(
@@ -1477,6 +1506,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='C0', markersize=0,
         zorder=-1, alpha=0.8
     )
+    fit_line_and_print_results(bin_centers, heights, poisson_uncertainties)
 
     axs[0].errorbar(
         [1,2,3], [0.018,0.018,0.018], xerr=np.array(mean_pms).T/1e3, marker='o',
@@ -1558,6 +1588,9 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='sienna', markersize=0,
         zorder=-2, alpha=0.8
     )
+    print(f'preciseagesonly={preciseagesonly}')
+    #planets
+    #fit_line_and_print_results(bin_centers, heights, poisson_uncertainties)
 
     ##########################################
     # calculate ratios of "middle" and "old" bins to young bin for all selected
