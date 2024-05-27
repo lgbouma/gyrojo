@@ -714,20 +714,27 @@ population-level scatter into the precision of its reported
 ages.  Figure~\ref{fig:models} highlights this problem,
 particularly in regions where the 0.1-1\,Gyr stars overlap.
 
-Using our effective temperatures and rotation periods, we ran
-\texttt{gyro-interp} over an age grid of 0 to 4\,Gyr, linearly spaced
-over 500 grid points.  \texttt{gyro-interp} itself is calibrated out
-to 4\,Gyr, the age of M67
-\citep[see][]{Dungee_2022,Gruner_2023}.  To estimate the
+To estimate the
 stellar spin-down rate as a function of time and stellar temperature,
-the framework interpolates between reference open clusters using cubic
-Hermite polynomials.  We calculate the probability of the
+\texttt{gyro-interp} uses measured rotation periods and effective
+temperatures from reference open clusters, and interpolates between them using cubic
+Hermite polynomials.  We calculated the probability of the
 rotation-based age $t_{\rm gyro}$, given the observed rotation
-periods, effective temperatures, and their uncertainties by
-integrating Equation~1 of \citet{Bouma_2023} at the default grid
+periods and effective temperatures (and their uncertainties) by
+integrating Equation~1 of \citet{Bouma_2023} at the default
 resolution.  This procedure marginalizes over the intrinsic age and
 temperature dependent scatter that is observed in the cluster
 sequences to yield statistical age uncertainties.
+We adopted a linear age grid spanning 0--5\,Gyr with
+500 grid points, and interpolated the resulting posteriors to determine
+point estimate summary statistics.
+At the old end, 
+\texttt{gyro-interp} is calibrated out
+to 4\,Gyr M67 cluster
+\citep[see][]{Dungee_2022,Gruner_2023}.  
+For Kepler stars with rotation periods above the 
+M67 sequence, our resulting age constraints are quoted as lower limits.
+
 
 
 \subsection{Stellar Quality Flags}
@@ -907,7 +914,7 @@ biased planetary parameters \citep[e.g.][]{2022AJ....163..111G}.  For
 large planets, they also include astrophysical false positives at
 higher rates \citep{2016ApJ...822...86M}, in part due to the
 size-impact parameter degeneracy.  We flag planet candidates as
-potentially grazing if $b>0.8$, using the impact parameters reported
+potentially grazing if $b$$>$0.8, using the impact parameters reported
 in the Markov Chain Monte Carlo (MCMC) fits from
 \citet{Thompson_2018}.
 
@@ -1014,62 +1021,60 @@ on e.g.~isochrone, rotation, and lithium dating
 \cite[e.g.][]{2019AJ....158..122K,Bouma_2022b,Barber_2022}.
 
 In Figure~\ref{fig:agescalecompone}, we compare our rotation-based
-ages, as well as select ages from the literature, against the ages of
-stars in the richest clusters in the Kepler field.  From the
+ages, and available ages from the literature, against the ages of
+stars in open clusters in the Kepler field.  From the
 literature, we drew ages from \citet{Reinhold_2015},
 \citet{Berger_2020a_catalog}, \citet{2021AJ....161..189L},
 \citet{2023ApJ...952..131M}, and \citet{2024AJ....167..159L}.  We
 followed any guidance available from these respective studies for
 removing ages that were explicitly flagged as unreliable, and plotted
-stars within $1\sigma$ of zero as being upper limits.  For the
-\citeauthor{Reinhold_2015} ages, we used those that were calculated
+stars within $1\sigma$ of zero upper limits.  For the
+\citeauthor{Reinhold_2015} ages, we used those calculated
 using the \citet{Mamajek_2008} calibration; for the
 \citeauthor{2023ApJ...952..131M} ages, we show those from
 \texttt{kiauhoku} \citep{Claytor2020} rather than \texttt{STAREVOL}
-\citep{Amard2019}, based on the defaults adopted by
-\citeauthor{2023ApJ...952..131M}.
+\citep{Amard2019}, since it showed better agreement with
+the cluster age scale.
 
-Cluster membership is a delicate subject.
+Cluster membership is a nuanced subject.
 Figure~\ref{fig:agescalecompone} is showing reported ages for a set of
-spatially and kinematically selected set of stars that could be
+spatially and kinematically selected stars that could be
 cluster members, or they could be field interlopers.  For NGC6811 and
 NGC6819, we adopted candidate members from
 \citet{2018A&A...618A..93C,CantatGaudin_2020} and
 \citet{Kounkel_2020}.  For Melange-3 we used the candidates reported
 by \citet{Barber_2022} and required ``offset'' tangential velocities
 below 2\,\kms.  For Cep-Her we used candidate members from Table~2 of
-\citet{Bouma_2022b}, requiring ``weights'' exceeding 0.1.  Even with
+\citet{Bouma_2022b} with ``weights'' exceeding 0.1.  Even with
 contaminants, we can compare the relative age distributions derived by
 the different studies because in all instances we are comparing
 reported ages against a fixed list of stars.
 
-There are two main metrics for success in this test: accuracy in
-whether the reported ages agree with the cluster age, and precision in
-whether the reported age uncertainties agree with their dispersion
-around the cluster age.
+There are two main metrics for success in this test: {\it 1)}
+do the reported ages agree with the cluster age? And {\it 2)} do the
+reported age uncertainties agree with their dispersion
+around the cluster age?
 
 The point of Figure~\ref{fig:agescalecompone} is hopefully clear.
 While previous studies have been able to derive accurate ages for
-stars $\gtrsim$1\,Gyr old, the ages of sub-gigayear stars have
-historically been overestimated by anywhere from 0.3--2\,dex.  The
-situation is particularly severe for the 40\,Myr stars in Cep-Her, but
-it is also present for 150--300\,Myr stars in Melange-3 and Theia~520.
-For isochrone and kinematic ages, this is not surprising because these
+stars $\gtrsim$1\,Gyr old, available literature ages of sub-gigayear stars are
+usually overestimated by 0.3--2\,dex.  
+The ages of the youngest Kepler stars and planets were not previously well-measured.
+For isochrone and kinematic ages, this is because these
 methods rely on parameters that do not appreciably change at
-$t$$\lesssim$1\,Gyr.  For the rotation-based ages quoted by
+$t$$\lesssim$1\,Gyr.  For the rotation-based ages from
 \citet{2023ApJ...952..131M} and \citet{2024AJ....167..159L}, the
-discrepancy is likely
-caused by details of the calibration methodologies.  The physical
-spin-down models used by \citet{2023ApJ...952..131M}, and the
-gyro-kinematic calibration ages used by \citet{2024AJ....167..159L},
-may not reproduce the rotation sequences of open clusters such as
-Praesepe, the Hyades, and the Pleiades.  The \citet{Mamajek_2008}
-calibration used by \citet{Reinhold_2015} does reproduce such
+discrepancy is
+caused by details of the calibration methodologies.  The
+spin-down models used in these studies
+may struggle to reproduce the observed rotation
+sequences seen in open clusters younger than a few hundred million years.  The \citet{Mamajek_2008}
+calibration used by \citet{Reinhold_2015} does fit such
 sequences for Sun-like stars.  However the
-uncertainties determined using that method are underestimates because
+uncertainties from all of these methods are underestimated because
 they do not marginalize over
-the intrinsic scatter in rotation periods present for stars of a fixed
-mass and age.
+the range of rotation periods that stars of a fixed
+mass and age might have.
 
 
 
@@ -1302,9 +1307,10 @@ else unresolved binaries, and are automatically flagged as such.  The
 more interesting of the two is Kepler-786,
 an early K dwarf with $t_{\rm
 Li}$=\kepseveneightsix\,Myr, which would imply that rotation should be
-detectable.  However no photometric rotation signal is detected; other
-age indicators in the spectrum similarly suggest that the star may not
-in fact be young. 
+detectable.  However no photometric rotation signal is detected, and other
+age indicators in the spectrum similarly suggest that the star is not
+young. 
+
 
 
 \subsubsection{New Young Planets}
