@@ -31,7 +31,7 @@ def draw_star_ages(N):
             age_break = 3
             if age <= age_break:
                 # If age is between 0 and 3 billion years, apply the linear increase factor
-                factor = (1 / 2.75) + (age / age_break) * (1 - (1 / 2.75))
+                factor = (1 / 2.49) + (age / age_break) * (1 - (1 / 2.49))
                 if np.random.random() < factor:
                     ages[i] = age
                     break

@@ -10,7 +10,9 @@ def plot_param_vs_age(param='koi_max_mult_ev'):
     sel = (
         (df.flag_is_gyro_applicable.astype(bool))
         &
-        ~(df.gyro_median == '--')
+        ( ~(df.gyro_median == '--') )
+        &
+        (df.flag_is_ok_planetcand.astype(bool))
     )
     df = df[sel]
 
