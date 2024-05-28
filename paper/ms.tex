@@ -216,13 +216,13 @@ transiting planets is often easier than finding the host stellar
 association \citep[e.g.][]{Tofflemire_2021}.
 
 The ``cluster-first'' approach has a major limitation: most nearby
-sub-gigayear stars are in the field.  Only $\lesssim$1\% of stars
+stars are in the field.  Only $\lesssim$1\% of stars
 within $\approx$500\,pc have been associated with their birth cluster
 \citep[e.g.][]{Zari_2018,CantatGaudin_2020,Kounkel_2020,Kerr_2021}.
-One can appreciate the problem by querying the NASA Exoplanet Archive
+The implication can appreciated by querying the NASA Exoplanet Archive
 \citep[NEA;][]{2013PASP..125..989A} for transiting planets younger
 than 1\,Gyr.  Requiring say $t$$<$1\,Gyr at
-2$\sigma$ precision gives $\approx$50 ``young'' transiting planets at
+2$\sigma$ precision gives $\approx$50 such planets at
 the time of writing.  Most of these young planets are in clusters, and
 were found by Kepler, K2, or TESS.  However, these surveys have
 discovered $\approx$5{,}000 planets in total.  Assuming a constant
@@ -278,7 +278,7 @@ sub-gigayear stars.   These factors are as follows.
   \item We can fit the open cluster data, and use these fits to infer
     ages by marginalizing over the range of ages that might explain
     any one star's rotation period \citep{Bouma_2023}.
-    This represents an improvement in the accuracy and realism
+    This represents an improvement in the accuracy 
     of uncertainty propagation relative to previous calibrations.
   %
   \item We can identify binary stars with greater fidelity than
@@ -293,12 +293,12 @@ sub-gigayear stars.   These factors are as follows.
 \end{enumerate}
 
 Independently, recent years have also yielded improvements in the
-lithium age scale.  Lithium ages include two distinct regimes:
+lithium age scale.  Lithium ages include 
 depletion boundary ages for M dwarfs and brown dwarfs in star
-clusters, and the less precise decline-based ages for individual field
-FGK stars \citep{Soderblom_2010}.  Here we focus on the latter
-approach, which relies on the observation that the Li abundances of
-partially-convective stars gradually decline as they age
+clusters, and decline-based ages for individual field
+FGK stars \citep{Soderblom_2010}.  The latter
+approach relies on the observed decline of Li abundances in
+partially-convective stars as they age
 \citep[e.g.][]{2005A&A...442..615S}.  The theoretical explanation for
 this decline is debated
 \citep[e.g.][]{1995ApJ...441..865C,2010ApJ...716.1269D,2019MNRAS.485.4052C}.
@@ -306,11 +306,9 @@ Empirical understanding has however improved due to the work by
 \citet{Jeffries_2023}, who modeled the time evolution of the
 \ion{Li}{1} 6708\,\AA\ equivalent width (EW) using a set of 6{,}200
 stars in 52 open clusters.  Two-sided lithium ages are useful for
-Kepler (FGK) stars between $\approx$0.03-0.5\,Gyr, with a strong
-dependence on spectral type since the K dwarfs lose their surface
-lithium much faster than G dwarfs.  The precision of the ages reported
-by the \citet{Jeffries_2023} method in this regime are in the range of
-0.3-0.5~dex.
+Kepler (FGK) stars between $\approx$0.03-0.5\,Gyr, though with a strong
+dependence on spectral type.  The precision of lithium ages 
+in this regime are now in the range of 0.3-0.5~dex.
 
 We discuss our method for selecting the star and planet samples in
 Section~\ref{sec:selection}, and describe the origin of our adopted
@@ -331,12 +329,12 @@ are offered in Section~\ref{sec:conclusions}.
 \begin{figure}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.475\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
+			\includegraphics[width=0.485\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
 		}
 	
 		\vspace{-0.3cm}
 		\subfloat{
-			\includegraphics[width=0.475\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
+			\includegraphics[width=0.485\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
@@ -847,25 +845,26 @@ star, their presence can confuse rotation period measurements.  We
 therefore flagged any stars with neighbors down to 10$\times$ the
 brightness of the target star within this region ($\Delta G < 2.5$).
 
-{\it Near the main sequence (bit 9)}---Many stars observed by Kepler
-are far from the main sequence: this can be seen in both panels of
-Figure~\ref{fig:stellarprops}.  Some of the challenges this introduces
+{\it Near the main sequence (bit 9)}---Figure~\ref{fig:stellarprops} shows
+that many stars observed by Kepler
+are far from the main sequence.  Some of the challenges this introduces
 for rotation-based ages include unresolved binaries, metallicity,
-reddening, and spin-evolution effects other than magnetic braking.
+reddening, and drivers of rotation other than magnetic braking.
 After exploring various options, we settled on the orange locus in the
 $\log g$--$T_{\rm eff}$ plane shown in Figure~\ref{fig:stellarprops}
-as a way of flagging unresolved binaries, as well as mildly evolved
+as a way of flagging unresolved binaries, as well as evolved
 late-F and early-G stars.  While the exact details of how this locus
 is constructed are arbitrary (see Appendix~\ref{app:linemethod}), the
 general aim is to flag stars for which there is evidence based on
 their location in the HR diagram that our gyrochronology model may not
-be reliable.  While this $\log g$--$T_{\rm eff}$ cut flags about half
+be reliable.  While the $\log g$--$T_{\rm eff}$ cut flags about half
 of Kepler stars with rotation periods as potentially not being
 suitable for gyrochronology, a few outliers in $M_{\rm G}$ vs.~$G_{\rm
-BP}$-$G_{\rm RP}$ remained after applying this cut.  Such stars are
-likely also questionable.  We therefore also
-fitted a polynomial to the KOI main sequence, and flagged stars more
-than 1\,magnitude from this locus as part of the same bitflag.
+BP}$-$G_{\rm RP}$ remained after applying it.  Such outliers are
+likely also questionable.  We therefore also fitted a polynomial to
+the KOI main sequence in $M_{\rm G}$ vs.~$G_{\rm
+	BP}$-$G_{\rm RP}$, and flagged stars more than 1\,magnitude from
+this locus as part of the same bitflag.
 
 %The rotation period
 %distribution of sources excluded in this manner includes a relatively
