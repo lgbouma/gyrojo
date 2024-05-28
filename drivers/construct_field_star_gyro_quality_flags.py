@@ -181,7 +181,23 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
         _y0 = p - 0.12
         # 'top'
         y0 = np.maximum(_y, _y0)
-        df['flag_farfrommainsequence'] = df['adopted_logg'] < y0
+
+        sel_logg_teff = df['adopted_logg'] < y0
+
+        # from tests/test_MG_bprp_locus.py
+        csvpath = join(DATADIR, "interim", f"MG_bprp_locus_coeffs_poly.csv")
+        coeffs = pd.read_csv(csvpath).values.flatten()
+
+        _bprp = df['dr3_bp_rp']
+        poly_vals = np.polyval(coeffs, _bprp)
+
+        sel_MG_bprp = ~(
+            (df['M_G'] > poly_vals - 1)
+            &
+            (df['M_G'] < poly_vals + 1)
+        )
+
+        df['flag_farfrommainsequence'] = sel_logg_teff | sel_MG_bprp
 
     # calculate for ater
     df['b20t2_rel_E_Age'] = np.abs(df['b20t2_E_Age'])/df['b20t2_Age']

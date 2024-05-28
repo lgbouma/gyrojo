@@ -60,7 +60,7 @@ def detect_outliers_windowed(x, y, window_size=10, threshold=2):
     return outliers
 
 
-def fit_polynomial(data, N):
+def fit_polynomial(data, N, xkey='adopted_Teff', ykey='adopted_logg'):
     """
     Fit an Nth-order polynomial to the given data points.
 
@@ -72,7 +72,7 @@ def fit_polynomial(data, N):
     tuple: The polynomial coefficients and the mean squared error of the fit.
     """
 
-    xvals, yvals = nparr(data['adopted_Teff']), nparr(data['adopted_logg'])
+    xvals, yvals = nparr(data[xkey]), nparr(data[ykey])
     inds = np.argsort(xvals)
     xvals, yvals = xvals[inds], yvals[inds]
 
@@ -86,7 +86,7 @@ def fit_polynomial(data, N):
     p = np.poly1d(coeffs)
 
     # Calculate the mean squared error
-    mse = mean_squared_error(data['adopted_logg'], p(data['adopted_Teff']))
+    mse = mean_squared_error(data[ykey], p(data[xkey]))
 
     return p, mse, coeffs
 
@@ -106,7 +106,7 @@ def bic(mse, n, k):
     return n * np.log(mse) + k * np.log(n)
 
 
-def evaluate_models(data, max_degree):
+def evaluate_models(data, max_degree, xkey='adopted_Teff', ykey='adopted_logg'):
     """
     Evaluate polynomial models of various degrees and calculate their BIC scores.
 
@@ -119,7 +119,7 @@ def evaluate_models(data, max_degree):
     """
     results = []
     for N in range(1, max_degree + 1):
-        p, mse, _ = fit_polynomial(data, N)
+        p, mse, _ = fit_polynomial(data, N, xkey=xkey, ykey=ykey)
         k = N + 1  # Number of parameters is degree + 1 (including the constant term)
         bic_score = bic(mse, len(data), k)
         results.append({
@@ -130,19 +130,19 @@ def evaluate_models(data, max_degree):
 
         # Plot the data and the fitted polynomial
         plt.figure(figsize=(10, 6))
-        plt.scatter(data['adopted_Teff'], data['adopted_logg'], s=10,
+        plt.scatter(data[xkey], data[ykey], s=10,
                     label='Data Points')
-        plt.plot(np.sort(data['adopted_Teff']),
-                 p(np.sort(data['adopted_Teff'])), color='red',
+        plt.plot(np.sort(data[xkey]),
+                 p(np.sort(data[xkey])), color='red',
                  label=f'Polynomial Degree {N}')
-        plt.xlabel('Adopted_Teff')
-        plt.ylabel('Adopted_logg')
+        plt.xlabel(f'{xkey}')
+        plt.ylabel(f'{ykey}')
         plt.title(f'Polynomial Degree {N} Fit')
         plt.legend()
         plt.grid(True)
         plt.gca().invert_xaxis()
         plt.gca().invert_yaxis()
-        plt.savefig(f'secret_test_results/polynomial_degree_{N}.png')
+        plt.savefig(f'secret_test_results/{xkey}_vs_{ykey}_polynomial_degree_{N}.png')
         plt.close()
 
     return pd.DataFrame(results)

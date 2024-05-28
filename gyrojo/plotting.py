@@ -2286,6 +2286,18 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
                 edgecolors='k'
             )
 
+    if ykey == 'M_G' and xkey == 'dr3_bp_rp':
+        csvpath = join(DATADIR, "interim", f"MG_bprp_locus_coeffs_poly.csv")
+        coeffs = pd.read_csv(csvpath).values.flatten()
+        _bprp = np.linspace(0.5, 3, 1000)
+        poly_vals = np.polyval(coeffs, _bprp)
+        #ax.plot(bprp, poly_vals, zorder=5, c='C1', lw=0.5)
+        show_bounds = 0
+        if show_bounds:
+            ax.plot(_bprp, poly_vals-1, zorder=5, c='C1', lw=0.5)
+            ax.plot(_bprp, poly_vals+1, zorder=5, c='C1', lw=0.5)
+
+
     if ykey == 'adopted_logg' and xkey == 'adopted_Teff':
         xerr = dfs[1].adopted_Teff_err.mean()
         yerr = dfs[1].adopted_logg_err.mean()
