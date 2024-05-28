@@ -345,8 +345,8 @@ are offered in Section~\ref{sec:conclusions}.
   rotation periods are primarily drawn from
   \citet{Santos_2019,Santos_2021}.  About half of these rotators are
   suitable for gyrochronology (dark gray points), based on factors
-  including their non-binarity and proximity to the spectroscopic main
-  sequence (orange boundary; see Section~\ref{subsec:flags}).  Some
+  including their non-binarity and proximity to the main
+  sequence (see Section~\ref{subsec:flags}).  Some
   are ``confirmed'' or ``candidate'' KOIs that meet an additional set
   of planetary quality criteria (yellow points;
   Section~\ref{subsec:plflags}).  Surface gravities and effective
@@ -787,7 +787,7 @@ down very slowly, if at all.  Stars cooler than 3800\,K do spin down
 over gigayear timescales
 \citep{2016ApJ...821...93N,2023ApJ...954L..50E,2024arXiv240312129C},
 but the currently available open cluster data have yet to clarify
-exactly when the intrinsic scatter in the population decreases.
+when the intrinsic scatter in the population decreases.
 
 {\it Surface gravity (bit 1)}---We flagged stars as possible subgiants
 if they had $\log g < 4.2$.  We set this threshold by examining the
@@ -849,26 +849,32 @@ brightness of the target star within this region ($\Delta G < 2.5$).
 
 {\it Near the main sequence (bit 9)}---Many stars observed by Kepler
 are far from the main sequence: this can be seen in both panels of
-Figure~\ref{fig:stellarprops}.  This is a challenge for rotation-based
-ages because {\it i)} point sources far from the main sequence include
-unresolved photometric binaries, and {\it ii}) effects other than
-magnetic braking influence the rotation periods of bona fide single
-stars far from the main sequence.  The added concerns of
-reddening and metallicity further complicate matters.  After exploring
-various options, we settled on the orange locus in the $\log
-g$--$T_{\rm eff}$ plane shown in Figure~\ref{fig:stellarprops}.  While
-the exact details of how this locus is constructed are arbitrary (see Appendix~\ref{app:linemethod}),
-the general aim is to flag stars for which there is evidence based on
-their location in the $\log g$--$T_{\rm eff}$ plane that our
-gyrochronology model may not be reliable.  
+Figure~\ref{fig:stellarprops}.  Some of the challenges this introduces
+for rotation-based ages include unresolved binaries, metallicity,
+reddening, and spin-evolution effects other than magnetic braking.
+After exploring various options, we settled on the orange locus in the
+$\log g$--$T_{\rm eff}$ plane shown in Figure~\ref{fig:stellarprops}
+as a way of flagging unresolved binaries, as well as mildly evolved
+late-F and early-G stars.  While the exact details of how this locus
+is constructed are arbitrary (see Appendix~\ref{app:linemethod}), the
+general aim is to flag stars for which there is evidence based on
+their location in the HR diagram that our gyrochronology model may not
+be reliable.  While this $\log g$--$T_{\rm eff}$ cut flags about half
+of Kepler stars with rotation periods as potentially not being
+suitable for gyrochronology, a few outliers in $M_{\rm G}$ vs.~$G_{\rm
+BP}$-$G_{\rm RP}$ remained after applying this cut.  Such stars are
+likely also questionable.  We therefore also
+fitted a polynomial to the KOI main sequence, and flagged stars more
+than 1\,magnitude from this locus as part of the same bitflag.
+
 %The rotation period
 %distribution of sources excluded in this manner includes a relatively
 %larger fraction of ``rapid rotators'' than the main sequence sources,
 %likely due to a combination of astrophysical and systematic effects.
-See for instance Figure~8a of \citet{2022AJ....164..137K} or
-Figures~12 and 13 of \citet{2023ApJS..268....4F} for examples of how
-the period distribution of this population differs from stars near the
-main sequence.
+%See for instance Figure~8a of \citet{2022AJ....164..137K} or
+%Figures~12 and 13 of \citet{2023ApJS..268....4F} for examples of how
+%the period distribution of this population differs from stars near the
+%main sequence.
 
 
 {\it Candidate pulsators and close-in binaries (bit
