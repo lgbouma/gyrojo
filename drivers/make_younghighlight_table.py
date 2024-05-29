@@ -9,7 +9,7 @@ from gyrojo.getters import (
 )
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 from gyrojo.papertools import (
-    format_lowerlimit, cast_to_int_string, replace_nan_string
+    format_lowerlimit, cast_to_int_string, replace_nan_string, format_prot_err
 )
 from collections import Counter
 
@@ -122,11 +122,12 @@ def make_table(
         "kepid,kepoi_name,kepler_name,koi_disposition,"
         "min_age,"
         #"adopted_logg,"
-        "adopted_Teff,Prot,li_eagles_LiEW,li_eagles_eLiEW,"
+        "adopted_Teff,adopted_Teff_err,adopted_Teff_provenance,"
+        "Prot,Prot_err,Prot_provenance,li_eagles_LiEW,li_eagles_eLiEW,"
         "gyro_median,gyro_+1sigma,gyro_-1sigma,"
         "li_median,li_+1sigma,li_-1sigma,li_eagles_limlo,li_eagles_limlo_formatted,"
         "li_eagles_limlo_forsort,"
-        "adopted_rp,adopted_period,"
+        "adopted_rp,adopted_rp_provenance,adopted_period,"
         "flag_dr3_ruwe_outlier,flag_koi_is_grazing,flag_gyro_quality,"
         "flag_planet_quality,has_hires"
     ).split(",")
@@ -218,6 +219,7 @@ def make_table(
 
 
     # Drop the original age columns
+    _pdf = deepcopy(pdf)
     pdf = pdf.drop(
         columns=['gyro_median', 'gyro_+1sigma', 'gyro_-1sigma', 'li_median',
                  'li_+1sigma', 'li_-1sigma', "li_eagles_LiEW", "li_eagles_eLiEW"]
@@ -226,6 +228,7 @@ def make_table(
     # Look for consistent cases with positive evidence from both rotation and
     # lithium.
     pdf['flag_gyro_quality'] = pdf['flag_gyro_quality'].astype(int)
+    _pdf['flag_gyro_quality'] = _pdf['flag_gyro_quality'].astype(int)
     sel_gyro_quality = select_by_quality_bits(
         pdf, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -320,6 +323,7 @@ def make_table(
         row['_t_li'], row['_t_li_err_pos'], row['_t_li_err_neg'],
         row['Spec?'], row[r"$t_{\rm Li}$"], row[r"$T_{\rm eff}$"]), axis=1
     )
+    _pdf['are_gyro_and_li_consistent'] = pdf['are_gyro_and_li_consistent']
 
     pdf = pdf.drop(columns=['_t_gyro', '_t_gyro_err_pos', '_t_gyro_err_neg'])
     pdf = pdf.drop(columns=['_t_li', '_t_li_err_pos', '_t_li_err_neg'])
@@ -459,16 +463,28 @@ def make_table(
     if not SELECT_YOUNG:
 
         ulkvp('nnonfopkoissomeageinfo', len(pdf))
+        assert len(pdf) == len(_pdf)
 
-        pdf = pdf.rename(invdict, axis='columns')
+        sel_cols = ['kepid', 'kepoi_name', 'kepler_name', 'koi_disposition',
+                    'adopted_Teff', 'adopted_Teff_err', 'adopted_Teff_provenance',
+                    'Prot', 'Prot_err', 'Prot_provenance',
+                    'li_eagles_LiEW', 'li_eagles_eLiEW',
+                    'gyro_median', 'gyro_+1sigma', 'gyro_-1sigma',
+                    'li_median', 'li_+1sigma', 'li_-1sigma',
+                    'li_eagles_limlo_formatted',
+                    'adopted_rp', 'adopted_rp_provenance', 'adopted_period',
+                    'flag_gyro_quality', 'flag_planet_quality', 'has_hires',
+                    't_gyro', 't_li', 'are_gyro_and_li_consistent'
+                   ]
 
-        pdf['kepid'] = kepids
-        selcols = [c for c in pdf.columns]
-        selcols = [selcols[-1]] + selcols[0:-1]
-        pdf = pdf[selcols]
+        _pdf['Prot_err'] = _pdf.apply(format_prot_err, axis=1)
+        _pdf['Prot'] = _pdf['Prot'].apply(
+            lambda x: f"{x:.3f}" if x <= 5 else f"{x:.2f}"
+        )
+        outdf = _pdf[sel_cols]
 
         csvpath = join(PAPERDIR, 'table_allageinfo.csv')
-        pdf.to_csv(csvpath, index=False, na_rep='--', float_format='%.2f')
+        outdf.to_csv(csvpath, index=False, na_rep='--')
         print(f'Wrote {csvpath}')
 
         csvpath = join(PAPERDIR, 'table_allageinfo_allcols.csv')
