@@ -50,7 +50,7 @@ from gyrojo.getters import (
 )
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 from gyrojo.papertools import (
-    format_lowerlimit, cast_to_int_string, replace_nan_string
+    format_lowerlimit, cast_to_int_string, replace_nan_string, format_prot_err
 )
 
 from gyrojo.paths import PAPERDIR, DATADIR
@@ -143,12 +143,6 @@ def make_star_table(
         print(f"Wrote {texpath}")
 
     sdf['adopted_Teff_err'] = sdf['adopted_Teff_err'].apply(cast_to_int_string)
-
-    def format_prot_err(row):
-        if row['Prot'] <= 5:
-            return f"{row['Prot_err']:.3f}"
-        else:
-            return f"{row['Prot_err']:.2f}"
 
     sdf['Prot_err'] = sdf.apply(format_prot_err, axis=1)
     sdf['Prot'] = sdf['Prot'].apply(

@@ -9,6 +9,7 @@ LaTeX table formatting:
     format_lowerlimit
     cast_to_int_string
     replace_nan_string
+    format_prot_err
 """
 import os, re
 from os.path import join
@@ -137,4 +138,9 @@ def replace_nan_string(value):
     else:
         return value
 
+def format_prot_err(row):
+    if row['Prot'] <= 5:
+        return f"{row['Prot_err']:.3f}"
+    else:
+        return f"{row['Prot_err']:.2f}"
 
