@@ -579,16 +579,27 @@ for ix, (cluster_df, cluster_full_name, true_age) in enumerate(zip(
                 ax.errorbar(
                     eps+ix*np.ones_like(yval[~upperlim]), yval[~upperlim],
                     yerr=yerr[:, ~upperlim],
-                    marker='o', elinewidth=0.2, capsize=0, lw=0, mew=0.5, color=f'C{iy}',
-                    markersize=0.5, zorder=5
+                    marker='o', elinewidth=0.1, capsize=0, lw=0, mew=0.5, color=f'C{iy}',
+                    markersize=0, zorder=5, alpha=0.6
+                )
+                ax.errorbar(
+                    eps+ix*np.ones_like(yval[~upperlim]), yval[~upperlim],
+                    yerr=yerr[:, ~upperlim],
+                    marker='o', elinewidth=0., capsize=0, lw=0, mew=0.5, color=f'C{iy}',
+                    markersize=0.5, zorder=6
                 )
 
         else:
             eps = np.random.normal(loc=0, scale=0.12, size=len(yval))
             ax.errorbar(
                 eps+ix*np.ones_like(yval), yval, yerr=yerr,
-                marker='o', elinewidth=0.2, capsize=0, lw=0, mew=0.5, color=f'C{iy}',
-                markersize=0.5, zorder=5
+                marker='o', elinewidth=0.1, capsize=0, lw=0, mew=0.5, color=f'C{iy}',
+                markersize=0., zorder=5, alpha=0.6
+            )
+            ax.errorbar(
+                eps+ix*np.ones_like(yval), yval, yerr=yerr,
+                marker='o', elinewidth=0., capsize=0, lw=0, mew=0.5, color=f'C{iy}',
+                markersize=0.5, zorder=6
             )
 
         for lval in [0.01, 0.1, 1, 10, 100]:
