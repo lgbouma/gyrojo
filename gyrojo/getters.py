@@ -393,6 +393,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
         print(N_null_1)
 
         a_rp = df['B20_Radius']
+        a_rp_prov = np.repeat('Berger2020_AJ_160_108_t1', len(df))
         a_rp_err1 = df['B20_E_Radius']
         a_rp_err2 = df['B20_e_radius_lc']
 
@@ -429,6 +430,7 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
         # by default, adopt Petigura+22
         # big E is upper
         df['Rp'] = df['P22_Rp']
+        df['Rp_provenance'] = np.repeat('Petigura_2022_CKS_X', len(df))
         df['E_Rp'] = df['P22_E_Rp']
         df['e_Rp'] = np.abs(df['P22_e_rp_lc'])
 
@@ -436,12 +438,14 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
             # else, take Berger+20
             _sel = pd.isnull(df['Rp'])
             df.loc[_sel, 'Rp'] = df.loc[_sel, 'B20_Radius']
+            df.loc[_sel, 'Rp_provenance'] = 'Berger2020_AJ_160_108_t1'
             df.loc[_sel, 'E_Rp'] = df.loc[_sel, 'B20_E_Radius']
             df.loc[_sel, 'e_Rp'] = np.abs(df.loc[_sel, 'B20_e_radius_lc'])
 
             # else, take KOI radii(?)
             _sel = pd.isnull(df['Rp'])
             df.loc[_sel, 'Rp'] = df.loc[_sel, 'koi_prad']
+            df.loc[_sel, 'Rp_provenance'] = 'KOI_table'
             df.loc[_sel, 'E_Rp'] = df.loc[_sel, 'koi_prad_err1']
             df.loc[_sel, 'e_Rp'] = np.abs(df.loc[_sel, 'koi_prad_err2'])
 
@@ -454,12 +458,14 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
         df.loc[_sel, 'e_Rp'] = (0.56*u.Rjup).to(u.Rearth).value
 
         a_rp = df['Rp']
+        a_rp_prov = df['Rp_provenance']
         a_rp_err1 = df['E_Rp']
         a_rp_err2 = df['e_Rp']
 
     else:
         # just the KOI radii.  crappy uncertainties.
         a_rp = df['koi_prad']
+        a_rp_prov = np.repeat('KOI_table', len(df))
         a_rp_err1 = df['koi_prad_err1'] # upper
         a_rp_err2 = np.abs(df['koi_prad_err2']) # lower
 
@@ -517,10 +523,13 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
     paramdict['mes'] = nparr(mes)
 
     df['adopted_rp'] = a_rp
+    df['adopted_rp_provenance'] = a_rp_prov
     df['adopted_period'] = a_period
 
     df.loc[df.kepoi_name=='K07368.01','adopted_rp'] = 2.22 # source: me, 2022b
-    df.loc[df.kepoi_name=='K05245.01','adopted_rp'] = 3.789 # source: me, 2022a
+    df.loc[df.kepoi_name=='K07368.01','adopted_rp_provenance'] = 'Bouma2022b' # source: me, 2022b
+    df.loc[df.kepoi_name=='K05245.01','adopted_rp'] = 3.79 # source: me, 2022a
+    df.loc[df.kepoi_name=='K05245.01','adopted_rp_provenance'] = 'Bouma2022a' # source: me, 2022a
 
     assert df.adopted_rp.isna().sum() == 0
 
