@@ -90,12 +90,22 @@ def get_cluster_dfs():
     #
     # Get Cep-Her.
     #
-    tabpath = join(DATADIR, "literature", "Bouma_2022_ajac93fft2_mrt.txt")
-    _ch_df = ascii.read(tabpath, format='mrt').to_pandas()
-    sel = _ch_df['weight'] > 0.1
-
-    cepher_df = _ch_df[sel].merge(gdr3k_df, how='inner', left_on='DR3',
-                                  right_on='source_id')
+    CH_BOUMA2022 = 0
+    CH_KERR2024 = 1
+    if CH_BOUMA2022:
+        tabpath = join(DATADIR, "literature", "Bouma_2022_ajac93fft2_mrt.txt")
+        _ch_df = ascii.read(tabpath, format='mrt').to_pandas()
+        sel = _ch_df['weight'] > 0.1
+        cepher_df = _ch_df[sel].merge(gdr3k_df, how='inner', left_on='DR3',
+                                      right_on='source_id')
+    if CH_KERR2024:
+        # secret for github until this paper is published
+        csvpath = join(DATADIR, "literature",
+                       "secret_CepHer_FinalMembersCatalog.csv")
+        ch_df = pd.read_csv(csvpath) # Kerr+2024 early release, dr3 source ids
+        sel = ch_df.Pfin > 0.8
+        cepher_df = ch_df[sel].merge(gdr3k_df, how='inner', left_on='ID',
+                                     right_on='source_id')
 
     ##########################################
 
