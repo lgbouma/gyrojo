@@ -64,7 +64,7 @@ def make_star_table(
         "KIC,dr3_source_id,"
         "gyro_median,gyro_+1sigma,gyro_-1sigma,"
         "adopted_Teff,adopted_Teff_err,adopted_Teff_provenance,"
-        "Prot,Prot_err,"
+        "Prot,Prot_err,Prot_provenance,"
         "flag_gyro_quality"
     ).split(",")
     #TODO FIXME probably split latex columns from the csv ones...
@@ -100,12 +100,7 @@ def make_star_table(
     )
     sdf['t_gyro'] = sdf['t_gyro'].apply(replace_nan_string)
 
-    # Drop the original age columns
-    sdf = sdf.drop(
-        columns=['gyro_median', 'gyro_+1sigma', 'gyro_-1sigma']
-    )
-
-    # These columns will be written.
+    # These columns will be written to CSV:
     ###    "KIC,dr3_source_id,"
     ###    "gyro_median,gyro_+1sigma,gyro_-1sigma,"
     ###    "adopted_Teff,adopted_Teff_err,adopted_Teff_provenance,"
@@ -147,8 +142,20 @@ def make_star_table(
             f.writelines(texlines)
         print(f"Wrote {texpath}")
 
+    sdf['adopted_Teff_err'] = sdf['adopted_Teff_err'].apply(cast_to_int_string)
+
+    def format_prot_err(row):
+        if row['Prot'] <= 5:
+            return f"{row['Prot_err']:.3f}"
+        else:
+            return f"{row['Prot_err']:.2f}"
+
+    sdf['Prot_err'] = sdf.apply(format_prot_err, axis=1)
+    sdf['Prot'] = sdf['Prot'].apply(
+        lambda x: f"{x:.3f}" if x <= 5 else f"{x:.2f}"
+    )
     csvpath = join(PAPERDIR, 'table_star_gyro.csv')
-    _sdf.to_csv(csvpath, index=False, float_format='%.2f')
+    sdf.to_csv(csvpath, index=False)
     print(f'Wrote {csvpath}')
 
     csvpath = join(PAPERDIR, 'table_star_gyro_allcols.csv')
