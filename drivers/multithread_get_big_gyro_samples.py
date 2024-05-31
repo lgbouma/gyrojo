@@ -10,8 +10,8 @@ from glob import glob
 from gyrointerp.paths import CACHEDIR
 from multiprocessing import Pool
 
-postdir = join(CACHEDIR, 'field_gyro_posteriors_20240521')
-outdir = join(CACHEDIR, 'bigsamples_field_gyro_posteriors_20240521')
+postdir = join(CACHEDIR, 'field_gyro_posteriors_20240530')
+outdir = join(CACHEDIR, 'bigsamples_field_gyro_posteriors_20240530')
 if not os.path.exists(outdir): os.mkdir(outdir)
 
 csvpaths = glob(join(postdir, "*_posterior.csv"))
