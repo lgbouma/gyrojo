@@ -3,7 +3,7 @@ import gyrojo.plotting as ap
 from gyrojo.paths import RESULTSDIR
 
 # calculated in calc_field_gyro_posteriors.py
-cache_id = "hist_field_gyro_ages_20240521"
+cache_id = "hist_field_gyro_ages_20240530"
 
 outdir = os.path.join(RESULTSDIR, cache_id)
 if not os.path.exists(outdir): os.mkdir(outdir)

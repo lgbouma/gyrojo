@@ -267,6 +267,6 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
     print(f"Wrote {outcsv}")
 
 if __name__ == "__main__":
-    datestr = '20240521'
+    datestr = '20240530'
     build_gyro_quality_flag(sample='allKIC', datestr=datestr)
     build_gyro_quality_flag(sample='gyro', datestr=datestr)  # ie with rotation

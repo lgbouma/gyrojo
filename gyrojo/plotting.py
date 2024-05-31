@@ -1343,7 +1343,7 @@ def fit_line_and_print_results(bin_centers, heights, poisson_uncertainties):
 
 
 def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
-                              datestr='20240521', s19s21only=0,
+                              datestr='20240530', s19s21only=0,
                               preciseagesonly=0):
 
     from gyrointerp.paths import CACHEDIR
