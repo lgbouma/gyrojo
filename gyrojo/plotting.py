@@ -1609,8 +1609,9 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         ulkvp('ratioobtoybplanets', np.round(n_ob/n_yb, 1))
     ##########################################
 
+    # completeness gradient
     for ax in axs:
-        add_gradient_patch(ax, 3.1, 4.1, 0, 0.1)
+        add_gradient_patch(ax, 3.3, 4.1, 0, 0.1)
 
     xmin = 0
     xmax = MAXAGE-20 if MAXAGE < 4000 else MAXAGE
@@ -2096,8 +2097,7 @@ def plot_gyroage_vs_teff(outdir, yscale='linear', showerrs=0, showplanets=0):
     # stars
     sampleid = 'Santos19_Santos21_dquality'
     kicdf = get_kicstar_data(sampleid)
-    if sampleid == 'Santos19_Santos21_dquality':
-        kicdf = kicdf[kicdf['flag_is_gyro_applicable']]
+    kicdf = kicdf[kicdf['flag_is_gyro_applicable']]
 
     # planets
     koidf, _, _ = get_age_results(whichtype='gyro_li', COMPARE_AGE_UNCS=0,
