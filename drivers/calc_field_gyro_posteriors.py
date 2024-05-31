@@ -22,7 +22,7 @@ def calc_field_gyro_posteriors():
     # update these #
     ################
     sampleid = 'Santos19_Santos21_litsupp_all' # S19,S21,Santos supp,David21 supp
-    cache_id = "field_gyro_posteriors_20240521" # previously 20240430
+    cache_id = "field_gyro_posteriors_20240530" # previously 20240430
     ################
 
     df = get_kicstar_data(sampleid)
@@ -79,7 +79,7 @@ def calc_field_gyro_posteriors():
         gyro_age_posterior_list(
             cache_id, Prots, Teffs, Prot_errs=Prot_errs, Teff_errs=Teff_errs,
             star_ids=object_ids, age_grid=np.linspace(0, 5000, 500),
-            N_grid='default', bounds_error='4gyrlimit',
+            N_grid='default', bounds_error='4gyrextrap',
             interp_method='pchip_m67'
         )
 
