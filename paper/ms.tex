@@ -1059,8 +1059,8 @@ NGC6819, we adopted candidate members from
 For Theia~520, we used candidate members from \citet{Kounkel_2020}.
 For Melange-3 we used the candidates reported
 by \citet{Barber_2022} and required ``offset'' tangential velocities
-below 2\,\kms.  For Cep-Her we used candidate members from Table~2 of
-\citet{Bouma_2022b} with ``weights'' exceeding 0.1.  Even with
+below 2\,\kms.  For Cep-Her we used candidate members from Kerr et al.~2024 (submitted)
+with $P_{\rm fin}$$>$0.8.  Even with
 contaminants, we can compare the relative age distributions derived by
 the different studies because in all instances we are comparing
 reported ages against a fixed list of stars.
@@ -1103,13 +1103,15 @@ mass and age.
     \leavevmode
     \subfloat{
 %    \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage4000.pdf}
-    \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240521_maxage4000.pdf}
+%    \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240521_maxage4000.pdf}
+        \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240530_maxage4000.pdf}
     }
 
 	\vspace{-0.35cm}
     \subfloat{
 %    \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage4000_preciseagesonly.pdf}
-    \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240521_maxage4000_preciseagesonly.pdf}
+%    \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240521_maxage4000_preciseagesonly.pdf}
+        \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240530_maxage4000_preciseagesonly.pdf}
     }
   \end{center}
   \vspace{-0.66cm}
@@ -1160,7 +1162,7 @@ statistic in a manner that accounts for the Poisson uncertainties by
 performing 1000 random draws of 70\% of the stars from each sample
 when requiring $t_{\rm gyro}$$<$3\,Gyr.  The resulting $\log_{\rm
 10}p$ values spanned (2.5$^{\rm th}$ to 97.5$^{\rm th}$ percentiles)
--3.9 to -1.2 for the K dwarfs, and -5.2 to -2.2 for all Kepler stars.
+-4.5 to -1.8 for the K dwarfs, and -4.5 to -1.9 for all Kepler stars.
 This agrees with the visual impression that while small differences
 may be present, they are not drastic.
 
@@ -1983,21 +1985,47 @@ $\approx$780$\pm$170\,Myr agrees with the open cluster calibrators.
 
 
 
-%\section{Figure dump}
-%
-%\begin{figure*}[!t]
-%  \begin{center}
-%    \leavevmode
-%    \includegraphics[width=0.5\textwidth]{gyroage_vs_teff_errs_showplanets_linear.png}
-%  \end{center}
-%  \vspace{-0.6cm}
-%  \caption{
-%    {\bf Gyro-age vs Teff}.
-%    $\pm$1$\sigma$ uncertainties are plotted around the median for Kepler stars (black) and KOIs (blue).
-%    Visual pileup on the left is b/c i) uncertain ages, and ii) lots of stars there.  Precision-land is the other portion.
-%    \label{fig:gyroage_vs_teff}
-%  }
-%\end{figure*}
+\section{Age Diagnostics}
+\label{app:age_diagnostic}
+
+Figure~\ref{fig:gyroage_vs_teff} is a visualization of $t_{\rm gyro}$
+vs.~$T_{\rm eff}$ for our rotation-based age catalog. 
+Each bar denotes the $\pm$1$\sigma$ uncertainty for a star's
+rotation-based age:
+this plot can be viewed as the transformation of
+the left panel of Figure~\ref{fig:prot_vs_teff}.
+The overdensity of $P_{\rm rot}$$\approx$20\,day G dwarfs corresponds
+to the large overdensity at $t_{\rm gyro}$$\approx$3\,Gyr.
+The (non-physical) deficit of $\sim$22\,day rotators appears as a
+deficit between 5500--6000\,K.
+A second deficit is also visible from 3800--5000\,K;
+it is associated with the ``intermediate period gap'', which may be
+associated with a transition from spot-dominated to faculae-dominated
+light curves \citep[e.g.][]{Reinhold2019}.
+At $\approx$1\,Gyr, stalled spin-down yields larger uncertainties for
+K dwarfs.
+The pile-up near $\approx$5\,Gyr is imposed by our choice of prior;
+given that \texttt{gyro-interp} returns non-calibrated ages in this
+regime, we truncated our analysis at 4\,Gyr.
+
+\begin{figure*}[!t]
+  \begin{center}
+    \leavevmode
+        \includegraphics[width=0.48\textwidth]{gyroage_vs_teff_errs_linear.png}
+    \includegraphics[width=0.48\textwidth]{gyroage_vs_teff_errs_showplanets_linear.png}
+  \end{center}
+  \vspace{-0.6cm}
+  \caption{
+    {\bf Rotation-based age as a function of effective temperature}.
+    The entire Kepler sample is shown on the left.
+    The KOI hosts are shown on the right.
+    Each bar shows the $\pm$1$\sigma$ uncertainty for a star's age as
+    derived from its rotation period.  
+    Individual features are discussed in
+    Appendix~\ref{app:age_diagnostic}.
+    \label{fig:gyroage_vs_teff}
+  }
+\end{figure*}
 
 \clearpage
 \listofchanges

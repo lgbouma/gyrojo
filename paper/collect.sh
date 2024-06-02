@@ -19,8 +19,8 @@ cp $r/star_Prot_Teff/prot_teff_Santos19_Santos21_dquality.pdf .
 cp $r/koi_mean_prot_teff/koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf .
 
 # plot_hist_field_gyro_ages 
-cp $r/hist_field_gyro_ages_20240521/comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240521_maxage4000.pdf .
-cp $r/hist_field_gyro_ages_20240521/comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240521_maxage4000_preciseagesonly.pdf .
+cp $r/hist_field_gyro_ages_20240530/comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240530_maxage4000.pdf .
+cp $r/hist_field_gyro_ages_20240530/comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240530_maxage4000_preciseagesonly.pdf .
 
 # plot_li_vs_teff
 #cp $r/li_vs_teff/li_vs_teff_koi_X_S19S21dquality_eagles_logy.pdf .
@@ -36,5 +36,6 @@ cp $r/rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pd
 # appendices (probably omit)
 r="/Users/luke/Dropbox/proj/gyrojo/results"
 cp $r/gyroage_vs_teff/gyroage_vs_teff_errs_showplanets_linear.png .
+cp $r/gyroage_vs_teff/gyroage_vs_teff_errs_linear.png .
 
 cp $r/lit_ages_vs_cluster_ages/olympic_merged_lit_ages_vs_cluster_ages.pdf .
