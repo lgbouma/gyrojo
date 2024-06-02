@@ -149,6 +149,13 @@ def make_star_table(
         lambda x: f"{x:.3f}" if x <= 5 else f"{x:.2f}"
     )
     csvpath = join(PAPERDIR, 'table_star_gyro.csv')
+
+    from make_younghighlight_table import BIBCODEDICT 
+    for column in sdf.columns:
+        if sdf[column].dtype == 'object':  # Check if the column is of string type
+            for key, value in BIBCODEDICT.items():
+                sdf[column] = sdf[column].str.replace(key, value)
+
     sdf.to_csv(csvpath, index=False)
     print(f'Wrote {csvpath}')
 

@@ -33,6 +33,23 @@ COMMENTDICT = {
     'K01199.01': 'Mystery',
 }
 
+BIBCODEDICT = {
+    'Santos2019':'2019ApJS..244...21S',
+    'Santos2021':'2021ApJS..255...17S',
+    'A18':'2018MNRAS.474.2094A',
+    'M15':'2015ApJ...801....3M',
+    'D21':'2021AJ....161..265D',
+    'M13':'2013ApJ...775L..11M',
+    'Berger2020_table2':'2020AJ....159..280B',
+    'Mathur_2017_DR25':'2017ApJS..229...30M',
+    'Mathur2017':'2017ApJS..229...30M',
+    'Bouma2022a':'2022AJ....163..121B',
+    'Bouma2022b':'2022AJ....164..215B',
+    'Petigura_2022_CKS_X':'2022AJ....163..179P',
+    'Berger2020_AJ_160_108_t1':'2020AJ....160..108B',
+    'KOI_table':'10.26133/NEA4',
+}
+
 import numpy as np
 import pandas as pd
 
@@ -482,6 +499,11 @@ def make_table(
             lambda x: f"{x:.3f}" if x <= 5 else f"{x:.2f}"
         )
         outdf = _pdf[sel_cols]
+
+        for column in outdf.columns:
+            if outdf[column].dtype == 'object':  # Check if the column is of string type
+                for key, value in BIBCODEDICT.items():
+                    outdf[column] = outdf[column].str.replace(key, value)
 
         csvpath = join(PAPERDIR, 'table_allageinfo.csv')
         outdf.to_csv(csvpath, index=False, na_rep='--')
