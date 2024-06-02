@@ -2118,17 +2118,19 @@ def plot_gyroage_vs_teff(outdir, yscale='linear', showerrs=0, showplanets=0):
         [nparr(kicdf['gyro_-1sigmapct']), nparr(kicdf['gyro_+1sigmapct'])]
     ).reshape((2, len(kicdf))), axis=0)
     if showerrs:
-        ax.errorbar(
-            xval, yval, yerr=yerr,
-            marker='o', elinewidth=0.05, capsize=0, lw=0, mew=0.5, color='k',
-            markersize=0, zorder=5, alpha=0.5
-        )
+        if not showplanets:
+            ax.errorbar(
+                xval, yval, yerr=yerr,
+                marker='o', elinewidth=0.05, capsize=0, lw=0, mew=0.5, color='k',
+                markersize=0, zorder=5, alpha=0.5
+            )
     else:
-        ax.errorbar(
-            xval, yval, yerr=yerr,
-            marker='o', elinewidth=0.0, capsize=0, lw=0, mew=0.5, color='k',
-            markersize=0.5, zorder=5, alpha=0.5
-        )
+        if not showplanets:
+            ax.errorbar(
+                xval, yval, yerr=yerr,
+                marker='o', elinewidth=0.0, capsize=0, lw=0, mew=0., color='k',
+                markersize=0.3, zorder=5, alpha=1
+            )
     if showplanets:
         yerr = nparr(
             [nparr(koidf['gyro_-1sigma']), nparr(koidf['gyro_+1sigma'])]
