@@ -488,12 +488,12 @@ def make_table(
                     'li_eagles_LiEW', 'li_eagles_eLiEW',
                     'gyro_median', 'gyro_+1sigma', 'gyro_-1sigma',
                     'li_median', 'li_+1sigma', 'li_-1sigma',
-                    'li_eagles_limlo_formatted',
                     'adopted_rp', 'adopted_rp_provenance', 'adopted_period',
                     'flag_gyro_quality', 'flag_planet_quality', 'has_hires',
                     't_gyro', 't_li', 'are_gyro_and_li_consistent'
                    ]
 
+        # format prot
         _pdf['Prot_err'] = _pdf.apply(format_prot_err, axis=1)
         _pdf['Prot'] = _pdf['Prot'].apply(
             lambda x: f"{x:.3f}" if x <= 5 else f"{x:.2f}"
@@ -505,11 +505,27 @@ def make_table(
                 for key, value in BIBCODEDICT.items():
                     outdf[column] = outdf[column].str.replace(key, value)
 
-        csvpath = join(PAPERDIR, 'table_allageinfo.csv')
+        csvpath = join(TABLEDIR, 'table_allageinfo.csv')
         outdf.to_csv(csvpath, index=False, na_rep='--')
         print(f'Wrote {csvpath}')
 
-        csvpath = join(PAPERDIR, 'table_allageinfo_allcols.csv')
+        # format ages
+        sel = outdf['t_li'].str.contains(">")
+        outdf.loc[sel, 'li_median'] = np.nan
+        outdf.loc[sel, 'li_+1sigma'] = np.nan
+        outdf.loc[sel, 'li_-1sigma'] = np.nan
+
+        sel = outdf.gyro_median.astype(float) > 4000
+        outdf.loc[sel, 't_gyro'] = '$> 4000$'
+        outdf.loc[sel, 'gyro_median'] = np.nan
+        outdf.loc[sel, 'gyro_+1sigma'] = np.nan
+        outdf.loc[sel, 'gyro_-1sigma'] = np.nan
+
+        csvpath = join(PAPERDIR, 'table_allageinfo_agesformatted.csv')
+        outdf.to_csv(csvpath, index=False, na_rep='--')
+        print(f'Wrote {csvpath}')
+
+        csvpath = join(TABLEDIR, 'table_allageinfo_allcols.csv')
         longdf.to_csv(csvpath, index=False, na_rep='--')
         print(f'Wrote {csvpath}')
 

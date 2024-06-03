@@ -1,7 +1,7 @@
 import os
 import pandas as pd, matplotlib.pyplot as plt, numpy as np
 from os.path import join
-from gyrojo.paths import PAPERDIR, RESULTSDIR
+from gyrojo.paths import PAPERDIR, RESULTSDIR, TABLEDIR
 from scipy.stats import truncnorm
 from aesthetic.plot import savefig, set_style
 
@@ -99,7 +99,7 @@ def plot_prot_vs_porb(df, yscale='log', fakedata=0):
 
 if __name__ == "__main__":
 
-    csvpath = join(PAPERDIR, "table_allageinfo.csv")
+    csvpath = join(TABLEDIR, "table_allageinfo.csv")
     df = pd.read_csv(csvpath)
     N = len(df)
 

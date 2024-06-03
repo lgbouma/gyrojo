@@ -53,7 +53,7 @@ from gyrojo.papertools import (
     format_lowerlimit, cast_to_int_string, replace_nan_string, format_prot_err
 )
 
-from gyrojo.paths import PAPERDIR, DATADIR
+from gyrojo.paths import PAPERDIR, DATADIR, TABLEDIR
 
 def make_star_table(
 ):
@@ -148,9 +148,9 @@ def make_star_table(
     sdf['Prot'] = sdf['Prot'].apply(
         lambda x: f"{x:.3f}" if x <= 5 else f"{x:.2f}"
     )
-    csvpath = join(PAPERDIR, 'table_star_gyro.csv')
+    csvpath = join(TABLEDIR, 'table_star_gyro.csv')
 
-    from make_younghighlight_table import BIBCODEDICT 
+    from make_younghighlight_table import BIBCODEDICT
     for column in sdf.columns:
         if sdf[column].dtype == 'object':  # Check if the column is of string type
             for key, value in BIBCODEDICT.items():
@@ -159,7 +159,18 @@ def make_star_table(
     sdf.to_csv(csvpath, index=False)
     print(f'Wrote {csvpath}')
 
-    csvpath = join(PAPERDIR, 'table_star_gyro_allcols.csv')
+    csvpath = join(PAPERDIR, 'table_star_gyro_agesformatted.csv')
+    # format ages
+    sel = sdf.gyro_median.astype(float) > 4000
+    sdf.loc[sel, 't_gyro'] = '$> 4000$'
+    sdf.loc[sel, 'gyro_median'] = np.nan
+    sdf.loc[sel, 'gyro_+1sigma'] = np.nan
+    sdf.loc[sel, 'gyro_-1sigma'] = np.nan
+    sdf.to_csv(csvpath, index=False)
+    print(f'Wrote {csvpath}')
+
+
+    csvpath = join(TABLEDIR, 'table_star_gyro_allcols.csv')
     odf = df.sort_values(
         by=['gyro_median','KIC'],
         ascending=[True, True]
