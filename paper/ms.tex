@@ -1140,14 +1140,15 @@ mass and age.
 
 The stellar ages 
 are given in Table~\ref{tab:planets} for the known planet hosts,
-and in Table~\ref{tab:stars} for all Kepler stars.  Figure~\ref{fig:hist_tgyro} shows the rotation-based
+and in Table~\ref{tab:stars} for all Kepler stars.  
+Figure~\ref{fig:hist_tgyro} shows the rotation-based
 age distributions of all the stars (left column) and the
 KOI hosts (middle column).  These ``histograms'' are sampled from
 the posterior probability distributions by drawing ten random samples
 from each posterior, and then computing the re-weighted
 histogram of the resulting samples.  The uncertainties assume Poisson
 statistics.  We truncated the plots near $4$\,Gyr since this is the
-cluster age out to which our interpolation-based method is calibrated.
+cluster age out to which our interpolation-based method is well-calibrated.
 The overall slope yields a dearth of young stars relative to the expectation
 of a uniform age distribution.
 %In an alternative coinage, this tendency for fewer young
@@ -1166,15 +1167,15 @@ when requiring $t_{\rm gyro}$$<$3\,Gyr.  The resulting $\log_{\rm
 This agrees with the visual impression that while small differences
 may be present, they are not drastic.
 
-The similarity of the age distributions between KOI hosts and Kepler
-stars adds some nuance to the argument that young transiting planets
+The similarity of the KOI host and Kepler
+star age distributions adds some nuance to the argument that young transiting planets
 are hard to detect due to the photometric variability of their host
-stars.  If true, this statement seems to only hold for the very youngest
+stars.  If true, this statement seems to hold only for the very youngest
 ($\lesssim$0.4\,Gyr) stars, where there is a marginal deficit in the KOI host
 age distribution relative to that of the overall stellar sample.
-Examining the planet properties as a function of time, we similary
-find that fewer systems at $<$0.4\,Gyr are detected with $P_{\rm
-orb}$$\gtrsim$30\,days than at $>$0.4\,Gyr.
+Examining scatter plots of the planet properties as a function of time, we similarly
+find that fewer systems at $t_{\rm gyro}$$<$0.4\,Gyr are detected with $P_{\rm
+orb}$$\gtrsim$30\,days than at $t_{\rm gyro}$$>$0.4\,Gyr.
 
 An important separate selection effect concerns Kepler's ability to
 detect the rotation signals.  \citet{2022ApJ...937...94M} studied this
@@ -1713,7 +1714,11 @@ and the Arthur R.~Adams SURF Fellowship (EKP).
   	Two checkmarks ($\checkmark\checkmark$) denote systems with two-sided $t_{\rm
   gyro}$ and $t_{\rm Li}$ for which both the age and the planet are expected to be reliable.  One checkmark ($\checkmark$) denotes two-sided $t_{\rm gyro}$ only. 
   ``Confirmed'' planets appear in the machine-readable
-  version before``candidate'' planets.  The bit quality flags for the
+  version before``candidate'' planets.  
+  Planetary sizes are mostly drawn from (in order of precedence)
+  \citet{Petigura_2022}, \citet{Berger_2020b_rpage}, and \citet{Thompson_2018}, and might be unphysical
+  for grazing planets.
+  The bit quality flags for the
   rotation-based ages, $Q_{\rm star}$, are described in
   Section~\ref{subsec:flags}.  Concisely summarized, they are:
   Bit 0: $T_{\rm eff}/{\rm K} \in [ 3800-6200]$ ?
