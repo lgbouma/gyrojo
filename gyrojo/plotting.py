@@ -67,6 +67,10 @@ from aesthetic.plot import set_style, savefig
 
 from cdips.utils.gaiaqueries import propermotion_to_kms
 
+from astroquery.vizier import Vizier
+Vizier.ROW_LIMIT = -1
+
+
 ###########
 # helpers #
 ###########
@@ -1693,6 +1697,20 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         axs[2].plot(
             x_new, y_new/factor, c='k', lw=0.5, zorder=-10, ls=':',
             label=l2_4, alpha=0.7
+        )
+
+    SHOW_BERGER2020 = 0
+    if SHOW_BERGER2020:
+        # Berger+2020: Gaia-Kepler stellar properties catalog.
+        fitspath = join(DATADIR, 'literature', 'Berger_2020_t2_secret.fits')
+        hl = fits.open(fitspath)
+        b20t2_df = Table(hl[1].data).to_pandas()
+        #NOTE: might want to resample uncs???
+        heights, _, _ = axs[2].hist(
+            b20t2_df.Age, bins=bins, histtype='step',
+            weights=np.ones(len(b20t2_df))*0.06/5531,
+            color='gray', alpha=0.9,
+            zorder=-2, label='Berger+20'
         )
 
 

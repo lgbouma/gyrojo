@@ -128,12 +128,12 @@ def make_star_table(
     _sdf = sdf[mapdict.values()]
 
     latexpath = join(PAPERDIR, 'table_star_gyro.tex')
-    np.random.seed(42)
+    np.random.seed(123)
 
     # format ages
     sel = sdf.gyro_median.astype(float) > 4000
     _sdf.loc[sel, 't_gyro'] = '$> 4000$'
-    _sdf.sample(n=10).to_latex(
+    _sdf.sample(n=5).to_latex(
         latexpath, index=False, na_rep='--', escape=False, formatters=formatters
     )
 
