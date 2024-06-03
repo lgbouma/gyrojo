@@ -129,6 +129,10 @@ def make_star_table(
 
     latexpath = join(PAPERDIR, 'table_star_gyro.tex')
     np.random.seed(42)
+
+    # format ages
+    sel = sdf.gyro_median.astype(float) > 4000
+    _sdf.loc[sel, 't_gyro'] = '$> 4000$'
     _sdf.sample(n=10).to_latex(
         latexpath, index=False, na_rep='--', escape=False, formatters=formatters
     )
@@ -166,7 +170,7 @@ def make_star_table(
     sdf.loc[sel, 'gyro_median'] = np.nan
     sdf.loc[sel, 'gyro_+1sigma'] = np.nan
     sdf.loc[sel, 'gyro_-1sigma'] = np.nan
-    sdf.to_csv(csvpath, index=False)
+    sdf.to_csv(csvpath, index=False, na_rep='')
     print(f'Wrote {csvpath}')
 
 

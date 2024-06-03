@@ -1682,16 +1682,18 @@ and the Arthur R.~Adams SURF Fellowship (EKP).
 \begin{deluxetable*}{llllllllrrrrrrl}
   \tabletypesize{\scriptsize}
   \tablecaption{Ages of Kepler planets and planet candidates.  This
-  version of the table is truncated to include only the youngest
+  version of the table is truncated to include the youngest
   confirmed Kepler planets, sorted by the minimum of either the
   rotation or lithium-based age.  The full machine-readable table
   contains ages and age limits for \nnonfopkoissomeageinfo\ non-false
   positive KOIs with MES$>$10.  
-  A bash script to decode any given $Q_{\rm star}$ quality flag is
+  A bash script to decode the $Q_{\rm star}$ quality flag is
   {\bf
   \href{https://gist.github.com/lgbouma/20368253f1a98da1b39cf32fdda0be13}{available
   online}}.  A python script to select stars with specific bit flags
   is {\bf \href{https://gist.github.com/lgbouma/87ad8bde42625e766a5a8857cc5a183a}{also available}}.
+  All quoted uncertainties are statistical; they do not incorporate
+  possible systematic uncertainties, e.g.~in the absolute ages of open clusters.
   \label{tab:planets}}
   %\toprule
   %\midrule
@@ -1778,7 +1780,7 @@ and the Arthur R.~Adams SURF Fellowship (EKP).
 
 
 \appendix
-\section{Defining An ``Isochronally Too Far From The Main Sequence'' Boundary}
+\section{Defining An ``Isochronally Far From The Main Sequence'' Boundary}
 \label{app:linemethod}
 
 The (arbitrary) method used to construct the orange line in 
@@ -2016,12 +2018,12 @@ regime, we truncated our analysis at 4\,Gyr.
   \end{center}
   \vspace{-0.6cm}
   \caption{
-    {\bf Rotation-based age as a function of effective temperature}.
+    {\bf Rotation-based age vs.~effective temperature}.
     The entire Kepler sample is shown on the left.
-    The KOI hosts are shown on the right.
+    KOI hosts are shown on the right.
     Each bar shows the $\pm$1$\sigma$ uncertainty for a star's age as
     derived from its rotation period.  
-    Individual features are discussed in
+    Notable features are discussed in
     Appendix~\ref{app:age_diagnostic}.
     \label{fig:gyroage_vs_teff}
   }

@@ -506,7 +506,7 @@ def make_table(
                     outdf[column] = outdf[column].str.replace(key, value)
 
         csvpath = join(TABLEDIR, 'table_allageinfo.csv')
-        outdf.to_csv(csvpath, index=False, na_rep='--')
+        outdf.to_csv(csvpath, index=False)
         print(f'Wrote {csvpath}')
 
         # format ages
@@ -522,11 +522,11 @@ def make_table(
         outdf.loc[sel, 'gyro_-1sigma'] = np.nan
 
         csvpath = join(PAPERDIR, 'table_allageinfo_agesformatted.csv')
-        outdf.to_csv(csvpath, index=False, na_rep='--')
+        outdf.to_csv(csvpath, index=False)
         print(f'Wrote {csvpath}')
 
         csvpath = join(TABLEDIR, 'table_allageinfo_allcols.csv')
-        longdf.to_csv(csvpath, index=False, na_rep='--')
+        longdf.to_csv(csvpath, index=False)
         print(f'Wrote {csvpath}')
 
 
