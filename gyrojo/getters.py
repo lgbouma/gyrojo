@@ -526,6 +526,8 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
     df['adopted_rp_provenance'] = a_rp_prov
     df['adopted_period'] = a_period
 
+    df.loc[df.kepoi_name=='K01951.01','adopted_rp'] = 2.352
+    df.loc[df.kepoi_name=='K01951.01','adopted_rp_provenance'] = 'Berger2018'
     df.loc[df.kepoi_name=='K07368.01','adopted_rp'] = 2.22 # source: me, 2022b
     df.loc[df.kepoi_name=='K07368.01','adopted_rp_provenance'] = 'Bouma2022b' # source: me, 2022b
     df.loc[df.kepoi_name=='K05245.01','adopted_rp'] = 3.79 # source: me, 2022a
