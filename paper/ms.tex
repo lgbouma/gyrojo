@@ -509,11 +509,11 @@ periods compiled from \citetalias{Santos_2019},
 To assess the statistical uncertainties of these rotation periods, we
 compared our adopted \citetalias{Santos_2019} and
 \citetalias{Santos_2021} periods with those reported by
-\citet{McQuillan_2014}.  We found that for $P_{\rm
-rot}\lesssim$15\,days, the two datasets agree at a precision of
-$\lesssim$0.01$P_{\rm rot}$.  At longer periods of $P_{\rm
-rot}\approx$30\,days, the agreement was typically at the
-$\lesssim$0.03$P_{\rm rot}$ level, and the upper envelope of the
+\citet{McQuillan_2014} (see Appendix~\ref{app:reinhold23}).  We found
+that for $P_{\rm rot}\lesssim$15\,days, the two datasets agree at a
+precision of $\lesssim$0.01$P_{\rm rot}$.  At longer periods of
+$P_{\rm rot}\approx$30\,days, the agreement was typically at the
+$\lesssim$0.03$P_{\rm rot}$ level, and the envelope of the
 period difference increased roughly linearly with period.  Based on
 this comparison, we adopted a simple prescription for the period
 uncertainties, such that there are 1\% relative uncertainties below
@@ -1802,32 +1802,69 @@ and the Arthur R.~Adams SURF Fellowship (EKP).
 \section{The Preferred Rotation Period Catalog}
 \label{app:reinhold23}
 
-While we opted for the 
-\citetalias{Santos_2019} and \citetalias{Santos_2021}
-rotation period catalogs,
-the more recent analysis by \citet{Reinhold2023} bears comment.  \citet{Reinhold2023} used a
-similar selection function as \citeauthor{Santos_2021}, and
-considered a novel period measurement approach based on gradients of
-power spectra (GPS).
-Their method likely provides greater completeness, due
-to its greater sensitivity to signals that are only weakly periodic.
-However,
- comparing 
-overlapping stars from
-\citet{McQuillan_2014}, \citetalias{Santos_2019},
-\citetalias{Santos_2021}, and \citet{Reinhold2023} suggested that for
-stellar signals that are strongly periodic, 
-the GPS method is a few times less precise than 
-the more traditional approaches (ACF, Lomb-Scargle, or wavelet
-analysis).
+\begin{figure*}[!b]
+  \begin{center}
+    \leavevmode
+      \includegraphics[width=0.48\textwidth]{perioddiff_vs_period_diffProt-m14_Prot_vs_Prot.pdf}
+      \includegraphics[width=0.48\textwidth]{perioddiff_vs_period_diffProt-r23_ProtGPS_vs_Prot.pdf}
+  \end{center}
+  \vspace{-0.6cm}
+  \caption{
+    {\bf Comparison of reported literature stellar rotation periods}.
+    ``Santos'' refers to the concatenation of \citet{Santos_2019} and
+    \citet{Santos_2021}.  ``M14'' refers to \citet{McQuillan_2014}.
+    ``R23$_{\rm GPS}$'' refers to the Gradient of Power Spectrum
+    periods from \citet{Reinhold2023}.  The background is a 2-D
+    histogram with a logarithmic color stretch that counts overlapping
+    stars between these studies.  The black errorbars show the median
+    and $\pm$1$\sigma$ range of period the differences in 1-day bins.
+    The
+    solid gray ``empirical $\sigma_{\rm P}/P$'' line in the left panel
+    shows the expected $\pm 1\sigma$ range that would be spanned if
+    the indepndent $P_{\rm rot}$ measurements had gaussian
+    uncertainties drawn following the empirical estimate described in
+    Section~\ref{subsec:rotsel}.
+    Note the different vertical scales.
+    \label{fig:perioddiff}
+  }
+\end{figure*}
 
-{\bf TODO: finish writing!}
-{\bf TODO: finish writing!}
-{\bf TODO: finish writing!}
+While we opted for the \citetalias{Santos_2019} and
+\citetalias{Santos_2021} rotation period catalogs, the more recent
+analysis by \citet{Reinhold2023} bears comment.  \citet{Reinhold2023}
+used a similar selection function as \citeauthor{Santos_2021}
+(i.e.~all Kepler stars), and considered a novel period measurement
+approach based on gradients of power spectra (GPS).  Their method
+likely provides greater completeness, due to its greater sensitivity
+to signals that are only weakly periodic.  
 
-%TODO: how many "new rotatoin periods" would this reinhold catalog
-%yield?
-%TODO: maybe you should just report ages for them!!
+Figure~\ref{fig:perioddiff} shows histograms of the differences
+between reported periods from these various studies.  The left panel
+compares overlapping stars from \citet{McQuillan_2014} and
+the \citeauthor{Santos_2021} studies.  The periods agree at a precision of
+$\lesssim$0.01$P_{\rm rot}$ for $P_{\rm rot}\lesssim$15\,days, and at
+$\lesssim$0.03$P_{\rm rot}$ for $P_{\rm rot}\approx$30\,days.  
+A small bias exists at $P_{\rm rot}$$\approx$10\,days,
+in the sense that the Santos periods tend to be $\approx$1\% faster
+for such stars.
+
+The right panel compares overlapping periods from the
+\citet{Reinhold2023} GPS method and the \citeauthor{Santos_2021} studies.  The
+periods agree at a precision of $\lesssim$0.20$P_{\rm rot}$ for
+$P_{\rm rot}\lesssim$15\,days, and at $\lesssim$0.30$P_{\rm rot}$ for
+$P_{\rm rot}\approx$30\,days.  A  bias develops past $P_{\rm
+rot}\gtrsim$30\,days, in the sense that the \citeauthor{Santos_2021}
+periods tend to be 10-20\% longer than the GPS periods.  The origin of
+this larger scatter could be connected to the need for the GPS method
+to determine the ``$\alpha$ calibration factor'', which is known only
+at a statistical level for large stellar populations
+\citep[see][]{Reinhold2023}.  While we considered deriving independent
+rotation-based ages using the \citet{Reinhold2023} GPS periods with an
+inflated empirical uncertainty, we ultimately opted against this path.
+A rotation period difference of 20-30\% away from the ``true period''
+could sufficiently skew a star's age that we prefer to restrict our
+attention to the stars for which precision is a possible
+outcome.
 
 
 

@@ -39,3 +39,6 @@ cp $r/gyroage_vs_teff/gyroage_vs_teff_errs_showplanets_linear.png .
 cp $r/gyroage_vs_teff/gyroage_vs_teff_errs_linear.png .
 
 cp $r/lit_ages_vs_cluster_ages/olympic_merged_lit_ages_vs_cluster_ages.pdf .
+
+cp $r/perioddiff_vs_period/perioddiff_vs_period_diffProt-m14_Prot_vs_Prot.pdf .
+cp $r/perioddiff_vs_period/perioddiff_vs_period_diffProt-r23_ProtGPS_vs_Prot.pdf .
