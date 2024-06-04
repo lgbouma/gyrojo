@@ -56,3 +56,5 @@ paper/table_star_gyro.csv
 gyrojo/data/interim/S19_S21_KOIbonus_litsupp_merged_X_GDR3_X_B20.csv
 paper/*allcols.csv
 gyrojo/data/literature/Reinhold_2023_tablec1.fits
+gyrojo/data/literature/McQuillan_2014_table1.fits
+gyrojo/data/interim/S19_S21_M14_R23_X_KIC_B20_DR3_rotation_period_metacatalog.csv
