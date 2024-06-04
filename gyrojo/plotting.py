@@ -27,6 +27,8 @@ Catch-all file for plotting scripts.  Contents:
 
     plot_gyromodeldispersion
 
+    plot_perioddiff_vs_period
+
 Helpers:
     _given_ax_append_spectral_types
 
@@ -54,7 +56,7 @@ from astropy.io import fits
 from gyrojo.paths import DATADIR, RESULTSDIR, LOCALDIR, CACHEDIR
 from gyrojo.getters import (
     get_gyro_data, get_li_data, get_age_results,
-    get_kicstar_data, get_koi_data
+    get_kicstar_data, get_koi_data, get_prot_metacatalog
 )
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 
@@ -2633,3 +2635,152 @@ def plot_liagefloor_vs_teff(outdir):
 
     outpath = os.path.join(outdir, f'liagefloor_vs_teff.png')
     savefig(fig, outpath, dpi=400)
+
+
+def plot_perioddiff_vs_period(outdir, xkey='Prot', ykey=None, ylim=None,
+                              dx=0.25, dy=0.125):
+
+    from gyrojo.prot_uncertainties import get_empirical_prot_uncertainties
+
+    assert isinstance(ykey, str)
+
+    xlabeldict = {
+        'Prot': 'Santos $P_\mathrm{rot}$ [days]'
+    }
+    ylabeldict = {
+        'Prot': 'Santos $P_\mathrm{rot}$',
+        'm14_Prot': "M14 $P_\mathrm{rot}$",
+        'r23_ProtGPS': 'R23$_\mathrm{GPS}$ $P_\mathrm{rot}$',
+        'r23_ProtFin': 'R23$_\mathrm{Fin}$ $P_\mathrm{rot}$',
+    }
+
+    df = get_prot_metacatalog()
+
+    # make plot
+    plt.close('all')
+    set_style('clean')
+
+    fig, ax = plt.subplots(figsize=(3.5,2.5))
+
+    xval = df[xkey]
+    yval = df[xkey] - df[ykey]
+
+    SHOW_POINTS = 0
+    if SHOW_POINTS:
+        ax.scatter(
+            xval, yval,
+            c='lightgray', s=0.25, linewidths=0, zorder=1
+        )
+    else:
+        # Create the 2D histogram
+        hist, xedges, yedges, im = plt.hist2d(
+            xval, yval,
+            bins=[np.arange(-1, 51, dx),
+                  np.arange(-12, 12, dy)],
+            zorder=-1
+        )
+
+        # Create a custom colormap with white color for zero values
+        cmap = plt.cm.YlGnBu
+        cmaplist = [cmap(i) for i in list(range(cmap.N))[:-100]]
+        cmaplist[0] = (1.0, 1.0, 1.0, 1.0)  # Set the color for zero values to white
+        cmap = mcolors.LinearSegmentedColormap.from_list('Custom YlGnBu', cmaplist, cmap.N)
+
+        ## Apply log scaling to the colorbar
+        norm = mcolors.LogNorm(vmin=1, vmax=np.max(hist))
+        #norm = mcolors.Normalize(vmin=1, vmax=7)
+        im.set_norm(norm)
+
+        # Update the colormap of the plot
+        im.set_cmap(cmap)
+
+        show_colorbar = 1
+        if show_colorbar:
+            axins1 = inset_axes(ax, width="20%", height="2%", loc='lower right',
+                                borderpad=2.5)
+
+            cb = fig.colorbar(im, cax=axins1, orientation="horizontal",
+                              norm=norm)
+            #cb.set_ticks([1,4,7,10])
+            #cb.set_ticks([1,10])
+            cb.ax.tick_params(labelsize='small')
+            #cb.ax.tick_params(size=0, which='both') # remove the ticks
+            #cb.ax.yaxis.set_ticks_position('left')
+            cb.ax.xaxis.set_label_position('top')
+            cb.set_label(
+                "$N_\mathrm{stars}$", fontsize='small', weight='normal',
+                bbox={'facecolor':'white', 'edgecolor':'none', 'pad': 2}
+            )
+
+
+    pcts, alphas, lss = [1, 5], [0.8, 0.4], ['-.', ':']
+    if 'r23' in ykey:
+        pcts, alphas = [20, 40], [0.8, 0.4]
+    for _ix, (pct, alpha, ls) in enumerate(zip(pcts, alphas, lss)):
+        ax.plot(
+            [0, 50], (pct/100)*np.array([0,50]), lw=0.5,
+            label="$\Delta P/P=$"f"{pct}%", color=f'C{_ix}',
+            alpha=alpha, ls=ls
+        )
+        ax.plot(
+            [0, 50], -(pct/100)*np.array([0,50]), lw=0.5,
+            color=f'C{_ix}', alpha=alpha, ls=ls
+        )
+
+    _prot = np.linspace(0.1, 50, 1000)
+    prot_err = 2**(0.5) * get_empirical_prot_uncertainties(_prot)
+    if 'r23' not in ykey:
+        ax.plot(_prot, prot_err, lw=0.5, color='darkgray',
+                label='Empirical $\sigma_{\mathrm{P}}/P$', zorder=99)
+        ax.plot(_prot, -prot_err, lw=0.5, color='darkgray', zorder=99)
+
+    # zero line
+    ax.plot([-100,100], [0,0], ls='-', c='k', lw=0.5, alpha=0.5, zorder=0)
+
+    # Calculate the absolute difference and add it as a new column
+    df[f'diff_{ykey}'] = df[xkey] - df[ykey]
+
+    # Bin the data and calculate median and ±1 sigma values
+    bins = np.arange(1, 51, 1)
+    binned_data = pd.cut(df[xkey], bins)
+    grouped_data = df.groupby(binned_data)
+    y_medians = grouped_data[f'diff_{ykey}'].median()
+    y_q16 = grouped_data[f'diff_{ykey}'].quantile(0.16)
+    y_q84 = grouped_data[f'diff_{ykey}'].quantile(0.84)
+
+    # Overplot the median and ±1 sigma values
+    x_mids = (bins[:-1] + bins[1:]) / 2
+    x_err = np.ones_like(x_mids) / 2
+    y_err = np.vstack([y_medians - y_q16, y_q84 - y_medians])
+    ax.errorbar(x_mids, y_medians, xerr=x_err, yerr=y_err, fmt='o',
+                color='k', elinewidth=0.5, capsize=0, lw=0,
+                mew=0.5, markersize=0, zorder=9999)
+
+    ax.set_xlabel(xlabeldict[xkey])
+    ax.set_ylabel(f"{ylabeldict[xkey]} - {ylabeldict[ykey]} [days]")
+    #ax.set_ylim([-2.2, 2.2])
+
+    ax.legend(
+        loc='upper left', fontsize='x-small',
+        #markerscale=3,
+        framealpha=0,
+        #handletextpad=0.3, framealpha=0, borderaxespad=0, borderpad=0,
+        #handlelength=1.6#, bbox_to_anchor=(0.97, 0.97)
+        handletextpad=0.1, borderaxespad=1.5, borderpad=0.5
+    )
+
+    if not isinstance(ylim, list):
+        ax.set_ylim([-12, 12])
+        ax.set_yticks([-10,-5,0,5,10])
+        ax.set_yticklabels([-10,-5,0,5,10])
+    else:
+        ax.set_ylim(ylim)
+        ax.set_yticks([-4,-2,0,2,4])
+        ax.set_yticklabels([-4,-2,0,2,4])
+    ax.set_xlim([-2,52])
+
+    outdir = join(RESULTSDIR, "perioddiff_vs_period")
+    if not os.path.exists(outdir): os.mkdir(outdir)
+
+    outpath = join(outdir, f'perioddiff_vs_period_diff{xkey}-{ykey}_vs_{xkey}.png')
+    savefig(fig, outpath)
