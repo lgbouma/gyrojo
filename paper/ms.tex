@@ -110,11 +110,11 @@ Mellon University, Pittsburgh, PA 15213, USA}
 \author[0000-0001-8638-0320]{Andrew W. Howard}
 \affiliation{\caltech}
 
-\author{and to be confirmed:}
-\affiliation{\caltech}
-
 \author[0000-0001-7967-1795]{Elsa~K.~Palumbo}
 \affiliation{\cmu}
+
+\author{and to be confirmed:}
+\affiliation{\caltech}
 
 \author[0000-0002-0531-1073]{Howard Isaacson}
 \affiliation{\berkeley}
@@ -1799,13 +1799,14 @@ and the Arthur R.~Adams SURF Fellowship (EKP).
 
 \appendix
 
-\section{Regarding The Preferred Rotation Period Catalog}
+\section{The Preferred Rotation Period Catalog}
 \label{app:reinhold23}
 
-While we opted for our default stellar rotation periods to be those
-reported by \citetalias{Santos_2019} and \citetalias{Santos_2021},
+While we opted for the 
+\citetalias{Santos_2019} and \citetalias{Santos_2021}
+rotation period catalogs,
 the more recent analysis by \citet{Reinhold2023} bears comment.  \citet{Reinhold2023} used a
-similar selection function as \citetauthor{Santos_2021}, and
+similar selection function as \citeauthor{Santos_2021}, and
 considered a novel period measurement approach based on gradients of
 power spectra (GPS).
 Their method likely provides greater completeness, due
@@ -1816,7 +1817,7 @@ overlapping stars from
 \citet{McQuillan_2014}, \citetalias{Santos_2019},
 \citetalias{Santos_2021}, and \citet{Reinhold2023} suggested that for
 stellar signals that are strongly periodic, 
-the GPS method is likely a factor of a few times less precise than 
+the GPS method is a few times less precise than 
 the more traditional approaches (ACF, Lomb-Scargle, or wavelet
 analysis).
 
@@ -1861,9 +1862,9 @@ The portion of the orange locus from $\approx$5300--6200\,K
 is set as $f_1 + c$, for $c$ a constant offset that we defined to be
 0.1\,dex above the ``KOI main sequence''.
 The exact break-point in temperature is automatically set by ${\rm max}(f_0, f_1+c)$.
-We do report rotation-based ages for stars
-above this orange locus;
-they are simply flagged as not being near the main sequence in the $\log g$ vs.~$T_{\rm eff}$ plane. 
+While we do report rotation-based ages for stars
+above this orange locus,
+they are flagged as not being near the main sequence in the $\log g$ vs.~$T_{\rm eff}$ plane. 
 
 
 \section{Cases With ``Inconsistent'' Rotation and Lithium-Based Ages}
@@ -1992,7 +1993,7 @@ bits 1, 2, and 9.
 %Kepler~51 (CITE Masuda2014) has previously been noted for its bizarre architure.
 %The rotation-based age we find here is higher/lower than previously noted.
 
-Kepler~411, a $\approx$780$\pm$170\,Myr early K dwarf with three
+Kepler~411, a $t_{\rm gyro}$$\approx$780$\pm$170\,Myr early K dwarf with three
 transiting planets at 3.0, 7.8, and 58\,days, has a rare
 architecture.  \citet{2019A&A...624A..15S} conducted a transiting
 timing analysis of the system, confirming Kepler-411d and arguing for
