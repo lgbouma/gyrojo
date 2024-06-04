@@ -7,6 +7,7 @@ Getters:
     | get_cleaned_gaiadr3_X_kepler_dataframe
     | get_cleaned_gaiadr3_X_kepler_supplemented_dataframe
     | get_koi_data
+    | get_prot_metacatalog
 Selector:
     | select_by_quality_bits
 """
@@ -1204,3 +1205,68 @@ def select_by_quality_bits(df, bit_positions, target_values):
         mask &= (bit_values == target)
 
     return mask
+
+
+def get_prot_metacatalog():
+    """
+    Get S19_S21_M14_R23_X_KIC_B20_DR3_rotation_period_metacatalog :
+
+        Santos2019, Santos2021, McQuillan2014, Reinhold2023, left-joined
+        against the KIC, Berger+2020, and Gaia DR3.
+
+    Contains a range of rotation-related keys:
+        ['r23_ProtACF', 'r23_ProtGPS', 'r23_ProtFin', 'r23_ProtMcQ14',
+        'r23_ProtS21', 'm14_Prot', 'm14_e_Prot', 'm14_n_Prot', 'Prot', 'Prot_err',
+        'Prot_provenance']
+        where "Prot" is the S19/S21/SantosPrivComm periods, as noted in
+        Prot_provenance.
+
+    This was constructed largely b/c I didn't trust the Reinhold23 vs Santos
+    crossmatch, which was the correct thing to do - some stars that do overlap
+    (e.g. between McQ2014 and Santos19/21) are not listed by Reinhold.
+
+    Useful for considering alternative periods.
+    """
+
+    outpath = join(DATADIR, "interim",
+                   "S19_S21_M14_R23_X_KIC_B20_DR3_rotation_period_metacatalog.csv")
+    if os.path.exists(outpath):
+        return pd.read_csv(outpath)
+
+    # Prots
+    fitspath = join(DATADIR, "literature", "Reinhold_2023_tablec1_secret.fits")
+    hl = fits.open(fitspath)
+    r23_df = Table(hl[1].data).to_pandas()
+    r23_df = prepend_colstr("r23_", r23_df)
+    hl.close()
+
+    s1921_df = get_kicstar_data("Santos19_Santos21_litsupp_all")
+    sel = (
+        (s1921_df.Prot_provenance == 'Santos2019')
+        |
+        (s1921_df.Prot_provenance == 'Santos2021')
+        |
+        (s1921_df.Prot_provenance == 'SantosPrivComm')
+    )
+    s1921_df = s1921_df[sel]
+
+    fitspath = join(DATADIR, "literature", "McQuillan_2014_table1.fits")
+    hl = fits.open(fitspath)
+    m14_df = Table(hl[1].data).to_pandas()
+    m14_df = prepend_colstr("m14_", m14_df)
+    hl.close()
+
+    # get Teffs (gaia-kepler + berger2020)
+    gkb_df = get_cleaned_gaiadr3_X_kepler_supplemented_dataframe()
+
+    mdf0 = left_merge(gkb_df, r23_df, 'kepid', 'r23_KIC')
+    mdf1 = left_merge(mdf0, m14_df, 'kepid', 'm14_KIC')
+    mdf = left_merge(
+        mdf1, s1921_df[['KIC','Prot','Prot_err','Prot_provenance']],
+        'kepid', 'KIC'
+    )
+
+    mdf.to_csv(outpath, index=False)
+    print(f"Wrote {outpath}")
+
+    return mdf
