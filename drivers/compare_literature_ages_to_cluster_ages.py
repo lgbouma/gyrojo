@@ -14,7 +14,7 @@ from astropy.io import fits, ascii
 from astropy.table import Table
 import os
 from os.path import join
-from gyrojo.paths import LOCALDIR, PAPERDIR, DATADIR
+from gyrojo.paths import LOCALDIR, PAPERDIR, DATADIR, TABLEDIR
 from gyrojo.getters import select_by_quality_bits
 from gyrointerp.helpers import prepend_colstr, left_merge
 from astroquery.vizier import Vizier
@@ -124,7 +124,7 @@ def get_cluster_dfs():
 cluster_dfs, cluster_names, true_ages = get_cluster_dfs()
 
 # Bouma 2024 gyro ages...
-csvpath = join(PAPERDIR, "table_star_gyro_allcols.csv")
+csvpath = join(TABLEDIR, "table_star_gyro_allcols.csv")
 bdf = pd.read_csv(csvpath)
 
 # Berger+2020: Gaia-Kepler stellar properties catalog.
@@ -564,6 +564,15 @@ for ix, (cluster_df, cluster_full_name, true_age) in enumerate(zip(
         ).reshape((2, len(df)))  / (true_age)
         yval = ( nparr(df[xkey]/f) ) / true_age
 
+        # NOTE: not used - .errorbar doesn't handle vectorized opacities.
+        # Also, the plot will be shrinked down enough that this is too
+        # detailed.
+        alpha = 1.0*np.ones(len(yval))
+        alphaerr = 0.6*np.ones(len(yval))
+        if 'dr3_ruwe' in df.columns:
+            alpha[df.dr3_ruwe > 1.4] = 0.5
+            alphaerr[df.dr3_ruwe > 1.4] = 0.3
+
         if 'gyro-kinematic' in txt:
             upperlim = yval - yerr[0,:] < 0
             if np.any(upperlim):
@@ -599,8 +608,13 @@ for ix, (cluster_df, cluster_full_name, true_age) in enumerate(zip(
             ax.errorbar(
                 eps+ix*np.ones_like(yval), yval, yerr=yerr,
                 marker='o', elinewidth=0., capsize=0, lw=0, mew=0.5, color=f'C{iy}',
-                markersize=0.5, zorder=6
+                markersize=0.5, zorder=6, alpha=1
             )
+            #ax.scatter(
+            #    eps+ix*np.ones_like(yval), yval,
+            #    marker='o', color=f'C{iy}', s=0.5, zorder=6, alpha=alpha
+            #)
+
 
         for lval in [0.01, 0.1, 1, 10, 100]:
             lw = 0.5 if lval != 1 else 0.5
