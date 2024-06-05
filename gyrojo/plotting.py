@@ -2161,13 +2161,13 @@ def plot_gyroage_vs_teff(outdir, yscale='linear', showerrs=0, showplanets=0):
         if showerrs:
             ax.errorbar(
                 xval, yval, yerr=yerr,
-                marker='o', elinewidth=0.5, capsize=0, lw=0, mew=0.5, color='C0',
+                marker='o', elinewidth=0.25, capsize=0, lw=0, mew=0.5, color='k',
                 markersize=0, zorder=5, alpha=1
             )
         else:
             ax.errorbar(
                 xval, yval, yerr=yerr,
-                marker='o', elinewidth=0.0, capsize=0, lw=0, mew=0.5, color='C0',
+                marker='o', elinewidth=0.0, capsize=0, lw=0, mew=0.5, color='k',
                 markersize=2, zorder=5, alpha=1
             )
 
