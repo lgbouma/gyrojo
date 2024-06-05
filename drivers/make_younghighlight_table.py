@@ -142,7 +142,7 @@ def make_table(
         #"adopted_logg,"
         "adopted_Teff,adopted_Teff_err,adopted_Teff_provenance,"
         "Prot,Prot_err,Prot_provenance,li_eagles_LiEW,li_eagles_eLiEW,"
-        "gyro_median,gyro_+1sigma,gyro_-1sigma,"
+        "gyro_median,gyro_+1sigma,gyro_-1sigma,gyro_+2sigma,gyro_-2sigma,"
         "li_median,li_+1sigma,li_-1sigma,li_eagles_limlo,li_eagles_limlo_formatted,"
         "li_eagles_limlo_forsort,"
         "adopted_rp,adopted_rp_provenance,adopted_period,"
@@ -488,6 +488,7 @@ def make_table(
                     'Prot', 'Prot_err', 'Prot_provenance',
                     'li_eagles_LiEW', 'li_eagles_eLiEW',
                     'gyro_median', 'gyro_+1sigma', 'gyro_-1sigma',
+                    'gyro_+2sigma', 'gyro_-2sigma',
                     'li_median', 'li_+1sigma', 'li_-1sigma',
                     'adopted_rp', 'adopted_rp_provenance', 'adopted_period',
                     'flag_gyro_quality', 'flag_planet_quality', 'has_hires',
