@@ -400,13 +400,13 @@ def make_table(
     if SELECT_YOUNG:
         sel = (pdf.koi_disposition == 'CONFIRMED')
         latexpath1 = join(PAPERDIR, 'table_subgyr_confirmed.tex')
-        pdf[sel][mapdict.values()].head(n=95).to_latex(
+        pdf[sel][mapdict.values()].head(n=85).to_latex(
             latexpath1, index=False, na_rep='--', escape=False, formatters=formatters
         )
 
         sel = (pdf.koi_disposition == 'CANDIDATE')
         latexpath2 = join(PAPERDIR, 'table_subgyr_candidate.tex')
-        t2 = pdf[sel][mapdict.values()].head(n=20).to_latex(
+        t2 = pdf[sel][mapdict.values()].head(n=10).to_latex(
             latexpath2, index=False, na_rep='--', escape=False, formatters=formatters
         )
 
