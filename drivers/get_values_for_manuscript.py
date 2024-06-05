@@ -236,6 +236,22 @@ sel = (df['gyro_median'] + df['gyro_+2sigma']  <= 1000)
 N = len(df[sel])
 ulkvp('nplyounggyrotwosigmanograzingnoruwe', N)
 
+sel = (
+	(df['gyro_median'] + df['gyro_+2sigma']  <= 1000)
+	&
+	(df.koi_disposition == 'CONFIRMED')
+)
+N = len(df[sel])
+ulkvp('nconfirmedplyounggyrotwosigmanograzingnoruwe', N)
+
+sel = (
+	(df['gyro_median'] + df['gyro_+2sigma']  <= 1000)
+	&
+	(df.koi_disposition == 'CANDIDATE')
+)
+N = len(df[sel])
+ulkvp('ncandidateplyounggyrotwosigmanograzingnoruwe', N)
+
 
 
 ##########################################
