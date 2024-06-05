@@ -112,7 +112,7 @@ def get_planet_class_labels(df, OFFSET=0, rpkey='rp', periodkey='period'):
     sel = df[rpkey] <= 1
     df.loc[sel, 'pl_class'] = 'Earths'
 
-    sel = df[rpkey] >= 4
+    sel = (df[rpkey] >= 4) & (df[rpkey] < 10)
     df.loc[sel, 'pl_class'] = 'Sub-Saturns'
 
     sel = df[rpkey] >= 10
