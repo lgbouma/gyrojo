@@ -130,6 +130,8 @@ ulkvp('trestwotli', t)
 sel = sdf.kepler_name.str.contains("Kepler-786 b")
 t = sdf.loc[sel, 't_li'].iloc[0]
 ulkvp('kepseveneightsix', t)
+t = sdf.loc[sel, 't_gyro'].iloc[0]
+ulkvp('kepseveneightsixgyro', t)
 
 sel = sdf.kepler_name.str.contains("Kepler-1312 b")
 t = sdf.loc[sel, 't_gyro'].iloc[0]
