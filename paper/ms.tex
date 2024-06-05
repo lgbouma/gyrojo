@@ -144,7 +144,7 @@ Mellon University, Pittsburgh, PA 15213, USA}
   1\,Gyr.
   %
   This is about half the number expected under the classic assumption
-  of a uniform star formation history.  We find that this dearth can
+  of a uniform star formation history.  We find that the dearth can
   be attributed to the star formation rate in the Kepler field
   dropping by a factor of \ratiosfr$\pm$\uncratiosfr\ over the past
   3\,Gyr.  This trend is observed both for known planet hosts as well
@@ -1285,7 +1285,7 @@ this time, enabling its rotation period to be diagnostic of its age.
   \caption{
     {\bf Sizes, orbital periods, and rotation-based ages of transiting
     exoplanets younger than one billion years.} Stars denote
-    \nplyounggyrotwosigmanograzingnoruwe\ planets that are newly
+    \nplyounggyrotwosigmanograzingnoruwe\ planets that are 
     characterized in this work to have $t_{\rm gyro}$<1\,Gyr at
     $2$$\sigma$; circles are planets from the literature meeting the
     same age requirement, but with a heterogeneous set of age
@@ -1294,8 +1294,8 @@ this time, enabling its rotation period to be diagnostic of its age.
     select for precise ages ($t/\sigma_{\rm t}>3$), this would hide
     $\approx$ten $<$0.5\,Gyr planets, and add $\approx$fifteen
     0.5-1\,Gyr planets.  For this plot, we require our Kepler stellar
-    hosts to have no quality flags raised, and for the planets to
-    similarly no have quality flags raised. 
+		hosts to not have $Q_{\rm star}$ bits 0--9 raised, and for the planets 
+		to similarly no have quality flags raised. 
     \label{fig:rp_period_age_results}
   }
 \end{figure}
@@ -1354,12 +1354,11 @@ Appendix~\ref{app:inconsistent} describes all cases of ``discrepant''
 confirmed planets for which a sub-gigayear age is reported by at least
 one age indicator.  All but two systems are either evolved stars or
 else unresolved binaries, and are automatically flagged as such.  The
-more interesting of the two is Kepler-786,
-an early K dwarf with $t_{\rm
-Li}$=\kepseveneightsix\,Myr, which would imply that rotation should be
-detectable.  However no photometric rotation signal is detected, and other
-age indicators in the spectrum similarly suggest that the star is not
-young. 
+more interesting of the two is Kepler-786, an early K dwarf with
+$t_{\rm Li}$=\kepseveneightsix\,Myr, but with a $\approx$33\,day
+rotaton period that would imply $t_{\rm
+gyro}$=\kepseveneightsixgyro\,Myr.  Other age indicators in the
+spectrum similarly suggest that the star is not young. 
 
 
 
@@ -1614,7 +1613,7 @@ interpolation-based methods, and assessed the reliability of these ages
 by comparing them against benchmark open clusters
 (Figure~\ref{fig:agescalecompone}).
 
-Our analysis blindly recovered the ages of all 14 known Kepler planets
+Our analysis recovered the ages of all 14 known Kepler planets
 in clusters.  While lithium provided only marginal added information
 for most of the sample, the lithium and rotation ages agreed in
 $\gtrsim$90\% of cases for which comparison was possible.
