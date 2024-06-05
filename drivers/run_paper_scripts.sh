@@ -6,6 +6,11 @@ python plot_star_Prot_Teff.py
 python plot_koi_mean_prot_teff.py
 python plot_li_vs_teff.py
 python plot_st_params.py
+python compare_literature_ages_to_cluster_ages.py
+
+# appendix plots
+python plot_perioddiff_vs_period.py
+python plot_scatter_gyroage_vs_teff.py
 
 # write latex tables and value files for ms
 python _compare_lithium_scales.py
