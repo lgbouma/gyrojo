@@ -182,7 +182,7 @@ Young ($<$1\,Gyr) exoplanets represent one means of building
 the timeline for exoplanet evolution.  Informative individual
 exemplars include V1298~Tau, a resonant chain of 
 puffy planets that is a likely precusor to the compact
-multiplanet systems \citep{David_2019}, and HIP~67522, a Jupiter-sized
+multiplanet systems \citep{David_2019}, and HIP~67522b, a Jupiter-sized
 planet with a sub-Neptunian mass (\citealt{Rizzuto_2020}; Thao et
 al.~submitted).  Population-level analyses have similarly suggested
 differences in the size distribution of young exoplanets relative to
@@ -246,8 +246,8 @@ many Kepler planets remain uncertain.  While isochrone ages have been
 calculated for Kepler stars \citep{Berger_2020b_rpage} and Kepler
 Objects of Interest \citep[KOIs;][]{Petigura_2022}, such ages are
 most precise for stars whose luminosities and temperatures separate
-them from the main sequence.  For $\lesssim$1\,Gyr stars, isochrone
-ages are therefore limited.
+them from the main sequence.  For 0.1--1\,Gyr stars that are on
+the main sequence, isochrone ages are therefore limited.
 
 Stellar rotation periods offer a promising alternative.  The idea of
 using a star's spin-down as a clock has a rich history
@@ -334,22 +334,23 @@ are offered in Section~\ref{sec:conclusions}.
 \begin{figure}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.48\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
+			\includegraphics[width=0.47\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
 		}
 	
 		\vspace{-0.3cm}
 		\subfloat{
-			\includegraphics[width=0.48\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
+			\includegraphics[width=0.47\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
   \caption{{\bf The stars.}  Our analysis focuses on stars observed by
   Kepler with previously reported rotation periods (gray points).  The
   rotation periods are primarily drawn from
-  \citet{Santos_2019,Santos_2021}.  About half of these rotators are
+  \citet{Santos_2019,Santos_2021}.  About half of the stars with
+  rotation periods are
   suitable for gyrochronology (dark gray points), based on factors
   including their non-binarity and proximity to the main
-  sequence (see Section~\ref{subsec:flags}).  Some
+  sequence (orange line in lower panel; see Section~\ref{subsec:flags}).  Some
   host ``confirmed'' or ``candidate'' KOIs that meet additional
   planetary quality criteria (yellow points;
   Section~\ref{subsec:plflags}).  Surface gravities and effective
@@ -396,10 +397,12 @@ provides a visualization of the various samples.
     The gray lines are ``mean fits'' to the slow rotation sequences of
     open clusters.  The stellar sample (left) includes only apparently
     single stars near the main sequence with $\log g$$>$4.2,
-    RUWE$<$1.4, and temperatures of 3800--6200\,K.  The color map has
-    a linear stretch.  The planet-hosts (right) require the same
+    RUWE$<$1.4, and temperatures of 3800--6200\,K.  
+    The planet-hosts (right) require the same
     stellar cuts, and include only the confirmed and candidate planets
-    described in Section~\ref{subsec:plflags}.  An order of magnitude
+    described in Section~\ref{subsec:plflags}.  The number of planets $N_{\rm p}$
+    and number of stars $N_{\rm s}$ are noted in each panel.
+    An order of magnitude
     estimate for the number of young planets discovered by Kepler
     follows by counting planets below the mean rotational isochrones.
 	}

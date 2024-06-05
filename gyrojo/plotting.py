@@ -141,7 +141,7 @@ def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality',
                             grazing_is_ok=0):
     # For KOIs
 
-    df = get_gyro_data(sampleid, grazing_is_ok=grazing_is_ok)
+    df = get_gyro_data(sampleid, grazing_is_ok=grazing_is_ok, drop_highruwe=0)
 
     if 'deprecated' not in sampleid:
         assert len(df) == df['flag_is_gyro_applicable'].sum()
@@ -167,7 +167,7 @@ def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality',
     yvals = [9.8,14.8,16.7,20,28]
 
     _Teff = np.linspace(3800, 6200, int(1e3))
-    linestyles = ['solid', 'dotted', 'dashed', 'dashdot', 'solid']
+    linestyles = ['dotted', 'solid', 'dashed', 'dashdot', 'solid']
     for model_id, ls, age, yval in zip(model_ids, linestyles, ages, yvals):
         color = 'k'
         poly_order = 7
@@ -181,7 +181,7 @@ def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality',
             )
 
         ax.plot(
-            _Teff, _Prot, color=color, linewidth=1, zorder=10, alpha=0.4, ls=ls
+            _Teff, _Prot, color=color, linewidth=0.8, zorder=10, alpha=0.6, ls=ls
         )
 
         bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
@@ -282,7 +282,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
     yvals = [9.8,14.8,16.7,20,28]
 
     _Teff = np.linspace(3800, 6200, int(1e3))
-    linestyles = ['solid', 'dotted', 'dashed', 'dashdot', 'solid']
+    linestyles = ['dotted', 'solid', 'dashed', 'dashdot', 'solid']
     for model_id, ls, age, yval in zip(model_ids, linestyles, ages, yvals):
         color = 'k'
         poly_order = 7
@@ -296,7 +296,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
             )
 
         ax.plot(
-            _Teff, _Prot, color=color, linewidth=1, zorder=10, alpha=0.4, ls=ls
+            _Teff, _Prot, color=color, linewidth=0.8, zorder=10, alpha=0.7, ls=ls
         )
 
         bbox = dict(facecolor='white', alpha=1, pad=0, edgecolor='white')
@@ -328,7 +328,8 @@ def plot_star_Prot_Teff(outdir, sampleid):
 
         # Create a custom colormap with white color for zero values
         cmap = plt.cm.YlGnBu
-        cmaplist = [cmap(i) for i in range(cmap.N)]
+        cmaplist = [cmap(i) for i in list(range(cmap.N))[:-60]]
+        #cmaplist = [cmap(i) for i in range(cmap.N)]
         cmaplist[0] = (1.0, 1.0, 1.0, 1.0)  # Set the color for zero values to white
         cmap = mcolors.LinearSegmentedColormap.from_list('Custom YlGnBu', cmaplist, cmap.N)
 
@@ -340,7 +341,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
         # Update the colormap of the plot
         im.set_cmap(cmap)
 
-        show_colorbar = 0
+        show_colorbar = 1
         if show_colorbar:
             axins1 = inset_axes(ax, width="20%", height="2%", loc='upper right',
                                 borderpad=1.0)
@@ -348,12 +349,13 @@ def plot_star_Prot_Teff(outdir, sampleid):
             cb = fig.colorbar(im, cax=axins1, orientation="horizontal",
                               extend="max", norm=norm)
             #cb.set_ticks([1,4,7,10])
-            cb.set_ticks([1,10])
+            cb.set_ticks(np.arange(1,8))
+            cb.set_ticklabels([1,None,3,None,5,None,7])
             cb.ax.tick_params(labelsize='small')
-            cb.ax.tick_params(size=0, which='both') # remove the ticks
+            cb.ax.tick_params(size=1, which='both') # remove the ticks
             #cb.ax.yaxis.set_ticks_position('left')
             cb.ax.xaxis.set_label_position('top')
-            cb.set_label("$N$", fontsize='small', weight='normal')
+            cb.set_label("$N_\mathrm{stars}$", fontsize='small', weight='normal')
 
 
     txt = (
@@ -777,8 +779,8 @@ def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
     #sel = (df['rp']/df['rp_err1'] > 4) & (df['rp']/df['rp_err2'] > 4)
     # >20% radii
     sel = (df['rp']/df['rp_err1'] > 5) & (df['rp']/df['rp_err2'] > 5)
-    AGE_MAX = 10**9.5 #(3.2 gyr)
-    #AGE_MAX = 3e9
+    #AGE_MAX = 10**9.5 #(3.2 gyr)
+    AGE_MAX = 4e9
 
     sel &= df['age'] < AGE_MAX
     if teffcondition == 'allteff':
@@ -812,6 +814,7 @@ def plot_rp_vs_porb_binage(outdir, teffcondition='allteff'):
         (0, 1e9),
         (1e9, 2e9),
         (2e9, 3e9),
+        (3e9, 4e9),
         #(0, 667e6),
         #(667e6, 1333e6),
         #(1333e6, 2000e6)
