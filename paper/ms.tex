@@ -348,8 +348,8 @@ are offered in Section~\ref{sec:conclusions}.
   suitable for gyrochronology (dark gray points), based on factors
   including their non-binarity and proximity to the main
   sequence (see Section~\ref{subsec:flags}).  Some
-  are ``confirmed'' or ``candidate'' KOIs that meet an additional set
-  of planetary quality criteria (yellow points;
+  host ``confirmed'' or ``candidate'' KOIs that meet additional
+  planetary quality criteria (yellow points;
   Section~\ref{subsec:plflags}).  Surface gravities and effective
   temperatures were derived photometrically by
   \citet{Berger_2020a_catalog}.  Isochrones in the lower panel are
@@ -507,9 +507,8 @@ periods compiled from \citetalias{Santos_2019},
 \citetalias{Santos_2021}, and our extended KOI list.
 
 To assess the statistical uncertainties of these rotation periods, we
-compared our adopted \citetalias{Santos_2019} and
-\citetalias{Santos_2021} periods with those reported by
-\citet{McQuillan_2014} (see Appendix~\ref{app:reinhold23}).  We found
+compared our adopted periods with those reported by
+\citet{McQuillan_2014}.  The details are in Appendix~\ref{app:reinhold23}.  We found
 that for $P_{\rm rot}\lesssim$15\,days, the two datasets agree at a
 precision of $\lesssim$0.01$P_{\rm rot}$.  At longer periods of
 $P_{\rm rot}\approx$30\,days, the agreement was typically at the
@@ -938,37 +937,6 @@ by \citet{Thompson_2018}.
 
 \section{Ages From Lithium}
 \label{sec:liage} 
-\subsection{Sample Summary}
-\label{subsec:tally}
-
-The rotation periods for the star and planet samples are shown in
-Figure~\ref{fig:prot_vs_teff}.  Out of the \nkeplerstars\ stars
-observed by Kepler, requiring reported rotation periods and a reliable
-DR3 crossmatch yields \nuniqstarsantosrot\ stars.  Further requiring
-these stars to have temperatures of 3800--6200\,K, yields
-\nuniqstarsantosrotteffcut\ stars.  Further requiring the stars to be
-apparently single, near the main sequence, with $\log g$$>$4.2,
-$M_{\rm G}>3.9$, and not flagged as eclipsing binaries yielded
-\nuniqstarsantosallbutruwe\ rotators potentially amenable for
-gyrochronology.  Finally, imposing RUWE$<$1.4 and requiring no
-possible blends ($\Delta G$<2.5) within 4$''$ leaves
-\nuniqstarsantosrotgyroappl\ stars for which gyrochronology is likely
-to be valid.
-
-
-In the planet sample, the cumulative KOI table included
-\nnonfpcumkois\ confirmed and candidate planets, orbiting
-\nnonfpcumkoihosts\ stars.  Assume that we apply all the same stellar
-cuts, save for that on RUWE.  We can then require these confirmed and
-candidate planets to have MES$>$10.  This combination of selection
-criteria yield \nplwgyroagewithgrazingandhighruwe\ planets with
-rotation-based ages orbiting
-\nplhoststarwgyroagewithgrazingandhighruwe\ stars
-(\nplhoststarwgyroagejusthighruwe\ of these stars with ``high'' RUWE).
-If we additionally require the planets to be non-grazing ($b<0.8$), we
-are left with \nplwgyroagenograzing\ planets orbiting
-\nplhoststarwgyroagenograzing\ stars.
-
 
 Figure~\ref{fig:li_vs_teff} shows our measured equivalent widths for
 the lithium 6708\,\AA\ absorption doublet, plotted over the mean
@@ -980,7 +948,7 @@ statistically consistent with zero.
 
 To calculate lithium ages, we use \texttt{EAGLES} (git commit
 \texttt{ac09637}), which, similar to \texttt{gyro-interp}, is based on
-a purely empirical interpolation approach.  \texttt{EAGLES} 
+an empirical interpolation approach.  \texttt{EAGLES} 
 was calibrated on lithium measurements of stars observed by the
 Gaia-ESO spectroscopic survey in 52 open clusters with ages spanning 2
 to 6{,}000\,Myr \citep{Jeffries_2023}.  We adopt a linear prior in
@@ -994,6 +962,42 @@ ages are lower limits.  In such cases,  the inferred age posterior is
 strongly influenced by the assumed intrinsic dispersion in
 the lithium model, and by the prior.  In these instances, we
 quote the 3$\sigma$ (99.7$^{\rm th}$ percentile) limits.
+
+
+%\subsection{Sample Summary}
+%\label{subsec:tally}
+%
+%The rotation periods for the star and planet samples are shown in
+%Figure~\ref{fig:prot_vs_teff}.  Out of the \nkeplerstars\ stars
+%observed by Kepler, requiring reported rotation periods and a reliable
+%DR3 crossmatch yields \nuniqstarsantosrot\ stars.  Further requiring
+%these stars to have temperatures of 3800--6200\,K yields
+%\nuniqstarsantosrotteffcut\ stars.  Further requiring the stars to be
+%apparently single, near the main sequence, with $\log g$$>$4.2,
+%$M_{\rm G}>3.9$, and not flagged as eclipsing binaries yielded
+%\nuniqstarsantosallbutruwe\ rotators.
+%Finally, imposing the full set of quality cuts,
+%i.e.~further requiring RUWE$<$1.4 and requiring no
+%resolved blends ($\Delta G$<2.5) within 4$''$ leaves
+%\nuniqstarsantosrotgyroappl\ stars for which we expect rotation-based
+%age dating to be secure.
+%
+%
+%In the planet sample, the cumulative KOI table included
+%\nnonfpcumkois\ confirmed and candidate planets, orbiting
+%\nnonfpcumkoihosts\ stars.  Assume that we apply all the same stellar
+%cuts, save for that on RUWE.  We can then require these confirmed and
+%candidate planets to have MES$>$10.  This combination of selection
+%criteria yield \nplwgyroagewithgrazingandhighruwe\ planets with
+%rotation-based ages orbiting
+%\nplhoststarwgyroagewithgrazingandhighruwe\ stars
+%(\nplhoststarwgyroagejusthighruwe\ of these stars with ``high'' RUWE).
+%If we additionally require the planets to be non-grazing ($b<0.8$), we
+%are left with \nplwgyroagenograzing\ planets orbiting
+%\nplhoststarwgyroagenograzing\ stars with rotatio-based ages.
+%This cut drops $\approx$41 more planets than one would expect if the initial sample
+%of \nplwgyroagewithgrazingandhighruwe\ planets had zero false positives.
+%The binomial probability that this could happen by coincidence is 0.1\%.
 
 
 
@@ -1369,6 +1373,7 @@ raised.  Under this constraint, our results include
 two-sided $t_{\rm gyro}$ and $t_{\rm Li}$, and
 \ltonegyrhighqconfirmedonesided\ cases for which $t_{\rm gyro}$
 provides an age constraint while $t_{\rm Li}$ is one-sided.
+%FIXME TODO GET MORE PRECISE LANGUAGE -- SYSTEMS OR PLANETS OR STARS?
 
 These planets are shown in Figure~\ref{fig:rp_period_age_results}.
 They include \nearthshighqconfirmed\ Earth-sized or smaller planets,
@@ -1604,7 +1609,7 @@ $\approx$5{,}000 known planets?
 
 Our approach to answering these questions was to curate a sample of
 stellar rotation periods, lithium equivalent widths, and temperatures
-using archival and new data.  We derived new ages using empirical
+using archival and new data from the Kepler field.  We derived new ages using empirical
 interpolation-based methods, and assessed the reliability of these ages
 by comparing them against benchmark open clusters
 (Figure~\ref{fig:agescalecompone}).
@@ -1625,8 +1630,10 @@ such as on transit geometry, would further increase the counts.  The sizes and
 periods for the most secure set of planets are shown in
 Figure~\ref{fig:rp_period_age_results}.   While the new young planets are
 mostly mini-Neptunes, some are near the lower boundary of the
-``sub-Jovian desert'' \citep{Owen2018}, and others include Earth-sized 
-planets a few hundred million years old.  
+``sub-Jovian desert'' \citep{Owen2018}, which could have an evolutionary
+connection to their youth.
+Other discoveries include Earth-sized 
+planets with new ages of only a few hundred million years.  
 
 Our main conclusions with respect to our original questions are
 as follows.
@@ -1642,14 +1649,17 @@ as follows.
     This result from rotation-based ages broadly agrees with recent reports of
     a declining star-formation rate
     from CMD fitting and white-dwarf chronology, though with
-    important nuances.
+    some nuances.
+    One important advance is that our
+    rotation-based ages offer better accuracy at $t$$<$1\,Gyr
+    than current isochronal methods (Figure~\ref{fig:agescalecompone}).
   %
   \item Rather than expecting $\approx$500 exoplanets younger than one
     billion years, the age distribution of stars in the
     Kepler field implies that we should instead expect $\approx$250.
   %
   %FIXME: 120 number
-  \item Using rotation-based ages, we have derived ages for
+  \item We have derived rotation-based ages for
     \nplyounggyrotwosigma\ Kepler planets younger than 1\,Gyr at 2$\sigma$,
     and \nplyounggyro\ planets with median ages below 1\,Gyr.
     Concatenating these planets against the existing literature yields
@@ -1799,7 +1809,7 @@ and the Arthur R.~Adams SURF Fellowship (EKP).
 
 \appendix
 
-\section{The Preferred Rotation Period Catalog}
+\section{Rotation Period Catalog Comparison}
 \label{app:reinhold23}
 
 \begin{figure*}[!b]
@@ -1830,11 +1840,11 @@ and the Arthur R.~Adams SURF Fellowship (EKP).
 \end{figure*}
 
 While we opted for the \citetalias{Santos_2019} and
-\citetalias{Santos_2021} rotation period catalogs, the more recent
+\citetalias{Santos_2021} rotation period catalogs, the recent
 analysis by \citet{Reinhold2023} bears comment.  \citet{Reinhold2023}
 used a similar selection function as \citeauthor{Santos_2021}
-(i.e.~all Kepler stars), and considered a novel period measurement
-approach based on gradients of power spectra (GPS).  Their method
+(all Kepler stars), and considered a novel period measurement
+approach based on the gradient of the power spectrum (GPS).  Their method
 likely provides greater completeness, due to its greater sensitivity
 to signals that are only weakly periodic.  
 
