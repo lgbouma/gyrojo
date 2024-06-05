@@ -56,7 +56,8 @@ from astropy.io import fits
 from gyrojo.paths import DATADIR, RESULTSDIR, LOCALDIR, CACHEDIR
 from gyrojo.getters import (
     get_gyro_data, get_li_data, get_age_results,
-    get_kicstar_data, get_koi_data, get_prot_metacatalog
+    get_kicstar_data, get_koi_data, get_prot_metacatalog,
+    select_by_quality_bits
 )
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 
@@ -2241,9 +2242,12 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
 
     fig, ax = plt.subplots(figsize=(2.5,2.7))
 
+    # Stars with Santos+ rotation period reported (...and good Gaia matches)
+    sel = select_by_quality_bits(kicdf, [4, 5], [0, 0])
+
     dfs = [
        #cgk_df,
-        kicdf,
+        kicdf[sel],
         kicdf[kicdf['flag_is_gyro_applicable']],
         koidf
     ]
@@ -2270,7 +2274,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
         #'KIC',
         'Has Prot',
         '...& gyro applicable',
-        '...& KOI',
+        '...& KOI host',
     ]
     rasterized = [
         #True,
@@ -2294,17 +2298,18 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
 
         yval = nparr(df[ykey])
         xval = nparr(df[xkey])
+        kicids = nparr(df['KIC'])
         if _i != len(dfs) - 1:
             ax.scatter(
                 xval, yval,
                 marker='o', c=c, zorder=z, s=s, linewidths=0,
-                label=l+f" ($N$={len(xval)})", rasterized=r
+                label=l+f" ($N$={len(np.unique(kicids))})", rasterized=r
             )
         else:
             ax.scatter(
                 xval, yval,
                 marker='o', c=c, zorder=z, s=s, linewidths=0.1,
-                label=l+f" ($N$={len(xval)})", rasterized=r,
+                label=l+f" ($N$={len(np.unique(kicids))})", rasterized=r,
                 edgecolors='k'
             )
 
