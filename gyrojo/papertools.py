@@ -4,6 +4,7 @@ Contents:
 LaTeX value file I/O:
     update_latex_key_value_pair
     read_latex_key_value_pairs
+    int_to_string
 
 LaTeX table formatting:
     format_lowerlimit
@@ -144,3 +145,10 @@ def format_prot_err(row):
     else:
         return f"{row['Prot_err']:.2f}"
 
+
+def int_to_string(n):
+    if n <= 9:
+        numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+        return numbers[n]
+    else:
+        return n
