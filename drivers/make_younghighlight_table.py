@@ -9,7 +9,8 @@ from gyrojo.getters import (
 )
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 from gyrojo.papertools import (
-    format_lowerlimit, cast_to_int_string, replace_nan_string, format_prot_err
+    format_lowerlimit, cast_to_int_string, replace_nan_string, format_prot_err,
+    int_to_string
 )
 from collections import Counter
 
@@ -431,51 +432,11 @@ def make_table(
         print(f'Made {outtxt}')
 
         _s = (pdf.are_gyro_and_li_consistent != 'No')
-        seldf = pdf[(_sel0 & _s) | (_sel1 & _s)]
-
-        from gyrojo.plotting import get_planet_class_labels
-        OFFSET = -0.25
-        seldf = get_planet_class_labels(
-            seldf, OFFSET=OFFSET, rpkey=r'$R_{\rm p}$', periodkey='$P$'
-        )
-
-        plclasses = [
-            'Mini-Neptunes',
-            'Sub-Saturns',
-            'Super-Earths',
-            'Earths'
-        ]
-        r = Counter(seldf['pl_class'])
-        for plclass in plclasses:
-            n = int(r[plclass])
-            ckey = plclass.lower().replace("-","")
-            ulkvp(f'n{ckey}highqconfirmed', n)
-
-        nlongperiod = len(seldf[seldf['$P$'] > 50])
-        ulkvp(f'nlongperiodhighqconfirmed', nlongperiod)
-
-        outtxt = join(TABLEDIR, 'consistent_tli_tgyro_twosided.txt')
 
         ulkvp(f'ltonegyrhighqconfirmedtwosided', len(pdf[_sel0 & _s]))
         ulkvp(f'ltonegyrhighqconfirmedonesided', len(pdf[_sel1 & _s]))
         ulkvp(f'ltonegyrmediumqconfirmedtwosided', len(pdf[_wsel0 & _s]))
         ulkvp(f'ltonegyrmediumqconfirmedonesided', len(pdf[_wsel1 & _s]))
-
-        seldf = seldf.drop(
-            columns=['flag_dr3_ruwe_outlier', 'flag_koi_is_grazing']
-        )
-        with open(outtxt, 'w') as f:
-            f.writelines(
-                seldf[_sel0 & _s].to_string(max_colwidth=None)
-            )
-        print(f'Made {outtxt}')
-
-        outtxt = join(TABLEDIR, 'consistent_tli_tgyro_onesided.txt')
-        with open(outtxt, 'w') as f:
-            f.writelines(
-                seldf[_sel1 & _s].to_string(max_colwidth=None)
-            )
-        print(f'Made {outtxt}')
 
 
     if not SELECT_YOUNG:

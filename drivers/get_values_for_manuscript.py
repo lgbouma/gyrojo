@@ -9,7 +9,8 @@ from gyrojo.paths import DATADIR
 from gyrojo.papertools import update_latex_key_value_pair as ulkvp
 from gyrojo.papertools import read_latex_key_value_pairs
 from gyrojo.papertools import (
-    format_lowerlimit, cast_to_int_string, replace_nan_string
+    format_lowerlimit, cast_to_int_string, replace_nan_string,
+    int_to_string
 )
 
 
@@ -234,7 +235,7 @@ df, _, _ = get_age_results(
 # Planets <1 Gyr at 2-sigma with a gyro age, no grazing, no ruwe.
 sel = (df['gyro_median'] + df['gyro_+2sigma']  <= 1000)
 N = len(df[sel])
-ulkvp('nplyounggyrotwosigmanograzingnoruwe', N)
+ulkvp('nplyounggyrotwosigmanograzingnoruwe', int_to_string(N))
 
 sel = (
 	(df['gyro_median'] + df['gyro_+2sigma']  <= 1000)
@@ -242,7 +243,8 @@ sel = (
 	(df.koi_disposition == 'CONFIRMED')
 )
 N = len(df[sel])
-ulkvp('nconfirmedplyounggyrotwosigmanograzingnoruwe', N)
+ulkvp('nconfirmedplyounggyrotwosigmanograzingnoruwe',
+      int_to_string(N))
 
 sel = (
 	(df['gyro_median'] + df['gyro_+2sigma']  <= 1000)
@@ -250,7 +252,8 @@ sel = (
 	(df.koi_disposition == 'CANDIDATE')
 )
 N = len(df[sel])
-ulkvp('ncandidateplyounggyrotwosigmanograzingnoruwe', N)
+ulkvp('ncandidateplyounggyrotwosigmanograzingnoruwe',
+      int_to_string(N))
 
 
 
