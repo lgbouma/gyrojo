@@ -328,7 +328,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
 
         # Create a custom colormap with white color for zero values
         cmap = plt.cm.YlGnBu
-        cmaplist = [cmap(i) for i in list(range(cmap.N))[:-60]]
+        cmaplist = [cmap(i) for i in list(range(cmap.N))[20:-60]]
         #cmaplist = [cmap(i) for i in range(cmap.N)]
         cmaplist[0] = (1.0, 1.0, 1.0, 1.0)  # Set the color for zero values to white
         cmap = mcolors.LinearSegmentedColormap.from_list('Custom YlGnBu', cmaplist, cmap.N)
@@ -487,10 +487,16 @@ def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
         alpha = 0.9
         if not show_dispersion and not show_dispersionpoints:
             alpha = 0.8
-        ax.plot(
-            Teff_model, li_model, color=_c, linewidth=1, zorder=10,
-            alpha=alpha, ls=ls, label=agestr
-        )
+        if not show_dispersionpoints:
+            ax.plot(
+                Teff_model, li_model, color=_c, linewidth=1, zorder=10,
+                alpha=alpha, ls=ls, label=agestr
+            )
+        else:
+            ax.plot(
+                Teff_model, li_model, color='k', linewidth=1, zorder=10,
+                alpha=alpha, ls=ls, label=agestr
+            )
 
         if show_dispersion :
             ax.fill_between(

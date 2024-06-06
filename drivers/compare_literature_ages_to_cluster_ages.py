@@ -589,7 +589,7 @@ for ix, (cluster_df, cluster_full_name, true_age) in enumerate(zip(
                     eps+ix*np.ones_like(yval[~upperlim]), yval[~upperlim],
                     yerr=yerr[:, ~upperlim],
                     marker='o', elinewidth=0.1, capsize=0, lw=0, mew=0.5, color=f'C{iy}',
-                    markersize=0, zorder=5, alpha=0.6
+                    markersize=0, zorder=5, alpha=0.75
                 )
                 ax.errorbar(
                     eps+ix*np.ones_like(yval[~upperlim]), yval[~upperlim],
@@ -603,7 +603,7 @@ for ix, (cluster_df, cluster_full_name, true_age) in enumerate(zip(
             ax.errorbar(
                 eps+ix*np.ones_like(yval), yval, yerr=yerr,
                 marker='o', elinewidth=0.1, capsize=0, lw=0, mew=0.5, color=f'C{iy}',
-                markersize=0., zorder=5, alpha=0.6
+                markersize=0., zorder=5, alpha=0.75
             )
             ax.errorbar(
                 eps+ix*np.ones_like(yval), yval, yerr=yerr,
