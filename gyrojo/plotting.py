@@ -163,7 +163,7 @@ def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality',
     fig, ax = plt.subplots(figsize=(3,3))
 
     model_ids = ['120-Myr', 'Praesepe', 'NGC-6811', '2.6-Gyr', 'M67']
-    ages = ['120 My', '670 My', '1 Gy', '2.6 Gy', '4 Gy']
+    ages = ['120 Myr', '670 Myr', '1 Gyr', '2.6 Gyr', '4 Gyr']
     yvals = [9.8,14.8,16.7,20,28]
 
     _Teff = np.linspace(3800, 6200, int(1e3))
@@ -278,7 +278,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
     fig, ax = plt.subplots(figsize=(3,3))
 
     model_ids = ['120-Myr', 'Praesepe', 'NGC-6811', '2.6-Gyr', 'M67']
-    ages = ['120 My', '670 My', '1 Gy', '2.6 Gy', '4 Gy']
+    ages = ['120 Myr', '670 Myr', '1 Gyr', '2.6 Gyr', '4 Gyr']
     yvals = [9.8,14.8,16.7,20,28]
 
     _Teff = np.linspace(3800, 6200, int(1e3))
@@ -1627,13 +1627,16 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     xmax = MAXAGE-20 if MAXAGE < 4000 else MAXAGE
     if not preciseagesonly:
         teffstr = '$T_{\mathrm{eff}} \in [3800,6200]\,\mathrm{K}$'
+        teffstr = '(3800—6200 K)'
     else:
         teffstr = '$T_{\mathrm{eff}} \in [4400,5400]\,\mathrm{K}$'
+        teffstr = '(4400—5400 K)'
 
     for ix, ax in enumerate(axs):
         if ix == 0:
             ax.update({
-            'ylabel': '$N$/$N_{\mathrm{max}}$\n'+f'{teffstr}',
+            #'ylabel': '$N$/$N_{\mathrm{max}}$\n'+f'{teffstr}',
+            'ylabel': 'Probability Density\n'+f'{teffstr}',
             'yticklabels': [0, 0.02, 0.04, 0.06, 0.08],
             })
         else:
