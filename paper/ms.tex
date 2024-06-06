@@ -1,8 +1,8 @@
 % upon AAS submission
-%\documentclass[12pt,twocolumn,tighten,linenumbers]{aastex63}
+\documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
 %\documentclass[12pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 % drafting / arxiv
-\documentclass[11pt,twocolumn,tighten]{aastex63}
+%\documentclass[11pt,twocolumn,tighten]{aastex63}
 \turnoffedit
 
 \usepackage{apjfonts}
@@ -134,8 +134,8 @@ Mellon University, Pittsburgh, PA 15213, USA}
   %
   Here we apply this knowledge to stars observed by Kepler.
   %
-  Rotation periods are drawn from previous work; lithium is
-  measured from new and archival Keck/HIRES spectra.
+  Rotation periods are drawn from previous work; lithium is measured
+  from new and archival Keck/HIRES spectra.
   %
   We report rotation-based ages for \nuniqstarsantosrotgyroappl\ stars
   and \nplwgyroagenograzing\ planets for which our method is
@@ -150,12 +150,11 @@ Mellon University, Pittsburgh, PA 15213, USA}
   1\,Gyr.
   %
   This is about half the number expected under the classic assumption
-  of a uniform star formation history.  We find that the scarcity of sub-gigayear
-  systems can
-  be attributed to the star formation rate in the Kepler field
-  dropping by a factor of \ratiosfr$\pm$\uncratiosfr\ over the past
-  3\,Gyr.  We observe this trend both for known planet hosts and also
-  for the parent stellar sample.
+  of a uniform star formation history.  We find that the scarcity of
+  sub-gigayear systems can be attributed to the star formation rate in
+  the Kepler field dropping by a factor of \ratiosfr$\pm$\uncratiosfr\
+  over the past 3\,Gyr.  We observe this trend both in known planet
+  hosts and in the parent stellar sample.
   %
   This ``demographic cliff'' in the Galaxy's star formation history
   has been previously reported, and its confirmation helps clarify the
@@ -192,8 +191,8 @@ analyses have similarly suggested differences in the size distribution
 of young exoplanets relative to their older counterparts
 \citep{Berger_2020b_rpage,David_2021,Sandoval_2021,2023AJ....166..248C,2024arXiv240303261V}.
 
-Discovering a young planet requires solving two problems: finding the planet and measuring the star's age.
-Each problem admits a range of
+Discovering a young planet requires solving two problems: finding the
+planet and measuring the star's age.  Each problem admits a range of
 solutions
 \citep[e.g.][]{2008Sci...322.1348M,2012ApJ...756L..33Q,2024AJ....167..193T}.
 In this article we will consider planets whose existence has been
@@ -203,13 +202,12 @@ using rotation and lithium.
 To begin, imagine that the ages of nearby stars in the Galaxy are
 uniformly distributed from 0--10\,Gyr
 \citep[][]{2000MNRAS.318..658B,Nordstrom_2004}.  This approximation
-suggests that
-$\approx$1\% of nearby stars have $t$$<$100\,Myr, and $\approx$10\%
-have $t$$<$1\,Gyr.  Studies of currently forming protoplanets
-\citep{2018A&A...617A..44K}, and of exoplanets evolving just after
-disk dispersal \citep[e.g.][]{2022MNRAS.512.5067K}, are thereby capped
-in their maximum achievable sample sizes by the tyranny of the
-galactic star formation rate.
+suggests that $\approx$1\% of nearby stars have $t$$<$100\,Myr, and
+$\approx$10\% have $t$$<$1\,Gyr.  Studies of currently forming
+protoplanets \citep{2018A&A...617A..44K}, and of exoplanets evolving
+just after disk dispersal \citep[e.g.][]{2022MNRAS.512.5067K}, are
+thereby capped in their maximum achievable sample sizes by the tyranny
+of the galactic star formation rate.
 
 Despite this and other observational challenges, young close-in planet
 discovery has matured over the past decade, primarily due to Kepler,
@@ -224,21 +222,20 @@ transiting planets is often easier than finding the host star's birth
 association \citep[e.g.][]{Tofflemire_2021}.
 
 The ``cluster-first'' approach has a major limitation: most nearby
-stars are in the field.  Only $\lesssim$1\% of stars
-within $\approx$500\,pc have been associated with their birth cluster
+stars are in the field.  Only $\lesssim$1\% of stars within
+$\approx$500\,pc have been associated with their birth cluster
 \citep[e.g.][]{Zari_2018,CantatGaudin_2020,Kounkel_2020,Kerr_2021}.
 The implication can appreciated by querying the NASA Exoplanet Archive
 \citep[NEA;][]{2013PASP..125..989A} for transiting planets younger
-than 1\,Gyr.  Requiring $t$$<$1\,Gyr at
-2$\sigma$ precision gives $\approx$50 such planets at
-the time of writing.  Most of these young planets are in clusters, and
-were found by Kepler, K2, or TESS.  However, these surveys have
-discovered $\approx$5{,}000 planets in total.  Assuming a constant
-star formation history, we would expect an order of magnitude more
-sub-gigayear transiting planets.
+than 1\,Gyr.  Requiring $t$$<$1\,Gyr at 2$\sigma$ precision gives
+$\approx$50 such planets at the time of writing.  Most of these young
+planets are in clusters, and were found by Kepler, K2, or TESS.
+However, these surveys have discovered $\approx$5{,}000 planets in
+total.  Assuming a constant star formation history, we would expect an
+order of magnitude more sub-gigayear transiting planets.
 
-This study aims to resolve two questions.  First, how wrong is it
-to assume a uniform age distribution for transiting planet host stars?
+This study aims to resolve two questions.  First, how wrong is it to
+assume a uniform age distribution for transiting planet host stars?
 Second, where are the missing young planets?  We will find that
 uniform is wrong by a factor of a few, and that stellar activity may
 be a less significant bias in young transiting planet detection than
@@ -247,30 +244,30 @@ the challenge of precisely determining ages for field stars.
 Despite Kepler's main mission ending quite some time ago, the ages of
 many Kepler planets remain uncertain.  While isochrone ages have been
 calculated for Kepler stars \citep{Berger_2020b_rpage} and Kepler
-Objects of Interest \citep[KOIs;][]{Petigura_2022}, such ages are
-most precise for stars whose luminosities and temperatures separate
-them from the main sequence.  For sub-gigayear stars on
-the main sequence, isochrone ages are therefore limited.
+Objects of Interest \citep[KOIs;][]{Petigura_2022}, such ages are most
+precise for stars whose luminosities and temperatures separate them
+from the main sequence.  For sub-gigayear stars on the main sequence,
+isochrone ages are therefore limited.
 
 Stellar rotation periods offer a promising alternative.  The idea of
 using a star's spin-down as a clock has a rich history
 \citep{Skumanich_1972,Noyes_1984,Kawaler_1989,Barnes03,Mamajek_2008,Angus_2015}.
-Empirical models now yield ages precise to $\lesssim$30\% for FGK stars
-between 1-4\,Gyr, and constraining age posteriors for younger ages
-\citep{Bouma_2023}.  Physics-based models
-\citep{Matt_2015,Gallet_Bouvier_2015,Spada_2020} can 
-connect these empirical relations to the evolution of stellar winds,
-internal structure, and angular momentum transport.
+Empirical models now yield ages precise to $\lesssim$30\% for FGK
+stars between 1-4\,Gyr, and constraining age posteriors for younger
+ages \citep{Bouma_2023}.  Physics-based models
+\citep{Matt_2015,Gallet_Bouvier_2015,Spada_2020} can connect these
+empirical relations to the evolution of stellar winds, internal
+structure, and angular momentum transport.
 
-Rotation-based ages have been reported for
-various subsets of Kepler stars since the early data releases
+Rotation-based ages have been reported for various subsets of Kepler
+stars since the early data releases
 \citep[e.g.][]{Walkowicz_2013,McQuillan_2014,Reinhold_2015,Angus_2018}.
 More recent work has further explored incorporating information from
 stellar kinematics \citep{2021AJ....161..189L,2024AJ....167..159L},
 and from stellar colors, luminosities, and starspot amplitudes
 \citep{2023ApJ...952..131M}.  Our analysis is motivated by a few
-factors that can yield improvements, particularly for 
-sub-gigayear stars.   These factors are as follows.
+factors that can yield improvements, particularly for sub-gigayear
+stars.   These factors are as follows.
 
 \begin{enumerate}[label={\it \roman*)},leftmargin=12pt,topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
   \item The Kepler Object of Interest catalog, and our vetting of
@@ -278,9 +275,10 @@ sub-gigayear stars.   These factors are as follows.
     \citep[e.g.][]{Thompson_2018}.
   %
   \item Measured rotation periods of FGK stars in open clusters now
-    show not only the average evolution of $P_{\rm rot}(T_{\rm eff},t)$,
-    but also how the astrophysical dispersion of stars around this average
-    converges by the $\approx$700\,Myr age of Praesepe
+    show not only the average evolution of $P_{\rm rot}(T_{\rm
+    eff},t)$, but also how the astrophysical dispersion of stars
+    around this average converges by the $\approx$700\,Myr age of
+    Praesepe
     \citep[e.g.][]{Curtis_2019_ngc6811,Gillen_2020,Rampalli_2021,Fritzewski_2021,Rebull_2022,Dungee_2022,2023AJ....166...14B}.
   %
   \item Using open cluster data, we can marginalize over the range of
@@ -301,10 +299,9 @@ sub-gigayear stars.   These factors are as follows.
 \end{enumerate}
 
 Independently, recent years have also yielded improvements in the
-lithium age scale.  Lithium ages include 
-depletion boundary ages for M dwarfs and brown dwarfs in star
-clusters, and decline-based ages for individual field
-FGK stars \citep{Soderblom_2010}.  The latter
+lithium age scale.  Lithium ages include depletion boundary ages for M
+dwarfs and brown dwarfs in star clusters, and decline-based ages for
+individual field FGK stars \citep{Soderblom_2010}.  The latter
 approach relies on the observed decline of Li abundances in
 partially-convective stars as they age
 \citep[e.g.][]{2005A&A...442..615S}.  The theoretical explanation for
@@ -314,19 +311,19 @@ Empirical understanding however has improved due to the work by
 \citet{Jeffries_2023}, who modeled the time evolution of the
 \ion{Li}{1} 6708\,\AA\ equivalent width (EW) using a set of 6{,}200
 stars in 52 open clusters.  Two-sided lithium ages are useful for
-Kepler (FGK) stars between $\approx$0.03-0.5\,Gyr, though with a strong
-dependence on spectral type.  The precision of lithium ages 
-in this regime are now in the range of 0.3-0.5~dex.
+Kepler (FGK) stars between $\approx$0.03-0.5\,Gyr, though with a
+strong dependence on spectral type.  The precision of lithium ages in
+this regime are now in the range of 0.3-0.5~dex.
 
 We discuss our method for selecting the star and planet samples in
 Section~\ref{sec:selection}, and describe the origin of our adopted
 stellar parameters other than ages in Section~\ref{sec:stellarprops}.
-We describe our age-dating methods in
-Sections~\ref{sec:rotage} and~\ref{sec:liage}, and test them in
-Section~\ref{sec:litagecomparison} using
-clusters in the Kepler field.  We discuss population-level
-trends in Sections~\ref{sec:results} and~\ref{sec:disc}, and offer a
-few conclusions in Section~\ref{sec:conclusions}.
+We describe our age-dating methods in Sections~\ref{sec:rotage}
+and~\ref{sec:liage}, and test them in
+Section~\ref{sec:litagecomparison} using clusters in the Kepler field.
+We discuss population-level trends in Sections~\ref{sec:results}
+and~\ref{sec:disc}, and offer a few conclusions in
+Section~\ref{sec:conclusions}.
 
 
 \section{Selecting the Stars and Planets}
@@ -349,14 +346,13 @@ few conclusions in Section~\ref{sec:conclusions}.
   Kepler with previously reported rotation periods (gray points).  The
   rotation periods are primarily drawn from
   \citet{Santos_2019,Santos_2021}.  About half of the stars with
-  rotation periods are
-  suitable for gyrochronology (dark gray points), based on factors
-  including their non-binarity and proximity to the main
-  sequence (orange line in lower panel; see Section~\ref{subsec:flags}).  Some
-  host ``confirmed'' or ``candidate'' KOIs that meet additional
-  planetary quality criteria (yellow points;
-  Section~\ref{subsec:plflags}).  Surface gravities and effective
-  temperatures were derived photometrically by
+  rotation periods are suitable for gyrochronology (dark gray points),
+  based on factors including their non-binarity and proximity to the
+  main sequence (orange line in lower panel; see
+  Section~\ref{subsec:flags}).  Some host ``confirmed'' or
+  ``candidate'' KOIs that meet additional planetary quality criteria
+  (yellow points; Section~\ref{subsec:plflags}).  Surface gravities
+  and effective temperatures were derived photometrically by
   \citet{Berger_2020a_catalog}.  Isochrones in the lower panel are
   from MIST \citep{Choi_2016}.
 	}
@@ -395,19 +391,17 @@ provides a visualization of the various samples.
 	\vspace{-0.5cm}
 	\caption{
     {\bf Rotation periods for Kepler target stars (left) and known
-    planet hosts (right)}.  
-    The gray lines are ``mean fits'' to the rotation sequences of
-    open clusters.  The 2-D histogram of the stellar sample (left) includes only apparently
-    single stars near the main sequence with $\log g$$>$4.2,
-    RUWE$<$1.4, and temperatures of 3800--6200\,K.  
-    The planet-hosts (right) require the same
-    stellar cuts, and include only the confirmed and candidate planets
-    described in Section~\ref{subsec:plflags}.  The number of stars $N_{\rm s}$ and
-    planets $N_{\rm p}$ are noted in 
-    the relevant panels.
-    A simple
-    estimate for the number of young planets discovered by Kepler
-    follows by counting points below the mean rotational isochrones.
+    planet hosts (right)}.  The gray lines are ``mean fits'' to the
+    rotation sequences of open clusters.  The 2-D histogram of the
+    stellar sample (left) includes only apparently single stars near
+    the main sequence with $\log g$$>$4.2, RUWE$<$1.4, and
+    temperatures of 3800--6200\,K.  The planet-hosts (right) require
+    the same stellar cuts, and include only the confirmed and
+    candidate planets described in Section~\ref{subsec:plflags}.  The
+    number of stars $N_{\rm s}$ and planets $N_{\rm p}$ are noted in
+    the relevant panels.  A simple estimate for the number of young
+    planets discovered by Kepler follows by counting points below the
+    mean rotational isochrones.
 	}
 	\label{fig:prot_vs_teff}
 \end{figure*}
@@ -424,39 +418,14 @@ all Kepler target stars irrespective of KOI status.  Out of these
 studies, the most homogeneous and precise analyses of both Kepler
 targets and KOIs appear to be those by
 \citet{Santos_2019,Santos_2021}, hereafter \citetalias{Santos_2019}
-and \citetalias{Santos_2021}.  
-For a discussion of the work by \citet{Reinhold2023}, please see
-Appendix~\ref{app:reinhold23}.
-\citetalias{Santos_2019} and
-\citetalias{Santos_2021} combined a wavelet analysis and
-autocorrelation-based approach, and cumulatively reported rotation
-periods for 55{,}232 main-sequence and subgiant FGKM stars.  They
-included known KOIs and binaries in their analysis, and removed
-transits and eclipses during the stellar rotation measurement process. 
-
-%Studies of stellar rotation across the entire Kepler field include
-%those by \citet{McQuillan_2014} (\citetalias{McQuillan_2014}),
-%\citet{Reinhold_2015}, \citet{Santos_2019} (\citetalias{Santos_2019}),
-%and \citet{Santos_2021} (\citetalias{Santos_2021}).
-%\citetalias{McQuillan_2014} used an approach based on the
-%autocorrelation function to detect 34{,}030 rotation periods for
-%main-sequence Kepler targets cooler than 6500\,K, and excluded known
-%eclipsing binaries and KOIs.  \citet{Reinhold_2015} used an iterative
-%Lomb-Scargle based approach to analyze $\approx$40{,}000 stars with a
-%variability range $R_{\rm var}>0.3$\% that were not known EBs, planet
-%candidates, or pulsators; they reported primary rotation periods for
-%24{,}124 of these stars.  \citet{Reinhold_2015} also reported
-%secondary periods for two thirds of the stars with primary periods,
-%which could be caused by differential rotation or finite spot
-%lifetimes.  Finally, \citetalias{Santos_2019} and
-%\citetalias{Santos_2021} combined a wavelet analysis and
-%autocorrelation-based approach, and cumulatively reported rotation
-%periods for 55{,}232 main-sequence and subgiant FGKM stars.
-%\citetalias{Santos_2019} and \citetalias{Santos_2021} included known
-%KOIs and binaries, and assigned them specific quality flags.  The
-%rotation periods of KOIs have received considerable additional
-%scrutiny
-%\citep[e.g.][]{Walkowicz_2013,Mazeh_2015,Angus_2018,David_2021}.
+and \citetalias{Santos_2021}.  For a discussion of the work by
+\citet{Reinhold2023}, please see Appendix~\ref{app:reinhold23}.
+\citetalias{Santos_2019} and \citetalias{Santos_2021} combined a
+wavelet analysis and autocorrelation-based approach, and cumulatively
+reported rotation periods for 55{,}232 main-sequence and subgiant FGKM
+stars.  They included known KOIs and binaries in their analysis, and
+removed transits and eclipses during the stellar rotation measurement
+process. 
 
 We therefore adopt the results of \citetalias{Santos_2019} and
 \citetalias{Santos_2021} as our default rotation periods.
@@ -477,9 +446,9 @@ Analyzing the compilation of \citetalias{Santos_2019} and
 \citetalias{Santos_2021} rotation periods for the KOI hosts, we
 noticed that some known KOIs with rotation periods were missing.  This
 is not surprising, since the rotation periods of KOIs have received
-more scrutiny than those of ordinary Kepler stars.  We
-therefore decided to split our subsequent analysis into a homogeneous
-portion that used only the \citetalias{Santos_2019} and
+more scrutiny than those of ordinary Kepler stars.  We therefore
+decided to split our subsequent analysis into a homogeneous portion
+that used only the \citetalias{Santos_2019} and
 \citetalias{Santos_2021} data, and an inhomogeneous portion that also
 considered a broader set of available KOI rotation periods.  For the
 latter portion, we first included 32 KOIs with orbital and rotation
@@ -498,31 +467,31 @@ catalogs (A.~Santos, private communication).  We then incorporated an
 additional \nnewdavidtwentyone\ rotation periods for KOI hosts that
 \citet{David_2021} described as either ``reliable'' or ``highly
 reliable'' in their visual analysis of previously reported KOI
-rotation periods from \citet{McQuillan_2013}, \citet{Walkowicz_2013}, \citet{Mazeh_2015}
-and \citet{Angus_2018}.  Inclusion of these additional KOI rotation
-periods is a supplementary measure aimed at completeness in our final
-KOI age catalog; the provenances of the individual adopted periods are
-noted in the relevant tables.
+rotation periods from \citet{McQuillan_2013}, \citet{Walkowicz_2013},
+\citet{Mazeh_2015} and \citet{Angus_2018}.  Inclusion of these
+additional KOI rotation periods is a supplementary measure aimed at
+completeness in our final KOI age catalog; the provenances of the
+individual adopted periods are noted in the relevant tables.
 
 Finally, since our scope is focused on rotation-based ages, we
 restricted our attention to stars with reported $P_{\rm
-rot}$$<$45\,days.  The slowest-rotating FGK
-stars in the open clusters used to
-calibrate our gyrochronology model have $P_{\rm rot}$$\approx$35\,days.
-Figure~\ref{fig:prot_vs_teff}
-shows a subset of the resulting \nuniqstarsantosrot\ Kepler stars with rotation
+rot}$$<$45\,days.  The slowest-rotating FGK stars in the open clusters
+used to calibrate our gyrochronology model have $P_{\rm
+rot}$$\approx$35\,days.  Figure~\ref{fig:prot_vs_teff} shows a subset
+of the resulting \nuniqstarsantosrot\ Kepler stars with rotation
 periods compiled from \citetalias{Santos_2019},
 \citetalias{Santos_2021}, and our extended KOI list.
 
 To assess the statistical uncertainties of these rotation periods, we
 compared our adopted periods with those reported by
-\citet{McQuillan_2014}.  The details are in Appendix~\ref{app:reinhold23}.  We found
-that for $P_{\rm rot}\lesssim$15\,days, the two datasets agree at a
-precision of $\lesssim$0.01$P_{\rm rot}$.  At longer periods of
-$P_{\rm rot}\approx$30\,days, the agreement was typically at the
-$\lesssim$0.03$P_{\rm rot}$ level, and the envelope of the
-period difference increased roughly linearly with period.  Based on
-this comparison, we adopted a simple prescription for the period
+\citet{McQuillan_2014}.  The details are in
+Appendix~\ref{app:reinhold23}.  We found that for $P_{\rm
+rot}\lesssim$15\,days, the two datasets agree at a precision of
+$\lesssim$0.01$P_{\rm rot}$.  At longer periods of $P_{\rm
+rot}\approx$30\,days, the agreement was typically at the
+$\lesssim$0.03$P_{\rm rot}$ level, and the envelope of the period
+difference increased roughly linearly with period.  Based on this
+comparison, we adopted a simple prescription for the period
 uncertainties, such that there are 1\% relative uncertainties below
 $P_{\rm rot}=15$\,days, and a linear increase thereafter, with slope
 set to require 3\% $P_{\rm rot}$ uncertainties at rotation periods of
@@ -550,10 +519,10 @@ or ``candidate'' planets, after excluding known false positives.
 \label{subsec:lithiumsel}
 
 The final piece of our analysis involves assessing ages based on the
-\ion{Li}{1} 6708\,\AA\ doublet.  We analyzed spectra
-from the High Resolution Echelle Spectrometer (HIRES;
-\citealt{vogt_hires_1994}) on the Keck I 10m telescope.  These spectra
-were primarily collected through the California Kepler Survey
+\ion{Li}{1} 6708\,\AA\ doublet.  We analyzed spectra from the High
+Resolution Echelle Spectrometer (HIRES; \citealt{vogt_hires_1994}) on
+the Keck I 10m telescope.  These spectra were primarily collected
+through the California Kepler Survey
 \citep{2017AJ....154..107P,2017AJ....154..108J,2017AJ....154..109F}.
 We supplemented the existing archive with $\approx$10~hours of new
 observations for 22 stars between Fall 2022 and Spring 2024.  These
@@ -567,20 +536,19 @@ Interest were already analyzed by \citet{2018ApJ...855..115B} for
 roughly three quarters of the spectra in our sample.  However, new
 spectra have since been acquired, and our approach and selection
 function are different.  We therefore performed our own line width
-measurements on
-the reduced HIRES spectra.
+measurements on the reduced HIRES spectra.
 
 We collected all blaze-corrected HIRES spectra from our group's
 observations of non-false positive Kepler Objects of Interest with a
 ``multiple event statistic'' (MES, {\it koi\_max\_mult\_ev}) of at
-least 10.  This yielded at least one spectrum for 1{,}464
-stars hosting 2{,}174 planets.  About half of these stars have
-measured rotation periods (\nstwithspecandprot\ stars and
-\nplwithspecandprot\ planets, respectively).   For stars with multiple spectra
-available, we analyzed only
-the spectrum with the highest number of counts.  The resulting spectra
-were acquired between 2009 September 6 and 2024 May 16, and
-cumulatively comprise \nhireshours\,hours of open-shutter time.
+least 10.  This yielded at least one spectrum for 1{,}464 stars
+hosting 2{,}174 planets.  About half of these stars have measured
+rotation periods (\nstwithspecandprot\ stars and \nplwithspecandprot\
+planets, respectively).   For stars with multiple spectra available,
+we analyzed only the spectrum with the highest number of counts.  The
+resulting spectra were acquired between 2009 September 6 and 2024 May
+16, and cumulatively comprise \nhireshours\,hours of open-shutter
+time.
 
 We measured the lithium equivalent widths using a procedure adapted
 from previous work \citep{Bouma_2021}.  Our stars of interest are FGK
@@ -598,25 +566,25 @@ Chebyshev series, while excluding regions with absorption lines.  We
 then numerically integrated the resulting spectrum using a
 one-component Gaussian with free amplitude, width, and mean, and
 estimated uncertainties on the line width through a Monte Carlo
-procedure that bootstrapped against the local scatter in the continuum.
-The resulting EWs are shown in Figure~\ref{fig:li_vs_teff}.
+procedure that bootstrapped against the local scatter in the
+continuum.  The resulting EWs are shown in
+Figure~\ref{fig:li_vs_teff}.
 
 Our EW measurement approach did not correct for the neighboring
 \ion{Fe}{1} 6707.44\,\AA\ blend.  To evaluate the accuracy and
-precision of our method, after applying an initial
-iteration on the \nlithiumstars\ stars with spectra, we compared our
-lithium equivalent widths with those reported by
-\citet{2018ApJ...855..115B}.  For the stars in both
-samples, we found broad agreement at $>$30\,m\AA, and significant
-differences at $<$30\,m\AA\ because \citet{2018ApJ...855..115B}
-required positive EWs, while we allowed for statistically negative ones.  At
-$>$30\,m\AA, there is however a small offset in our respective scales caused
-by our non-treatment of the iron blend,
-such that (B24-B18)$=$7.50$\pm$8.55\,m\AA.
-We therefore directly subtracted
-this constant mean value (7.50\,m\AA) when calculating lithium-based
-ages.  This offset is at worst five times smaller than the astrophysical
-scatter present in lithium EWs for calibration clusters at any given age
+precision of our method, after applying an initial iteration on the
+\nlithiumstars\ stars with spectra, we compared our lithium equivalent
+widths with those reported by \citet{2018ApJ...855..115B}.  For the
+stars in both samples, we found broad agreement at $>$30\,m\AA, and
+significant differences at $<$30\,m\AA\ because
+\citet{2018ApJ...855..115B} required positive EWs, while we allowed
+for statistically negative ones.  At $>$30\,m\AA, there is however a
+small offset in our respective scales caused by our non-treatment of
+the iron blend, such that (B24-B18)$=$7.50$\pm$8.55\,m\AA.  We
+therefore directly subtracted this constant mean value (7.50\,m\AA)
+when calculating lithium-based ages.  This offset is at worst five
+times smaller than the astrophysical scatter present in lithium EWs
+for calibration clusters at any given age
 \citep[see][]{Jeffries_2023}.
 
 
@@ -629,11 +597,11 @@ scatter present in lithium EWs for calibration clusters at any given age
 	\caption{{\bf Equivalent widths (EW) of the \ion{Li}{1} 6708\,\AA\ doublet
     for planet-hosting stars.} These measurements were made from
     Keck/HIRES spectra collected from 2009--2024.  Lines are the ``mean''
-    isochrones from \citet{Jeffries_2023}.  The
-    intrinsic dispersion around these isochrones becomes much larger
-    than changes in the mean at $\gtrsim$1\,Gyr (see
-    Figure~\ref{fig:models}).  Some stars with lithium detections do
-    not have detected rotation periods, and vice-versa.
+    isochrones from \citet{Jeffries_2023}.  The intrinsic dispersion
+    around these isochrones becomes much larger than changes in the
+    mean at $\gtrsim$1\,Gyr (see Figure~\ref{fig:models}).  Some stars
+    with lithium detections do not have detected rotation periods, and
+    vice-versa.
 		\label{fig:li_vs_teff}
 	}
 \end{figure}
@@ -651,25 +619,24 @@ Our default source for stellar temperatures and surface gravities was
 the Gaia-Kepler Stellar Properties Catalog (GKSP;
 \citealt{Berger_2020a_catalog}).  The GKSP parameters were reported
 for stars with ``AAA'' 2MASS photometry, measured parallaxes in Gaia
-DR2,  and $g$-band photometry available from either SDSS or else Kepler-INT
-\citep{2012AJ....144...24G}.  The parameters themselves were derived using
-\texttt{isoclassify} \citep{2017ApJ...844..102H} to interpolate over
-the MIST isochrone grids \citep{Choi_2016,2016ApJS..222....8D}, given
-the SDSS $g$ and 2MASS $K_{\rm s}$ photometry, the Gaia DR2
-parallaxes, and $V$-band extinction from the
-\citet{2019ApJ...887...93G} reddening map.  The resulting stellar
-parameters are available for \fracstarswithprotwithbtwenty\ of the
-\nuniqstarsantosrot\ Kepler stars with rotation periods.  For the
-remaining \fracstarswithprotwithoutbtwenty\ of stars that lack
-temperatures and surface gravities from
-\citetalias{Berger_2020a_catalog}, we adopted the values reported by
-\citet{Santos_2019} and \citet{Santos_2021}, which are
-primarily derived from the photometric \citet{Mathur_2017} DR25 Kepler Stellar
-Properties Catalog.  In the
-planet sample, \frackoisnofpwithprotwithbtwenty\ of the
-non-false-positive KOIs with rotation periods have parameters from
-\citet{Berger_2020a_catalog}, and the remainder are drawn
-from DR25. 
+DR2,  and $g$-band photometry available from either SDSS or else
+Kepler-INT \citep{2012AJ....144...24G}.  The parameters themselves
+were derived using \texttt{isoclassify} \citep{2017ApJ...844..102H} to
+interpolate over the MIST isochrone grids
+\citep{Choi_2016,2016ApJS..222....8D}, given the SDSS $g$ and 2MASS
+$K_{\rm s}$ photometry, the Gaia DR2 parallaxes, and $V$-band
+extinction from the \citet{2019ApJ...887...93G} reddening map.  The
+resulting stellar parameters are available for
+\fracstarswithprotwithbtwenty\ of the \nuniqstarsantosrot\ Kepler
+stars with rotation periods.  For the remaining
+\fracstarswithprotwithoutbtwenty\ of stars that lack temperatures and
+surface gravities from \citetalias{Berger_2020a_catalog}, we adopted
+the values reported by \citet{Santos_2019} and \citet{Santos_2021},
+which are primarily derived from the photometric \citet{Mathur_2017}
+DR25 Kepler Stellar Properties Catalog.  In the planet sample,
+\frackoisnofpwithprotwithbtwenty\ of the non-false-positive KOIs with
+rotation periods have parameters from \citet{Berger_2020a_catalog},
+and the remainder are drawn from DR25. 
 
 \citet{David_2021} compared the photometric
 \citetalias{Berger_2020a_catalog} stellar parameters ($T_{\rm eff}$,
@@ -678,13 +645,12 @@ $R_\star$, [Fe/H]) against the spectroscopic parameters from
 systematic difference, with \citetalias{Fulton_2018} quoting higher
 temperatures than \citetalias{Berger_2020a_catalog} for mid K dwarfs,
 and lower temperatures for early F dwarfs.  Our age analysis,
-described below, adopts the maximum of the two-sided
-uncertainties reported by \citetalias{Berger_2020a_catalog} as a
-symmetric Gaussian temperature uncertainty.  Systematic
-uncertainties in the temperature scale generally influence 
-our age uncertainties at a
-smaller level than the statistical intrinsic scatter in the
-open cluster rotation sequences.
+described below, adopts the maximum of the two-sided uncertainties
+reported by \citetalias{Berger_2020a_catalog} as a symmetric Gaussian
+temperature uncertainty.  Systematic uncertainties in the temperature
+scale generally influence our age uncertainties at a smaller level
+than the statistical intrinsic scatter in the open cluster rotation
+sequences.
 
 
 \begin{figure*}[!t]
@@ -698,80 +664,73 @@ open cluster rotation sequences.
 		}
 	\end{center}
 	\vspace{-0.6cm}
-	\caption{
-		{\bf The models.}
-		Points represent $10^4$ draws from models that have been fitted to
-		rotation periods \citep{Bouma_2023} and lithium equivalent widths
-		\citep[EWs;][]{Jeffries_2023} of stars in open clusters.  Lines
-		are the ``mean models'' at various ages.  The intrinsic dispersion
+  \caption{{\bf The models.}
+    Points represent $10^4$ draws from models that have been fitted to
+    rotation periods \citep{Bouma_2023} and lithium equivalent widths
+    \citep[EWs;][]{Jeffries_2023} of stars in open clusters.  Lines
+    are the ``mean models'' at various ages.  The intrinsic dispersion
     around the mean, which is what the models fit, sets the
-    theoretical precision floor for the
-		age-dating methods.    Additional sources of uncertainty,
-		including measurement uncertainty, impose further limits on
-		achievable precision.  These models are calibrated using data from open
-		clusters.  The sizes
-		of the points are the same in each panel, so that low apparent
-		density signifies greater dispersion around the mean.
+    theoretical precision floor for the age-dating methods.
+    Additional sources of uncertainty, including measurement
+    uncertainty, impose further limits on achievable precision.  These
+    models are calibrated using data from open clusters.  The sizes of
+    the points are the same in each panel, so that low apparent
+    density signifies greater dispersion around the mean.
 		\label{fig:models}
 	}
 \end{figure*}
 
+
 \section{Ages From Rotation}
 \label{sec:rotage}
-
-
 
 We calculated gyrochrone ages using \texttt{gyro-interp}
 \citep{Bouma_2023}, which is a method designed to address the fact
 that stars with the same mass and same rotation period can have a wide
-range of ages \citep[e.g.][]{Curtis_2019_ngc6811}.  The gyrochrone
-age posterior should therefore incorporate the intrinsic
-population-level scatter into its statistical precision.  Figure~\ref{fig:models} highlights this problem,
-particularly in regions where the 0.1--1\,Gyr stars overlap.
+range of ages \citep[e.g.][]{Curtis_2019_ngc6811}.  The gyrochrone age
+posterior should therefore incorporate the intrinsic population-level
+scatter into its statistical precision.  Figure~\ref{fig:models}
+highlights this problem, particularly in regions where the 0.1--1\,Gyr
+stars overlap.
 
-To estimate the
-stellar spin-down rate as a function of time and stellar temperature,
-\texttt{gyro-interp} uses measured rotation periods and effective
-temperatures from reference open clusters, and interpolates between them using cubic
-Hermite polynomials.  We calculated the probability of the
-rotation-based age, $t_{\rm gyro}$, given the observed 
-periods and temperatures (and their uncertainties) by
-integrating Equation~1 of \citet{Bouma_2023}.  This procedure marginalizes over the 
-astrophysical scatter that is observed in the open cluster
-sequences.
-We adopted a linear age grid spanning 0--5\,Gyr with
-500 grid points, and interpolated the resulting posteriors to calculate
-any summary statistics.
-The oldest cluster for which
-\texttt{gyro-interp} is calibrated 
-is the 4\,Gyr M67 cluster
-\citep[][]{Dungee_2022,Gruner_2023}.  
-For Kepler stars with rotation periods above the 
-M67 sequence, our resulting age constraints are quoted as lower limits.
+To estimate the stellar spin-down rate as a function of time and
+stellar temperature, \texttt{gyro-interp} uses measured rotation
+periods and effective temperatures from reference open clusters, and
+interpolates between them using cubic Hermite polynomials.  We
+calculated the probability of the rotation-based age, $t_{\rm gyro}$,
+given the observed periods and temperatures (and their uncertainties)
+by integrating Equation~1 of \citet{Bouma_2023}.  This procedure
+marginalizes over the astrophysical scatter that is observed in the
+open cluster sequences.  We adopted a linear age grid spanning
+0--5\,Gyr with 500 grid points, and interpolated the resulting
+posteriors to calculate any summary statistics.  The oldest cluster
+for which \texttt{gyro-interp} is calibrated is the 4\,Gyr M67 cluster
+\citep[][]{Dungee_2022,Gruner_2023}.  For Kepler stars with rotation
+periods above the M67 sequence, our resulting age constraints are
+quoted as lower limits.
 
 
 
 \subsection{Stellar Quality Flags}
 \label{subsec:flags}
 We calculated gyrochrone ages for all \nuniqstarsantosrotteffcut\
-stars with reported rotation periods that had effective temperatures of
-3800--6200\,K.  To identify stars for which we suspect these ages may not
-be valid, we then built a set of quality flags which we condensed
-into a single binary number: $Q_{\rm star}$.  When and how
-this bitmask should be applied depends on the question being
-asked.  If the goal is to construct a false-positive free sample, all the
-quality flags could be applied.  If the goal is to construct a complete sample,
-then consider the examples of Kepler~1627Ab ($\approx$40\,Myr) and
-Kepler~51c ($\approx$625\,Myr).  The former has a high RUWE due to a
-resolved binary companion \citep{Bouma_2022a}; the latter is on a
-grazing orbit \citep{2014ApJ...783...53M}.  We leave selection for or
-against such cases as a decision to the user.
-For our own analysis, 
-we assume that a star
-is suitable for gyrochronology if none of bits zero through nine
-(inclusive) are raised.  For analyses that require all
-stellar rotation periods to come from the same detection pipeline, we
-further require bit 11 to be zero. 
+stars with reported rotation periods that had effective temperatures
+of 3800--6200\,K.  To identify stars for which we suspect these ages
+may not be valid, we then built a set of quality flags which we
+condensed into a single binary number: $Q_{\rm star}$.  When and how
+this bitmask should be applied depends on the question being asked.
+If the goal is to construct a false-positive free sample, all the
+quality flags could be applied.  If the goal is to construct a
+complete sample, then consider the examples of Kepler~1627Ab
+($\approx$40\,Myr) and Kepler~51c ($\approx$625\,Myr).  The former has
+a high RUWE due to a resolved binary companion \citep{Bouma_2022a};
+the latter is on a grazing orbit \citep{2014ApJ...783...53M}.  We
+leave selection for or against such cases as a decision to the user.
+For our own analysis, we assume that a star is suitable for
+gyrochronology if none of bits zero through nine (inclusive) are
+raised.  For analyses that require all stellar rotation periods to
+come from the same detection pipeline, we further require bit 11 to be
+zero. 
 
 Three assumptions must hold for a rotation-based age dating method
 like \texttt{gyro-interp} to be valid.  {\it 1)} The evolutionary
@@ -797,14 +756,14 @@ gyrochrone ages \citep{Bouma_2023}.   Stars hotter than 6200\,K spin
 down very slowly, if at all.  Stars cooler than 3800\,K do spin down
 over gigayear timescales
 \citep{2016ApJ...821...93N,2023ApJ...954L..50E,2024arXiv240312129C},
-but the currently available open cluster data have yet to clarify
-when the intrinsic scatter in the population decreases.
+but the currently available open cluster data have yet to clarify when
+the intrinsic scatter in the population decreases.
 
 {\it Surface gravity (bit 1)}---We flagged stars as possible subgiants
 if they had $\log g < 4.2$. 
-%We set this threshold by examining the
-%relevant flag from \citet{berger_2018_radii_evolnstates},
-%cross-matched against \citet{Berger_2020a_catalog}.
+%We set this threshold by examining the relevant flag from
+%\citet{berger_2018_radii_evolnstates}, cross-matched against
+%\citet{Berger_2020a_catalog}.
 
 {\it Absolute luminosity (bit 2)}---We calculated the absolute Gaia
 DR3 $G$-band luminosity, ignoring reddening, using the reported
@@ -907,22 +866,17 @@ other than the \citeauthor{Santos_2019} pipeline.
 
 
 
-\subsection{Planet Quality Flags}
-\label{subsec:plflags}
-Some planets are more reliably identified than others.  We used the
-following additional quality indicators to assess the reliability and
-utility of a planet, and assembled them into a separate bitmask,
-$Q_{\rm planet}$.
+\subsection{Planet Quality Flags} \label{subsec:plflags} Some planets
+are more reliably identified than others.  We used the following
+additional quality indicators to assess the reliability and utility of
+a planet, and assembled them into a separate bitmask, $Q_{\rm
+planet}$.
 
-% see Erik's 2022 discussion; might want to shift to include a cut on
-% disposition score?
 {\it Candidate reliability (bit 0)}---The NEA's Kepler Objects of
 Interest Table includes both an overall planet-candidate disposition
 status ({\it koi\_disposition}), as well as a disposition based only
 on the Kepler data ({\it koi\_pdisposition}).  We required both to
 include only ``planet candidates'' and ``confirmed planets''. 
-%; we are generally less interested
-%in the age distribution of planet candidates that are known false positives.
 
 {\it Candidate S/N (bit 1)}---In any transit survey, the false
 positive rate increases greatly toward the noise floor for planet
@@ -1024,93 +978,81 @@ quote the 3$\sigma$ (99.7$^{\rm th}$ percentile) limits.
 	\vspace{-0.5cm}
 	\caption{
 		{\bf Reported ages of individual stars in benchmark open clusters.}
-		Each point denotes a star's reported age,
-		normalized by the age of a stellar ensemble in which the star
-		is a candidate member.
-		Cluster membership was evaluated without knowledge of rotation.
-		Although some field interlopers may be present in the 
-		membership lists,
-		outliers can be compared between different methods on a
-		relative basis.
-    Each study was cross-matched against the same cluster list;
-    certain methods report ages for more stars than others.
-		Horizontal scatter is added to visually
-		clarify the statistical age uncertainties.
-		At $<$1\,Gyr,
-    our ages are generally accurate, and their statistical
-    uncertainties match their dispersion.
+    Each point denotes a star's reported age, normalized by the age of
+    a stellar ensemble in which the star is a candidate member.
+    Cluster membership was evaluated without knowledge of rotation.
+    Although some field interlopers may be present in the membership
+    lists, outliers can be compared between different methods on a
+    relative basis.  Each study was cross-matched against the same
+    cluster list; certain methods report ages for more stars than
+    others.  Horizontal scatter is added to visually clarify the
+    statistical age uncertainties.  At $<$1\,Gyr, our ages are
+    generally accurate, and their statistical uncertainties match
+    their dispersion.
 	}
 	\label{fig:agescalecompone}
 \end{figure*}
 
 Stars that formed in the same birth cluster are the gold standard for
 the astronomical age scale \citep{Soderblom_2010}.  Before Gaia, the
-few open clusters known in the Kepler field had been
-cataloged by \citet{1864RSPT..154....1H}.  Gaia
-has enabled the discovery of stellar ensembles
-that are more diffuse, but which nonetheless share a common age based
-on isochrone, rotation, and lithium dating
+few open clusters known in the Kepler field had been cataloged by
+\citet{1864RSPT..154....1H}.  Gaia has enabled the discovery of
+stellar ensembles that are more diffuse, but which nonetheless share a
+common age based on isochrone, rotation, and lithium dating
 \cite[e.g.][]{2019AJ....158..122K,Bouma_2022b,Barber_2022}.
 
 In Figure~\ref{fig:agescalecompone}, we compare our rotation-based
 ages, and available ages from the literature, against the ages of
-stars in open clusters in the Kepler field.  From the
-literature, we drew ages from \citet{Reinhold_2015},
-\citet{Berger_2020a_catalog}, \citet{2021AJ....161..189L},
-\citet{2023ApJ...952..131M}, and \citet{2024AJ....167..159L}.  We
-followed any guidance available from each study for
-removing ages that were unreliable, and plotted
-stars within $1\sigma$ of zero as upper limits.  For the
-\citeauthor{Reinhold_2015} ages, we used those calculated
-using the \citet{Mamajek_2008} calibration; for the
+stars in open clusters in the Kepler field.  From the literature, we
+drew ages from \citet{Reinhold_2015}, \citet{Berger_2020a_catalog},
+\citet{2021AJ....161..189L}, \citet{2023ApJ...952..131M}, and
+\citet{2024AJ....167..159L}.  We followed any guidance available from
+each study for removing ages that were unreliable, and plotted stars
+within $1\sigma$ of zero as upper limits.  For the
+\citeauthor{Reinhold_2015} ages, we used those calculated using the
+\citet{Mamajek_2008} calibration; for the
 \citeauthor{2023ApJ...952..131M} ages, we show those from
 \texttt{kiauhoku} \citep{Claytor2020} rather than \texttt{STAREVOL}
-\citep{Amard2019}, since the former showed better agreement with
-the cluster age scale.
+\citep{Amard2019}, since the former showed better agreement with the
+cluster age scale.
 
 Cluster membership is a nuanced subject.
 Figure~\ref{fig:agescalecompone} is showing reported ages for a set of
-spatially and kinematically selected stars that could be
-cluster members, or they could be field interlopers.  For NGC6811 and
-NGC6819, we adopted candidate members from
+spatially and kinematically selected stars that could be cluster
+members, or they could be field interlopers.  For NGC6811 and NGC6819,
+we adopted candidate members from
 \citet{2018A&A...618A..93C,CantatGaudin_2020} and
-\citet{Kounkel_2020}.  
-For Theia~520, we used candidate members from \citet{Kounkel_2020}.
-For Melange-3 we used the candidates reported
+\citet{Kounkel_2020}.  For Theia~520, we used candidate members from
+\citet{Kounkel_2020}.  For Melange-3 we used the candidates reported
 by \citet{Barber_2022} and required ``offset'' tangential velocities
-below 2\,\kms.  For Cep-Her we used candidate members from Kerr et al.~2024 (submitted)
-with $P_{\rm fin}$$>$0.8.  Even with
+below 2\,\kms.  For Cep-Her we used candidate members from Kerr et
+al.~2024 (submitted) with $P_{\rm fin}$$>$0.8.  Even with
 contaminants, we can compare the relative age distributions derived by
 the different studies because in all instances we are comparing
 reported ages against a fixed list of stars.
 
-There are two main metrics for success in this test. {\it 1)}
-Do the reported ages agree with the cluster age? {\it 2)} Do the
-reported age uncertainties agree with their dispersion
-around the cluster age?
+There are two main metrics for success in this test. {\it 1)} Do the
+reported ages agree with the cluster age? {\it 2)} Do the reported age
+uncertainties agree with their dispersion around the cluster age?
 
-Figure~\ref{fig:agescalecompone} show that although
-previous studies reported ages that agree with the cluster scale for
-$\gtrsim$1\,Gyr stars, sub-gigayear stars have historically had their ages 
-overestimated by 0.3--2\,dex, with severely understated uncertainties.  
-For isochrone and kinematic ages, this is because these
-methods rely on parameters that do not appreciably change at
-$t$$\lesssim$1\,Gyr.  For the rotation-based ages in
-\citet{2023ApJ...952..131M} and \citet{2024AJ....167..159L}, the
-discrepancy is
-caused by details of the calibration methodologies.  The
-\texttt{kiauhoku} spin-down model for instance has known
-``stretches'' and ``compressions'' in its age scale relative to observed open clusters
-\citep[see][Sec. 7.3]{2023ApJ...952..131M}.
-The \citet{Mamajek_2008}
-calibration used by \citet{Reinhold_2015} appears more accurate than the former
-two models, because it 
-was fitted to reproduce the open cluster sequences known at the time.  However the
-uncertainties from all of these methods appear to be underestimated.  This
-is probably because
-they do not marginalize over
-the range of rotation periods accessible to sub-gigayear stars of a fixed
-mass and age.
+Figure~\ref{fig:agescalecompone} show that although previous studies
+reported ages that agree with the cluster scale for $\gtrsim$1\,Gyr
+stars, sub-gigayear stars have historically had their ages
+overestimated by 0.3--2\,dex, with severely understated uncertainties.
+For isochrone and kinematic ages, this is because these methods rely
+on parameters that do not appreciably change at $t$$\lesssim$1\,Gyr.
+For the rotation-based ages in \citet{2023ApJ...952..131M} and
+\citet{2024AJ....167..159L}, the discrepancy is caused by details of
+the calibration methodologies.  The \texttt{kiauhoku} spin-down model
+for instance has known ``stretches'' and ``compressions'' in its age
+scale relative to observed open clusters \citep[see][Sec.
+7.3]{2023ApJ...952..131M}.  The \citet{Mamajek_2008} calibration used
+by \citet{Reinhold_2015} appears more accurate than the former two
+models, because it was fitted to reproduce the open cluster sequences
+known at the time.  However the uncertainties from all of these
+methods appear to be underestimated.  This is probably because they do
+not marginalize over the range of rotation periods accessible to
+sub-gigayear stars of a fixed mass and age.
 
 
 
@@ -1121,34 +1063,29 @@ mass and age.
   \begin{center}
     \leavevmode
     \subfloat{
-%    \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage4000.pdf}
-%    \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240521_maxage4000.pdf}
         \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240530_maxage4000.pdf}
     }
 
 	\vspace{-0.35cm}
     \subfloat{
-%    \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240430_maxage4000_preciseagesonly.pdf}
-%    \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240521_maxage4000_preciseagesonly.pdf}
         \includegraphics[width=.96\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240530_maxage4000_preciseagesonly.pdf}
     }
   \end{center}
   \vspace{-0.66cm}
   \caption{{\bf Kepler's demographic cliff,} visible in the
-  rotation-derived age distributions of its stars (left) and planet hosts (middle).  The top row shows all stars with
-  temperatures of 3800--6200\,K for which we calculated rotational
-  ages.  Opaque lines impose quality cuts on 
-  binarity, crowding, and the star's evolutionary state; transparent lines do not.
-  The bottom row
-  shows stars with temperatures of 4400--5400\,K, which have
-  more precise ages due to their fast spin-down.
-  The statistical uncertainty for a mean
-  star at 1, 2, and 3\,Gyr is shown, and is identical
-  across each row.  Finally, the right panel compares the
-  rotation-derived ages against star formation histories
-  derived using CMD fitting (dashed and dotted lines).  Completeness in Kepler's
-  $P$$_{\rm rot}$ detection sensitivity is near unity until
-  $t$$\lesssim$3\,Gyr \citep{2022ApJ...937...94M}.
+  rotation-derived age distributions of its stars (left) and planet
+  hosts (middle).  The top row shows all stars with temperatures of
+  3800--6200\,K for which we calculated rotational ages.  Opaque lines
+  impose quality cuts on binarity, crowding, and the star's
+  evolutionary state; transparent lines do not.  The bottom row shows
+  stars with temperatures of 4400--5400\,K, which have more precise
+  ages due to their fast spin-down.  The statistical uncertainty for a
+  mean star at 1, 2, and 3\,Gyr is shown, and is identical across each
+  row.  Finally, the right panel compares the rotation-derived ages
+  against star formation histories derived using CMD fitting (dashed
+  and dotted lines).  Completeness in Kepler's $P$$_{\rm rot}$
+  detection sensitivity is near unity until $t$$\lesssim$3\,Gyr
+  \citep{2022ApJ...937...94M}.
   \label{fig:hist_tgyro}
   }
 \end{figure*}
@@ -1165,12 +1102,8 @@ distributions by drawing ten random samples from each posterior, and
 then computing the re-weighted histogram of the resulting samples.
 The uncertainties assume Poisson statistics.  We truncated the plots
 near $4$\,Gyr since this is the cluster age out to which our
-rotational ages are calibrated.  The overall slope
-yields a paucity of young stars relative to the expectation of a
-uniform age distribution.
-%In an alternative coinage, this tendency for fewer young
-%stars to be present could also be dubbed a ``demographic cliff'',
-%in reference to the phenomenon from human demography.
+rotational ages are calibrated.  The overall slope yields a paucity of
+young stars relative to the expectation of a uniform age distribution.
 
 The age distributions of Kepler stars and KOI hosts in
 Figure~\ref{fig:hist_tgyro} appear similar.  One diagnostic for
@@ -1189,9 +1122,9 @@ some nuance to the argument that young transiting planets are hard to
 detect due to the photometric variability of their host stars.  If
 true, this statement seems to hold only for the very youngest
 ($\lesssim$0.4\,Gyr) stars, where there is a marginal deficit in the
-KOI host age distribution relative to the parent stellar
-sample.  Examining scatter plots of the planet properties as a
-function of time, we similarly find that fewer systems at $t_{\rm
+KOI host age distribution relative to the parent stellar sample.
+Examining scatter plots of the planet properties as a function of
+time, we similarly find that fewer systems at $t_{\rm
 gyro}$$<$0.4\,Gyr are detected with $P_{\rm orb}$$\gtrsim$30\,days
 than at $t_{\rm gyro}$$>$0.4\,Gyr.
 
@@ -1223,15 +1156,13 @@ detected planets in the 0-1\,Gyr, 1-2\,Gyr, and 2-3\,Gyr bins.
 
 \subsection{Planets Younger Than One Billion Years}
 
-Sub-gigayear planets can be particularly informative for studies of planet
-evolution.
-Our catalog has \nplyounggyro\ confirmed and candidate planets
-with median ages below 1\,Gyr.  Requiring $t_{\rm gyro}$$<$1\,Gyr at
-2$\sigma$ yields \nplyounggyrotwosigma\ planets orbiting
-\nplhostsyounggyrotwosigma\ stars.  
-The youth claim is most secure for the subsets that are either
-in clusters, or that have independent rotation and
-lithium-based ages.
+Sub-gigayear planets can be particularly informative for studies of
+planet evolution.  Our catalog has \nplyounggyro\ confirmed and
+candidate planets with median ages below 1\,Gyr.  Requiring $t_{\rm
+gyro}$$<$1\,Gyr at 2$\sigma$ yields \nplyounggyrotwosigma\ planets
+orbiting \nplhostsyounggyrotwosigma\ stars.  The youth claim is most
+secure for the subsets that are either in clusters, or that have
+independent rotation and lithium-based ages.
 
 \subsubsection{Planets in Clusters}
 \label{subsec:clusterplanets}
@@ -1240,41 +1171,40 @@ Four stellar ensembles in the Kepler field have to date yielded a
 total of fourteen transiting planets.  Our analysis blindly recovers
 the youth of all of these planets.
 
-{\it Cep-Her}---The Cep-Her complex ($\approx$40\,Myr)
-contains Kepler-1627Ab, Kepler-1643b,
-Kepler-1974b and Kepler-1975\,Ab \citep{Bouma_2022b,Bouma_2022a}.
-Different sub-groups of the complex vary in age by $\approx$50\%
-(Kerr~et al.,~submitted).  The planets
+{\it Cep-Her}---The Cep-Her complex ($\approx$40\,Myr) contains
+Kepler-1627Ab, Kepler-1643b, Kepler-1974b and Kepler-1975\,Ab
+\citep{Bouma_2022b,Bouma_2022a}.  Different sub-groups of the complex
+vary in age by $\approx$50\% (Kerr~et al.,~submitted).  The planets
 themselves are all on close-in orbits (5-25\,days), with sizes from
-2-4\,$R_\oplus$.  Our rotation and lithium ages agree with the cluster age
-for Kepler-1627A, Kepler-1974, and Kepler-1975A.  For Kepler-1643, the
-rotation and cluster ages agree, and the lithium age is 2.0$\sigma$
-above the cluster age reported by \citet{Bouma_2022b} for RSG-5.
+2-4\,$R_\oplus$.  Our rotation and lithium ages agree with the cluster
+age for Kepler-1627A, Kepler-1974, and Kepler-1975A.  For Kepler-1643,
+the rotation and cluster ages agree, and the lithium age is
+2.0$\sigma$ above the cluster age reported by \citet{Bouma_2022b} for
+RSG-5.
 
-{\it MELANGE-3}---\citet{Barber_2022} reported a
-$105\pm10$\,Myr association in the Kepler field
-containing two transiting mini-Neptunes:
-Kepler-970 and Kepler-1928.  We find rotation-based ages
-of $t_{\rm
-gyro}=176_{-40}^{+120}$\,Myr and $144_{-88}^{+104}$\,Myr for
-Kepler-970 and Kepler-1928 respectively.  The former rotation-based
-age being slightly older than the suggested Pleiades age for the
-association agrees with Figure~4 of \citet{Barber_2022}.
+{\it MELANGE-3}---\citet{Barber_2022} reported a $105\pm10$\,Myr
+association in the Kepler field containing two transiting
+mini-Neptunes: Kepler-970 and Kepler-1928.  We find rotation-based
+ages of $t_{\rm gyro}=176_{-40}^{+120}$\,Myr and
+$144_{-88}^{+104}$\,Myr for Kepler-970 and Kepler-1928 respectively.
+The former rotation-based age being slightly older than the suggested
+Pleiades age for the association agrees with Figure~4 of
+\citet{Barber_2022}.
 
 {\it Theia~520}---We derive rotation-based ages of $\approx$350\,Myr
 for Kepler-968 and Kepler-52.  Based on spatial and kinematic
 clustering, these stars were reported by \citet{2019AJ....158..122K}
-to be members of Theia~520.  The core of this
-structure is also known as UBC-1 \citep{2018A&A...618A..59C}.  Based
-on isochrone and rotation-based age-dating, Theia~520 seems to be
+to be members of Theia~520.  The core of this structure is also known
+as UBC-1 \citep{2018A&A...618A..59C}.  Based on isochrone and
+rotation-based age-dating, Theia~520 seems to be
 $\approx$230$\pm$70\,Myr old
-\citep{2019AJ....158..122K,2024A&A...681A..13F}, which is within 
-1$\sigma$ of our $t_{\rm gyro}$
-measurements.  Ongoing work by \citet{Curtis2024} broadly finds that
-the two planet-hosting stars are indeed members of this diffuse
-population.  Given the cluster-level and individual-star evidence,
-this makes Kepler-968 and Kepler-52 the youngest multiplanet systems
-currently known from the main Kepler mission.
+\citep{2019AJ....158..122K,2024A&A...681A..13F}, which is within
+1$\sigma$ of our $t_{\rm gyro}$ measurements.  Ongoing work by
+\citet{Curtis2024} broadly finds that the two planet-hosting stars are
+indeed members of this diffuse population.  Given the cluster-level
+and individual-star evidence, this makes Kepler-968 and Kepler-52 the
+youngest multiplanet systems currently known from the main Kepler
+mission.
 
 {\it NGC~6811}---\citet{Meibom_2013} reported the discovery of
 Kepler-66 and -67b, two mini-Neptunes in NGC~6811 ($\approx$1\,Gyr).
@@ -1295,7 +1225,7 @@ this time, enabling its rotation period to be diagnostic of its age.
   \caption{
     {\bf Sizes, orbital periods, and rotation-based ages of transiting
     exoplanets younger than one billion years.} Star symbols denote
-    \nplyounggyrotwosigmanograzingnoruwe\ planets that are 
+    \nplyounggyrotwosigmanograzingnoruwe\ planets that are
     characterized in this work to have $t_{\rm gyro}$<1\,Gyr at
     $2$$\sigma$; circles are planets from the literature meeting the
     same age requirement, but with a heterogeneous set of age
@@ -1304,77 +1234,33 @@ this time, enabling its rotation period to be diagnostic of its age.
     select for precise ages ($t/\sigma_{\rm t}>3$), this would hide
     $\approx$ten $<$0.5\,Gyr planets, and add $\approx$fifteen
     0.5-1\,Gyr planets.  For this plot, we require our Kepler stellar
-		hosts to not have $Q_{\rm star}$ bits 0--9 raised, and for the planets 
-		to similarly no have quality flags raised. 
+    hosts to not have $Q_{\rm star}$ bits 0--9 raised, and for the
+    planets to similarly no have quality flags raised. 
     \label{fig:rp_period_age_results}
   }
 \end{figure}
-%\begin{figure*}[!t]
-%	\begin{center}
-%		\includegraphics[width=0.7\textwidth]{rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pdf}
-%	\end{center}
-%	\vspace{-0.5cm}
-%	\caption{
-%		{\bf Sizes, orbital periods, and rotation-based ages of transiting
-%			exoplanets younger than one billion years.} Star symbols denote
-%		\nplyounggyrotwosigmanograzingnoruwe\ confirmed and candidate planets that are 
-%		characterized in this work to have $t_{\rm gyro}$<1\,Gyr at
-%		$2$$\sigma$; circles are planets from the literature meeting the
-%		same age requirement.  Gray points are transiting planets from the NASA
-%		Exoplanet Archive older than 1\,Gyr.  If one were to instead
-%		select for precise ages ($t/\sigma_{\rm t}$$>$3), this would hide
-%		ten $<$0.5\,Gyr planets, and add fifteen
-%		0.5-1\,Gyr planets.  For this plot, we require our Kepler stellar
-%		hosts to not have $Q_{\rm star}$ bits 0--9 raised, and for the planets 
-%		to similarly no have quality flags raised. 
-%		\label{fig:rp_period_age_results}
-%	}
-%\end{figure*}
+
 
 \subsubsection{Rotation vs.~Lithium Ages}
 
-We compared 
-the rotation and lithium ages for the
-known planet hosts 
-in the ``Consistent?'' column of Table~\ref{tab:planets}.
-There were three cases of interest.
-{\it i)} If two-sided posteriors for both $t_{\rm gyro}$ and $t_{\rm Li}$ existed,
-and their median values were consistent within 2$\sigma$, we listed them
-as consistent; if they were consistent within 2-3$\sigma$, we
-listed them as ``maybe'' consistent.  Otherwise, they
-disagreed.
-{\it ii)}
-If $t_{\rm Li}$ was a lower limit, we compared this lower limit
-with the $1\sigma$ upper limit from $t_{\rm gyro}$; if the two
-overlapped, we judged the age estimates to be consistent.
-{\it iii)}
-If $t_{\rm Li}$ provided a two-sided posterior, and no
-rotation period was found, we judged the age estimates to be
-inconsistent.  This is because a two-sided lithium constraint can only be
-provided for G and K dwarfs $\lesssim$2\,Gyr old, and Kepler should
-have been sensitive to the rotation periods of such stars.
+We compared the rotation and lithium ages for the known planet hosts
+in the ``Consistent?'' column of Table~\ref{tab:planets}.  There were
+three cases of interest.  {\it i)} If two-sided posteriors for both
+$t_{\rm gyro}$ and $t_{\rm Li}$ existed, and their median values were
+consistent within 2$\sigma$, we listed them as consistent; if they
+were consistent within 2-3$\sigma$, we listed them as ``maybe''
+consistent.  Otherwise, they disagreed.  {\it ii)} If $t_{\rm Li}$ was
+a lower limit, we compared this lower limit with the $1\sigma$ upper
+limit from $t_{\rm gyro}$; if the two overlapped, we judged the age
+estimates to be consistent.  {\it iii)} If $t_{\rm Li}$ provided a
+two-sided posterior, and no rotation period was found, we judged the
+age estimates to be inconsistent.  This is because a two-sided lithium
+constraint can only be provided for G and K dwarfs $\lesssim$2\,Gyr
+old, and Kepler should have been sensitive to the rotation periods of
+such stars.
 
-
-%\begin{enumerate}[leftmargin=*,topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
-%  \item Two-sided posteriors for both $t_{\rm gyro}$ and $t_{\rm Li}$:
-%    if their values were consistent within 2$\sigma$, we judged them
-%    to be consistent; if they were consistent within 2-3$\sigma$, we
-%    suggest them to be ``maybe'' consistent.  Otherwise, they
-%    disagree.
-%    %
-%  \item If $t_{\rm Li}$ is a lower limit, we compare this lower limit
-%    with the $1\sigma$ upper limit from $t_{\rm gyro}$; if the two
-%    overlapped, we judge the age estimates to be consistent.
-%    %
-%  \item If $t_{\rm Li}$ provides a two-sided posterior, and no
-%    rotation is reported, we judge the age estimates to be
-%    inconsistent.  This is because this lithium constraint can only be
-%    provided for G and K stars $\lesssim$2\,Gyr old, and Kepler should
-%    have been sensitive to the rotation periods of such stars.
-%\end{enumerate}
-
-In the entire planet sample (i.e.~without imposing any quality cuts) this
-yielded \allagesyesconsistent\ consistent cases,
+In the entire planet sample (i.e.~without imposing any quality cuts)
+this yielded \allagesyesconsistent\ consistent cases,
 \allagesmaybeconsistent\ maybe consistent cases, and
 \allagesnoconsistent\ inconsistent cases.  Rephrased, in the overall
 sample, \fracconsistentallages\% of stars have consistent rotation and
@@ -1418,55 +1304,23 @@ sized planets below the radius valley.  While most of these planets
 are on orbital periods below 50\,days, \nlongperiodhighq\ are on more
 distant orbits.
 
-Highlights from these systems include
-Kepler-1529, Kepler-1565, Kepler-1312, and Kepler-1629.  Kepler-1529b
-is a $\approx$100$\pm$50\,Myr mini-Neptune with well-measured rotation
-and lithium ages.  Kepler-1565b is an analogous $\approx$170-230\,Myr
+Highlights from these systems include Kepler-1529, Kepler-1565,
+Kepler-1312, and Kepler-1629.  Kepler-1529b is a
+$\approx$100$\pm$50\,Myr mini-Neptune with well-measured rotation and
+lithium ages.  Kepler-1565b is an analogous $\approx$170-230\,Myr
 super-Earth.  Kepler-1312 is a $t_{\rm gyro}$=\kepthirteentwelve\,Myr
-near-Solar analog with an Earth-sized planet
-on a one-day orbit, and a mini-Neptune on a five-day orbit.  The
-Earth-sized planet, Kepler-1312~c, along with the near-identical
-Kepler-1561~b ($t_{\rm gyro}$=\kepfifteensixone\,Myr), rank among the
-youngest Earth-sized planets currently known, comparable to planets
-such as HD~63433d \citep[1.1\,$R_\oplus$,
-$414$$\pm$$23$\,Myr;][]{2024AJ....167...54C} and TOI-1807~b
-\citep[1.3\,$R_\oplus$, 180$\pm$40\,Myr;][]{2021AJ....162...54H}.
-Kepler-1629~b, with a size just two-thirds that of Earth
-(0.67$\pm$0.05\,$R_\oplus$), is marginally older, also based on
-rotation (\kepsixteentwonine\,Myr).  The lithium age from a
-reconnaissance TRES spectrum confirms the point.
-
-%  Kepler-1529b, a 5.3\,day 2.0\,$R_\oplus$ mini-Neptune is $\approx$100\,Myr old.
-%  Kepler-1930b, a 13.0\,day 1.5\,$R_\oplus$ super-Earth on a grazing orbit is $\approx$120-180\,Myr old.
-%  Kepler-1313b, doubly unlucky, a 3.8\,day 1.7\,$R_\oplus$ super-Earth on a grazing orbit is $\approx$185\,Myr old.
-%  Kepler-1521b, a 47.2\,day 2.3\,$R_\oplus$ mini-Neptune is 180-210\,Myr old.
-%  Kepler-1467b, a 47.1\,day 3.1\,$R_\oplus$ mini-Neptune is 230-240\,Myr old.
-%  Kepler-1565b, a 1.5\,day 1.3\,$R_\oplus$ super-Earth is 180-230\,Myr old.
-%  Kepler-971b, a 9.6\,day 3.9\,$R_\oplus$ Neptune-sized planet is 300-370\,Myr old.
-%  
-%  Kepler-1933b is a 4.9\,day 1.0\,$R_\oplus$ Earth-sized planet.  Its
-%  rotation-based age of $304^{+96}_{-112}$\,Myr agrees within $1\sigma$ of
-%  its lithium age, though at half the relative uncertainty.  Based on
-%  these lines of evidence, this system may be the youngest Earth-sized
-%  planet known, comparable to systems such as HD~63433d
-%  \citep[1.1\,$R_\oplus$, $414\pm23$\,Myr][]{2024AJ....167...54C}.
-%  
-%  Kepler-1532b is a 1.1\,day 1.3\,$R_\oplus$ super-Earth.  Rotation points to a $\approx$400\,Myr age, and lithium is consistent.
-%  Kepler-955b is a 14.5\,day 2.7\,$R_\oplus$ mini-Neptune.  Rotation points to a $\approx$400\,Myr age, and lithium is consistent.
-%  Kepler-1481b, a 5.9\,day 1.1\,$R_\oplus$ super-Earth has a
-%  rotation-based age of $\approx$400\,Myr, and a $2\sigma$ lithium
-%  detection that, upon visual inspection of the spectrum, is
-%  believeable.  The implied lithium age is marginally consistent with
-%  the rotation-based age, although perhaps with some tension.
-%  Kepler-447b is supposedly a 32\,$R_\oplus$ planet (grazing) on a
-%  7.8\,day grazing orbit.  Rotation and lithium independently find a
-%  420-440\,Myr age.
-%  Kepler-1561b is a 0.9\,$R_\oplus$ sub-Earth, on a 1.0\,day orbit.
-%  Rotation points to a 420\,Myr age.  The detected EW$_{\rm Li}$ is
-%  consistent, although given the star's temperature, not particularly
-%  constraining.
-%  The same is true for the 1.9\,$R_\oplus$ and 5.8\,day super-Earth Kepler-523b, and the 
-%  1.0\,$R_\oplus$, 12.2\,day Earth-sized Kepler-1482b.
+near-Solar analog with an Earth-sized planet on a one-day orbit, and a
+mini-Neptune on a five-day orbit.  The Earth-sized planet,
+Kepler-1312~c, along with the near-identical Kepler-1561~b ($t_{\rm
+gyro}$=\kepfifteensixone\,Myr), rank among the youngest Earth-sized
+planets currently known, comparable to planets such as HD~63433d
+\citep[1.1\,$R_\oplus$, $414$$\pm$$23$\,Myr;][]{2024AJ....167...54C}
+and TOI-1807~b \citep[1.3\,$R_\oplus$,
+180$\pm$40\,Myr;][]{2021AJ....162...54H}.  Kepler-1629~b, with a size
+just two-thirds that of Earth (0.67$\pm$0.05\,$R_\oplus$), is
+marginally older, also based on rotation (\kepsixteentwonine\,Myr).
+The lithium age from a reconnaissance TRES spectrum confirms the
+point.
 
 
 \section{Discussion}
@@ -1483,7 +1337,7 @@ disk stars respectively.  The thin disk stars have a threefold larger
 detected rotation period fraction: 35{,}675 rotators are in the thin
 disk, while 7{,}312 are in the thick disk.  Further imposing the
 gyrochronology quality flags discussed in Section~\ref{subsec:flags}
-yields 17{,}755 thin-disk stars for which gyrochronology is 
+yields 17{,}755 thin-disk stars for which gyrochronology is
 applicable, and 2{,}462 thick-disk stars.
 
 Classifying Kepler stars as thin vs.\ thick disk members helps connect
@@ -1492,28 +1346,27 @@ extragalactic scales, the star formation rate in spiral galaxies with
 mass similar to the Milky Way peaked $\approx$10\,Gyr ago, and has
 since decreased by an order of magnitude
 \citep[e.g.][]{2004Natur.428..625H,2006ApJ...651..142H}.  In our own
-galaxy, previous studies have measured star
-formation histories through CMD fitting of resolved stellar
-populations
+galaxy, previous studies have measured star formation histories
+through CMD fitting of resolved stellar populations
 \citep[][]{2019A&A...624L...1M,2020NatAs...4..965R,2021MNRAS.501..302A,2022Natur.603..599X}
 and by modeling the local white dwarf luminosity function
 \citep[e.g.][]{2019ApJ...878L..11I}.  \citet{2019A&A...624L...1M} and
 \citet{2019ApJ...878L..11I} for instance focused on stars (and white
 dwarfs) within a few hundred parsecs, and both found a peak in the
 local star formation rate 2-3\,Gyr ago.  \citet{2020NatAs...4..965R}
-focused on stars in a wider 2\,kpc bubble, and additionally
-reported three local
-maxima in the galactic star formation rate, which they associated with pericenter passages of the
-Sagittarius satellite galaxy.
+focused on stars in a wider 2\,kpc bubble, and additionally reported
+three local maxima in the galactic star formation rate, which they
+associated with pericenter passages of the Sagittarius satellite
+galaxy.
 
 The right column of Figure~\ref{fig:hist_tgyro} compares our derived
 age distribution against star formation histories (SFHs) reported by
 \citet{2019A&A...624L...1M} and \citet{2020NatAs...4..965R} based on
 CMD fitting.  The overall slope of both SFHs broadly agrees with what
-we find from rotation-based ages.  The SFH from \citet{2019A&A...624L...1M}
-seems entirely consistent, particularly after accounting for
-the statistical uncertainties of that study.  Regarding the
-episodic star formation bursts reported by
+we find from rotation-based ages.  The SFH from
+\citet{2019A&A...624L...1M} seems entirely consistent, particularly
+after accounting for the statistical uncertainties of that study.
+Regarding the episodic star formation bursts reported by
 \citet{2020NatAs...4..965R}, they are not apparent in our overall FGK
 star sample (top row).  However, rotation-based ages are most precise
 for $\approx$G8V-K4V dwarfs older than $\approx$1.5\,Gyr
@@ -1602,105 +1455,94 @@ the Kelvin-Helmholtz cooling of mini-Neptunes \citep{Gupta_2019},
 time-dependent carving of the photoevaporation desert
 \citep{Owen2018}, and the time evolution of the radius valley
 \citep{Rogers_2021} can be explored using our data.  We defer this
-analysis to a separate publication.
-Some care is required since beyond age,
-exoplanet demographics also depend on stellar metallicity and mass
-\citep[e.g.][]{Petigura_2018,Miyazaki2023}.  
+analysis to a separate publication.  Some care is required since
+beyond age, exoplanet demographics also depend on stellar metallicity
+and mass \citep[e.g.][]{Petigura_2018,Miyazaki2023}.  
 
 {\it Field star ages from other surveys}:
-While this study focused on
-Kepler, other photometric surveys (e.g.~K2, TESS, HAT, WASP, NGTS, ZTF,
-ATLAS) open opportunities for age-dating a far broader set
-of stars and planets.
-Future prospects also include PLATO
-\citep{Rauer14}, Earth 2.0 \citep{2022arXiv220606693G}, and the Roman
-Galactic Bulge Time Domain Survey.
-The surveys with good coverage of different regions of the Galaxy seem
-most likely to yield new insight into whether the star formation
-history we see in the Kepler field is universal across the thin disk.
+While this study focused on Kepler, other photometric surveys
+(e.g.~K2, TESS, HAT, WASP, NGTS, ZTF, ATLAS) open opportunities for
+age-dating a far broader set of stars and planets.  Future prospects
+also include PLATO \citep{Rauer14}, Earth 2.0
+\citep{2022arXiv220606693G}, and the Roman Galactic Bulge Time Domain
+Survey.  The surveys with good coverage of different regions of the
+Galaxy seem most likely to yield new insight into whether the star
+formation history we see in the Kepler field is universal across the
+thin disk.
 
 {\it Searches for new associations}:
 Some of the youngest stars in Tables~\ref{tab:planets}
 and~\ref{tab:stars} have been linked to their birth clusters, while
 others have not. A systematic search for the birth clusters of the
-youngest ``field stars'' could combine positions and velocities
-from Gaia with rotation measurements from TESS. Given the
-$\sim$100\,Myr decoherence time of young clusters, the youngest ``field
-stars'' may have easily identifiable young neighbors.
+youngest ``field stars'' could combine positions and velocities from
+Gaia with rotation measurements from TESS. Given the $\sim$100\,Myr
+decoherence time of young clusters, the youngest ``field stars'' may
+have easily identifiable young neighbors.
 
 
 
 \section{Conclusions}
 \label{sec:conclusions}
 
-We began this work with two questions: how wrong is the assumption
-of a uniform age distribution for stars in the galactic thin disk?
-And why are only $\approx$50 sub-gigayear transiting planets known,
-rather than the $\approx$500 that would be expected under the
-assumption of a uniform star formation history for the
-$\approx$5{,}000 known planets?
+We began this work with two questions: how wrong is the assumption of
+a uniform age distribution for stars in the galactic thin disk?  And
+why are only $\approx$50 sub-gigayear transiting planets known, rather
+than the $\approx$500 that would be expected under the assumption of a
+uniform star formation history for the $\approx$5{,}000 known planets?
 
 Our approach to answering these questions was to curate a sample of
 stellar rotation periods, lithium equivalent widths, and temperatures
-using archival and new data from the Kepler field.  We derived new ages using empirical
-interpolation-based methods, and assessed the reliability of these ages
-by comparing them against benchmark open clusters
-(Figure~\ref{fig:agescalecompone}).
+using archival and new data from the Kepler field.  We derived new
+ages using empirical interpolation-based methods, and assessed the
+reliability of these ages by comparing them against benchmark open
+clusters (Figure~\ref{fig:agescalecompone}).
 
-Tables~\ref{tab:planets} and~\ref{tab:stars} summarize the results for planets and stars,
-respectively.
-Our recovered ages are accurate for all 14 known Kepler planets
-in clusters.  While lithium provided minimal added information
-for most of the sample, $t_{\rm Li}$ and $t_{\rm gyro}$ agreed in
-$\gtrsim$90\% of cases for which comparison was possible.
-Our resulting ages included two-sided $t_{\rm gyro}$ and $t_{\rm Li}$
-for \ltonegyrhighqconfirmedtwosided\ sub-gigayear confirmed planets, and
-two-sided $t_{\rm gyro}$ with one-sided $t_{\rm Li}$ for
-\ltonegyrhighqconfirmedonesided\ sub-gigayear confirmed planets.  Allowing for
-``candidate'' planets, grazing transit geometries, and stars with RUWE far from unity
-expands the counts by a factor of about two.
-%would increase the counts to
-%\ltonegyrmediumqconfirmedtwosided\ and
-%\ltonegyrmediumqconfirmedonesided\ respectively; weakening other quality flags,
-%such as on transit geometry, would further increase the counts. 
+Tables~\ref{tab:planets} and~\ref{tab:stars} summarize the results for
+planets and stars, respectively.  Our recovered ages are accurate for
+all 14 known Kepler planets in clusters.  While lithium provided
+minimal added information for most of the sample, $t_{\rm Li}$ and
+$t_{\rm gyro}$ agreed in $\gtrsim$90\% of cases for which comparison
+was possible.  Our resulting ages included two-sided $t_{\rm gyro}$
+and $t_{\rm Li}$ for \ltonegyrhighqconfirmedtwosided\ sub-gigayear
+confirmed planets, and two-sided $t_{\rm gyro}$ with one-sided $t_{\rm
+Li}$ for \ltonegyrhighqconfirmedonesided\ sub-gigayear confirmed
+planets.  Allowing for ``candidate'' planets, grazing transit
+geometries, and stars with RUWE far from unity expands the counts by a
+factor of two.
 
-The sizes and
-periods for the most secure set of planets are shown in
-Figure~\ref{fig:rp_period_age_results}.   While the new young planets are
-mostly mini-Neptunes, some are near the lower boundary of the
-``sub-Jovian desert'' \citep{Owen2018}, which could have an evolutionary
-connection to their youth.
-Other discoveries include Earth-sized 
-planets with new ages of only a few hundred million years.  
+The sizes and periods for the most secure set of planets are shown in
+Figure~\ref{fig:rp_period_age_results}.   While the new young planets
+are mostly mini-Neptunes, some are near the lower boundary of the
+``sub-Jovian desert'' \citep{Owen2018}, which could have an
+evolutionary connection to their youth.  Other discoveries include
+Earth-sized planets with new ages of only a few hundred million years.  
 
-Our main conclusions with respect to our original questions are
-as follows.
+Our main conclusions with respect to our original questions are as
+follows.
 
 \begin{enumerate}[leftmargin=*,topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
   %
-  \item Rather than being uniform, the age distributions of both the Kepler target stars and the
-    known Kepler planet-hosts show a demographic cliff.  There are
-    twice as many ``old'' (2-3\,Gyr) stars in the
-    Kepler field as ``young'' (0-1\,Gyr) stars.  The star formation
-    rate today is \ratiosfr$\pm$\uncratiosfr\ times lower than it was
-    three billion years ago.
-    This result from rotation-based ages broadly agrees with recent reports of
-    a declining star-formation rate
-    from CMD fitting and white-dwarf chronology, though with
-    the advantage of better sensitivity for FGK stars at $t$$<$1\,Gyr
-    (e.g.~Figure~\ref{fig:agescalecompone}).
+  \item Rather than being uniform, the age distributions of both the
+    Kepler target stars and the known Kepler planet-hosts show a
+    demographic cliff.  There are twice as many ``old'' (2-3\,Gyr)
+    stars in the Kepler field as ``young'' (0-1\,Gyr) stars.  The star
+    formation rate today is \ratiosfr$\pm$\uncratiosfr\ times lower
+    than it was three billion years ago.  This result from
+    rotation-based ages broadly agrees with recent reports of a
+    declining star-formation rate from CMD fitting and white-dwarf
+    chronology, though with the advantage of better sensitivity for
+    FGK stars at $t$$<$1\,Gyr (e.g.~Figure~\ref{fig:agescalecompone}).
   %
   \item Rather than expecting $\approx$500 exoplanets younger than one
-    billion years, the age distribution of stars in the
-    Kepler field implies that we should instead expect $\approx$250.
+    billion years, the age distribution of stars in the Kepler field
+    implies that we should instead expect $\approx$250.
   %
-  \item We have derived rotation-based ages for
-    \nplyounggyrotwosigma\ Kepler planets younger than 1\,Gyr at 2$\sigma$,
-    and \nplyounggyro\ planets with median ages below 1\,Gyr.
+  \item We have derived rotation-based ages for \nplyounggyrotwosigma\
+    Kepler planets younger than 1\,Gyr at 2$\sigma$, and
+    \nplyounggyro\ planets with median ages below 1\,Gyr.
     Concatenating these planets against the existing literature yields
-    $\approx$170 known sub-gigayear planets.
-    This lessens the original factor of ten discrepancy to
-    a factor of at most two.
+    $\approx$170 known sub-gigayear planets.  This lessens the
+    original factor of ten discrepancy to a factor of at most two.
 \end{enumerate}
 
 
