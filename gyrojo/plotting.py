@@ -141,7 +141,7 @@ def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality',
                             grazing_is_ok=0):
     # For KOIs
 
-    df = get_gyro_data(sampleid, grazing_is_ok=grazing_is_ok, drop_highruwe=0)
+    df = get_gyro_data(sampleid, grazing_is_ok=grazing_is_ok, drop_highruwe=1)
 
     if 'deprecated' not in sampleid:
         assert len(df) == df['flag_is_gyro_applicable'].sum()
@@ -335,7 +335,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
 
         ## Apply log scaling to the colorbar
         #norm = mcolors.LogNorm(vmin=1, vmax=np.max(hist))
-        norm = mcolors.Normalize(vmin=1, vmax=7)
+        norm = mcolors.Normalize(vmin=0.5, vmax=7.2)
         im.set_norm(norm)
 
         # Update the colormap of the plot
@@ -2284,7 +2284,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
     ]
     labels = [
         #'KIC',
-        'Has Prot',
+        'Has $P_\mathrm{rot}$',
         '...& gyro applicable',
         '...& KOI host',
     ]
@@ -2704,7 +2704,7 @@ def plot_perioddiff_vs_period(outdir, xkey='Prot', ykey=None, ylim=None,
         cmap = mcolors.LinearSegmentedColormap.from_list('Custom YlGnBu', cmaplist, cmap.N)
 
         ## Apply log scaling to the colorbar
-        norm = mcolors.LogNorm(vmin=1, vmax=np.max(hist))
+        norm = mcolors.LogNorm(vmin=0.9, vmax=np.max(hist))
         #norm = mcolors.Normalize(vmin=1, vmax=7)
         im.set_norm(norm)
 
@@ -2721,7 +2721,7 @@ def plot_perioddiff_vs_period(outdir, xkey='Prot', ykey=None, ylim=None,
             #cb.set_ticks([1,4,7,10])
             #cb.set_ticks([1,10])
             cb.ax.tick_params(labelsize='small')
-            #cb.ax.tick_params(size=0, which='both') # remove the ticks
+            cb.ax.tick_params(size=1, which='both') # shrink the ticks
             #cb.ax.yaxis.set_ticks_position('left')
             cb.ax.xaxis.set_label_position('top')
             cb.set_label(
