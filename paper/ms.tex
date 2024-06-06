@@ -189,8 +189,8 @@ differences in the size distribution of young exoplanets relative to
 their older counterparts
 \citep{Berger_2020b_rpage,David_2021,Sandoval_2021,2023AJ....166..248C,2024arXiv240303261V}.
 
-Discovering a young planet requires solving two problems: find the
-planet, and measure the star's age.  Each problem admits a range of
+Discovering a young planet requires solving two problems: finding the planet and measuring the star's age.
+Each problem admits a range of
 solutions
 \citep[e.g.][]{2008Sci...322.1348M,2012ApJ...756L..33Q,2024AJ....167..193T}.
 In this article we will consider planets whose existence has been
@@ -246,14 +246,14 @@ many Kepler planets remain uncertain.  While isochrone ages have been
 calculated for Kepler stars \citep{Berger_2020b_rpage} and Kepler
 Objects of Interest \citep[KOIs;][]{Petigura_2022}, such ages are
 most precise for stars whose luminosities and temperatures separate
-them from the main sequence.  For 0.1--1\,Gyr stars that are on
+them from the main sequence.  For sub-gigayear stars on
 the main sequence, isochrone ages are therefore limited.
 
 Stellar rotation periods offer a promising alternative.  The idea of
 using a star's spin-down as a clock has a rich history
 \citep{Skumanich_1972,Noyes_1984,Kawaler_1989,Barnes03,Mamajek_2008,Angus_2015}.
 Empirical models now yield ages precise to $\lesssim$30\% for FGK stars
-between 1-4\,Gyr, and constraining age posteriors at earlier times
+between 1-4\,Gyr, and constraining age posteriors for younger ages
 \citep{Bouma_2023}.  Physics-based models
 \citep{Matt_2015,Gallet_Bouvier_2015,Spada_2020} can 
 connect these empirical relations to the evolution of stellar winds,
@@ -395,14 +395,15 @@ provides a visualization of the various samples.
     {\bf Rotation periods for Kepler target stars (left) and known
     planet hosts (right)}.  
     The gray lines are ``mean fits'' to the slow rotation sequences of
-    open clusters.  The stellar sample (left) includes only apparently
+    open clusters.  The 2-D histogram of the stellar sample (left) includes only apparently
     single stars near the main sequence with $\log g$$>$4.2,
     RUWE$<$1.4, and temperatures of 3800--6200\,K.  
     The planet-hosts (right) require the same
     stellar cuts, and include only the confirmed and candidate planets
-    described in Section~\ref{subsec:plflags}.  The number of planets $N_{\rm p}$
-    and number of stars $N_{\rm s}$ are noted in each panel.
-    An order of magnitude
+    described in Section~\ref{subsec:plflags}.  The number of stars $N_{\rm s}$ and
+    planets $N_{\rm p}$are noted in 
+    the relevant panels.
+    A simple
     estimate for the number of young planets discovered by Kepler
     follows by counting planets below the mean rotational isochrones.
 	}
@@ -1021,18 +1022,21 @@ quote the 3$\sigma$ (99.7$^{\rm th}$ percentile) limits.
 	\vspace{-0.5cm}
 	\caption{
 		{\bf Reported ages of individual stars in benchmark open clusters.}
-		Each point denotes a reported age,
+		Each point denotes a star's reported age,
 		normalized by the age of a stellar ensemble in which the star
 		is a candidate member.
-		Cluster membership was assessed in previous studies without knowledge of rotation.
+		Cluster membership was evaluated without knowledge of rotation.
 		Although some field interlopers may be present in the 
 		membership lists,
 		outliers can be compared between different methods on a
 		relative basis.
     Each study was cross-matched against the same cluster list;
     certain methods report ages for more stars than others.
-		Horizontal scatter is artificially added to visually
+		Horizontal scatter is added to visually
 		clarify the statistical age uncertainties.
+		At $<$1\,Gyr,
+		the rotation-based ages from our work provide better accuracy 
+		and better-quantified uncertainties than previous analyses.
 	}
 	\label{fig:agescalecompone}
 \end{figure*}
@@ -1129,16 +1133,15 @@ mass and age.
   \end{center}
   \vspace{-0.66cm}
   \caption{{\bf Kepler's demographic cliff,} visible in the
-  rotation-derived ages of stars (left) and planet hosts (middle) in
-  the Kepler field.  The top row shows all stars with
-  temperatures of 3800--6200\,K for which we calculated rotation-based
+  rotation-derived age distributions of its stars (left) and planet hosts (middle).  The top row shows all stars with
+  temperatures of 3800--6200\,K for which we calculated rotational
   ages.  Opaque lines impose quality cuts on 
   binarity, crowding, and the star's evolutionary state; transparent lines do not.
-  The bottom
+  The bottom row
   shows stars with temperatures of 4400--5400\,K, which have
   more precise ages due to their fast spin-down.
   The statistical uncertainty for a mean
-  individual star at 1, 2, and 3\,Gyr is shown, and is identical
+  star at 1, 2, and 3\,Gyr is shown, and is identical
   across each row.  Finally, the right panel compares the
   rotation-derived ages against star formation histories
   derived using CMD fitting (dashed and dotted lines).  Completeness in Kepler's
@@ -1289,7 +1292,7 @@ this time, enabling its rotation period to be diagnostic of its age.
   \vspace{-0.5cm}
   \caption{
     {\bf Sizes, orbital periods, and rotation-based ages of transiting
-    exoplanets younger than one billion years.} Stars denote
+    exoplanets younger than one billion years.} Star symbols denote
     \nplyounggyrotwosigmanograzingnoruwe\ planets that are 
     characterized in this work to have $t_{\rm gyro}$<1\,Gyr at
     $2$$\sigma$; circles are planets from the literature meeting the
@@ -1457,16 +1460,16 @@ disk stars respectively.  The thin disk stars have a threefold larger
 detected rotation period fraction: 35{,}675 rotators are in the thin
 disk, while 7{,}312 are in the thick disk.  Further imposing the
 gyrochronology quality flags discussed in Section~\ref{subsec:flags}
-yields 17{,}755 thin-disk stars for which gyrochronology is nominally
+yields 17{,}755 thin-disk stars for which gyrochronology is 
 applicable, and 2{,}462 thick-disk stars.
 
 Classifying Kepler stars as thin vs.\ thick disk members helps connect
-them to previous work on the star formation history of the Galaxy.  On
+them to previous work on the Galaxy's star formation history.  On
 extragalactic scales, the star formation rate in spiral galaxies with
 mass similar to the Milky Way peaked $\approx$10\,Gyr ago, and has
 since decreased by an order of magnitude
 \citep[e.g.][]{2004Natur.428..625H,2006ApJ...651..142H}.  In our own
-galaxy, many investigators have worked to measure similar star
+galaxy, previous studies have measured star
 formation histories through CMD fitting of resolved stellar
 populations
 \citep[][]{2019A&A...624L...1M,2020NatAs...4..965R,2021MNRAS.501..302A,2022Natur.603..599X}
@@ -1475,9 +1478,9 @@ and by modeling the local white dwarf luminosity function
 \citet{2019ApJ...878L..11I} for instance focused on stars (and white
 dwarfs) within a few hundred parsecs, and both found a peak in the
 local star formation rate 2-3\,Gyr ago.  \citet{2020NatAs...4..965R}
-focused on stars in a wider 2\,kpc bubble, and reported three local
-maxima in the thin disk's star formation history 5.7, 1.9, and
-1.0\,Gyr ago, which they associated with pericenter passages of the
+focused on stars in a wider 2\,kpc bubble, and additionally
+reported three local
+maxima in the galactic star formation rate, which they associated with pericenter passages of the
 Sagittarius satellite galaxy.
 
 The right column of Figure~\ref{fig:hist_tgyro} compares our derived
@@ -1516,7 +1519,7 @@ temperatures (Section~\ref{sec:stellarprops}), even though
 spectroscopic temperatures are available for the planet-hosting
 subset.  This decision was driven by a desire for homogeneity 
 irrespective of planet-hosting status.  However it implies that the
-implied planet ages might have shift if one were to account for the
+estimated planet ages might shift if one were to account for the
 spectroscopic information.
 
 We were interested in not only the overall age distribution of the
