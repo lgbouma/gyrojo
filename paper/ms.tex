@@ -295,7 +295,7 @@ sub-gigayear stars.   These factors are as follows.
   %
   \item New open clusters in various stages of dissolution have been
     found in the Kepler field
-    \cite[e.g.][]{2019AJ....158..122K,Bouma_2022b,Barber_2022}.
+    \cite[e.g.][]{2019AJ....158..122K,Kerr_2021,Barber_2022}.
     These clusters offer stars that we can use to test
     the reliability of the available single-star age-dating methods.
 \end{enumerate}
@@ -1647,19 +1647,24 @@ interpolation-based methods, and assessed the reliability of these ages
 by comparing them against benchmark open clusters
 (Figure~\ref{fig:agescalecompone}).
 
-Our analysis recovered the ages of all 14 known Kepler planets
-in clusters.  While lithium provided only marginal added information
-for most of the sample, the lithium and rotation ages agreed in
+Tables~\ref{tab:planets} and~\ref{tab:stars} summarize the results for planets and stars,
+respectively.
+Our recovered ages are accurate for all 14 known Kepler planets
+in clusters.  While lithium provided minimal added information
+for most of the sample, $t_{\rm Li}$ and $t_{\rm gyro}$ agreed in
 $\gtrsim$90\% of cases for which comparison was possible.
 Our resulting ages included two-sided $t_{\rm gyro}$ and $t_{\rm Li}$
 for \ltonegyrhighqconfirmedtwosided\ sub-gigayear confirmed planets, and
 two-sided $t_{\rm gyro}$ with one-sided $t_{\rm Li}$ for
 \ltonegyrhighqconfirmedonesided\ sub-gigayear confirmed planets.  Allowing for
-systems with RUWE$>$1.4 and including ``candidate'' planets
-would increase the counts to
-\ltonegyrmediumqconfirmedtwosided\ and
-\ltonegyrmediumqconfirmedonesided\ respectively; weakening other quality flags,
-such as on transit geometry, would further increase the counts.  The sizes and
+``candidate'' planets, grazing transit geometries, and stars with RUWE far from unity
+expands the counts by a factor of about two.
+%would increase the counts to
+%\ltonegyrmediumqconfirmedtwosided\ and
+%\ltonegyrmediumqconfirmedonesided\ respectively; weakening other quality flags,
+%such as on transit geometry, would further increase the counts. 
+
+The sizes and
 periods for the most secure set of planets are shown in
 Figure~\ref{fig:rp_period_age_results}.   While the new young planets are
 mostly mini-Neptunes, some are near the lower boundary of the
@@ -1673,7 +1678,7 @@ as follows.
 
 \begin{enumerate}[leftmargin=*,topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
   %
-  \item The age distributions of both the Kepler target stars and the
+  \item Rather than being uniform, the age distributions of both the Kepler target stars and the
     known Kepler planet-hosts show a demographic cliff.  There are
     twice as many ``old'' (2-3\,Gyr) stars in the
     Kepler field as ``young'' (0-1\,Gyr) stars.  The star formation
@@ -1682,14 +1687,13 @@ as follows.
     This result from rotation-based ages broadly agrees with recent reports of
     a declining star-formation rate
     from CMD fitting and white-dwarf chronology, though with
-    the advantage of better accuracy for FGK stars at $t$$<$1\,Gyr
+    the advantage of better sensitivity for FGK stars at $t$$<$1\,Gyr
     (e.g.~Figure~\ref{fig:agescalecompone}).
   %
   \item Rather than expecting $\approx$500 exoplanets younger than one
     billion years, the age distribution of stars in the
     Kepler field implies that we should instead expect $\approx$250.
   %
-  %FIXME: 120 number
   \item We have derived rotation-based ages for
     \nplyounggyrotwosigma\ Kepler planets younger than 1\,Gyr at 2$\sigma$,
     and \nplyounggyro\ planets with median ages below 1\,Gyr.
@@ -1720,7 +1724,7 @@ Supervision: LGB, LAH.
 Validation: LGB.
 Visualization: LGB.
 Writing – original draft: LGB.
-Writing – review \& editing: all co-authors.
+Writing – review \& editing: all authors.
 
 \facilities{
   Gaia \citep{Gaia_DR3_2022},
