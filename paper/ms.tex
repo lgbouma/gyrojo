@@ -1092,7 +1092,9 @@ Figure~\ref{fig:hist_tgyro} shows the rotation-based age distributions
 of all the stars (left column) and the KOI hosts (middle column).
 These ``histograms'' are sampled from the posterior probability
 distributions by drawing ten random samples from each posterior, and
-then computing the re-weighted histogram of the resulting samples.
+then computing the normalized histogram of the resulting samples.
+We considered an alternative approach for constructing these
+plots using hierarchical Bayesian deconvolution, and found similar results.
 The uncertainties assume Poisson statistics.  We truncated the plots
 near $4$\,Gyr since this is the cluster age out to which our
 rotational ages are calibrated.  The overall slope yields a paucity of
