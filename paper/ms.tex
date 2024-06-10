@@ -424,7 +424,7 @@ process.
 We therefore adopt the results of \citetalias{Santos_2019} and
 \citetalias{Santos_2021} as our default rotation periods.
 \citetalias{Santos_2021} provided a comparison against
-\citetalias{McQuillan_2014}; the brief summary is that the periods
+\citet{McQuillan_2014} (hereafter \citetalias{McQuillan_2014}); the brief summary is that the periods
 agree for 99.0\% of the 31{,}038 period detections in common between
 the two studies.  \citetalias{Santos_2021} classified the 2{,}992
 remaining stars from \citetalias{McQuillan_2014} as not showing
@@ -809,7 +809,7 @@ single-source PSF model provides a poor fit.
 for stars within 1 Kepler pixel (4$''$) of every target star.  While
 such companions may not not be physically associated with the target
 star, their presence can confuse rotation period measurements.  We
-therefore flagged any stars with neighbors down to 10$\times$ the
+therefore flagged any stars with neighbors down to 1/10$^{\rm th}$ the
 brightness of the target star within this region ($\Delta G < 2.5$).
 
 {\it Near the main sequence (bit 9)}---Figure~\ref{fig:stellarprops} shows
@@ -847,8 +847,8 @@ this locus as part of the same bitflag.
 10)}---\citeauthor{Santos_2021} included in a flag for candidate
 ``classical pulsators'' (e.g.\ Cepheids) and close-in binaries.
 Visual inspection shows that although this flag selects many bona fide
-objects in these classes, it also selects most $P_{\rm
-rot}$$\lesssim$5\,day bona fide young planets.  These objects are
+objects in these classes, it also selects most known young planets
+with $P_{\rm rot}$$\lesssim$5\,day.  These objects are
 neither classical pulsators nor close binaries.  While we propagated
 this flag into our set of quality flags, we therefore generally ignore
 it.
@@ -870,7 +870,7 @@ planet}$.
 Interest Table includes both an overall planet-candidate disposition
 status ({\it koi\_disposition}), as well as a disposition based only
 on the Kepler data ({\it koi\_pdisposition}).  We required both to
-include only ``planet candidates'' and ``confirmed planets''. 
+include only ``planet candidates'' and ``confirmed planets.'' 
 
 {\it Candidate S/N (bit 1)}---In any transit survey, the false
 positive rate increases greatly toward the noise floor for planet
@@ -1016,9 +1016,9 @@ members, or they could be field interlopers.  For NGC6811 and NGC6819,
 we adopted candidate members from
 \citet{2018A&A...618A..93C,CantatGaudin_2020} and
 \citet{Kounkel_2020}.  For Theia~520, we used candidate members from
-\citet{Kounkel_2020}.  For Melange-3 we used the candidates reported
+\citet{Kounkel_2020}.  For Melange-3, we used the candidates reported
 by \citet{Barber_2022} and required ``offset'' tangential velocities
-below 2\,\kms.  For Cep-Her we used candidate members from Kerr et
+below 2\,\kms.  For Cep-Her, we used candidate members from Kerr et
 al.~2024 (submitted) with $P_{\rm fin}$$>$0.8.  Even with
 contaminants, we can compare the relative age distributions derived by
 the different studies because in all instances we are comparing
@@ -1042,7 +1042,7 @@ scale relative to observed open clusters \citep[see][Sec.
 7.3]{2023ApJ...952..131M}.  The \citet{Mamajek_2008} calibration used
 by \citet{Reinhold_2015} appears more accurate than the former two
 models, because it was fitted to reproduce the open cluster sequences
-known at the time.  However the uncertainties from all of these
+known at the time.  However, the uncertainties from all of these
 methods appear to be underestimated.  This is probably because they do
 not marginalize over the range of rotation periods accessible to
 sub-gigayear stars of a fixed mass and age.
@@ -1171,7 +1171,7 @@ the youth of all of these planets.
 
 {\it Cep-Her}---The Cep-Her complex ($\approx$40\,Myr) contains
 Kepler-1627Ab, Kepler-1643b, Kepler-1974b and Kepler-1975\,Ab
-\citep{Bouma_2022b,Bouma_2022a}.  Different sub-groups of the complex
+\citep{Bouma_2022a,Bouma_2022b}.  Different sub-groups of the complex
 vary in age by $\approx$50\% (Kerr~et al.,~submitted).  The planets
 themselves are all on close-in orbits (5-25\,days), with sizes from
 2-4\,$R_\oplus$.  Our rotation and lithium ages agree with the cluster
@@ -1626,7 +1626,9 @@ Writing – review \& editing: all authors.
   \tablecomments{
   	EW$_{\rm Li}^{\rm \ast}$ is the lithium equivalent width {\it after} subtracting a constant 7.5\,m\AA\ to account for the \ion{Fe}{1} 6707.44\,\AA\ blend (see Section~\ref{subsec:lithiumsel}).
   	Two checkmarks ($\checkmark\checkmark$) denote confirmed planets with two-sided $t_{\rm
-  gyro}$ and $t_{\rm Li}$ for which both the age and the planet are expected to be reliable.  One checkmark ($\checkmark$) denotes confirmed planets iwth two-sided $t_{\rm gyro}$ only. 
+  gyro}$ and $t_{\rm Li}$ for which both the age and the planet are
+  expected to be reliable.  One checkmark ($\checkmark$) denotes
+  confirmed planets with two-sided $t_{\rm gyro}$ only. 
   ``Confirmed'' planets appear in the machine-readable
   version before``candidate'' planets.  
   Planetary sizes are mostly drawn from (in order of precedence)
@@ -1722,7 +1724,7 @@ Writing – review \& editing: all authors.
     The
     solid gray ``empirical $\sigma_{\rm P}/P$'' line in the left panel
     shows the expected $\pm 1\sigma$ range that would be spanned if
-    the indepndent $P_{\rm rot}$ measurements had gaussian
+    the independent $P_{\rm rot}$ measurements had gaussian
     uncertainties drawn following the empirical estimate described in
     Section~\ref{subsec:rotsel}.
     Note the different vertical scales.
@@ -1787,7 +1789,7 @@ $t_{\rm B20,iso}$ was the isochronal age reported by
 $N$=1 to 10, minimized the Bayesian Information Criterion,
 and found $N$=6.  
 By eye, this yielded a plausible locus for $T_{\rm eff}$$\lesssim$5300\,K.
-However for F and G dwarfs, the resulting locus
+However, for F and G dwarfs, the resulting locus
 allowed for stars that were ``too evolved''; the density of KOIs 
 was anomalously low in this region of the $\log g$ vs.\ $T$$_{\rm eff}$ plane.
 We therefore visually selected KOIs that appeared
