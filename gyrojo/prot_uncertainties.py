@@ -1,3 +1,7 @@
+"""
+Contents:
+    | get_empirical_prot_uncertainties
+"""
 import numpy as np, matplotlib.pyplot as plt
 
 def get_empirical_prot_uncertainties(prot):
