@@ -550,6 +550,7 @@ def get_kicstar_data(sampleid):
             'Santos19_Santos21_litsupp_all',
             'Santos19_Santos21_all',
             'Santos19_Santos21_dquality',
+            'McQuillan2014only'
         ]
 
         "Santos19_Santos21_all" concatenates Santos19 and Santos21 ,
@@ -570,6 +571,9 @@ def get_kicstar_data(sampleid):
         "allKIC_Berger20_dquality" which is the KIC/Berger20 stars, without any
         parsing of whether rotation is reported, with quality flags calculated.
 
+        "McQuillan2014only" is the McQuillan2014 sample, crossmatched against
+        Berger20.
+
     Returns:
         dataframe matching the requested sampleid
     """
@@ -578,7 +582,8 @@ def get_kicstar_data(sampleid):
         'Santos19_Santos21_litsupp_all',
         'Santos19_Santos21_all',
         'Santos19_Santos21_dquality',
-        'allKIC_Berger20_dquality'
+        'allKIC_Berger20_dquality',
+        'McQuillan2014only'
     ]
     # 'Santos19_Santos21_clean0', 'Santos19_Santos21_logg' both
     # deprecated
@@ -588,6 +593,9 @@ def get_kicstar_data(sampleid):
 
     if sampleid == 'Santos19_Santos21_all':
         csvpath = join(DATADIR, 'interim', 'S19_S21_KOIbonus_merged_X_GDR3_X_B20.csv')
+
+    if sampleid == 'McQuillan2014only':
+        csvpath = join(DATADIR, 'interim', 'McQ14_merged_X_GDR3_X_B20.csv')
 
     if sampleid == 'allKIC_Berger20_dquality':
         csvpath = join(
@@ -755,6 +763,15 @@ def get_kicstar_data(sampleid):
 
             assert np.sum(pd.isnull(_df['Prot'])) == 0
 
+        if sampleid == 'McQuillan2014only':
+            fitspath = join(
+                DATADIR, "literature", "McQuillan_2014_table1.fits"
+            )
+            df = Table(fits.open(fitspath)[1].data).to_pandas()
+            df['Prot'] = df['Prot']
+            # overwrite earlier contactenation ; this is McQuillan2014 only.
+            _df = deepcopy(df)
+            assert np.sum(pd.isnull(_df['Prot'])) == 0
 
         # Berger+2020: Gaia-Kepler stellar properties catalog.
         _v = Vizier(columns=["**"])
@@ -818,10 +835,11 @@ def get_kicstar_data(sampleid):
 
     # else, take Santos+19 or Santos+21 Teff and logg, which are
     # mostly Mathur+17 (DR25) in this case.
-    _sel = pd.isnull(df['adopted_Teff'])
-    df.loc[_sel, 'adopted_Teff'] = df.loc[_sel, 'Teff']
-    df.loc[_sel, 'adopted_Teff_err'] = df.loc[_sel, 'e_Teff']
-    df.loc[_sel, 'adopted_Teff_provenance'] = df.loc[_sel, 'Prot_provenance']
+    if sampleid != 'McQuillan2014only':
+        _sel = pd.isnull(df['adopted_Teff'])
+        df.loc[_sel, 'adopted_Teff'] = df.loc[_sel, 'Teff']
+        df.loc[_sel, 'adopted_Teff_err'] = df.loc[_sel, 'e_Teff']
+        df.loc[_sel, 'adopted_Teff_provenance'] = df.loc[_sel, 'Prot_provenance']
 
     # else, Mathur+2017 (like four cases)
     _v = Vizier(columns=["**"])
@@ -861,10 +879,11 @@ def get_kicstar_data(sampleid):
     #df.loc[_sel, 'adopted_logg_err'] = 0.3
     #df.loc[_sel, 'adopted_logg_provenance'] = 'Gaia DR3 GSP-Phot'
 
-    _sel = pd.isnull(df['adopted_logg'])
-    df.loc[_sel, 'adopted_logg'] = df.loc[_sel, 'logg']
-    df.loc[_sel, 'adopted_logg_err'] = df.loc[_sel, 'e_logg']
-    df.loc[_sel, 'adopted_logg_provenance'] = df.loc[_sel, 'Prot_provenance']
+    if sampleid != 'McQuillan2014only':
+        _sel = pd.isnull(df['adopted_logg'])
+        df.loc[_sel, 'adopted_logg'] = df.loc[_sel, 'logg']
+        df.loc[_sel, 'adopted_logg_err'] = df.loc[_sel, 'e_logg']
+        df.loc[_sel, 'adopted_logg_provenance'] = df.loc[_sel, 'Prot_provenance']
 
     # else, Mathur+2017 (like four cases)
     _sel = pd.isnull(df['adopted_logg'])
