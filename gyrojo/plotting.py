@@ -241,6 +241,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
     assert sampleid in [
         'Santos19_Santos21_all', 'teff_age_prot_seed42_nstar20000',
         'Santos19_Santos21_dquality', 'Santos19_Santos21_litsupp_all',
+        'McQuillan2014only'
     ]
 
     if "Santos" in sampleid:
@@ -262,16 +263,27 @@ def plot_star_Prot_Teff(outdir, sampleid):
         df['Prot_err'] = 1
         n_st = len(df)
 
+    elif "McQuillan2014only" in sampleid:
+        from gyrojo.prot_uncertainties import get_empirical_prot_uncertainties
+        fitspath = join(
+            DATADIR, "literature", "McQuillan_2014_table1.fits"
+        )
+        df = Table(fits.open(fitspath)[1].data).to_pandas()
+        df['adopted_Teff'] = df.Teff
+        df['adopted_Teff_err'] = 100
+        df['Prot'] = df['Prot']
+        df['Prot_err'] = get_empirical_prot_uncertainties(
+            np.array(df['Prot'])
+        )
+        n_st = len(np.unique(df.KIC))
+
     Teffs = nparr(df.adopted_Teff)
     Teff_errs = nparr(df.adopted_Teff_err)
     Prots = np.round(nparr(df.Prot), 4)
     if sampleid == 'Santos19_Santos21_all':
         # as reported; probably underestimated?
         Prot_errs = nparr(df.E_Prot)
-    elif sampleid == 'Santos19_Santos21_clean0':
-        # empirical uncs
-        Prot_errs = nparr(df.Prot_err)
-    elif sampleid == 'teff_age_prot_seed42_nstar20000':
+    else:
         Prot_errs = nparr(df.Prot_err)
 
     set_style("clean")
