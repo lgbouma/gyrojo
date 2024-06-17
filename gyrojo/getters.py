@@ -54,7 +54,8 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
 
     assert sampleid in [
         'Santos19_Santos21_dquality',
-        'koi_X_S19S21dquality'
+        'koi_X_S19S21dquality',
+        'McQ14_dquality'
     ]
 
     if sampleid == 'Santos19_Santos21_dquality':
@@ -62,6 +63,20 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
         csvpath = join(
             TABLEDIR,
             'field_gyro_posteriors_20240530_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
+        )
+        fdf = pd.read_csv(
+            csvpath, dtype={
+                'dr3_source_id':str, 'KIC':str, 'kepid':str
+            }
+        )
+        # return dataframe of stars only
+        return fdf
+
+    elif sampleid == 'McQ14_dquality':
+        # made by construct_field_star_gyro_quality_flags.py driver
+        csvpath = join(
+            TABLEDIR,
+            'field_gyro_posteriors_McQ14_20240613_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
         )
         fdf = pd.read_csv(
             csvpath, dtype={
@@ -583,7 +598,8 @@ def get_kicstar_data(sampleid):
         'Santos19_Santos21_all',
         'Santos19_Santos21_dquality',
         'allKIC_Berger20_dquality',
-        'McQuillan2014only'
+        'McQuillan2014only',
+        'McQuillan2014only_dquality'
     ]
     # 'Santos19_Santos21_clean0', 'Santos19_Santos21_logg' both
     # deprecated
@@ -615,6 +631,24 @@ def get_kicstar_data(sampleid):
         csvpath = join(
             TABLEDIR,
             'field_gyro_posteriors_20240530_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
+        )
+        assert os.path.exists(csvpath)
+        df = pd.read_csv(
+            csvpath, dtype={
+                'dr3_source_id':str, 'KIC':str, 'kepid':str
+            }
+        )
+        cols = ['median', 'peak', 'mean', '+1sigma', '-1sigma', '+2sigma',
+                '-2sigma', '+3sigma', '-3sigma', '+1sigmapct', '-1sigmapct']
+        for c in cols:
+            df = df.rename({c: f'gyro_{c}'}, axis='columns')
+        return df
+
+    if sampleid == 'McQuillan2014only_dquality':
+        # made by construct_field_star_gyro_quality_flags.py driver
+        csvpath = join(
+            TABLEDIR,
+            'field_gyro_posteriors_McQ14_20240613_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
         )
         assert os.path.exists(csvpath)
         df = pd.read_csv(
