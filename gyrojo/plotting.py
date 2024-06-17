@@ -241,7 +241,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
     assert sampleid in [
         'Santos19_Santos21_all', 'teff_age_prot_seed42_nstar20000',
         'Santos19_Santos21_dquality', 'Santos19_Santos21_litsupp_all',
-        'McQuillan2014only'
+        'McQuillan2014only', 'McQuillan2014only_dquality'
     ]
 
     if "Santos" in sampleid:
@@ -262,6 +262,12 @@ def plot_star_Prot_Teff(outdir, sampleid):
         df['Prot'] = df.prot_mod
         df['Prot_err'] = 1
         n_st = len(df)
+
+    elif "McQuillan2014only_dquality" in sampleid:
+        df = get_kicstar_data(sampleid)
+        if sampleid == 'McQuillan2014only_dquality':
+            df = df[df['flag_is_gyro_applicable']]
+        n_st = len(np.unique(df.KIC))
 
     elif "McQuillan2014only" in sampleid:
         from gyrojo.prot_uncertainties import get_empirical_prot_uncertainties
@@ -1372,12 +1378,20 @@ def fit_line_and_print_results(bin_centers, heights, poisson_uncertainties):
 
 def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
                               datestr='20240530', s19s21only=0,
-                              preciseagesonly=0):
+                              preciseagesonly=0, cache_id1=None, datestr1=None):
 
     from gyrointerp.paths import CACHEDIR
     csvdir = join(CACHEDIR, f"samples_field_gyro_posteriors_{datestr}")
+    flag_mcq14_comp = False
+    if cache_id1 is not None and datestr1 is not None:
+        flag_mcq14_comp = True
 
     mergedcsv = join(csvdir, f'merged_{cache_id}_samples_{datestr}.csv')
+
+    if flag_mcq14_comp:
+        csvdir1 = join(CACHEDIR, f"samples_field_gyro_posteriors_{datestr1}")
+        mergedcsv1 = join(csvdir1, f'merged_{cache_id1}_samples_{datestr1}.csv')
+
     if not os.path.exists(mergedcsv):
 
         csvpaths = glob(join(csvdir, "*samples.csv"))
@@ -1410,22 +1424,39 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         mdf = pd.read_csv(mergedcsv)
         N_post_samples = len(mdf)
 
+    if flag_mcq14_comp:
+        mdf1 = pd.read_csv(mergedcsv1)
+
     print(f"Got {N_post_samples} posterior samples...")
 
-    kdf = get_gyro_data("Santos19_Santos21_dquality", grazing_is_ok=1)
+    if 'McQ14' not in datestr:
+        kdf = get_gyro_data("Santos19_Santos21_dquality", grazing_is_ok=1)
+        mcqstr = ''
+    else:
+        kdf = get_gyro_data("McQ14_dquality", grazing_is_ok=1)
+        mcqstr = 'mcquillanonly'
+    if flag_mcq14_comp:
+        kdf1 = get_gyro_data("McQ14_dquality", grazing_is_ok=1)
+
     if s19s21only:
+        assert 'McQ14' not in datestr
         skdf = kdf[(kdf.flag_is_gyro_applicable) & (~kdf.flag_Prot_provenance)]
         santosstr = '_s19s21only'
     else:
         skdf = kdf[(kdf.flag_is_gyro_applicable)]
         santosstr = ''
+    if flag_mcq14_comp:
+        skdf1 = kdf1[(kdf1.flag_is_gyro_applicable)]
+
     skdf['KIC'] = skdf.KIC.astype(str)
     mdf['KIC'] = mdf.KIC.astype(str)
+    if flag_mcq14_comp:
+        skdf1['KIC'] = skdf1.KIC.astype(str)
 
     if preciseagesonly:
         mdf = mdf[(mdf.Teff > 4400) & (mdf.Teff < 5400)]
-
-    sel_gyro_ok = mdf.KIC.isin(skdf.KIC)
+        if flag_mcq14_comp:
+            mdf1 = mdf1[(mdf1.Teff > 4400) & (mdf1.Teff < 5400)]
 
     # run analysis for average uncertainties
     result = mdf.groupby('KIC')['age'].agg([
@@ -1447,6 +1478,20 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         )
         mean_pms.append([mean_plus_sigma, mean_minus_sigma])
 
+    if flag_mcq14_comp:
+        result1 = mdf1.groupby('KIC')['age'].agg([
+            ('mean_age', 'mean'),
+            ('median_age', 'median'),
+            ('+1sigma', lambda x: x.mean() + x.std()),
+            ('-1sigma', lambda x: x.mean() - x.std())
+        ]).reset_index()
+
+        mean_pms1 = []
+        for median_age_range in median_age_ranges:
+            mean_plus_sigma, mean_minus_sigma = get_sigma_range(
+                result, median_age_range
+            )
+            mean_pms1.append([mean_plus_sigma, mean_minus_sigma])
 
     # SAMPLES from the age posteriors
     plt.close("all")
@@ -1458,6 +1503,10 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     ax.hist(mdf.age, bins=bins, color='lightgray', density=False, zorder=1,
             label='all')
+
+    sel_gyro_ok = mdf.KIC.isin(skdf.KIC)
+    if flag_mcq14_comp:
+        sel_gyro_ok1 = mdf1.KIC.astype(str).isin(skdf1.KIC.astype(str))
 
     ax.hist(mdf[sel_gyro_ok].age, bins=bins, color='k',
             density=False, zorder=2, label='gyro applicable')
@@ -1516,6 +1565,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     ynorm = heights[0]
     l2_1 = f'Kepler stars ({N})'
+    if flag_mcq14_comp:
+        l2_1 = 'Santos P$_{\mathrm{rot}}$' + f' ({N})'
     _  = axs[2].hist(
         mdf[sel_gyro_ok].age/1e3, bins=bins, color='C0', histtype='step',
         weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=-1,
@@ -1559,9 +1610,10 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         (mdf[sel_gyro_ok].age > 2000) & (mdf[sel_gyro_ok].age <= 3000)
     ])/10
     if not preciseagesonly:
-        ulkvp('ratiombtoybstars', np.round(n_mb/n_yb, 1))
-        ulkvp('ratiombtoybstars', np.round(n_mb/n_yb, 1))
-        ulkvp('ratioobtoybstars', np.round(n_ob/n_yb, 1))
+        if not flag_mcq14_comp:
+            ulkvp(f'{mcqstr}ratiombtoybstars', np.round(n_mb/n_yb, 1))
+            ulkvp(f'{mcqstr}ratiombtoybstars', np.round(n_mb/n_yb, 1))
+            ulkvp(f'{mcqstr}ratioobtoybstars', np.round(n_ob/n_yb, 1))
 
     n_youngg = len(mdf[sel_gyro_ok][
         (mdf[sel_gyro_ok].age > 0) & (mdf[sel_gyro_ok].age <= 300)
@@ -1571,49 +1623,85 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     ])/10
     ratiosfr = n_oldd/n_youngg
     if not preciseagesonly:
-        ulkvp('ratiosfr', f"{ratiosfr:.2f}")
+        if not flag_mcq14_comp:
+            ulkvp(f'{mcqstr}ratiosfr', f"{ratiosfr:.2f}")
 
     σ_oldd = n_oldd**0.5/n_oldd
     σ_youngg = n_youngg**0.5/n_youngg
     unc_ratio = np.sqrt(σ_oldd**2 + σ_youngg**2) * ratiosfr
     if not preciseagesonly:
-        ulkvp('uncratiosfr', f"{unc_ratio:.2f}")
+        if not flag_mcq14_comp:
+            ulkvp(f'{mcqstr}uncratiosfr', f"{unc_ratio:.2f}")
 
     ##########################################
 
     axs[0].legend(loc='best', fontsize='x-small')
 
     N = int(len(mdf[sel_planets])/10)
+    if flag_mcq14_comp:
+        N = int(len(mdf1)/10)
 
     l1_0 = 'P$_{\mathrm{rot}}$ '+f'({N})'
-    axs[1].hist(mdf[sel_planets].age/1e3, bins=bins, color='sienna',
-                histtype='step',
-                weights=np.ones(len(mdf[sel_planets]))/len(mdf[sel_planets]),
-                zorder=-5,
-                label=l1_0, alpha=0.4, linewidth=0.5)
+    if not flag_mcq14_comp:
+        axs[1].hist(mdf[sel_planets].age/1e3, bins=bins, color='sienna',
+                    histtype='step',
+                    weights=np.ones(len(mdf[sel_planets]))/len(mdf[sel_planets]),
+                    zorder=-5,
+                    label=l1_0, alpha=0.4, linewidth=0.5)
+    else:
+        axs[1].hist(mdf1.age/1e3, bins=bins, color='darkorange',
+                    histtype='step',
+                    weights=np.ones(len(mdf1))/len(mdf1),
+                    zorder=-5,
+                    label=l1_0, alpha=0.4, linewidth=0.5)
+
     psel = sel_gyro_ok & sel_planets
     N = int(len(mdf[psel])/10)
+    if flag_mcq14_comp:
+        N = int(len(mdf1[sel_gyro_ok1])/10)
+
     l1_1 = f'Gyro applicable ' + f"({N})"
-    heights, _, _ = axs[1].hist(
-        mdf[psel].age/1e3, bins=bins, histtype='step',
-        weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='sienna', alpha=0.9,
-        zorder=-3, label=l1_1
-    )
+    if not flag_mcq14_comp:
+        heights, _, _ = axs[1].hist(
+            mdf[psel].age/1e3, bins=bins, histtype='step',
+            weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='sienna', alpha=0.9,
+            zorder=-3, label=l1_1
+        )
+    else:
+        heights, _, _ = axs[1].hist(
+            mdf1[sel_gyro_ok1].age/1e3, bins=bins, histtype='step',
+            weights=np.ones(len(mdf1[sel_gyro_ok1]))/len(mdf1[sel_gyro_ok1]),
+            color='darkorange', alpha=0.9, zorder=-3, label=l1_1
+        )
+
     l2_2 = f'KOI hosts ({N})'
-    heights, _, _ = axs[2].hist(
-        mdf[psel].age/1e3, bins=bins, histtype='step',
-        weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='sienna', alpha=0.9,
-        zorder=-2, label=l2_2
-    )
-    poisson_uncertainties = get_poisson_uncertainties(mdf[psel], bins)
+    if flag_mcq14_comp:
+        l2_2 = 'McQuillan P$_{\mathrm{rot}}$' + f' ({N})'
+
+    if not flag_mcq14_comp:
+        heights, _, _ = axs[2].hist(
+            mdf[psel].age/1e3, bins=bins, histtype='step',
+            weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='sienna', alpha=0.9,
+            zorder=-2, label=l2_2
+        )
+        poisson_uncertainties = get_poisson_uncertainties(mdf[psel], bins)
+    else:
+        heights, _, _ = axs[2].hist(
+            mdf1[sel_gyro_ok1].age/1e3, bins=bins, histtype='step',
+            weights=np.ones(len(mdf1[sel_gyro_ok1]))/len(mdf1[sel_gyro_ok1]),
+            color='darkorange', alpha=0.9, zorder=-2, label=l2_2
+        )
+        poisson_uncertainties = get_poisson_uncertainties(mdf1[sel_gyro_ok1], bins)
+
+    _c = 'sienna' if not flag_mcq14_comp else 'darkorange'
     axs[1].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
-        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='sienna', markersize=0,
+        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color=_c, markersize=0,
         zorder=-3, alpha=0.8
     )
     axs[2].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
-        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='sienna', markersize=0,
+        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color=_c, markersize=0,
         zorder=-2, alpha=0.8
     )
     print(f'preciseagesonly={preciseagesonly}')
@@ -1633,8 +1721,9 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         (mdf[psel].age > 2000) & (mdf[psel].age <= 3000)
     ])/10
     if not preciseagesonly:
-        ulkvp('ratiombtoybplanets', np.round(n_mb/n_yb, 1))
-        ulkvp('ratioobtoybplanets', np.round(n_ob/n_yb, 1))
+        if not flag_mcq14_comp:
+            ulkvp(f'{mcqstr}ratiombtoybplanets', np.round(n_mb/n_yb, 1))
+            ulkvp(f'{mcqstr}ratioobtoybplanets', np.round(n_ob/n_yb, 1))
     ##########################################
 
     # completeness gradient
@@ -1676,13 +1765,22 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
             ax.set_xticks([0, 1, 2, 3, 4])
 
     txt = 'Kepler stars'
+    if flag_mcq14_comp:
+        txt = 'Santos P$_{\mathrm{rot}}$'
     axs[0].text(.05, .95, txt, ha='left', va='top',
                 fontsize='small', zorder=5, transform=axs[0].transAxes,
                 fontdict={'fontstyle':'normal'}, color='C0')
 
-    axs[1].text(.05, .95, 'KOI hosts', ha='left', va='top',
-                fontsize='small', zorder=5, transform=axs[1].transAxes,
-                fontdict={'fontstyle':'normal'}, color='sienna')
+    if not flag_mcq14_comp:
+        txt = 'KOI hosts'
+        axs[1].text(.05, .95, txt, ha='left', va='top',
+                    fontsize='small', zorder=5, transform=axs[1].transAxes,
+                    fontdict={'fontstyle':'normal'}, color='sienna')
+    else:
+        txt = 'McQuillan P$_{\mathrm{rot}}$'
+        axs[1].text(.05, .95, txt, ha='left', va='top',
+                    fontsize='small', zorder=5, transform=axs[1].transAxes,
+                    fontdict={'fontstyle':'normal'}, color='darkorange')
     #axs[2].text(.05, .95, 'Comparison', ha='left', va='top',
     #            fontsize='large', zorder=5, transform=axs[2].transAxes,
     #            fontdict={'fontstyle':'normal'}, color='k')
@@ -1758,14 +1856,15 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='xx-small',
                   borderaxespad=0.9, borderpad=0.5, framealpha=0,
                   loc='lower right')
-    custom_lines = [Line2D([0], [0], color='sienna', lw=0.5, alpha=0.4),
-                    Line2D([0], [0], color='sienna', lw=1, alpha=1.0 ) ]
+    _c = 'sienna' if not flag_mcq14_comp else 'darkorange'
+    custom_lines = [Line2D([0], [0], color=_c, lw=0.5, alpha=0.4),
+                    Line2D([0], [0], color=_c, lw=1, alpha=1.0 ) ]
     axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='xx-small',
                   borderaxespad=0.9, borderpad=0.5, framealpha=0,
                   loc='lower right')
     custom_lines = [
         Line2D([0], [0], color='C0', lw=1, alpha=1.0),
-        Line2D([0], [0], color='sienna', lw=1, alpha=1.0),
+        Line2D([0], [0], color=_c, lw=1, alpha=1.0),
         Line2D([0], [0], color='k', lw=0.5, alpha=1.0, ls='--'),
         Line2D([0], [0], color='k', lw=0.5, alpha=0.7, ls=':'),
     ]
@@ -1776,10 +1875,12 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     s = ''
     if preciseagesonly:
         s += '_preciseagesonly'
+    if mcqstr != '':
+        mcqstr = "_"+mcqstr
 
     outpath = os.path.join(
         outdir,
-        f'comp_hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}{santosstr}{s}.png'
+        f'comp_hist_samples_koi_gyro_ages_{cache_id}_maxage{MAXAGE}{santosstr}{s}{mcqstr}.png'
     )
     fig.tight_layout(h_pad=2)
     savefig(fig, outpath, writepdf=1, dpi=400)
