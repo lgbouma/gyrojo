@@ -42,3 +42,9 @@ cp $r/lit_ages_vs_cluster_ages/olympic_merged_lit_ages_vs_cluster_ages.pdf .
 
 cp $r/perioddiff_vs_period/perioddiff_vs_period_diffProt-m14_Prot_vs_Prot.pdf .
 cp $r/perioddiff_vs_period/perioddiff_vs_period_diffProt-r23_ProtGPS_vs_Prot.pdf .
+
+cp $r/star_Prot_Teff/prot_teff_McQuillan2014only_dquality.pdf .
+
+
+cp $r/mcq14_vs_santos_age_histograms_Santos20240530_vs_McQMcQ14_20240613/comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240530_maxage4000.pdf mcq_santos_comp_top.pdf
+cp $r/mcq14_vs_santos_age_histograms_Santos20240530_vs_McQMcQ14_20240613/comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240530_maxage4000_preciseagesonly.pdf mcq_santos_comp_bottom.pdf

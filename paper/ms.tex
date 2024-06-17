@@ -1987,6 +1987,85 @@ regime, we truncated our analysis at 4\,Gyr.
   }
 \end{figure*}
 
+\section{What if we only considered McQuillan's periods?}
+
+We argued in Section~\ref{subsec:rotsel} that our choice of adopting
+the periods from \citet{Santos_2019,Santos_2021} yielded
+the best possible balance between homogeneity and sensitivity for 
+both Kepler targets and for KOIs.
+Nonetheless, it is interesting to consider whether our
+analysis of the Kepler field's rotation-based age distribution is robust to
+this choice, for instance compared to adopting only the rotation periods from
+\citet{McQuillan_2014}.  
+Figures~\ref{fig:prot_vs_teff_mcq} and~\ref{fig:hist_tgyro_mcq}
+repeat the analysis, but make this alternate choice.
+Figure~\ref{fig:prot_vs_teff_mcq} shows that while the overall contours
+of the $P_{\rm rot}$ vs.~$T_{\rm eff}$ distribution are similar between
+the two samples, the \citeauthor{Santos_2019} distribution includes more stars,
+particularly at longer rotation periods.
+The impact of this on the inferred rotation-based age distributions
+(Figure~\ref{fig:hist_tgyro_mcq}) is that while the
+\citeauthor{Santos_2019} distribution peaks at 2.8-3.0\,Gyr,
+the \citeauthor{McQuillan_2014} distribution peaks at 2.4-2.6\,Gyr.
+A number of metrics shift.
+For instance, the ratio of the star formation rate 3\,Gyr age to today
+is \ratiosfr$\pm$\uncratiosfr\ assuming the \citeauthor{Santos_2019} periods,
+and \mcquillanonlyratiosfr$\pm$\mcquillanonlyuncratiosfr\ assuming
+the \citeauthor{McQuillan_2014} periods.
+Similarly, the ratio of ``old'' (2-3\,Gyr) to ``young'' (0-1\,Gyr) stars
+shifts from \ratioobtoybstars\ in the \citeauthor{Santos_2019} case
+to \mcquillanonlyratioobtoybstars\ in the \citeauthor{McQuillan_2014}
+case.
+The K dwarf age distributions (Figure~\ref{fig:hist_tgyro_mcq}) however appear 
+quite similar.
+Generally, we believe these plots support the conclusion that the $t_{\rm gyro}$
+age distribution in the Kepler field is highly non-uniform, and likely peaks in the 2.5-3\,Gyr range.
+
+
+\begin{figure*}[!t]
+	\begin{center}
+		\subfloat{
+			\includegraphics[width=0.43\textwidth]{prot_teff_Santos19_Santos21_dquality.pdf}
+		}
+		\subfloat{
+			\includegraphics[width=0.43\textwidth]{prot_teff_McQuillan2014only_dquality.pdf}
+		}
+	\end{center}
+	\vspace{-0.5cm}
+	\caption{
+    {\bf Variant of Figure~\ref{fig:prot_vs_teff}}, comparing the default
+    rotation periods ({\it left}) from \citet{Santos_2019,Santos_2021}
+    against the \citet{McQuillan_2014} rotation periods ({\it right}).
+    All stars are required to be amenable to rotation-based age dating
+    (i.e.~none of bit flags zero through nine raised).
+	}
+	\label{fig:prot_vs_teff_mcq}
+\end{figure*}
+
+
+\begin{figure*}[!th]
+  \begin{center}
+    \leavevmode
+    \subfloat{
+        \includegraphics[width=.85\textwidth]{mcq_santos_comp_top.pdf}
+    }
+
+	\vspace{-0.35cm}
+    \subfloat{
+        \includegraphics[width=.85\textwidth]{mcq_santos_comp_bottom.pdf}
+    }
+  \end{center}
+  \vspace{-0.66cm}
+  \caption{{\bf Variant of Figure~\ref{fig:hist_tgyro},} comparing
+  our default adopted catalog of \citet{Santos_2019,Santos_2021}
+  rotation periods against the rotation periods
+  reported by \citet{McQuillan_2014}.
+  \label{fig:hist_tgyro_mcq}
+  }
+\end{figure*}
+
+
+
 \clearpage
 \listofchanges
 
