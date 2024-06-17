@@ -77,13 +77,13 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
 
     df['flag_dr3_M_G'] = (df['M_G'] < 3.9) | (df['M_G'] > 8.5)
 
-    if sample == 'gyro':
+    if sample == 'gyro' and 'McQ14' not in datestr:
         df['flag_is_CP_CB'] = ~(
             pd.isnull(df.s21_flag1)
             &
             pd.isnull(df.s19_flag1)
         )
-    elif sample == 'allKIC':
+    else:
         df['flag_is_CP_CB'] = np.zeros(len(df)).astype(bool)
 
     df['flag_kepler_gaia_xmambiguous'] = (
@@ -206,7 +206,7 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
     ##############################
     # ROTATION PERIOD PROVENANCE #
     ##############################
-    if sample == 'gyro':
+    if sample == 'gyro' and 'McQ14' not in datestr:
         df['flag_Prot_provenance'] = ~(
             (df.Prot_provenance == 'Santos2019')
             |
@@ -214,7 +214,7 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
             |
             (df.Prot_provenance == 'SantosPrivComm')
         )
-    elif sample == 'allKIC':
+    else:
         df['flag_Prot_provenance'] = np.zeros(len(df)).astype(bool)
 
     ################################
@@ -267,6 +267,7 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
     print(f"Wrote {outcsv}")
 
 if __name__ == "__main__":
-    datestr = '20240530'
+    datestr = '20240530' # Santos++ run
+    datestr = 'McQ14_20240613' # McQuillan only run
     build_gyro_quality_flag(sample='allKIC', datestr=datestr)
     build_gyro_quality_flag(sample='gyro', datestr=datestr)  # ie with rotation
