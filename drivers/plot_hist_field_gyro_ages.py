@@ -3,7 +3,11 @@ import gyrojo.plotting as ap
 from gyrojo.paths import RESULTSDIR
 
 # calculated in calc_field_gyro_posteriors.py
-cache_id = "hist_field_gyro_ages_20240530"
+cache_id = "hist_field_gyro_ages_McQ14_20240613" # McQ14 only
+datestr = 'McQ14_20240613'
+
+cache_id = "hist_field_gyro_ages_20240530" # Santos++
+datestr = '20240530'
 
 outdir = os.path.join(RESULTSDIR, cache_id)
 if not os.path.exists(outdir): os.mkdir(outdir)
@@ -17,11 +21,13 @@ require_santosonly = [False]
 
 for maxage in maxages:
     ap.plot_hist_field_gyro_ages(
-        outdir, cache_id, MAXAGE=maxage, s19s21only=0, preciseagesonly=1
+        outdir, cache_id, MAXAGE=maxage, s19s21only=0, preciseagesonly=1,
+        datestr=datestr
     )
 
 for maxage in maxages:
     for s19s21only in require_santosonly:
         ap.plot_hist_field_gyro_ages(
-            outdir, cache_id, MAXAGE=maxage, s19s21only=s19s21only
+            outdir, cache_id, MAXAGE=maxage, s19s21only=s19s21only,
+            datestr=datestr
         )
