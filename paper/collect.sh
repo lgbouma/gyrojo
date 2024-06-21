@@ -6,11 +6,11 @@ cp $r/gyromodeldispersion/gyromodeldispersion.pdf .
 # plot_st_params
 # ...CAMD:
 cp $r/st_params/st_params_M_G_vs_dr3_bp_rp.pdf .
-cp $r/st_params/st_params_M_G_vs_adopted_Teff.pdf .
+#cp $r/st_params/st_params_M_G_vs_adopted_Teff.pdf .
 # ...logg vs Teff
 cp $r/st_params/st_params_adopted_logg_vs_adopted_Teff.pdf .
 # ...G vs Teff
-cp $r/st_params/st_params_dr3_phot_g_mean_mag_vs_adopted_Teff.pdf .
+#cp $r/st_params/st_params_dr3_phot_g_mean_mag_vs_adopted_Teff.pdf .
 
 # plot_star_Prot_Teff
 cp $r/star_Prot_Teff/prot_teff_Santos19_Santos21_dquality.pdf .
