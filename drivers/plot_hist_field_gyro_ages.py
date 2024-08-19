@@ -1,6 +1,7 @@
 import os
 import gyrojo.plotting as ap
 from gyrojo.paths import RESULTSDIR
+import matplotlib.pyplot as plt
 
 # calculated in calc_field_gyro_posteriors.py
 cache_id = "hist_field_gyro_ages_McQ14_20240613" # McQ14 only
@@ -19,15 +20,16 @@ maxages = [4000]
 #no point having True; only effect is it biases against young KOIs
 require_santosonly = [False]
 
-for maxage in maxages:
-    ap.plot_hist_field_gyro_ages(
-        outdir, cache_id, MAXAGE=maxage, s19s21only=0, preciseagesonly=1,
-        datestr=datestr
-    )
+ap.plot_hist_field_gyro_ages(
+    outdir, cache_id, MAXAGE=4000, s19s21only=0, preciseagesonly=1,
+    datestr=datestr
+)
+ap.plot_hist_field_gyro_ages(
+    outdir, cache_id, MAXAGE=4000, s19s21only=False,
+    datestr=datestr, dropfraclongrot=1
+)
+ap.plot_hist_field_gyro_ages(
+    outdir, cache_id, MAXAGE=4000, s19s21only=False,
+    datestr=datestr
+)
 
-for maxage in maxages:
-    for s19s21only in require_santosonly:
-        ap.plot_hist_field_gyro_ages(
-            outdir, cache_id, MAXAGE=maxage, s19s21only=s19s21only,
-            datestr=datestr
-        )
