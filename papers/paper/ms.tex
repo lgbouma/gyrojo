@@ -1,6 +1,6 @@
 % upon AAS submission
 \documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
-%\documentclass[12pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
+%\documentclass[11pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 % drafting / arxiv
 %\documentclass[11pt,twocolumn,tighten]{aastex63}
 \turnoffedit
@@ -395,8 +395,9 @@ provides a visualization of the various samples.
 	\vspace{-0.5cm}
 	\caption{
     {\bf Rotation periods for Kepler target stars (left) and known
-    planet hosts (right)}.  The gray lines are ``mean fits'' to the
-    rotation sequences of open clusters.  The 2-D histogram of the
+    planet hosts (right)}.  The gray lines are \replaced{``mean fits'' to the
+    rotation sequences of open clusters}{seventh-order polynomials
+    fitted to the slow rotation sequences of open clusters \citep[see Section~3.3 of][]{Bouma_2023}}.  The 2-D histogram of the
     stellar sample (left) includes only apparently single stars near
     the main sequence with $\log g$$>$4.2, RUWE$<$1.4, and
     temperatures of 3800--6200\,K.  The planet-hosts (right) require
@@ -405,7 +406,7 @@ provides a visualization of the various samples.
     number of stars $N_{\rm s}$ and planets $N_{\rm p}$ are noted in
     the relevant panels.  A simple estimate for the number of young
     planets discovered by Kepler follows by counting points below the
-    mean rotational isochrones.
+    \deleted{mean }rotational isochrones.
 	}
 	\label{fig:prot_vs_teff}
 \end{figure*}
@@ -484,10 +485,15 @@ used to calibrate our gyrochronology model have $P_{\rm
 rot}$$\approx$35\,days.  Figure~\ref{fig:prot_vs_teff} shows a subset
 of the resulting \nuniqstarsantosrot\ Kepler stars with rotation
 periods compiled from \citetalias{Santos_2019},
-\citetalias{Santos_2021}, and our extended KOI list.
+\citetalias{Santos_2021}, and our extended KOI list.\added{  The gray
+lines in this figure are the polynomials described by \citet{Bouma_2023}
+that were
+fitted to the slow rotation sequences of the Pleiades \citep{Rebull_2016},
+Praesepe \citep{Rampalli_2021}, NGC-6811 \citep{Curtis_2019_ngc6811}, NGC-6819 \citep{Meibom_2015},
+Ruprecht-147 \citep{Curtis_2020}, and M67 \citep{Barnes2016,Dungee_2022,Gruner_2023}.}
 
-To assess the statistical uncertainties of these rotation periods, we
-compared our adopted periods with those reported by
+To assess the statistical uncertainties of \replaced{these}{our adopted} rotation periods, we
+compared our \deleted{adopted} periods with those reported by
 \citet{McQuillan_2014}.  The details are in
 Appendix~\ref{app:reinhold23}.  We found that for $P_{\rm
 rot}\lesssim$15\,days, the two datasets agree at a precision of
@@ -691,7 +697,7 @@ sequences.
 We calculated gyrochrone ages using \texttt{gyro-interp}
 \citep{Bouma_2023}, which is a method designed to address the fact
 that stars with the same mass and same rotation period can have a wide
-range of ages \citep[e.g.][]{Curtis_2019_ngc6811}.  The gyrochrone age
+range of ages \citep[e.g.][]{Gallet_Bouvier_2015}.  The gyrochrone age
 posterior should therefore incorporate the intrinsic population-level
 scatter into its statistical precision.  Figure~\ref{fig:models}
 highlights this problem, particularly in regions where the 0.1--1\,Gyr
@@ -833,7 +839,7 @@ as a way of flagging unresolved binaries, as well as evolved
 late-F and early-G stars.  While the exact details of how this locus
 is constructed are arbitrary (see Appendix~\ref{app:linemethod}), the
 general aim is to flag stars for which there is evidence based on
-their location in the HR diagram that our gyrochronology model may not
+their location in the \replaced{HR}{Kiel} diagram that our gyrochronology model may not
 be reliable.  While the $\log g$--$T_{\rm eff}$ cut flags about half
 of Kepler stars with rotation periods as potentially not being
 suitable for gyrochronology, a few outliers in $M_{\rm G}$ vs.~$G_{\rm
@@ -1419,9 +1425,9 @@ spectroscopic information.
 We were interested in not only the overall age distribution of the
 Kepler field, but also in the reliability of individual ages for young
 stars known to host planets.  We attempted to assess this reliability using
-quality bitmasks (Table~\ref{tab:planets}), a comparison against open
+quality bitmasks (Table~\ref{tab:planets}), a comparison against \deleted{open }
 cluster ages (Section~\ref{sec:litagecomparison}), and a comparison
-between rotation and lithium ages.  The open cluster comparison
+between rotation and lithium ages.  The \deleted{open }cluster comparison
 suggested that our ages were generally accurate at $\ll$0.5\,dex
 across 0.04--2.5\,Gyr, comparable to their quoted precision.
 Nonetheless, the upper-left panel of Figure~\ref{fig:agescalecompone}
@@ -2021,7 +2027,7 @@ similar, the \citeauthor{Santos_2019} distribution includes more
 stars, particularly at longer rotation periods.  This is connected to
 a stronger noise-dependent cutoff in the \citet{McQuillan_2014} sample
 than in the \citeauthor{Santos_2019} samples (see
-\citet{Masuda2022_amplevoln} Figures~10 and 15).
+\citealt{Masuda2022_amplevoln} Figures~10 and 15).
 Figure~\ref{fig:hist_tgyro_mcq} shows the impact on the inferred
 rotation-based age histograms: while the \citeauthor{Santos_2019}
 distribution peaks at 2.8-3.0\,Gyr, the \citeauthor{McQuillan_2014}
@@ -2036,7 +2042,7 @@ ratio of ``old'' (2-3\,Gyr) to ``young'' (0-1\,Gyr) stars shifts from
 case.  The K dwarf age distributions (Figure~\ref{fig:hist_tgyro_mcq}
 lower panel) however appear quite similar.  Generally, these plots
 support the conclusion that the $t_{\rm gyro}$ age distribution in the
-Kepler field is non-uniform, with a peak in the 2.5-3\,Gyr range.
+Kepler field is non-uniform, with a peak in the \replaced{2.5}{2.3}-3\,Gyr range.
 Nonetheless, some of the details do shift depending on the choice of
 rotation detection pipeline.
 

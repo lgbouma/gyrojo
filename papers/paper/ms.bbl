@@ -53,6 +53,11 @@
 \bibitem[{{Barnes}(2003)}]{Barnes03}
 {Barnes}, S.~A. 2003, \apj, 586, 464
 
+\bibitem[{{Barnes} {et~al.}(2016){Barnes}, {Weingrill}, {Fritzewski},
+  {Strassmeier}, \& {Platais}}]{Barnes2016}
+{Barnes}, S.~A., {Weingrill}, J., {Fritzewski}, D., {Strassmeier}, K.~G., \&
+  {Platais}, I. 2016, \apj, 823, 16
+
 \bibitem[{{Berger} {et~al.}(2018){Berger}, {Howard}, \&
   {Boesgaard}}]{2018ApJ...855..115B}
 {Berger}, T.~A., {Howard}, A.~W., \& {Boesgaard}, A.~M. 2018, \apj, 855, 115
@@ -200,6 +205,13 @@
   {Huber}, {Mann}, {Rizzuto}, {Isaacson}, {Howard}, {Henze}, {Fulton}, \&
   {Wright}}]{Curtis_2018}
 {Curtis}, J.~L., {Vanderburg}, A., {Torres}, G., {et~al.} 2018, \aj, 155, 173
+
+\bibitem[{{Curtis} {et~al.}(2020){Curtis}, {Ag{\"u}eros}, {Matt}, {Covey},
+  {Douglas}, {Angus}, {Saar}, {Cody}, {Vanderburg}, {Law}, {Kraus}, {Latham},
+  {Baranec}, {Riddle}, {Ziegler}, {Lund}, {Torres}, {Meibom}, {Aguirre}, \&
+  {Wright}}]{Curtis_2020}
+{Curtis}, J.~L., {Ag{\"u}eros}, M.~A., {Matt}, S.~P., {et~al.} 2020, \apj, 904,
+  140
 
 \bibitem[{{David} {et~al.}(2019){David}, {Petigura}, {Luger}, {Foreman-Mackey},
   {Livingston}, {Mamajek}, \& {Hillenbrand}}]{David_2019}
@@ -860,6 +872,12 @@ Mann, A.~W., Gaidos, E., Mace, G.~N., {et~al.} 2016, ApJ, 818
   {Kruse}, \& {Powell}}]{Rebull_2022}
 {Rebull}, L.~M., {Stauffer}, J.~R., {Hillenbrand}, L.~A., {et~al.} 2022, \aj,
   164, 80
+
+\bibitem[{{Rebull} {et~al.}(2016){Rebull}, {Stauffer}, {Bouvier}, {Cody},
+  {Hillenbrand}, {Soderblom}, {Valenti}, {Barrado}, {Bouy}, {Ciardi},
+  {Pinsonneault}, {Stassun}, {Micela}, {Aigrain}, {Vrba}, {Somers}, {Gillen},
+  \& {Collier Cameron}}]{Rebull_2016}
+{Rebull}, L.~M., {Stauffer}, J.~R., {Bouvier}, J., {et~al.} 2016, \aj, 152, 114
 
 \bibitem[{{Reinhold} {et~al.}(2019){Reinhold}, {Bell}, {Kuszlewicz}, {Hekker},
   \& {Shapiro}}]{Reinhold2019}
