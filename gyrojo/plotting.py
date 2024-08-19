@@ -1378,7 +1378,8 @@ def fit_line_and_print_results(bin_centers, heights, poisson_uncertainties):
 
 def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
                               datestr='20240530', s19s21only=0,
-                              preciseagesonly=0, cache_id1=None, datestr1=None):
+                              preciseagesonly=0, cache_id1=None, datestr1=None,
+                              dropfraclongrot=0):
 
     from gyrointerp.paths import CACHEDIR
     csvdir = join(CACHEDIR, f"samples_field_gyro_posteriors_{datestr}")
@@ -1426,6 +1427,15 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     if flag_mcq14_comp:
         mdf1 = pd.read_csv(mergedcsv1)
+
+    if dropfraclongrot:
+        N_before = len(mdf)
+        # Randomly select 20% of these rows to drop
+        filtered_mdf = mdf[mdf['Prot'] > 20]
+        drop_indices = filtered_mdf.sample(frac=0.2, random_state=42).index
+        mdf = mdf.drop(drop_indices).reset_index(drop=True)
+        N_after = len(mdf)
+        print(f'Droping 20% of Prot>20days.  Nbefore={N_before}, Nafter={N_after}')
 
     print(f"Got {N_post_samples} posterior samples...")
 
@@ -1495,7 +1505,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     # SAMPLES from the age posteriors
     plt.close("all")
-    set_style('clean')
+    set_style('science')
     fig, ax = plt.subplots()
 
     bw = 200
@@ -1539,7 +1549,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     plt.close("all")
     set_style('science')
-    fig, axs = plt.subplots(ncols=3, figsize=(0.9*5.5, 0.9*2.3),
+    factor = 0.9
+    fig, axs = plt.subplots(ncols=3, figsize=(factor*5.5, factor*2.3),
                             constrained_layout=True)
 
     koi_df = get_koi_data('cumulative-KOI', grazing_is_ok=1)
@@ -1609,11 +1620,10 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     n_ob = len(mdf[sel_gyro_ok][
         (mdf[sel_gyro_ok].age > 2000) & (mdf[sel_gyro_ok].age <= 3000)
     ])/10
-    if not preciseagesonly:
-        if not flag_mcq14_comp:
-            ulkvp(f'{mcqstr}ratiombtoybstars', np.round(n_mb/n_yb, 1))
-            ulkvp(f'{mcqstr}ratiombtoybstars', np.round(n_mb/n_yb, 1))
-            ulkvp(f'{mcqstr}ratioobtoybstars', np.round(n_ob/n_yb, 1))
+    if not preciseagesonly and not flag_mcq14_comp and not dropfraclongrot:
+        ulkvp(f'{mcqstr}ratiombtoybstars', np.round(n_mb/n_yb, 1))
+        ulkvp(f'{mcqstr}ratiombtoybstars', np.round(n_mb/n_yb, 1))
+        ulkvp(f'{mcqstr}ratioobtoybstars', np.round(n_ob/n_yb, 1))
 
     n_youngg = len(mdf[sel_gyro_ok][
         (mdf[sel_gyro_ok].age > 0) & (mdf[sel_gyro_ok].age <= 300)
@@ -1622,16 +1632,19 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         (mdf[sel_gyro_ok].age > 2700) & (mdf[sel_gyro_ok].age <= 3000)
     ])/10
     ratiosfr = n_oldd/n_youngg
-    if not preciseagesonly:
-        if not flag_mcq14_comp:
-            ulkvp(f'{mcqstr}ratiosfr', f"{ratiosfr:.2f}")
+    if not preciseagesonly and not flag_mcq14_comp and not dropfraclongrot:
+        ulkvp(f'{mcqstr}ratiosfr', f"{ratiosfr:.2f}")
 
     σ_oldd = n_oldd**0.5/n_oldd
     σ_youngg = n_youngg**0.5/n_youngg
     unc_ratio = np.sqrt(σ_oldd**2 + σ_youngg**2) * ratiosfr
-    if not preciseagesonly:
-        if not flag_mcq14_comp:
-            ulkvp(f'{mcqstr}uncratiosfr', f"{unc_ratio:.2f}")
+    if not preciseagesonly and not flag_mcq14_comp and not dropfraclongrot:
+        ulkvp(f'{mcqstr}uncratiosfr', f"{unc_ratio:.2f}")
+    print(f'preciseagesonly: {preciseagesonly}, '
+          f'flag_mcq14_comp: {flag_mcq14_comp}, '
+          f'dropfraclongrot: {dropfraclongrot}.'
+    )
+    print(f'ratiosfr +/- uncratiosfr: {ratiosfr:.2f} +/- {unc_ratio:.2f}')
 
     ##########################################
 
@@ -1720,10 +1733,9 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     n_ob = len(mdf[psel][
         (mdf[psel].age > 2000) & (mdf[psel].age <= 3000)
     ])/10
-    if not preciseagesonly:
-        if not flag_mcq14_comp:
-            ulkvp(f'{mcqstr}ratiombtoybplanets', np.round(n_mb/n_yb, 1))
-            ulkvp(f'{mcqstr}ratioobtoybplanets', np.round(n_ob/n_yb, 1))
+    if not preciseagesonly and not flag_mcq14_comp and not dropfraclongrot:
+        ulkvp(f'{mcqstr}ratiombtoybplanets', np.round(n_mb/n_yb, 1))
+        ulkvp(f'{mcqstr}ratioobtoybplanets', np.round(n_ob/n_yb, 1))
     ##########################################
 
     # completeness gradient
@@ -1877,6 +1889,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         s += '_preciseagesonly'
     if mcqstr != '':
         mcqstr = "_"+mcqstr
+    if dropfraclongrot:
+        s += '_dropfraclongrot'
 
     outpath = os.path.join(
         outdir,
@@ -1921,7 +1935,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     # begin "merged" version of this plot...
     plt.close("all")
-    set_style('clean')
+    set_style('science')
     fig, ax = plt.subplots(figsize=(0.9*3, 0.9*3))
 
     N = int(len(mdf[sel_gyro_ok])/10)
