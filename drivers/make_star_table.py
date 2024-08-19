@@ -74,6 +74,15 @@ def make_star_table(
         ascending=[True, True]
     ).reset_index(drop=1)
 
+    # impose 10% gyro uncertainty floor
+    rel_punc = sdf['gyro_+1sigma'].astype(float) / sdf['gyro_median'].astype(float)
+    rel_munc = sdf['gyro_-1sigma'].astype(float) / sdf['gyro_median'].astype(float)
+    FLOOR = 0.1
+    sel = rel_punc < FLOOR
+    sdf.loc[sel, 'gyro_+1sigma'] = sdf.loc[sel, 'gyro_median'] * FLOOR
+    sel = rel_munc < FLOOR
+    sdf.loc[sel, 'gyro_-1sigma'] = sdf.loc[sel, 'gyro_median'] * FLOOR
+
     for c in sdf.columns:
         if 'gyro_' in c or c == 'adopted_Teff':
             sdf[c] = sdf[c].apply(cast_to_int_string)
@@ -173,6 +182,7 @@ def make_star_table(
     sdf.to_csv(csvpath, index=False, na_rep='')
     print(f'Wrote {csvpath}')
 
+    import IPython; IPython.embed()
 
     csvpath = join(TABLEDIR, 'table_star_gyro_allcols.csv')
     odf = df.sort_values(

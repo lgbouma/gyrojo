@@ -137,6 +137,15 @@ def make_table(
         N = len(_df[sel])
         df = _df[sel]
 
+    # impose 10% gyro uncertainty floor
+    rel_punc = df['gyro_+1sigma'].astype(float) / df['gyro_median'].astype(float)
+    rel_munc = df['gyro_-1sigma'].astype(float) / df['gyro_median'].astype(float)
+    FLOOR = 0.1
+    sel = rel_punc < FLOOR
+    df.loc[sel, 'gyro_+1sigma'] = df.loc[sel, 'gyro_median'] * FLOOR
+    sel = rel_munc < FLOOR
+    df.loc[sel, 'gyro_-1sigma'] = df.loc[sel, 'gyro_median'] * FLOOR
+
     selcols = (
         "kepid,kepoi_name,kepler_name,koi_disposition,"
         "min_age,"
