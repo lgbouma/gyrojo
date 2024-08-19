@@ -127,6 +127,15 @@ cluster_dfs, cluster_names, true_ages = get_cluster_dfs()
 csvpath = join(TABLEDIR, "table_star_gyro_allcols.csv")
 bdf = pd.read_csv(csvpath)
 
+rel_punc = bdf['gyro_+1sigma'].astype(float) / bdf['gyro_median'].astype(float)
+rel_munc = bdf['gyro_-1sigma'].astype(float) / bdf['gyro_median'].astype(float)
+FLOOR = 0.1
+sel = rel_punc < FLOOR
+bdf.loc[sel, 'gyro_+1sigma'] = bdf.loc[sel, 'gyro_median'] * FLOOR
+sel = rel_munc < FLOOR
+bdf.loc[sel, 'gyro_-1sigma'] = bdf.loc[sel, 'gyro_median'] * FLOOR
+
+
 # Berger+2020: Gaia-Kepler stellar properties catalog.
 # Table 2: output parameters
 # "E_" means upper err, "e_" means lower.  Note that "e_" is signed, so
