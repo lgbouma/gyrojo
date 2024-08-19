@@ -4,22 +4,26 @@ The top-level auxiliary file: ms.aux
 The style file: aasjournal.bst
 Database file #1: bibliography.bib
 Warning--entry type for "claude2024anthropic" isn't style-file defined
---line 138 of file bibliography.bib
-Repeated entry---line 633 of file bibliography.bib
+--line 157 of file bibliography.bib
+Repeated entry---line 652 of file bibliography.bib
  : @article{2021AJ....161..189L
  :                             ,
 I'm skipping whatever remains of this entry
-You're missing a field name---line 2085 of file bibliography.bib
+You're missing a field name---line 2104 of file bibliography.bib
  :  
  :  %series = {SPIE Conference Series},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
 Reallocated str_pool (elt_size=1) to 130000 items from 65000.
-Repeated entry---line 19824 of file bibliography.bib
+Repeated entry---line 3200 of file bibliography.bib
+ : @article{Epstein_2014
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 19843 of file bibliography.bib
  : @article{David_2019
  :                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 24487 of file bibliography.bib
+Repeated entry---line 24506 of file bibliography.bib
  : @article{Mamajek_2008
  :                      ,
 I'm skipping whatever remains of this entry
@@ -27,45 +31,45 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--can't use both author and editor fields in vogt_hires_1994
 Warning--empty publisher in vogt_hires_1994
 Warning--empty pages in vogt_hires_1994
-You've used 164 entries,
+You've used 167 entries,
             3222 wiz_defined-function locations,
-            1938 strings with 102123 characters,
-and the built_in function-call counts, 110539 in all, are:
-= -- 6191
-> -- 13733
-< -- 39
-+ -- 4568
-- -- 4801
-* -- 11926
-:= -- 21882
-add.period$ -- 165
-call.type$ -- 164
-change.case$ -- 913
-chr.to.int$ -- 160
-cite$ -- 167
-duplicate$ -- 2959
-empty$ -- 4681
-format.name$ -- 4970
-if$ -- 20691
+            1958 strings with 102922 characters,
+and the built_in function-call counts, 111808 in all, are:
+= -- 6291
+> -- 13823
+< -- 41
++ -- 4597
+- -- 4831
+* -- 12031
+:= -- 22117
+add.period$ -- 168
+call.type$ -- 167
+change.case$ -- 926
+chr.to.int$ -- 163
+cite$ -- 170
+duplicate$ -- 3011
+empty$ -- 4766
+format.name$ -- 5006
+if$ -- 20950
 int.to.chr$ -- 5
 int.to.str$ -- 0
-missing$ -- 160
-newline$ -- 498
-num.names$ -- 659
-pop$ -- 1287
+missing$ -- 163
+newline$ -- 507
+num.names$ -- 671
+pop$ -- 1305
 preamble$ -- 1
-purify$ -- 913
+purify$ -- 926
 quote$ -- 0
-skip$ -- 2342
+skip$ -- 2386
 stack$ -- 0
-substring$ -- 2914
+substring$ -- 2968
 swap$ -- 40
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1473
+type$ -- 1500
 warning$ -- 3
-while$ -- 589
+while$ -- 600
 width$ -- 0
-write$ -- 1642
-(There were 4 error messages)
+write$ -- 1672
+(There were 5 error messages)

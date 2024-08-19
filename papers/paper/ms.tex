@@ -1,6 +1,6 @@
 % upon AAS submission
-\documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
-%\documentclass[11pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
+%\documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
+\documentclass[11pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 % drafting / arxiv
 %\documentclass[11pt,twocolumn,tighten]{aastex63}
 \turnoffedit
@@ -420,7 +420,7 @@ and also for the broader set of all Kepler target stars
 These studies used a range of detection methods and selection
 functions.  We are interested in understanding the age distribution of
 all Kepler target stars irrespective of KOI status.  Out of these
-studies, the most homogeneous and precise analyses of both Kepler
+studies, the most homogeneous \deleted{and precise }analyses of both Kepler
 targets and KOIs appear to be those by
 \citet{Santos_2019,Santos_2021}, hereafter \citetalias{Santos_2019}
 and \citetalias{Santos_2021}.  For a discussion of the work by
@@ -715,11 +715,12 @@ open cluster sequences.  We adopted a linear age grid spanning
 0--5\,Gyr with 500 grid points, and interpolated the resulting
 posteriors to calculate any summary statistics.  The oldest cluster
 for which \texttt{gyro-interp} is calibrated is the 4\,Gyr M67 cluster
-\citep[][]{Dungee_2022,Gruner_2023}.  For Kepler stars with rotation
-periods above the M67 sequence, our resulting age constraints are
+\citep[][]{Dungee_2022,Gruner_2023}.  For \deleted{Kepler }stars with rotation
+periods above the M67 sequence, our resulting age constraints are\added{ therefore }
 quoted as lower limits.
-
-
+\added{Finally, we opted to impose a $t_{\rm gyro}$ uncertainty floor of 10\%. 
+This seemed warranted given the expected amplitude of differential rotation \citep[e.g.][]{Epstein_2014}, and
+given the accuracy with which the absolute cluster age scale is currently known \citep[e.g.][]{Dahm_2015}. }
 
 \subsection{Stellar Quality Flags}
 \label{subsec:flags}
@@ -1444,8 +1445,18 @@ are one process that could produce such a signal, but
 testing this would require a method for measuring differential abundances
 across a large number of elements.
 
+\added{A separate plausible origin for rotational outliers is that they come from
+erroneously reported rotation periods.  While
+the large surveys do show good internal consistency (Appendix~\ref{app:mcqonly}),
+the referee correctly noted that this only a comparative test of methods,
+rather than an ability to actually recover ground truth \citep[e.g.][]{Aigrain2015}.
+One could imagine an adversarial scenario in which, say, 10-20\% of stars
+with $P_{\rm rot}$$>$20\,days are erroneously reported, and in fact have much
+longer rotation periods.  In this scenario, our analysis would overestimate the
+rate by which the SFR in the Kepler field has decreased, by 7-14\%. }
+
 Other age indicators may help in verifying the ages of the
-$\lesssim$3\,Gyr stars that are the focus of this work.  Specifically,
+$\lesssim$3\,Gyr stars that are the \added{main }focus of this work.  Specifically,
 chromospheric emission in the X-ray, \ion{Ca}{2} HK line, and the UV
 can serve as an age tracer
 \citep{Mamajek_2008,2014MNRAS.441.2361V,2024ApJ...960...62E}.
@@ -1757,8 +1768,8 @@ Writing – review \& editing: all authors.
 \end{figure*}
 
 While we opted for the \citetalias{Santos_2019} and
-\citetalias{Santos_2021} rotation period catalogs, the recent
-analysis by \citet{Reinhold2023} bears comment.  \citet{Reinhold2023}
+\citetalias{Santos_2021} rotation period catalogs, the \deleted{recent }analysis 
+by \citet{Reinhold2023} bears comment.  \citet{Reinhold2023}
 used a similar selection function as \citeauthor{Santos_2021}
 (all Kepler stars), and considered a novel period measurement
 approach based on the gradient of the power spectrum (GPS).  Their method
@@ -2012,6 +2023,7 @@ regime, we truncated our analysis at 4\,Gyr.
 \end{figure*}
 
 \section{What if we only considered McQuillan's periods?}
+\label{app:mcqonly}
 
 We argued in Section~\ref{subsec:rotsel} that adopting
 the periods from \citet{Santos_2019,Santos_2021} yielded the best
