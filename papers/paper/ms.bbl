@@ -20,6 +20,9 @@
 {Alzate}, J.~A., {Bruzual}, G., \& {D{\'\i}az-Gonz{\'a}lez}, D.~J. 2021,
   \mnras, 501, 302
 
+\bibitem[{{Amard} \& {Matt}(2020)}]{Amard2020}
+{Amard}, L., \& {Matt}, S.~P. 2020, \apj, 889, 108
+
 \bibitem[{{Amard} {et~al.}(2019){Amard}, {Palacios}, {Charbonnel}, {Gallet},
   {Georgy}, {Lagarde}, \& {Siess}}]{Amard2019}
 {Amard}, L., {Palacios}, A., {Charbonnel}, C., {et~al.} 2019, \aap, 631, A77
@@ -220,6 +223,10 @@
 
 \bibitem[{{Dahm}(2015)}]{Dahm_2015}
 {Dahm}, S.~E. 2015, \apj, 813, 108
+
+\bibitem[{{David} {et~al.}(2022){David}, {Angus}, {Curtis}, {van Saders},
+  {Colman}, {Contardo}, {Lu}, \& {Zinn}}]{David_2022}
+{David}, T.~J., {Angus}, R., {Curtis}, J.~L., {et~al.} 2022, \apj, 933, 114
 
 \bibitem[{{David} {et~al.}(2019){David}, {Petigura}, {Luger}, {Foreman-Mackey},
   {Livingston}, {Mamajek}, \& {Hillenbrand}}]{David_2019}
@@ -1144,5 +1151,11 @@ Virtanen, P., Gommers, R., Oliphant, T.~E., {et~al.} 2020, Nature Methods, 17,
 \bibitem[{{Ziegler} {et~al.}(2017){Ziegler}, {Law}, {Morton}, {Baranec},
   {Riddle}, {Atkinson}, {Baker}, {Roberts}, \& {Ciardi}}]{2017AJ....153...66Z}
 {Ziegler}, C., {Law}, N.~M., {Morton}, T., {et~al.} 2017, \aj, 153, 66
+
+\bibitem[{{Zong} {et~al.}(2018){Zong}, {Fu}, {De Cat}, {Shi}, {Luo}, {Zhang},
+  {Frasca}, {Corbally}, {Molenda-{\.Z}akowicz}, {Catanzaro}, {Gray}, {Wang},
+  {Pan}, {Ren}, {Zhang}, {Jin}, {Wu}, {Dong}, {Xie}, {Zhang}, {Hou}, \&
+  {LAMOST-Kepler Collaboration}}]{Zong2018}
+{Zong}, W., {Fu}, J.-N., {De Cat}, P., {et~al.} 2018, \apjs, 238, 30
 
 \end{thebibliography}
