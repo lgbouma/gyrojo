@@ -11,6 +11,7 @@ python compare_literature_ages_to_cluster_ages.py
 # appendix plots
 python plot_perioddiff_vs_period.py
 python plot_scatter_gyroage_vs_teff.py
+python plot_mcq14_vs_santos_age_histograms.py
 
 # write latex tables and value files for ms
 python _compare_lithium_scales.py
