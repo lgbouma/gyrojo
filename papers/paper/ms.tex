@@ -487,8 +487,8 @@ of the resulting \nuniqstarsantosrot\ Kepler stars with rotation
 periods compiled from \citetalias{Santos_2019},
 \citetalias{Santos_2021}, and our extended KOI list.\added{  The gray
 lines in this figure are the polynomials described by \citet{Bouma_2023}
-that were
-fitted to the slow rotation sequences of the Pleiades \citep{Rebull_2016},
+that 
+fit the slow rotation sequences of the Pleiades \citep{Rebull_2016},
 Praesepe \citep{Rampalli_2021}, NGC-6811 \citep{Curtis_2019_ngc6811}, NGC-6819 \citep{Meibom_2015},
 Ruprecht-147 \citep{Curtis_2020}, and M67 \citep{Barnes2016,Dungee_2022,Gruner_2023}.}
 
@@ -738,9 +738,9 @@ a high RUWE due to a resolved binary companion \citep{Bouma_2022a};
 the latter is on a grazing orbit \citep{2014ApJ...783...53M}.  We
 leave selection for or against such cases as a decision to the user.
 For our own analysis, we assume that a star is suitable for
-gyrochronology if none of bits zero through nine (inclusive) are
+gyrochronology if none of bits zero through \replaced{nine}{ten} (inclusive) are
 raised.  For analyses that require all stellar rotation periods to
-come from the same detection pipeline, we further require bit 11 to be
+come from the same detection pipeline, we further require bit \replaced{11}{12} to be
 zero. 
 
 Three assumptions must hold for a rotation-based age dating method
@@ -858,10 +858,21 @@ this locus as part of the same bitflag.
 %Figures~12 and 13 of \citet{2023ApJS..268....4F} for examples of how
 %the period distribution of this population differs from stars near the
 %main sequence.
-
+\added{{\it Metallicity (bit 10)}---Theoretical models
+	suggest that stars with non-solar metallicities
+	spin down at different rates than solar-metallicity stars 
+	\citep{Amard2020}.   This expectation has been hard
+	to verify due to a dearth of nearby non-solar metallicity open clusters.
+	However, if true, this effect could cause systematic
+	biases for gyrochrone ages \citep[e.g.~Figure~9 of][]{Claytor2020}.
+	We therefore flagged stars with spectroscopic $|[{\rm Fe/H}]|$$>$0.3
+	from either LAMOST DR5 \citep{Zong2018} or CKS \citep{Petigura_2022}
+	as being outside the range of our gyrochronology calibration.
+	We discuss limitations of this approach in Section~\ref{sec:disc}.
+}
 
 {\it Candidate pulsators and close-in binaries (bit
-10)}---\citeauthor{Santos_2021} included in a flag for candidate
+\replaced{10}{11})}---\citeauthor{Santos_2021} included in a flag for candidate
 ``classical pulsators'' (e.g.\ Cepheids) and close-in binaries.
 Visual inspection shows that although this flag selects many bona fide
 objects in these classes, it also selects most known young planets
@@ -870,7 +881,7 @@ neither classical pulsators nor close binaries.  While we propagated
 this flag into our set of quality flags, we therefore generally ignore
 it.
 
-{\it Not in the homogeneous stellar rotation sample (bit 11)}--- This
+{\it Not in the homogeneous stellar rotation sample (bit \replaced{11}{12})}--- This
 flag was set for the KOIs with rotation periods drawn from a source
 other than the \citeauthor{Santos_2019} pipeline.
 
@@ -1091,10 +1102,10 @@ sub-gigayear stars of a fixed mass and age.
   rotation-derived age distributions of its stars (left) and planet
   hosts (middle).  The top row shows all stars with temperatures of
   3800--6200\,K for which we calculated rotational ages.  Opaque lines
-  impose quality cuts on binarity, crowding, and the star's
+  impose quality cuts on binarity, \added{metallicity, }crowding, and the star's
   evolutionary state; transparent lines do not.  The bottom row shows
-  stars with temperatures of 4400--5400\,K, which have more precise
-  ages due to their fast spin-down.  The statistical uncertainty for a
+  stars with temperatures of 4400--5400\,K, which \replaced{have more precise
+  ages due to their fast spin-down}{often have more precise ages}.  The statistical uncertainty for a
   mean star at 1, 2, and 3\,Gyr is shown, and is identical across each
   row.  Finally, the right panel compares the rotation-derived ages
   against star formation histories derived using CMD fitting (dashed
@@ -1142,7 +1153,7 @@ true, this statement seems to hold only for the very youngest
 ($\lesssim$0.4\,Gyr) stars, where there is a marginal deficit in the
 KOI host age distribution relative to the parent stellar sample.
 Examining scatter plots of the planet properties as a function of
-time, we similarly find that fewer systems at $t_{\rm
+age, we similarly find that fewer systems at $t_{\rm
 gyro}$$<$0.4\,Gyr are detected with $P_{\rm orb}$$\gtrsim$30\,days
 than at $t_{\rm gyro}$$>$0.4\,Gyr.
 
@@ -1151,7 +1162,9 @@ detect the rotation signals.  \citet{2022ApJ...937...94M} studied this
 issue, and found for Sun-like stars that the fraction of rotation
 signals detectable by Kepler is near unity up to $\approx$3\,Gyr, and
 that it drops to almost zero by $\approx$5\,Gyr.  This trend is
-opposite in functional form to our derived age distributions.
+opposite in functional form to our derived age distributions\replaced{.}{and
+	most of the stars in our sample are indeed G dwarfs (see e.g.,~the $t_{\rm gyro}$--$T_{\rm eff}$ distributions 
+	in Appendix~\ref{app:age_diagnostic}).}
 
 We can quantify the relative counts of stars as a function of age by
 labelling stars between 0-1\,Gyr, 1-2\,Gyr, and 2-3\,Gyr as ``young'',
@@ -1306,7 +1319,7 @@ therefore appears to be anomalously lithium-rich.
 \label{subsec:notables}
 
 Let us focus on blemish-free stars with blemish-free planets: $Q_{\rm
-star}$ must not have any of bits zero through nine raised, and $Q_{\rm
+star}$ must not have any of bits zero through \replaced{nine}{ten} raised, and $Q_{\rm
 planet}$ must similarly have no quality flags raised.  Under this
 constraint, our results include \ltonegyrhighqconfirmedtwosided\
 confirmed planets younger than 1\,Gyr with two-sided $t_{\rm gyro}$
@@ -1430,7 +1443,7 @@ quality bitmasks (Table~\ref{tab:planets}), a comparison against \deleted{open }
 cluster ages (Section~\ref{sec:litagecomparison}), and a comparison
 between rotation and lithium ages.  The \deleted{open }cluster comparison
 suggested that our ages were generally accurate at $\ll$0.5\,dex
-across 0.04--2.5\,Gyr, comparable to their quoted precision.
+across 0.04--2.5\,Gyr, similar to their quoted precision.
 Nonetheless, the upper-left panel of Figure~\ref{fig:agescalecompone}
 does show outliers, typically $\lesssim$10\% of the population
 in any cluster.  These stars could be either field star contaminants,
@@ -1448,9 +1461,9 @@ across a large number of elements.
 \added{A separate plausible origin for rotational outliers is that they come from
 erroneously reported rotation periods.  While
 the large surveys do show good internal consistency (Appendix~\ref{app:mcqonly}),
-the referee correctly noted that this only a comparative test of methods,
-rather than an ability to actually recover ground truth \citep[e.g.][]{Aigrain2015}.
-One could imagine an adversarial scenario in which, say, 10-20\% of stars
+the referee correctly pointed out that this only a comparative test of methods,
+rather than an ability to recover ground truth \citep[e.g.][]{Aigrain2015}.
+One could imagine an adversarial scenario in which, say, 10-20\%\ of stars
 with $P_{\rm rot}$$>$20\,days are erroneously reported, and in fact have much
 longer rotation periods.  In this scenario, our analysis would overestimate the
 rate by which the SFR in the Kepler field has decreased, by 7-14\%. }
@@ -1708,7 +1721,7 @@ Writing – review \& editing: all authors.
   \nuniqstarfinitegyroage\ stars with
   finite reported gyrochrone ages.  The quality
   bitmask is as in Table~\ref{tab:planets}; requiring bits zero to
-  nine to be null yields \nuniqstarsantosrotgyroappl\ stars for
+  ten to be null yields \nuniqstarsantosrotgyroappl\ stars for
   which gyrochronology is likely to be valid.  \label{tab:stars}}
   %\toprule
   %\midrule
@@ -2062,15 +2075,21 @@ This analysis is particularly interesting in relation to the question
 of how fast stars $\gtrsim$4\,Gyr old spin down.  If we lived in a
 universe in which stellar rotation rates and spot-induced photometric
 amplitudes remained {\it constant} after $\approx$3\,Gyr, then older
-stars would tend to contaminate the 2.5-3\,Gyr peaks in
+stars \replaced{would tend to }{could }contaminate the 2.5-3\,Gyr peaks in
 Figures~\ref{fig:hist_tgyro} and~\ref{fig:hist_tgyro_mcq}.  This
-scenario deserves consideration, given evidence from asteroseismic
-rotation periods that has pointed to slowed spin-down rates after
+scenario deserves consideration, given\replaced{ evidence from asteroseismic
+rotation periods that has pointed to}{ {\it i)} asteroseismic evidence for} slowed spin-down rates after
 $\approx$4\,Gyr for Sun-like stars
-\citep[e.g.][]{vanSaders_2016,2024ApJ...962..138S}.  However, because
+\citep[e.g.][]{vanSaders_2016,2024ApJ...962..138S}\added{, and {\it ii)} the observation of a ``long-period edge''
+in the $P_{\rm rot}$-$T_{\rm eff}$ distribution which
+may pile up over similar timescales \citep{David_2022}}.  However, \replaced{because
 the \citeauthor{McQuillan_2014} sample does not include many stars
-older than $\approx$4\,Gyr \citep{2022ApJ...937...94M}, this analysis
-would argue that the 2.5-3\,Gyr peak cannot be caused by a pile-up of
+older than $\approx$4\,Gyr \citep{2022ApJ...937...94M}, this analysis}{the analysis
+by \citet{2022ApJ...937...94M} fitted isochrones to a high-quality subset of Kepler data,
+and found that the
+sample of detected rotators from \citeauthor{McQuillan_2014} does not include many
+stars older than $\approx$\,4\,Gyr.}
+\replaced{would argue}{This suggests} that the 2.5-3\,Gyr peak \replaced{cannot}{is unlikely to} be caused by a pile-up of
 much older stars with especially lethargic spin-down rates.
 
 
@@ -2091,7 +2110,7 @@ much older stars with especially lethargic spin-down rates.
     rotation periods ({\it left}) from \citet{Santos_2019,Santos_2021}
     against the \citet{McQuillan_2014} rotation periods ({\it right}).
     All stars are required to be amenable to rotation-based age dating
-    (i.e.~none of bit flags zero through nine raised).
+    (i.e.~none of bit flags zero through \replaced{nine}{ten} raised).
 	}
 	\label{fig:prot_vs_teff_mcq}
 \end{figure*}
