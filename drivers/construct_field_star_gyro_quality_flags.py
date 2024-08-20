@@ -10,6 +10,7 @@ bit 6: T if Gaia DR3 non_single_star
 bit 7: T if RUWE>1.4
 bit 8: T if nbhr_count >= 1 (crowding, at least one 1/10th Gmag brightness within 4 arcsec)
 bit 9: T if above logg/Teff locus (iso age precision, cutting subgiant FGKs & photometric outliers)
+bit 10: T if Zong+2018 reported metallicity |Fe/H|>0.3 or Petigura+2022 reported metallicity |Fe/H|>0.3.
 
 plus, not relevant for gyro:
 
@@ -25,7 +26,7 @@ import pandas as pd, numpy as np
 import os
 from os.path import join
 from glob import glob
-from gyrojo.paths import DATADIR, RESULTSDIR, LOCALDIR, TABLEDIR
+from gyrojo.paths import DATADIR, RESULTSDIR, LOCALDIR, TABLEDIR, SECRETDATADIR
 from numpy import array as nparr
 
 
@@ -217,6 +218,51 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
     else:
         df['flag_Prot_provenance'] = np.zeros(len(df)).astype(bool)
 
+    ########################
+    # metallicity outliers #
+    ########################
+
+    from astropy.io import fits
+    from astropy.table import Table
+
+    fitspath = join(
+        SECRETDATADIR, 'Zong_2018_LAMOST_Kepler_2012_to_2017_227870rows.fits'
+    )
+    hdul = fits.open(fitspath)
+    zdf = Table(hdul[1].data).to_pandas()
+    df['KIC'] = df['KIC'].astype(str)
+    zdf['KIC'] = zdf['KIC'].astype(str)
+    zdf['Zong18_Fe_H'] = zdf['Fe_H']
+    merged_df = df.merge(zdf[['KIC', 'Zong18_Fe_H']], on='KIC', how='left')
+
+    # Petigura+2022 radii
+    d1 = join(DATADIR, 'literature')
+    p1 = 'Petigura_2022_CKS_X_t1_stars.txt'
+    tabpath = join(d1, p1)
+    t = Table.read(tabpath, format='cds')
+    pdf = t.to_pandas()
+    pdf = pdf[~pdf.KOI.isna()]
+    pdf['kepoi'] = pdf['KOI'].apply(lambda x: "K"+str(x).zfill(5))
+    csvpath = join(d1, 'koi_x_kepid_20240820.csv')
+    kkdf = pd.read_csv(csvpath, comment='#')
+    kkdf['kepoi'] = kkdf['kepoi_name'].str.replace(r'\.\d{2}', '', regex=True)
+    kkdf = kkdf.drop_duplicates(subset=['kepid','kepoi'])
+    kkdf['KIC'] = kkdf['kepid'].astype(str)
+    pdf = pdf.merge(kkdf[['KIC', 'kepoi']], on='kepoi', how='left')
+    pdf['Petigura22_Fe_H'] = pdf['FeH']
+
+    merged_df = merged_df.merge(
+        pdf[['KIC', 'Petigura22_Fe_H']], on='KIC', how='left'
+    )
+
+    merged_df['flag_metallicity_outlier'] = (
+        (np.abs(merged_df['Zong18_Fe_H']) > 0.3)
+        |
+        (np.abs(merged_df['Petigura22_Fe_H']) > 0.3)
+    )
+
+    df['flag_metallicity_outlier'] = merged_df['flag_metallicity_outlier']
+
     ################################
     # finally, is gyro applicable? #
     ################################
@@ -233,8 +279,9 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
         'flag_dr3_ruwe_outlier': 7,
         'flag_dr3_crowding': 8,
         'flag_farfrommainsequence': 9,
-        'flag_is_CP_CB': 10,
-        'flag_Prot_provenance': 11,
+        'flag_metallicity_outlier': 10,
+        'flag_is_CP_CB': 11,
+        'flag_Prot_provenance': 12,
     }
 
     # Iterate over the flag columns and update the flag_gyro_quality column
@@ -245,11 +292,11 @@ def build_gyro_quality_flag(sample='gyro', datestr='20240430'):
         # Update the 'flag_gyro_quality' column using the shifted values
         df['flag_gyro_quality'] |= shifted_values
 
-    # Define the mask to check bits 0 through 9 inclusive
-    mask = 0b0000001111111111
+    # Define the mask to check bits 0 through 10 inclusive
+    mask = 0b00000011111111111
 
-    # Create the 'flag_is_gyro_applicable' column - uses bits 0 to 9, but ignores
-    # bit 10.
+    # Create the 'flag_is_gyro_applicable' column - uses bits 0 to 10, but ignores
+    # bits 11 and 12.
     df['flag_is_gyro_applicable'] = ((df['flag_gyro_quality'] & mask) == 0)
 
     if sample == 'gyro':
