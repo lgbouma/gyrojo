@@ -45,9 +45,11 @@ ulkvp('nuniqstarsantosrotteffcut', N)
 
 # Number of unique stars with finite gyro ages.  (i.e. did gyrointerp produce
 # gyro ages for all stars noted above?)
-N2 = np.sum(~pd.isnull(df[sel].gyro_median))
+_sel = (df.gyro_median <= 4000.1)
+_N = np.sum(~pd.isnull(df[sel].gyro_median))
+N2 = np.sum(~pd.isnull(df[_sel].gyro_median))
 ulkvp('nuniqstarfinitegyroage', N2)
-assert N == N2
+assert _N == N
 
 
 # Number of unique stars with Santos+ rotation period reported, and
@@ -57,16 +59,16 @@ assert N == N2
 #sequence, with $\log g$$>$4.2, $M_{\rm G}>3.9$, and not flagged as
 #eclipsing binaries 
 sel = select_by_quality_bits(
-    df, [0, 1, 2, 3, 4, 5, 6, 9],
-        [0, 0, 0, 0, 0, 0, 0, 0]
+    df, [0, 1, 2, 3, 4, 5, 6, 9, 10], # NOTE: not used
+        [0, 0, 0, 0, 0, 0, 0, 0, 0]
 )
 N = len(df[sel])
 ulkvp('nuniqstarsantosallbutruwe', N)
 
 # Number of unique stars with Santos+ rotation, and gyro applicable
 sel = select_by_quality_bits(
-    df, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    df, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 )
 N = len(df[sel])
 M = len(df[df.flag_is_gyro_applicable])

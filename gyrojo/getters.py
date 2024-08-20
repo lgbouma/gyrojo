@@ -252,16 +252,16 @@ def get_age_results(whichtype='gyro', COMPARE_AGE_UNCS=0,
     if drop_highruwe:
         sel = select_by_quality_bits(
             kicrot_df,
-            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],  # drop high ruwe...
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],  # drop high ruwe...
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         )
         kicrot_df['flag_is_gyro_applicable'] = sel
         sel = (kicrot_df['flag_is_gyro_applicable'])
     else:
         sel = select_by_quality_bits(
             kicrot_df,
-            [0, 1, 2, 3, 4, 5, 6, 8, 9],  # leaving high ruwe...
-            [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            [0, 1, 2, 3, 4, 5, 6, 8, 9, 10],  # leaving high ruwe...
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         )
         kicrot_df['flag_is_gyro_applicable'] = sel
         sel = (kicrot_df['flag_is_gyro_applicable'])
@@ -1236,8 +1236,8 @@ def select_by_quality_bits(df, bit_positions, target_values):
     Example 1:
         # Select stars for which gyro is "applicable"
         mask = select_by_quality_bits(
-            df, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            df, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         )
         selected_df = df[mask]
 

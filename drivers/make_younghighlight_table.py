@@ -258,12 +258,12 @@ def make_table(
     pdf['flag_gyro_quality'] = pdf['flag_gyro_quality'].astype(int)
     _pdf['flag_gyro_quality'] = _pdf['flag_gyro_quality'].astype(int)
     sel_gyro_quality = select_by_quality_bits(
-        pdf, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        pdf, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     )
     sel_gyro_weakquality = select_by_quality_bits(
-        pdf, [0, 1, 2, 3, 4, 5, 6, 8, 9],
-             [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        pdf, [0, 1, 2, 3, 4, 5, 6, 8, 9, 10],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     )
     _sel0 = (
         (pdf.min_age < 1000) &
