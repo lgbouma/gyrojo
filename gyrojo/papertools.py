@@ -78,7 +78,7 @@ def update_latex_key_value_pair(
 
 def read_latex_key_value_pairs(
     latexpath=join(PAPERDIR, "vals_manuscript.tex")
-):
+) -> dict:
     """
     Args:
         latexpath (str): The path to the LaTeX file containing the key-value pairs.
@@ -86,6 +86,11 @@ def read_latex_key_value_pairs(
     Returns:
         dict: A dictionary containing the key-value pairs read from the file.
     """
+
+    number_words = {
+        "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4,
+        "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9
+    }
 
     key_value_dict = {}
 
@@ -100,7 +105,9 @@ def read_latex_key_value_pairs(
                 value = value.replace("{,}", "")
 
                 # Check if the value contains a decimal point
-                if "." in value:
+                if value.lower() in number_words:
+                    value = number_words[value.lower()]
+                elif "." in value:
                     value = float(value)
                 elif "$" in value:
                     value = str(value)
