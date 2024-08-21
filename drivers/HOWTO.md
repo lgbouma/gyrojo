@@ -13,6 +13,8 @@ _0_ Run the field star gyro analysis:
 1. `calc_field_gyro_posteriors.py`
   20230529: had S19+S21 well-defined.
   20240405: added "bonus KOIs", including Kepler1643 (and symlinked rest of 20230529)
+  20240530: update gyrointerp w/ 4gyrextrap & Gruner2023
+  20240821: update gyrointerp w/ increasing scatter vs age
 
 2. `plot_field_gyro_posteriors.py`
 
