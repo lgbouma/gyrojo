@@ -184,8 +184,6 @@ def make_star_table(
     sdf.to_csv(csvpath, index=False, na_rep='')
     print(f'Wrote {csvpath}')
 
-    import IPython; IPython.embed()
-
     csvpath = join(TABLEDIR, 'table_star_gyro_allcols.csv')
     odf = df.sort_values(
         by=['gyro_median','KIC'],

@@ -155,7 +155,7 @@ Mellon University, Pittsburgh, PA 15213, USA}
   This is about half the number expected under the classic assumption
   of a uniform star formation history.  We find that the scarcity of
   sub-gigayear systems can be attributed to the star formation rate in
-  the Kepler field dropping by a factor of \ratiosfr$\pm$\uncratiosfr\
+  the Kepler field \replaced{dropping}{smoothly decreasing} by a factor of \ratiosfr$\pm$\uncratiosfr\
   over the past 3\,Gyr.  We observe this trend both in known planet
   hosts and in the parent stellar sample.
   %
@@ -229,14 +229,14 @@ this ``cluster-first'' approach has a major limitation: most
 stars are in the field.  Only $\lesssim$1\% of stars within
 $\approx$500\,pc have been associated with their birth cluster
 \citep[e.g.][]{Zari_2018,CantatGaudin_2020,Kounkel_2020,Kerr_2021}.
-The implication for planetary ages can appreciated by querying the NASA Exoplanet Archive
+The implication for known planetary ages can appreciated by querying the NASA Exoplanet Archive
 \citep[NEA;][]{2013PASP..125..989A} for transiting planets younger
 than 1\,Gyr.  Requiring $t$$<$1\,Gyr at 2$\sigma$ precision gives
 $\approx$50 such planets at the time of writing.  Most of these young
 planets are in clusters, and were found by Kepler, K2, or TESS.
-However, these surveys have cumulatively discovered a total of $\approx$5{,}000 planets.
+However, these surveys have cumulatively discovered \deleted{a total of }$\approx$5{,}000 planets.
 Assuming a constant star formation history, we would expect an
-order of magnitude more sub-gigayear transiting planets.
+order of magnitude more sub-gigayear transiting planets\added{ than the 50 currently known}.
 
 This study aims to resolve two questions.  First, how wrong is it to
 assume a uniform age distribution for transiting planet host stars?
@@ -695,7 +695,7 @@ sequences.
 \label{sec:rotage}
 
 We calculated gyrochrone ages using \texttt{gyro-interp}
-\citep{Bouma_2023}, which is a method designed to address the fact
+\citep[\added{\texttt{v0.6};}][]{Bouma_2023}, which is a method designed to address the fact
 that stars with the same mass and same rotation period can have a wide
 range of ages \citep[e.g.][]{Gallet_Bouvier_2015}.  The gyrochrone age
 posterior should therefore incorporate the intrinsic population-level
@@ -714,14 +714,19 @@ marginalizes over the astrophysical scatter that is observed in the
 open cluster sequences.  We adopted a linear age grid spanning
 0--5\,Gyr with 500 grid points, and interpolated the resulting
 posteriors to calculate any summary statistics.  The oldest cluster
-for which \texttt{gyro-interp} is calibrated is the 4\,Gyr M67 cluster
+for which \texttt{gyro-interp} is calibrated\added{ in \texttt{v0.6}} is the 4\,Gyr M67 cluster
 \citep[][]{Dungee_2022,Gruner_2023}.  For \deleted{Kepler }stars with rotation
-periods above the M67 sequence, our resulting age constraints are\added{ therefore }
-quoted as lower limits.
-\added{Finally, we opted to impose a $t_{\rm gyro}$ uncertainty floor of 10\%. 
-This seemed warranted given the expected amplitude of differential rotation \citep[e.g.][]{Epstein_2014}, and
-given the accuracy with which the absolute cluster age scale is currently known \citep[e.g.][]{Dahm_2015}. }
+periods above the M67 sequence, our resulting age constraints are\added{ therefore} quoted as lower limits.
 
+\added{Finally, we opted to modify \texttt{gyro-interp} in \texttt{v0.6} to
+incorporate an age-dependent population-level Gaussian scatter, as detailed in the change log at \url{gyro-interp.readthedocs.io}.
+While age precisions at $\leq$1\,Gyr are unaffected, this update
+accounts for the observed intrinsic scatter in
+Ruprecht-147 and M67 being larger than in Praesepe or NGC-6811,
+potentially due to differential rotation \citep[e.g.,][]{Epstein_2014}.  
+For $\approx$2-4\,Gyr old stars with rotation periods measured at $\approx$5\% precision, 
+this change yields a $\lesssim$50\% increase in age uncertainties.}
+	
 \subsection{Stellar Quality Flags}
 \label{subsec:flags}
 We calculated gyrochrone ages for all \nuniqstarsantosrotteffcut\
@@ -1309,7 +1314,7 @@ else unresolved binaries, and are automatically flagged as such.  The
 more interesting of the two is Kepler-786, an early K dwarf with
 $t_{\rm Li}$=\kepseveneightsix\,Myr, but with a $\approx$33\,day
 rotation period that implies $t_{\rm
-gyro}$=\kepseveneightsixgyro\,Myr.  Other age indicators in the
+gyro}$$\approx$4.4,Gyr.  Other age indicators in the
 spectrum similarly suggest that the star is not young.  It 
 therefore appears to be anomalously lithium-rich. 
 
@@ -1461,12 +1466,12 @@ across a large number of elements.
 \added{A separate plausible origin for rotational outliers is that they come from
 erroneously reported rotation periods.  While
 the large surveys do show good internal consistency (Appendix~\ref{app:mcqonly}),
-the referee correctly pointed out that this only a comparative test of methods,
+the referee correctly pointed out that this is only a comparative test of methods,
 rather than an ability to recover ground truth \citep[e.g.][]{Aigrain2015}.
 One could imagine an adversarial scenario in which, say, 10-20\%\ of stars
 with $P_{\rm rot}$$>$20\,days are erroneously reported, and in fact have much
 longer rotation periods.  In this scenario, our analysis would overestimate the
-rate by which the SFR in the Kepler field has decreased, by 7-14\%. }
+degree by which the SFR in the Kepler field has decreased, by 7-14\%. }
 
 Other age indicators may help in verifying the ages of the
 $\lesssim$3\,Gyr stars that are the \added{main }focus of this work.  Specifically,
@@ -1585,7 +1590,7 @@ follows.
   %
   \item Rather than expecting $\approx$500 exoplanets younger than one
     billion years, the age distribution of stars in the Kepler field
-    implies that we should instead expect $\approx$250.
+    \replaced{implies}{suggests} that we should instead expect $\approx$250.
   %
   \item We have derived rotation-based ages for \nplyounggyrotwosigma\
     Kepler planets younger than 1\,Gyr at 2$\sigma$, and
