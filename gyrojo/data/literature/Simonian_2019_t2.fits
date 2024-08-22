@@ -1,0 +1,630 @@
+SIMPLE  =                    T / Standard FITS Format                           BITPIX  =                    8 / Character data                                 NAXIS   =                    0 / No Image --- just extension(s)                 EXTEND  =                    T / There are standard extensions                  ORIGIN  = 'xml2fits_v1.95'     / Converted from XML-Astrores to FITS                                     e-mail: question@simbad.u-strasbg.fr                   LONGSTRN= 'OGIP 1.0'           / Long string convention (&/CONTINUE) may be usedDATE    = '2024-08-22'         / Written on 2024-08-22:18:31:00 (GMT)                                        by: www-data@vizier.astro.unistra.fr                        **********************************************************                          EXCERPT from catalogues stored in VizieR (CDS)                                             with the following conditions:                                   **********************************************************                                                                                                      VizieR Astronomical Server vizier.cds.unistra.fr                                Date: 2024-08-22T18:31:00 [V7.33.3]                                             In case of problem, please report to: cds-question@unistra.fr                                                                                          INFO    = 'service_protocol=ASU' / IVOID of the protocol through which the data                                  was retrieved #                                INFO    = 'request_date=2024-08-22T18:31:00' / Query execution date #           INFO    = 'request=https://vizier.cds.unistra.fr/viz-bin/asu-fits?-oc.form=dec&'CONTINUE  '&-out.max=1000&#out.form=FITS (ascii) Table&-order=I&-out.src=J/ApJ&'CONTINUE  '/871/174/table2&-c.eq=J2000&-c.r=  2&-c.u=arcmin&-c.geom=r&-source=&'CONTINUE  'J/ApJ/871/174/table2&-out=KIC&-out=2MASS&-out=Teff&-out=Ksmag&-out=&'CONTINUE  'KMag&-out=dK&-out=Prot&-out=[Fe/H]&-out=KCat&-out=Sloan&-out=2M&-ou&'CONTINUE  't=Simbad&-out=_RA&-out=_DE&' / Full request URL (POST) #             INFO    = 'contact=cds-question@unistra.fr' / Email or URL to contact publisher                                  #                                              INFO    = 'server_software=7.33.3' / Software version #                         INFO    = 'publisher=CDS'      / Data centre that produced the VOTable #        INFO    = 'ivoid=ivo://cds.vizier/j/apj/871/174' / IVOID of underlying data                                      collection #                                                                                                                   INFO    = 'creator=Simonian G.V.A.' / First author or institution #                                                                                             INFO    = 'cites=bibcode:2019ApJ...871..174S' / Article or Data origin sources #                                                                                INFO    = 'editor=Astrophysical Journal (AAS)' / Editor name (article) #                                                                                        INFO    = 'original_date=2019' / Year of the article publication #                                                                                              INFO    = 'reference_url=https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/871/1&'CONTINUE  '74      '           / Dataset landing page #                                                                                                         INFO    = 'citation=doi:10.26093/cds/vizier.18710174' / Dataset identifier that                                  can be used for citation #                                                                                                     INFO    = 'publication_date=2020-08-20' / Date of first publication in the data                                  centre #                                                                                                                       INFO    = 'rights_uri=https://cds.unistra.fr/vizier-org/licences_vizier.html' /                                  Licence URI #                                                                                                                                                                                                  END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             XTENSION= 'TABLE   '           / Ascii Table Extension (TAB and NEWLINE sep)    BITPIX  =                    8 / Character data                                 NAXIS   =                    2 / Simple 2-D matrix                              NAXIS1  =                  107 / Number of bytes per record                     NAXIS2  =                  629 / Number of records                              PCOUNT  =                    0 / Get rid of random parameters                   GCOUNT  =                    1 / Only one group (isn't it obvious?)             TFIELDS =                   14 / Number of data fields (columns)                CDS-CAT = 'J/ApJ/871/174'      / Catalogue designation in CDS nomenclature               Kepler rapid rotators and Ks-band excesses (Simonian+, 2019)           EXTNAME = 'J_ApJ_871_174_table2' / Identification of the table                  CDS-NAME= 'J/ApJ/871/174/table2' / Table name in METAtab                                 Kepler synchronization follow-up targets                               TBCOL1  =                    2 / UCD=meta.id;meta.main int: ... offset=1        TFORM1  = 'I8      '           / Fortran Format                                 TTYPE1  = 'KIC     '           / [1296787/12783364] Kepler Input Catalog ID for                                  the star                                       TBCOL2  =                   11 / UCD=meta.id char:16 .......... offset=10       TFORM2  = 'A16     '           / Fortran Format                                 TTYPE2  = '_2MASS  '           / APOGEE identifier (HHMMSSss+DDMMSSs; J2000)    TBCOL3  =                   28 / UCD=phys.temperature.effective sho offset=27   TFORM3  = 'I4      '           / Fortran Format                                 TTYPE3  = 'Teff    '           / [4047/5249] Effective temperature from                                          Pinsonneault+ 2012, J/ApJS/199/30              TUNIT3  = 'K       '           / Kelvin                                         TBCOL4  =                   33 / UCD=phot.mag;em.IR.K float: .. offset=32       TFORM4  = 'F6.3    '           / Fortran Format                                 TTYPE4  = 'Ksmag   '           / [8.2/14.4] 2MASS Ks-band apparent magnitude    TUNIT4  = 'mag     '           / magnitude                                      TBCOL5  =                   40 / UCD=phot.mag;em.IR.K float: .. offset=39       TFORM5  = 'F6.3    '           / Fortran Format                                 TTYPE5  = 'KMag    '           / [2.6/6.7] Absolute 2MASS K-band magnitude                                       derived from Gaia parallaxes                   TUNIT5  = 'mag     '           / magnitude                                      TBCOL6  =                   47 / UCD=phot.mag;arith.diff float: offset=46       TFORM6  = 'F6.3    '           / Fortran Format                                 TTYPE6  = 'dK      '           / [-1.3/2.2] Vertical displacement above                                          isochrone (1)                                  TUNIT6  = 'mag     '           / magnitude                                      TBCOL7  =                   54 / UCD=time.period float: ....... offset=53       TFORM7  = 'F6.3    '           / Fortran Format                                 TTYPE7  = 'Prot    '           / [1.5/11] Rotational period from McQuillan+                                      2014, J/ApJS/211/24                            TUNIT7  = 'd       '           / day                                            TBCOL8  =                   61 / UCD=phys.abund.Fe float: ..... offset=60       TFORM8  = 'F5.2    '           / Fortran Format                                 TTYPE8  = '__Fe_H_ '           / [-0.6/0.25]? APOGEE iron abundance             TBCOL9  =                   67 / UCD=meta.ref.url char:4 ...... offset=66       TFORM9  = 'A4      '           / Fortran Format                                 TTYPE9  = 'KCat    '           / Display data from the KIC catalog (V/133) and                                   McQuillan+, 2014, J/ApJS/211/24 and                                             Pinsonneault+, 2012, J/ApJS/199/30 (link)      TBCOL10 =                   72 / UCD=meta.ref.url char:5* ..... offset=71       TFORM10 = 'A5      '           / Fortran Format                                 TTYPE10 = 'Sloan   '           / Display the online SDSS data for the nearest                                    object if any                                  TBCOL11 =                   78 / UCD=meta.ref.url char:2 ...... offset=77       TFORM11 = 'A2      '           / Fortran Format                                 TTYPE11 = '_2M     '           / Display the 2MASS data (Cutri+ 2003, II/246)                                    within 3" (link)                               TBCOL12 =                   81 / UCD=meta.ref.url char:6* ..... offset=80       TFORM12 = 'A6      '           / Fortran Format                                 TTYPE12 = 'Simbad  '           / Simbad column added by the CDS                 TBCOL13 =                   88 / UCD=pos.eq.ra;meta.main double: offset=87      TFORM13 = 'F9.5    '           / Fortran Format                                 TTYPE13 = '_RA     '           / Positions from Simbad (right ascension part)   TUNIT13 = 'deg     '           / degree                                         TBCOL14 =                   98 / UCD=pos.eq.dec;meta.main double: offset=97     TFORM14 = 'F9.5    '           / Fortran Format                                 TTYPE14 = '_DE     '           / Positions from Simbad (declination part)       TUNIT14 = 'deg     '           / degree                                         END                                                                             
+ 1296787	                	4803	12.592	 4.196	-0.086	10.002	     	KCat	Sloan	2M	Simbad	291.84282	+36.95558
+ 1571003	                	4965	12.309	 4.245	 0.078	 9.726	     	KCat	Sloan	2M	Simbad	290.88510	+37.19652
+ 1722506	                	4504	11.176	 4.219	-0.280	10.653	     	KCat	Sloan	2M	Simbad	291.74108	+37.20018
+ 1724975	19290115+3715011	5238	10.412	 3.162	-0.797	10.734	 0.00	KCat	Sloan	2M	Simbad	292.25478	+37.25030
+ 1996773	                	4937	12.716	 4.171	-0.017	 8.603	     	KCat	Sloan	2M	Simbad	286.52270	+37.47519
+ 2014203	                	4339	12.891	 3.716	-0.924	10.796	     	KCat	Sloan	2M	Simbad	291.36354	+37.49023
+ 2015025	                	4854	11.275	 4.205	-0.042	10.267	     	KCat	Sloan	2M	Simbad	291.55953	+37.42162
+ 2021157	                	5171	12.678	 3.968	-0.047	 9.772	     	KCat	Sloan	2M	Simbad	292.90729	+37.49800
+ 2299823	                	4919	13.296	 3.539	-0.662	 7.595	     	KCat	Sloan	2M	Simbad	290.73755	+37.64793
+ 2310497	                	5187	12.061	 3.933	-0.069	10.413	     	KCat	Sloan	2M	Simbad	293.10608	+37.61382
+ 2311350	                	5166	11.903	 4.027	 0.008	 9.049	     	KCat	Sloan	2M	Simbad	293.29419	+37.64360
+ 2423951	                	5153	13.907	 2.899	-1.129	10.746	     	KCat	Sloan	2M	Simbad	286.50699	+37.78405
+ 2442004	                	4155	12.946	 4.804	-0.040	 8.865	     	KCat	Sloan	2M	Simbad	291.14158	+37.76553
+ 2442210	                	5159	12.356	 4.077	 0.053	 8.207	     	KCat	Sloan	2M	Simbad	291.19043	+37.72606
+ 2447838	                	4732	12.554	 4.381	 0.048	10.497	     	KCat	Sloan	2M	Simbad	292.41045	+37.75559
+ 2555568	                	5122	13.583	 4.042	-0.010	10.841	     	KCat	Sloan	2M	Simbad	286.24501	+37.86839
+ 2712795	                	5115	12.463	 3.312	-0.745	10.185	     	KCat	Sloan	2M	Simbad	291.38177	+37.94819
+ 2716857	                	4497	13.009	 3.517	-0.987	 8.698	     	KCat	Sloan	2M	Simbad	292.26882	+37.90845
+ 2831983	19031280+3801413	4452	10.624	 4.575	 0.036	10.039	 0.07	KCat	Sloan	2M	Simbad	285.80334	+38.02815
+ 2968611	                	5130	12.722	 3.845	-0.201	 8.376	     	KCat	Sloan	2M	Simbad	285.38349	+38.18604
+ 2984308	                	4971	12.906	 4.153	-0.010	 9.686	     	KCat	Sloan	2M	Simbad	290.14684	+38.14688
+ 2984626	                	4797	12.301	 4.316	 0.029	10.047	     	KCat	Sloan	2M	Simbad	290.22878	+38.10355
+ 2993984	                	5134	13.121	 2.865	-1.178	10.765	     	KCat	Sloan	2M	Simbad	292.37579	+38.13234
+ 2996004	                	5148	11.890	 3.268	-0.764	 7.361	     	KCat	Sloan	2M	Simbad	292.81203	+38.10227
+ 2998133	                	5036	12.194	 3.223	-0.893	 9.342	     	KCat	Sloan	2M	Simbad	293.26875	+38.13631
+ 3102749	                	4153	11.413	 3.903	-0.945	 8.163	     	KCat	Sloan	2M	Simbad	287.61007	+38.24851
+ 3111555	                	5102	13.664	 3.905	-0.162	 9.791	     	KCat	Sloan	2M	Simbad	290.17968	+38.24010
+ 3112828	                	4447	12.167	 4.592	 0.048	 9.949	     	KCat	Sloan	2M	Simbad	290.52370	+38.26030
+ 3112890	                	4324	11.658	 3.906	-0.748	 7.548	     	KCat	Sloan	2M	Simbad	290.53810	+38.25969
+ 3115288	                	5152	13.383	 3.908	-0.122	10.244	     	KCat	Sloan	2M	Simbad	291.14329	+38.27389
+ 3115664	                	4921	11.248	 3.480	-0.719	 8.164	     	KCat	Sloan	2M	Simbad	291.23957	+38.25028
+ 3116390	                	4961	13.106	 3.443	-0.727	 8.557	     	KCat	Sloan	2M	Simbad	291.41901	+38.26770
+ 3119943	                	4886	13.352	 4.277	 0.053	 9.012	     	KCat	Sloan	2M	Simbad	292.19904	+38.27285
+ 3123292	                	4956	12.556	 3.949	-0.225	 8.981	     	KCat	Sloan	2M	Simbad	292.99601	+38.20443
+ 3124825	                	4734	13.265	 4.121	-0.210	10.720	     	KCat	Sloan	2M	Simbad	293.33836	+38.20887
+ 3328418	                	4780	11.122	 3.828	-0.470	10.458	     	KCat	Sloan	2M	Simbad	287.34027	+38.47969
+ 3330773	                	4842	11.614	 4.056	-0.199	 7.594	     	KCat	Sloan	2M	Simbad	288.14568	+38.42085
+ 3428255	                	4827	13.447	 4.289	 0.024	10.650	     	KCat	Sloan	2M	Simbad	286.63862	+38.57800
+ 3439126	                	4212	12.182	 4.330	-0.443	 7.900	     	KCat	Sloan	2M	Simbad	290.15724	+38.52439
+ 3453592	                	4878	11.673	 3.992	-0.238	10.267	     	KCat	Sloan	2M	Simbad	293.90804	+38.58956
+ 3455419	                	5160	13.398	 3.354	-0.670	 9.979	     	KCat	Sloan	2M	Simbad	294.36130	+38.57409
+ 3525783	                	4113	12.850	 4.884	-0.023	 8.099	     	KCat	Sloan	2M	Simbad	285.07250	+38.67935
+ 3533534	                	4749	11.978	 4.260	-0.061	 9.047	     	KCat	Sloan	2M	Simbad	288.12886	+38.61403
+ 3544900	                	4642	13.159	 4.228	-0.169	10.132	     	KCat	Sloan	2M	Simbad	291.51024	+38.67619
+ 3544968	                	5167	11.244	 3.620	-0.397	10.687	     	KCat	Sloan	2M	Simbad	291.53130	+38.65617
+ 3546532	                	5249	11.943	 3.030	-0.919	 8.676	     	KCat	Sloan	2M	Simbad	291.93140	+38.69475
+ 3553858	                	5171	13.021	 4.062	 0.047	 8.630	     	KCat	Sloan	2M	Simbad	293.76498	+38.64552
+ 3555340	                	4713	11.714	 3.739	-0.607	10.380	     	KCat	Sloan	2M	Simbad	294.12375	+38.65093
+ 3632145	                	5187	12.347	 3.886	-0.117	 9.137	     	KCat	Sloan	2M	Simbad	287.25610	+38.73038
+ 3632538	                	4927	13.383	 3.555	-0.641	 8.955	     	KCat	Sloan	2M	Simbad	287.40507	+38.71155
+ 3640606	                	5028	12.554	 4.034	-0.087	 8.591	     	KCat	Sloan	2M	Simbad	290.02435	+38.72753
+ 3644884	                	5143	13.614	 3.727	-0.309	 9.377	     	KCat	Sloan	2M	Simbad	291.26427	+38.75506
+ 3654549	19345659+3845475	4932	10.240	 3.356	-0.836	10.956	-0.38	KCat	Sloan	2M	Simbad	293.73585	+38.76321
+ 3656267	                	4428	12.043	 4.030	-0.529	10.802	     	KCat	Sloan	2M	Simbad	294.14956	+38.72598
+ 3656620	                	4814	13.234	 4.304	 0.030	 9.759	     	KCat	Sloan	2M	Simbad	294.24164	+38.72190
+ 3658853	19390301+3844023	4097	11.434	 4.933	 0.002	10.925	 0.15	KCat	Sloan	2M	Simbad	294.76255	+38.73398
+ 3659186	                	4787	13.242	 4.198	-0.095	 9.786	     	KCat	Sloan	2M	Simbad	294.84488	+38.78813
+ 3730613	                	4821	11.868	 3.954	-0.316	 9.150	     	KCat	Sloan	2M	Simbad	286.05110	+38.88582
+ 3734393	                	4607	11.835	 3.787	-0.636	 8.937	     	KCat	Sloan	2M	Simbad	287.51967	+38.83303
+ 3735720	                	4844	11.273	 4.222	-0.031	 7.302	     	KCat	Sloan	2M	Simbad	288.01987	+38.82872
+ 3736200	                	5089	12.278	 3.338	-0.739	 8.261	     	KCat	Sloan	2M	Simbad	288.19087	+38.81644
+ 3747153	                	4983	12.241	 4.060	-0.094	 7.012	     	KCat	Sloan	2M	Simbad	291.51146	+38.82399
+ 3749022	                	4889	12.975	 4.351	 0.129	10.470	     	KCat	Sloan	2M	Simbad	291.97774	+38.82530
+ 3749207	                	4247	12.653	 4.179	-0.553	 7.082	     	KCat	Sloan	2M	Simbad	292.02651	+38.80965
+ 3758987	                	4960	12.342	 4.157	-0.014	 7.190	     	KCat	Sloan	2M	Simbad	294.49677	+38.87144
+ 3848476	                	5036	13.416	 3.896	-0.219	 7.556	     	KCat	Sloan	2M	Simbad	290.92851	+38.91453
+ 3849014	                	5119	12.876	 4.065	 0.011	 9.963	     	KCat	Sloan	2M	Simbad	291.08535	+38.93712
+ 3854669	                	4991	11.951	 3.562	-0.586	10.298	     	KCat	Sloan	2M	Simbad	292.60988	+38.99488
+ 3869529	                	5093	12.609	 3.994	-0.080	 7.428	     	KCat	Sloan	2M	Simbad	296.06952	+38.98990
+ 3952304	                	4934	13.172	 3.055	-1.135	10.767	     	KCat	Sloan	2M	Simbad	290.93531	+39.04898
+ 3953725	                	4389	11.993	 4.510	-0.085	10.740	     	KCat	Sloan	2M	Simbad	291.35878	+39.02654
+ 3974043	                	4852	11.665	 4.164	-0.084	10.202	     	KCat	Sloan	2M	Simbad	296.19480	+39.02403
+ 3974332	                	4793	12.723	 3.433	-0.857	10.788	     	KCat	Sloan	2M	Simbad	296.24715	+39.02592
+ 4047900	                	4598	13.223	 3.594	-0.835	10.946	     	KCat	Sloan	2M	Simbad	288.97358	+39.18567
+ 4066629	                	5023	12.566	 4.140	 0.015	10.024	     	KCat	Sloan	2M	Simbad	293.97726	+39.13874
+ 4066932	                	5023	13.167	 4.029	-0.095	 9.039	     	KCat	Sloan	2M	Simbad	294.05060	+39.13326
+ 4076697	                	5176	11.935	 3.618	-0.393	 8.378	     	KCat	Sloan	2M	Simbad	296.19897	+39.15239
+ 4136992	                	4885	12.135	 4.230	 0.005	10.436	     	KCat	Sloan	2M	Simbad	285.01999	+39.20706
+ 4137504	                	5012	13.024	 3.262	-0.871	 7.326	     	KCat	Sloan	2M	Simbad	285.17955	+39.27000
+ 4138576	                	5094	13.437	 3.883	-0.190	 8.122	     	KCat	Sloan	2M	Simbad	285.60142	+39.29762
+ 4147537	                	4849	13.065	 3.506	-0.744	 7.623	     	KCat	Sloan	2M	Simbad	288.89459	+39.29851
+ 4158372	19271763+3913024	4235	10.941	 4.507	-0.239	 8.008	 0.17	KCat	Sloan	2M	Simbad	291.82350	+39.21733
+ 4177188	                	5235	12.592	 3.771	-0.191	 8.229	     	KCat	Sloan	2M	Simbad	295.95960	+39.27752
+ 4180810	                	4956	12.857	 3.482	-0.692	 9.973	     	KCat	Sloan	2M	Simbad	296.61756	+39.21863
+ 4243462	                	4795	10.909	 4.019	-0.269	 9.636	     	KCat	Sloan	2M	Simbad	285.44021	+39.38236
+ 4244814	                	5205	12.128	 4.016	 0.028	 7.791	     	KCat	Sloan	2M	Simbad	285.97303	+39.34290
+ 4263703	                	5214	13.301	 3.898	-0.083	10.384	     	KCat	Sloan	2M	Simbad	291.92577	+39.38976
+ 4265387	                	5229	13.967	 3.195	-0.773	10.106	     	KCat	Sloan	2M	Simbad	292.31636	+39.38851
+ 4274622	                	5032	13.471	 3.470	-0.649	 7.647	     	KCat	Sloan	2M	Simbad	294.52519	+39.34073
+ 4281652	                	4971	13.711	 4.402	 0.239	 9.826	     	KCat	Sloan	2M	Simbad	296.00412	+39.39316
+ 4372200	                	4838	13.070	 4.343	 0.085	 9.689	     	KCat	Sloan	2M	Simbad	293.48322	+39.44014
+ 4373708	                	4868	12.647	 3.944	-0.293	 9.472	     	KCat	Sloan	2M	Simbad	293.83826	+39.42337
+ 4445884	                	5091	13.384	 4.129	 0.054	10.962	     	KCat	Sloan	2M	Simbad	285.17787	+39.57373
+ 4451525	                	5152	11.969	 4.038	 0.008	10.909	     	KCat	Sloan	2M	Simbad	287.60960	+39.59948
+ 4458346	                	4996	13.133	 3.833	-0.312	 8.585	     	KCat	Sloan	2M	Simbad	289.81894	+39.56380
+ 4464927	                	4907	13.048	 4.187	-0.022	 8.854	     	KCat	Sloan	2M	Simbad	291.76604	+39.54607
+ 4470609	                	5141	12.194	 4.012	-0.025	 7.498	     	KCat	Sloan	2M	Simbad	293.32491	+39.59456
+ 4473811	                	4640	12.843	 4.432	 0.033	10.813	     	KCat	Sloan	2M	Simbad	294.13111	+39.50047
+ 4479073	                	4422	11.770	 4.411	-0.153	10.796	     	KCat	Sloan	2M	Simbad	295.39934	+39.51172
+ 4570914	                	4971	11.560	 3.003	-1.159	 7.520	     	KCat	Sloan	2M	Simbad	294.18573	+39.67650
+ 4581413	                	4466	12.364	 4.474	-0.055	10.920	     	KCat	Sloan	2M	Simbad	296.47994	+39.65209
+ 4646657	                	5211	12.518	 3.798	-0.185	 8.548	     	KCat	Sloan	2M	Simbad	289.33300	+39.76046
+ 4647084	                	4961	10.968	 3.603	-0.567	 9.752	     	KCat	Sloan	2M	Simbad	289.46001	+39.74138
+ 4649635	                	4813	12.061	 4.256	-0.019	 8.462	     	KCat	Sloan	2M	Simbad	290.19324	+39.75798
+ 4659505	                	5119	12.437	 4.053	-0.001	 8.190	     	KCat	Sloan	2M	Simbad	293.11993	+39.72627
+ 4671547	19435754+3945490	4135	 8.386	 4.483	-0.391	 8.063	 0.05	KCat	Sloan	2M	Simbad	295.98975	+39.76361
+ 4673560	                	4811	12.820	 4.094	-0.183	 8.206	     	KCat	Sloan	2M	Simbad	296.39051	+39.72791
+ 4754691	                	4487	10.916	 3.535	-0.978	10.419	     	KCat	Sloan	2M	Simbad	294.02125	+39.82458
+ 4814376	                	4454	10.822	 4.517	-0.021	10.098	     	KCat	Sloan	2M	Simbad	283.95310	+39.91240
+ 4816200	                	4463	12.124	 4.442	-0.088	10.654	     	KCat	Sloan	2M	Simbad	284.80951	+39.98611
+ 4821181	                	4949	12.791	 4.063	-0.117	 8.105	     	KCat	Sloan	2M	Simbad	287.04558	+39.99234
+ 4832949	                	4255	12.184	 4.723	 0.000	 9.748	     	KCat	Sloan	2M	Simbad	290.96132	+39.96477
+ 4833652	                	5235	11.567	 3.963	 0.001	 9.582	     	KCat	Sloan	2M	Simbad	291.18492	+39.95949
+ 4842829	                	4999	13.142	 4.197	 0.055	 7.512	     	KCat	Sloan	2M	Simbad	293.82653	+39.90724
+ 4846452	                	5225	12.365	 3.980	 0.010	10.929	     	KCat	Sloan	2M	Simbad	294.73811	+39.92019
+ 4857335	                	4901	12.283	 4.093	-0.121	 7.288	     	KCat	Sloan	2M	Simbad	297.10156	+39.94408
+ 4861723	                	4677	13.310	 3.271	-1.101	10.923	     	KCat	Sloan	2M	Simbad	298.02401	+39.90058
+ 4902107	                	4383	13.155	 3.427	-1.173	10.427	     	KCat	Sloan	2M	Simbad	283.65223	+40.09670
+ 4903181	                	4991	12.115	 4.790	 0.642	 8.565	     	KCat	Sloan	2M	Simbad	284.15201	+40.09329
+ 4907633	                	5029	13.256	 3.004	-1.116	 8.951	     	KCat	Sloan	2M	Simbad	286.26469	+40.08279
+ 4909498	19082828+4003276	4991	11.146	 4.143	-0.005	 9.480	 0.12	KCat	Sloan	2M	Simbad	287.11786	+40.05769
+ 4914938	                	5152	12.867	 3.852	-0.177	10.777	     	KCat	Sloan	2M	Simbad	289.14960	+40.03392
+ 4930560	19344669+4004481	4224	 8.222	 3.947	-0.812	10.367	 0.04	KCat	Sloan	2M	Simbad	293.69462	+40.08005
+ 4931104	                	4918	13.177	 4.183	-0.018	 7.579	     	KCat	Sloan	2M	Simbad	293.83687	+40.06638
+ 4932105	                	5249	12.905	 3.864	-0.086	 9.341	     	KCat	Sloan	2M	Simbad	294.08862	+40.05522
+ 4932114	                	5031	11.884	 4.114	-0.005	 9.041	     	KCat	Sloan	2M	Simbad	294.09038	+40.07266
+ 4934935	                	4698	13.241	 4.170	-0.187	 8.646	     	KCat	Sloan	2M	Simbad	294.80650	+40.00233
+ 4935578	                	5083	14.013	 3.000	-1.081	10.202	     	KCat	Sloan	2M	Simbad	294.96775	+40.09715
+ 4950322	                	4789	13.222	 4.261	-0.032	10.200	     	KCat	Sloan	2M	Simbad	298.16046	+40.05993
+ 4952208	                	5224	13.390	 3.348	-0.623	 7.266	     	KCat	Sloan	2M	Simbad	298.54903	+40.06061
+ 5006875	                	5186	13.395	 4.010	 0.007	10.908	     	KCat	Sloan	2M	Simbad	290.47520	+40.14356
+ 5026396	                	5129	12.393	 4.077	 0.030	 7.640	     	KCat	Sloan	2M	Simbad	295.69152	+40.12915
+ 5028289	                	5208	11.691	 3.266	-0.719	 7.544	     	KCat	Sloan	2M	Simbad	296.11083	+40.13641
+ 5032343	                	4645	12.705	 4.119	-0.276	10.092	     	KCat	Sloan	2M	Simbad	296.94199	+40.10889
+ 5032950	19481450+4010058	5018	10.637	 3.395	-0.734	10.637	 0.06	KCat	Sloan	2M	Simbad	297.06040	+40.16829
+ 5033179	                	5222	12.890	 3.811	-0.163	 8.673	     	KCat	Sloan	2M	Simbad	297.11109	+40.12882
+ 5125948	                	4942	12.933	 3.258	-0.927	 8.197	     	KCat	Sloan	2M	Simbad	298.22827	+40.22379
+ 5128051	                	5145	12.078	 3.291	-0.743	10.426	     	KCat	Sloan	2M	Simbad	298.68884	+40.25329
+ 5128886	19553109+4015026	4709	10.715	 3.909	-0.441	 8.553	-0.09	KCat	Sloan	2M	Simbad	298.87956	+40.25072
+ 5171499	                	5097	11.544	 4.116	 0.046	10.740	     	KCat	Sloan	2M	Simbad	286.64479	+40.32892
+ 5174424	                	5194	11.831	 3.884	-0.113	10.418	     	KCat	Sloan	2M	Simbad	287.86267	+40.38281
+ 5179724	                	5097	12.771	 4.038	-0.032	10.524	     	KCat	Sloan	2M	Simbad	289.64525	+40.32247
+ 5182832	                	5192	12.707	 3.287	-0.711	 7.253	     	KCat	Sloan	2M	Simbad	290.50377	+40.34089
+ 5197637	                	5222	12.644	 3.775	-0.199	 8.247	     	KCat	Sloan	2M	Simbad	294.74090	+40.37325
+ 5197876	                	4889	13.078	 4.319	 0.097	 9.463	     	KCat	Sloan	2M	Simbad	294.80543	+40.36196
+ 5201163	                	5061	12.347	 3.379	-0.718	10.799	     	KCat	Sloan	2M	Simbad	295.56628	+40.38729
+ 5217512	                	5099	12.631	 4.017	-0.052	10.533	     	KCat	Sloan	2M	Simbad	298.88857	+40.31036
+ 5252845	                	5120	13.650	 2.831	-1.222	 9.726	     	KCat	Sloan	2M	Simbad	283.40887	+40.47917
+ 5268387	                	5159	13.537	 2.748	-1.276	 8.469	     	KCat	Sloan	2M	Simbad	289.78719	+40.46839
+ 5282045	                	4921	12.060	 3.457	-0.743	 9.503	     	KCat	Sloan	2M	Simbad	293.83559	+40.42837
+ 5283399	                	4941	12.854	 4.112	-0.073	10.191	     	KCat	Sloan	2M	Simbad	294.18642	+40.47621
+ 5285194	                	5166	13.520	 3.822	-0.197	 7.924	     	KCat	Sloan	2M	Simbad	294.66040	+40.40925
+ 5296356	                	4846	12.659	 4.253	 0.000	 9.768	     	KCat	Sloan	2M	Simbad	297.15651	+40.41817
+ 5297346	                	5214	12.568	 4.032	 0.052	 9.375	     	KCat	Sloan	2M	Simbad	297.37244	+40.45842
+ 5302974	                	5215	13.258	 3.966	-0.013	10.725	     	KCat	Sloan	2M	Simbad	298.47839	+40.41807
+ 5340581	                	5113	12.710	 3.165	-0.894	 8.473	     	KCat	Sloan	2M	Simbad	283.47655	+40.53792
+ 5350822	                	4975	12.264	 4.211	 0.052	 8.411	     	KCat	Sloan	2M	Simbad	288.06841	+40.50611
+ 5358110	                	5097	13.077	 3.511	-0.559	10.467	     	KCat	Sloan	2M	Simbad	290.42256	+40.57738
+ 5358169	                	5192	12.204	 4.031	 0.032	 8.448	     	KCat	Sloan	2M	Simbad	290.44188	+40.58688
+ 5368862	                	4527	12.498	 3.991	-0.491	10.023	     	KCat	Sloan	2M	Simbad	293.67447	+40.51117
+ 5373962	                	5197	12.093	 2.986	-1.009	10.716	     	KCat	Sloan	2M	Simbad	294.99606	+40.58697
+ 5389250	                	4981	12.523	 4.068	-0.087	 7.603	     	KCat	Sloan	2M	Simbad	298.41568	+40.56001
+ 5391808	                	5129	12.721	 4.130	 0.083	 7.764	     	KCat	Sloan	2M	Simbad	298.87910	+40.58770
+ 5437830	                	4896	12.260	 3.611	-0.606	 9.157	     	KCat	Sloan	2M	Simbad	288.42943	+40.68932
+ 5437956	                	5023	12.496	 3.807	-0.318	10.161	     	KCat	Sloan	2M	Simbad	288.47905	+40.62369
+ 5442808	                	5187	11.559	 3.992	-0.011	 7.008	     	KCat	Sloan	2M	Simbad	290.06203	+40.66260
+ 5443320	                	5218	13.375	 3.916	-0.061	10.305	     	KCat	Sloan	2M	Simbad	290.20548	+40.66996
+ 5456247	                	4495	12.651	 4.383	-0.123	10.957	     	KCat	Sloan	2M	Simbad	294.09617	+40.63295
+ 5466243	                	4566	13.148	 4.325	-0.127	10.214	     	KCat	Sloan	2M	Simbad	296.49899	+40.60316
+ 5471519	                	4934	12.360	 3.361	-0.830	 7.225	     	KCat	Sloan	2M	Simbad	297.67212	+40.67727
+ 5475958	                	4559	12.357	 4.511	 0.053	10.795	     	KCat	Sloan	2M	Simbad	298.61870	+40.61871
+ 5514252	                	5215	11.292	 3.314	-0.666	 8.529	     	KCat	Sloan	2M	Simbad	284.55853	+40.72644
+ 5522339	                	4306	11.850	 4.657	-0.015	 9.909	     	KCat	Sloan	2M	Simbad	288.17774	+40.76359
+ 5541919	                	4921	12.184	 4.295	 0.096	 9.334	     	KCat	Sloan	2M	Simbad	294.22388	+40.73378
+ 5545946	                	5119	13.619	 3.370	-0.685	 8.279	     	KCat	Sloan	2M	Simbad	295.29210	+40.73743
+ 5547482	                	5192	13.270	 4.041	 0.042	 8.765	     	KCat	Sloan	2M	Simbad	295.64103	+40.70808
+ 5559671	                	4427	13.075	 3.744	-0.816	 7.635	     	KCat	Sloan	2M	Simbad	298.22977	+40.70918
+ 5560850	                	5110	13.532	 3.411	-0.650	 9.340	     	KCat	Sloan	2M	Simbad	298.49803	+40.75982
+ 5560853	                	5214	12.906	 3.885	-0.095	 9.330	     	KCat	Sloan	2M	Simbad	298.49854	+40.76135
+ 5609982	                	4662	13.437	 4.036	-0.347	10.319	     	KCat	Sloan	2M	Simbad	288.67107	+40.89637
+ 5611371	19163219+4051062	5086	10.052	 4.056	-0.022	 9.552	 0.23	KCat	Sloan	2M	Simbad	289.13415	+40.85176
+ 5616471	                	4955	13.529	 4.233	 0.058	 8.937	     	KCat	Sloan	2M	Simbad	290.72431	+40.88372
+ 5630676	                	5042	12.372	 5.579	 1.468	 9.502	     	KCat	Sloan	2M	Simbad	294.91677	+40.80563
+ 5637317	                	4955	12.559	 4.055	-0.120	10.718	     	KCat	Sloan	2M	Simbad	296.48232	+40.89362
+ 5637468	                	4874	13.352	 3.039	-1.194	 9.486	     	KCat	Sloan	2M	Simbad	296.51213	+40.86740
+ 5644133	                	4752	11.400	 4.366	 0.047	 9.999	     	KCat	Sloan	2M	Simbad	297.89243	+40.84171
+ 5647960	                	4727	11.878	 3.881	-0.455	10.819	     	KCat	Sloan	2M	Simbad	298.70358	+40.88061
+ 5652411	                	4524	12.651	 4.210	-0.274	 9.601	     	KCat	Sloan	2M	Simbad	299.57185	+40.81556
+ 5653629	                	5049	13.417	 3.864	-0.242	 9.770	     	KCat	Sloan	2M	Simbad	299.80594	+40.89930
+ 5653796	                	4949	13.354	 4.130	-0.049	 9.629	     	KCat	Sloan	2M	Simbad	299.83636	+40.84108
+ 5685898	                	5081	13.422	 4.118	 0.036	 9.691	     	KCat	Sloan	2M	Simbad	284.33654	+40.91718
+ 5693196	                	5023	12.341	 3.702	-0.423	 8.761	     	KCat	Sloan	2M	Simbad	287.65655	+40.92212
+ 5696518	                	4714	11.670	 3.940	-0.406	10.173	     	KCat	Sloan	2M	Simbad	288.92906	+40.91763
+ 5701925	                	5244	13.299	 3.872	-0.082	 8.947	     	KCat	Sloan	2M	Simbad	290.62408	+40.91121
+ 5702501	                	5208	12.557	 2.814	-1.172	10.779	     	KCat	Sloan	2M	Simbad	290.81835	+40.95015
+ 5708183	                	5013	12.959	 5.574	 1.442	10.734	     	KCat	Sloan	2M	Simbad	292.64711	+40.91476
+ 5722327	                	4984	12.286	 4.043	-0.110	10.182	     	KCat	Sloan	2M	Simbad	296.38191	+40.95801
+ 5725977	                	4410	13.220	 4.674	 0.099	10.558	     	KCat	Sloan	2M	Simbad	297.15742	+40.92930
+ 5732812	                	4871	12.974	 4.165	-0.070	10.802	     	KCat	Sloan	2M	Simbad	298.54837	+40.99275
+ 5794792	                	5199	13.293	 4.469	 0.476	10.032	     	KCat	Sloan	2M	Simbad	293.03149	+41.00349
+ 5871245	                	5168	13.181	 3.975	-0.042	 7.555	     	KCat	Sloan	2M	Simbad	290.15058	+41.17576
+ 5871510	                	4336	12.763	 3.906	-0.737	10.925	     	KCat	Sloan	2M	Simbad	290.23035	+41.17759
+ 5876377	                	5064	11.812	 4.051	-0.044	10.837	     	KCat	Sloan	2M	Simbad	291.82632	+41.12936
+ 5880537	                	5144	13.758	 3.966	-0.069	 8.192	     	KCat	Sloan	2M	Simbad	293.15136	+41.13273
+ 5893500	                	5249	13.468	 3.792	-0.157	 8.869	     	KCat	Sloan	2M	Simbad	296.51514	+41.12571
+ 5965012	                	5088	12.609	 3.917	-0.160	 9.532	     	KCat	Sloan	2M	Simbad	293.28008	+41.27661
+ 5989187	                	5046	12.200	 4.138	 0.030	 8.222	     	KCat	Sloan	2M	Simbad	299.00607	+41.23441
+ 5990853	                	4328	13.420	 4.634	-0.016	10.816	     	KCat	Sloan	2M	Simbad	299.32552	+41.22792
+ 6034565	19165962+4119133	5211	10.553	 3.971	-0.012	 7.657	 0.00	KCat	Sloan	2M	Simbad	289.24845	+41.32036
+ 6034933	                	5220	10.706	 4.050	 0.074	 8.080	     	KCat	Sloan	2M	Simbad	289.38056	+41.38302
+ 6036776	                	4710	12.623	 4.447	 0.099	10.263	     	KCat	Sloan	2M	Simbad	289.98124	+41.32044
+ 6038882	                	4102	11.701	 4.903	-0.021	 9.259	     	KCat	Sloan	2M	Simbad	290.62938	+41.33958
+ 6043782	                	5228	12.479	 3.253	-0.715	 8.647	     	KCat	Sloan	2M	Simbad	292.26793	+41.34898
+ 6045400	                	4610	13.586	 4.534	 0.113	 9.952	     	KCat	Sloan	2M	Simbad	292.73854	+41.32723
+ 6060473	                	4923	12.059	 3.251	-0.947	 9.404	     	KCat	Sloan	2M	Simbad	296.74730	+41.35072
+ 6062048	                	5091	12.428	 4.051	-0.024	 8.516	     	KCat	Sloan	2M	Simbad	297.08048	+41.33837
+ 6065960	                	4884	12.007	 4.206	-0.019	 8.176	     	KCat	Sloan	2M	Simbad	298.03137	+41.33902
+ 6123144	                	5129	13.585	 3.962	-0.085	 8.938	     	KCat	Sloan	2M	Simbad	291.69439	+41.43613
+ 6131295	                	5093	11.125	 3.198	-0.876	 8.443	     	KCat	Sloan	2M	Simbad	294.17914	+41.45007
+ 6143050	                	4867	13.175	 3.314	-0.923	10.617	     	KCat	Sloan	2M	Simbad	297.01224	+41.44400
+ 6146804	                	4932	12.142	 3.543	-0.649	 8.127	     	KCat	Sloan	2M	Simbad	297.90368	+41.49935
+ 6183676	                	5093	11.601	 4.035	-0.038	10.459	     	KCat	Sloan	2M	Simbad	283.47937	+41.59275
+ 6188162	                	5181	 9.265	 3.881	-0.126	 8.053	     	KCat	Sloan	2M	Simbad	285.64613	+41.53668
+ 6197810	                	5038	11.335	 3.331	-0.782	 7.067	     	KCat	Sloan	2M	Simbad	289.57601	+41.53128
+ 6213401	                	4971	13.087	 4.074	-0.089	 8.186	     	KCat	Sloan	2M	Simbad	294.37609	+41.55979
+ 6224216	19480169+4134178	5156	10.771	 4.079	 0.052	 7.837	 0.04	KCat	Sloan	2M	Simbad	297.00705	+41.57161
+ 6227442	                	5022	13.359	 3.317	-0.809	 8.142	     	KCat	Sloan	2M	Simbad	297.72805	+41.53560
+ 6231656	                	4447	12.665	 4.425	-0.118	10.064	     	KCat	Sloan	2M	Simbad	298.67245	+41.52605
+ 6272567	                	5227	13.715	 3.239	-0.730	 8.571	     	KCat	Sloan	2M	Simbad	287.35101	+41.69448
+ 6280300	                	5137	12.623	 3.943	-0.098	 9.727	     	KCat	Sloan	2M	Simbad	290.22856	+41.61460
+ 6284645	                	4978	13.276	 4.123	-0.035	10.118	     	KCat	Sloan	2M	Simbad	291.67437	+41.64909
+ 6285722	                	4801	13.247	 3.523	-0.761	10.366	     	KCat	Sloan	2M	Simbad	292.02728	+41.64610
+ 6290789	                	4206	12.262	 3.970	-0.810	 8.153	     	KCat	Sloan	2M	Simbad	293.63662	+41.61147
+ 6305531	                	5018	12.971	 4.104	-0.025	 7.584	     	KCat	Sloan	2M	Simbad	297.28617	+41.68520
+ 6310279	                	5249	13.376	 3.631	-0.318	 8.192	     	KCat	Sloan	2M	Simbad	298.40059	+41.65224
+ 6342486	                	4813	11.570	 4.143	-0.132	10.989	     	KCat	Sloan	2M	Simbad	282.93417	+41.76485
+ 6349999	                	5099	11.390	 4.161	 0.092	 8.587	     	KCat	Sloan	2M	Simbad	286.63601	+41.73912
+ 6418986	                	4683	10.560	 3.698	-0.669	 8.785	     	KCat	Sloan	2M	Simbad	281.76460	+41.85882
+ 6419082	                	4900	12.783	 3.369	-0.845	 7.743	     	KCat	Sloan	2M	Simbad	281.83231	+41.85222
+ 6429168	                	4810	13.188	 4.307	 0.030	10.259	     	KCat	Sloan	2M	Simbad	286.78113	+41.85062
+ 6430899	                	5229	10.994	 3.061	-0.906	 7.210	     	KCat	Sloan	2M	Simbad	287.55281	+41.82119
+ 6431753	                	5045	12.976	 3.847	-0.262	10.881	     	KCat	Sloan	2M	Simbad	287.92208	+41.83215
+ 6450004	                	5201	12.988	 4.959	 0.967	10.204	     	KCat	Sloan	2M	Simbad	294.08275	+41.88781
+ 6466852	                	5010	13.012	 3.143	-0.991	 8.479	     	KCat	Sloan	2M	Simbad	298.24105	+41.81588
+ 6526987	                	5207	12.864	 3.217	-0.770	 9.449	     	KCat	Sloan	2M	Simbad	293.26369	+41.95858
+ 6542087	                	4144	12.411	 4.806	-0.055	10.066	     	KCat	Sloan	2M	Simbad	297.14899	+41.92253
+ 6542256	                	4871	13.566	 4.218	-0.017	 8.653	     	KCat	Sloan	2M	Simbad	297.18991	+41.93296
+ 6590179	                	4521	10.999	 4.578	 0.091	10.011	     	KCat	Sloan	2M	Simbad	286.36998	+42.07304
+ 6593968	                	4437	13.119	 4.551	 0.000	 9.784	     	KCat	Sloan	2M	Simbad	287.91106	+42.01403
+ 6595429	                	5099	12.757	 4.150	 0.081	10.442	     	KCat	Sloan	2M	Simbad	288.45220	+42.08840
+ 6610456	                	4626	12.893	 3.536	-0.873	 9.407	     	KCat	Sloan	2M	Simbad	293.09405	+42.07432
+ 6611254	                	4496	13.230	 3.674	-0.831	10.373	     	KCat	Sloan	2M	Simbad	293.31363	+42.07751
+ 6611650	19334321+4200167	4991	11.644	 3.273	-0.876	 7.850	 0.14	KCat	Sloan	2M	Simbad	293.43009	+42.00468
+ 6629456	                	5229	11.439	 3.662	-0.305	10.709	     	KCat	Sloan	2M	Simbad	297.73064	+42.04901
+ 6668608	                	4228	11.244	 4.733	-0.021	10.509	     	KCat	Sloan	2M	Simbad	283.41413	+42.14818
+ 6688223	                	5175	11.757	 3.275	-0.736	 8.529	     	KCat	Sloan	2M	Simbad	290.80448	+42.16002
+ 6689191	                	4935	12.444	 3.412	-0.778	10.416	     	KCat	Sloan	2M	Simbad	291.12320	+42.19161
+ 6757075	                	5212	12.221	 5.181	 1.199	 7.541	     	KCat	Sloan	2M	Simbad	284.25897	+42.29701
+ 6767913	                	5132	13.335	 3.683	-0.361	10.079	     	KCat	Sloan	2M	Simbad	288.79463	+42.21082
+ 6782577	                	4966	13.089	 4.752	 0.585	 8.954	     	KCat	Sloan	2M	Simbad	293.36383	+42.28488
+ 6842569	                	5099	11.452	 3.207	-0.862	 8.350	     	KCat	Sloan	2M	Simbad	284.23758	+42.31729
+ 6851944	                	4730	12.335	 3.662	-0.672	 7.805	     	KCat	Sloan	2M	Simbad	288.26861	+42.39270
+ 6853151	                	4734	13.588	 4.072	-0.260	10.658	     	KCat	Sloan	2M	Simbad	288.72133	+42.37408
+ 6880588	                	4606	13.473	 4.164	-0.259	 8.951	     	KCat	Sloan	2M	Simbad	296.41111	+42.31196
+ 6939552	                	4858	12.770	 4.196	-0.048	10.429	     	KCat	Sloan	2M	Simbad	288.92224	+42.44710
+ 6955353	                	4527	11.999	 4.474	-0.008	10.729	     	KCat	Sloan	2M	Simbad	293.86619	+42.45495
+ 6962536	                	5106	12.516	 4.122	 0.058	 9.341	     	KCat	Sloan	2M	Simbad	295.66063	+42.43840
+ 6963815	19434971+4225187	4730	 9.643	 3.898	-0.436	10.145	 0.01	KCat	Sloan	2M	Simbad	295.95719	+42.42186
+ 6964067	                	4947	12.487	 4.513	 0.332	10.155	     	KCat	Sloan	2M	Simbad	296.02072	+42.43339
+ 7009601	                	5140	12.794	 2.830	-1.208	10.219	     	KCat	Sloan	2M	Simbad	282.32001	+42.56713
+ 7018131	                	5046	11.854	 4.071	-0.037	10.655	     	KCat	Sloan	2M	Simbad	286.31010	+42.56578
+ 7020128	                	5238	13.724	 3.574	-0.385	 9.800	     	KCat	Sloan	2M	Simbad	287.22512	+42.59168
+ 7024901	                	5197	11.461	 3.081	-0.914	 9.261	     	KCat	Sloan	2M	Simbad	289.05513	+42.54765
+ 7048365	                	5148	13.488	 3.829	-0.204	10.288	     	KCat	Sloan	2M	Simbad	295.87202	+42.59769
+ 7095058	                	4971	11.476	 3.964	-0.198	 9.191	     	KCat	Sloan	2M	Simbad	283.12245	+42.65091
+ 7107430	19134744+4236545	4238	10.445	 4.383	-0.359	 9.866	 0.08	KCat	Sloan	2M	Simbad	288.44766	+42.61520
+ 7121991	                	4878	12.087	 4.049	-0.181	 9.076	     	KCat	Sloan	2M	Simbad	293.06636	+42.60129
+ 7124119	                	4955	11.738	 3.994	-0.181	10.277	     	KCat	Sloan	2M	Simbad	293.69947	+42.69320
+ 7174694	18463266+4243366	4826	10.703	 4.438	 0.172	10.579	-0.06	KCat	Sloan	2M	Simbad	281.63612	+42.72682
+ 7185200	                	4290	12.700	 6.231	 1.543	 8.691	     	KCat	Sloan	2M	Simbad	286.49866	+42.78544
+ 7192199	                	4168	12.962	 4.063	-0.762	10.873	     	KCat	Sloan	2M	Simbad	289.27891	+42.73046
+ 7220273	                	4258	13.153	 4.676	-0.043	10.306	     	KCat	Sloan	2M	Simbad	297.09705	+42.77311
+ 7264671	                	5236	11.761	 3.842	-0.119	 7.048	     	KCat	Sloan	2M	Simbad	285.51049	+42.82704
+ 7269420	                	5064	11.206	 3.432	-0.662	10.997	     	KCat	Sloan	2M	Simbad	287.53940	+42.82685
+ 7285641	                	5129	11.183	 4.010	-0.036	10.037	     	KCat	Sloan	2M	Simbad	292.92474	+42.89707
+ 7286670	                	5221	12.603	 3.938	-0.036	10.880	     	KCat	Sloan	2M	Simbad	293.24577	+42.85095
+ 7295373	                	4648	12.820	 4.004	-0.389	 9.696	     	KCat	Sloan	2M	Simbad	295.60625	+42.83605
+ 7299301	                	5209	12.640	 3.378	-0.607	10.648	     	KCat	Sloan	2M	Simbad	296.57392	+42.81841
+ 7300065	                	4984	13.100	 3.295	-0.859	10.446	     	KCat	Sloan	2M	Simbad	296.75978	+42.87189
+ 7339738	                	4981	12.676	 4.209	 0.053	 9.733	     	KCat	Sloan	2M	Simbad	282.92103	+42.92148
+ 7348245	                	4960	13.560	 4.118	-0.053	10.421	     	KCat	Sloan	2M	Simbad	286.79485	+42.93627
+ 7348276	                	5049	12.761	 4.262	 0.156	 7.305	     	KCat	Sloan	2M	Simbad	286.80714	+42.99746
+ 7364655	                	4923	13.777	 4.280	 0.082	 9.795	     	KCat	Sloan	2M	Simbad	292.37588	+42.97457
+ 7373877	                	4797	13.398	 4.371	 0.085	 9.324	     	KCat	Sloan	2M	Simbad	295.03030	+42.98348
+ 7379583	                	4325	12.229	 4.399	-0.254	10.673	     	KCat	Sloan	2M	Simbad	296.45898	+42.91820
+ 7381455	                	5036	13.718	 3.892	-0.223	10.994	     	KCat	Sloan	2M	Simbad	296.88891	+42.92733
+ 7455026	                	5034	13.391	 3.988	-0.129	10.702	     	KCat	Sloan	2M	Simbad	294.71637	+43.05839
+ 7456455	                	4927	12.331	 3.968	-0.227	10.448	     	KCat	Sloan	2M	Simbad	295.08073	+43.01874
+ 7458625	                	5220	12.225	 3.980	 0.005	 9.353	     	KCat	Sloan	2M	Simbad	295.62006	+43.01571
+ 7509496	                	4256	11.706	 4.683	-0.039	 9.720	     	KCat	Sloan	2M	Simbad	285.25962	+43.15145
+ 7510131	                	4755	12.334	 3.591	-0.726	 8.513	     	KCat	Sloan	2M	Simbad	285.54131	+43.11944
+ 7511885	                	4776	12.481	 4.105	-0.196	 9.810	     	KCat	Sloan	2M	Simbad	286.27475	+43.13165
+ 7519257	                	4696	13.084	 4.360	 0.001	10.230	     	KCat	Sloan	2M	Simbad	289.10756	+43.12622
+ 7524131	                	5134	13.665	 3.828	-0.215	10.909	     	KCat	Sloan	2M	Simbad	290.71393	+43.18364
+ 7533119	                	4499	12.279	 4.572	 0.069	10.714	     	KCat	Sloan	2M	Simbad	293.39590	+43.11733
+ 7534474	                	4577	13.058	 3.627	-0.818	 9.423	     	KCat	Sloan	2M	Simbad	293.77328	+43.18508
+ 7537597	                	4815	11.229	 4.246	-0.028	 9.543	     	KCat	Sloan	2M	Simbad	294.58732	+43.19229
+ 7547328	                	4341	12.768	 3.782	-0.856	10.122	     	KCat	Sloan	2M	Simbad	296.89055	+43.17975
+ 7581770	                	4934	13.208	 4.287	 0.097	 9.978	     	KCat	Sloan	2M	Simbad	280.50862	+43.21963
+ 7610248	                	5220	13.200	 3.989	 0.013	10.896	     	KCat	Sloan	2M	Simbad	292.65149	+43.23874
+ 7617153	                	5104	13.427	 4.127	 0.061	10.986	     	KCat	Sloan	2M	Simbad	294.63644	+43.27688
+ 7658882	                	5036	11.566	 4.046	-0.070	 8.247	     	KCat	Sloan	2M	Simbad	280.68647	+43.32707
+ 7661182	                	5220	12.824	 3.902	-0.073	 9.642	     	KCat	Sloan	2M	Simbad	282.21008	+43.39208
+ 7668857	                	4790	11.868	 3.988	-0.304	 9.183	     	KCat	Sloan	2M	Simbad	286.37718	+43.36154
+ 7674440	                	5124	11.716	 4.146	 0.096	 7.679	     	KCat	Sloan	2M	Simbad	288.92195	+43.31655
+ 7679215	                	5026	13.075	 4.096	-0.026	 9.504	     	KCat	Sloan	2M	Simbad	290.67189	+43.38387
+ 7684469	                	5050	12.750	 3.930	-0.175	10.200	     	KCat	Sloan	2M	Simbad	292.47043	+43.30926
+ 7691514	                	4497	12.571	 4.219	-0.286	 9.539	     	KCat	Sloan	2M	Simbad	294.72971	+43.30740
+ 7692828	                	5202	13.083	 3.022	-0.969	 7.813	     	KCat	Sloan	2M	Simbad	295.12665	+43.39894
+ 7740370	                	4926	13.258	 3.866	-0.330	10.570	     	KCat	Sloan	2M	Simbad	286.67786	+43.43503
+ 7749045	                	4889	13.076	 3.364	-0.858	 8.626	     	KCat	Sloan	2M	Simbad	290.40617	+43.48190
+ 7755520	                	4858	12.441	 4.276	 0.032	 9.164	     	KCat	Sloan	2M	Simbad	292.72063	+43.41735
+ 7762419	                	5079	12.303	 4.017	-0.066	 8.130	     	KCat	Sloan	2M	Simbad	294.90390	+43.40417
+ 7765236	                	4914	13.570	 3.911	-0.293	 9.934	     	KCat	Sloan	2M	Simbad	295.74103	+43.45761
+ 7765762	                	4135	11.686	 4.902	 0.028	10.046	     	KCat	Sloan	2M	Simbad	295.89956	+43.45905
+ 7799526	                	4918	13.161	 3.506	-0.696	 8.600	     	KCat	Sloan	2M	Simbad	281.18444	+43.59546
+ 7803596	                	5174	12.937	 3.880	-0.133	 9.572	     	KCat	Sloan	2M	Simbad	283.59904	+43.56883
+ 7809022	                	5056	11.616	 3.228	-0.872	 8.987	     	KCat	Sloan	2M	Simbad	286.49583	+43.56823
+ 7809035	                	4505	13.203	 4.495	-0.004	10.986	     	KCat	Sloan	2M	Simbad	286.50258	+43.52927
+ 7820558	                	5225	12.561	 4.095	 0.125	10.027	     	KCat	Sloan	2M	Simbad	291.18266	+43.56543
+ 7829719	                	4616	11.496	 3.176	-1.240	 8.633	     	KCat	Sloan	2M	Simbad	294.26749	+43.58516
+ 7829740	                	4745	11.905	 4.286	-0.038	 9.694	     	KCat	Sloan	2M	Simbad	294.27266	+43.58415
+ 7830984	                	5042	13.202	 3.781	-0.329	10.765	     	KCat	Sloan	2M	Simbad	294.65357	+43.57282
+ 7838296	                	5046	11.113	 3.902	-0.206	 9.039	     	KCat	Sloan	2M	Simbad	296.82067	+43.52374
+ 7842041	                	5073	12.555	 3.933	-0.155	 9.294	     	KCat	Sloan	2M	Simbad	297.75485	+43.55327
+ 7846522	                	4827	13.410	 3.946	-0.320	10.908	     	KCat	Sloan	2M	Simbad	298.79784	+43.55655
+ 7902087	                	5159	12.958	 5.208	 1.184	10.580	     	KCat	Sloan	2M	Simbad	295.46218	+43.62117
+ 7943764	                	4716	11.507	 4.405	 0.061	 9.871	     	KCat	Sloan	2M	Simbad	284.67467	+43.75891
+ 7949934	19114381+4345113	5159	10.320	 3.224	-0.800	 7.586	 0.13	KCat	Sloan	2M	Simbad	287.93253	+43.75318
+ 7953579	                	4906	11.634	 3.501	-0.709	10.036	     	KCat	Sloan	2M	Simbad	289.55556	+43.78271
+ 7960652	                	4695	13.262	 3.848	-0.512	 9.959	     	KCat	Sloan	2M	Simbad	292.03296	+43.78215
+ 7966705	                	5060	12.807	 3.904	-0.193	 8.602	     	KCat	Sloan	2M	Simbad	294.14459	+43.71801
+ 7967677	                	5233	13.643	 3.967	 0.003	10.207	     	KCat	Sloan	2M	Simbad	294.47201	+43.78048
+ 7969912	                	5162	12.546	 3.932	-0.090	 7.939	     	KCat	Sloan	2M	Simbad	295.17964	+43.73607
+ 7973706	                	4442	12.202	 3.685	-0.862	10.726	     	KCat	Sloan	2M	Simbad	296.30807	+43.70759
+ 7978378	                	4466	12.657	 3.790	-0.738	 9.525	     	KCat	Sloan	2M	Simbad	297.54767	+43.79257
+ 7984401	                	5068	13.675	 3.120	-0.971	 8.738	     	KCat	Sloan	2M	Simbad	299.01708	+43.77681
+ 7987781	                	4546	11.947	 4.328	-0.140	 9.850	     	KCat	Sloan	2M	Simbad	299.82778	+43.77696
+ 8005578	                	4886	12.932	 4.363	 0.139	 9.525	     	KCat	Sloan	2M	Simbad	280.75765	+43.82522
+ 8028534	                	5084	13.049	 4.152	 0.072	 8.406	     	KCat	Sloan	2M	Simbad	291.69680	+43.81781
+ 8045160	                	5208	12.952	 3.912	-0.074	 8.904	     	KCat	Sloan	2M	Simbad	297.05008	+43.85250
+ 8053780	                	4966	12.661	 3.118	-1.049	 8.955	     	KCat	Sloan	2M	Simbad	299.12193	+43.81555
+ 8056853	19592881+4349349	4366	10.674	 4.497	-0.118	 9.905	     	KCat	Sloan	2M	Simbad	299.87007	+43.82645
+ 8084770	                	5076	12.734	 4.034	-0.052	10.065	     	KCat	Sloan	2M	Simbad	286.51465	+43.92147
+ 8085409	                	5186	13.008	 3.985	-0.018	10.404	     	KCat	Sloan	2M	Simbad	286.86623	+43.94952
+ 8086085	                	5070	12.589	 3.867	-0.223	 9.717	     	KCat	Sloan	2M	Simbad	287.19976	+43.98205
+ 8087381	                	4476	12.095	 4.517	-0.003	10.990	     	KCat	Sloan	2M	Simbad	287.84997	+43.97859
+ 8121489	                	5122	13.069	 3.947	-0.105	 8.347	     	KCat	Sloan	2M	Simbad	298.85953	+43.97065
+ 8121994	                	5131	12.270	 4.009	-0.037	 8.426	     	KCat	Sloan	2M	Simbad	298.98663	+43.93528
+ 8124308	                	5028	12.438	 3.999	-0.122	 9.452	     	KCat	Sloan	2M	Simbad	299.57522	+43.92613
+ 8148908	                	5058	11.916	 4.232	 0.133	10.617	     	KCat	Sloan	2M	Simbad	284.37244	+44.06287
+ 8175738	                	5145	12.809	 4.049	 0.015	10.460	     	KCat	Sloan	2M	Simbad	295.17356	+44.08379
+ 8176468	19413700+4403437	4321	10.309	 4.369	-0.289	 8.542	-0.12	KCat	Sloan	2M	Simbad	295.40417	+44.06216
+ 8178825	                	5194	13.071	 3.840	-0.157	 8.544	     	KCat	Sloan	2M	Simbad	296.13033	+44.01748
+ 8189299	                	4549	12.651	 4.469	 0.004	10.290	     	KCat	Sloan	2M	Simbad	298.80327	+44.06078
+ 8192490	                	4536	13.286	 4.171	-0.304	 9.501	     	KCat	Sloan	2M	Simbad	299.61437	+44.01887
+ 8213666	                	4542	12.427	 3.459	-1.012	10.278	     	KCat	Sloan	2M	Simbad	282.77650	+44.19869
+ 8223544	                	4533	12.729	 3.923	-0.554	10.851	     	KCat	Sloan	2M	Simbad	287.97520	+44.18854
+ 8226542	19173877+4408052	4685	10.352	 4.122	-0.245	10.834	 0.06	KCat	Sloan	2M	Simbad	289.41157	+44.13478
+ 8230671	                	4796	12.905	 3.805	-0.483	 9.228	     	KCat	Sloan	2M	Simbad	290.84663	+44.15111
+ 8234710	                	5241	12.575	 3.972	 0.016	 7.789	     	KCat	Sloan	2M	Simbad	292.32217	+44.18402
+ 8257983	                	4830	13.644	 3.898	-0.365	 9.107	     	KCat	Sloan	2M	Simbad	299.16835	+44.12964
+ 8277175	                	5187	13.665	 3.962	-0.040	 8.961	     	KCat	Sloan	2M	Simbad	280.88853	+44.25656
+ 8288698	                	4481	11.169	 4.508	-0.009	 7.592	     	KCat	Sloan	2M	Simbad	287.34875	+44.26567
+ 8293984	                	4814	13.272	 4.201	-0.073	10.090	     	KCat	Sloan	2M	Simbad	289.75337	+44.21003
+ 8295971	                	4960	13.401	 3.974	-0.197	10.125	     	KCat	Sloan	2M	Simbad	290.44721	+44.24832
+ 8301505	                	5175	12.359	 3.414	-0.598	 7.401	     	KCat	Sloan	2M	Simbad	292.49472	+44.24374
+ 8308903	                	5211	12.416	 3.987	 0.004	 8.013	     	KCat	Sloan	2M	Simbad	295.07001	+44.25427
+ 8311811	                	5181	13.109	 3.971	-0.036	 7.259	     	KCat	Sloan	2M	Simbad	295.98827	+44.28777
+ 8320841	                	4674	12.915	 3.614	-0.761	10.155	     	KCat	Sloan	2M	Simbad	298.33165	+44.22922
+ 8326487	                	5136	12.380	 4.049	 0.008	 8.687	     	KCat	Sloan	2M	Simbad	299.82569	+44.22692
+ 8351387	                	4819	11.978	 4.417	 0.146	 9.906	     	KCat	Sloan	2M	Simbad	285.44135	+44.30334
+ 8360344	                	5240	12.667	 3.986	 0.029	10.358	     	KCat	Sloan	2M	Simbad	289.92852	+44.30315
+ 8376893	                	4232	12.953	 4.179	-0.571	 9.168	     	KCat	Sloan	2M	Simbad	295.76323	+44.39829
+ 8379165	                	5246	13.730	 3.798	-0.154	 8.926	     	KCat	Sloan	2M	Simbad	296.44821	+44.34926
+ 8457754	                	5102	10.973	 3.430	-0.636	10.602	     	KCat	Sloan	2M	Simbad	299.97956	+44.49340
+ 8458220	                	5159	11.806	 2.870	-1.154	 7.978	     	KCat	Sloan	2M	Simbad	300.09411	+44.47461
+ 8491152	                	5204	13.162	 3.772	-0.218	 9.626	     	KCat	Sloan	2M	Simbad	290.31539	+44.59121
+ 8499956	                	5137	12.330	 4.107	 0.066	 8.864	     	KCat	Sloan	2M	Simbad	293.67562	+44.50905
+ 8506556	                	5187	11.707	 4.044	 0.042	 7.983	     	KCat	Sloan	2M	Simbad	295.87476	+44.52998
+ 8540644	                	4679	11.384	 3.701	-0.670	 7.881	     	KCat	Sloan	2M	Simbad	282.53447	+44.65352
+ 8544804	                	5001	11.827	 4.179	 0.039	10.861	     	KCat	Sloan	2M	Simbad	284.72839	+44.69486
+ 8545651	                	4844	12.869	 4.234	-0.020	10.836	     	KCat	Sloan	2M	Simbad	285.22698	+44.65452
+ 8545949	                	5174	13.788	 3.596	-0.416	 9.542	     	KCat	Sloan	2M	Simbad	285.40620	+44.67676
+ 8552053	                	4766	13.598	 4.284	-0.025	 9.889	     	KCat	Sloan	2M	Simbad	288.66399	+44.67167
+ 8560043	                	4911	11.879	 4.060	-0.147	10.164	     	KCat	Sloan	2M	Simbad	291.79808	+44.67781
+ 8564290	                	4867	12.561	 4.256	 0.019	 9.883	     	KCat	Sloan	2M	Simbad	293.52924	+44.66599
+ 8565900	                	5159	12.963	 3.778	-0.246	10.690	     	KCat	Sloan	2M	Simbad	294.10529	+44.61527
+ 8572066	                	4109	12.715	 4.815	-0.098	 9.339	     	KCat	Sloan	2M	Simbad	296.17842	+44.63471
+ 8574557	                	5152	13.028	 3.072	-0.957	10.487	     	KCat	Sloan	2M	Simbad	296.90954	+44.67875
+ 8586530	                	5084	12.770	 4.134	 0.055	 9.319	     	KCat	Sloan	2M	Simbad	299.93446	+44.61337
+ 8591304	                	4635	13.180	 4.172	-0.230	 9.340	     	KCat	Sloan	2M	Simbad	301.38863	+44.64403
+ 8610368	                	4087	12.782	 4.743	-0.204	10.928	     	KCat	Sloan	2M	Simbad	285.22249	+44.72611
+ 8611564	                	5220	13.149	 3.794	-0.181	 7.907	     	KCat	Sloan	2M	Simbad	285.89333	+44.74746
+ 8617530	                	5010	12.240	 3.757	-0.377	10.296	     	KCat	Sloan	2M	Simbad	289.04038	+44.75655
+ 8644565	                	4074	12.929	 4.850	-0.116	 8.480	     	KCat	Sloan	2M	Simbad	298.14468	+44.70374
+ 8678042	                	5083	12.506	 4.023	-0.057	 9.744	     	KCat	Sloan	2M	Simbad	286.86069	+44.88496
+ 8684857	                	4965	13.244	 3.993	-0.174	 8.766	     	KCat	Sloan	2M	Simbad	290.16507	+44.89493
+ 8694772	                	5200	12.833	 3.958	-0.035	10.137	     	KCat	Sloan	2M	Simbad	293.97896	+44.85793
+ 8701047	                	5174	13.903	 3.697	-0.315	 9.158	     	KCat	Sloan	2M	Simbad	296.08947	+44.80355
+ 8716102	                	5110	11.749	 4.054	-0.007	 9.462	     	KCat	Sloan	2M	Simbad	300.15046	+44.81956
+ 8740018	19020704+4455404	5236	10.810	 3.167	-0.794	 8.899	 0.04	KCat	Sloan	2M	Simbad	285.52938	+44.92790
+ 8740195	                	4758	12.066	 3.581	-0.734	 9.106	     	KCat	Sloan	2M	Simbad	285.62346	+44.96681
+ 8749306	                	4934	12.328	 3.278	-0.913	10.833	     	KCat	Sloan	2M	Simbad	290.20366	+44.91745
+ 8754296	                	5036	13.205	 3.974	-0.141	10.227	     	KCat	Sloan	2M	Simbad	292.13105	+44.90690
+ 8767669	                	4281	11.067	 4.170	-0.527	10.441	     	KCat	Sloan	2M	Simbad	296.84956	+44.99659
+ 8784119	                	4537	11.679	 4.324	-0.151	 8.393	     	KCat	Sloan	2M	Simbad	301.24127	+44.99909
+ 8813109	                	4716	12.538	 3.635	-0.709	 9.472	     	KCat	Sloan	2M	Simbad	289.61474	+45.00724
+ 8814927	                	5145	12.968	 4.056	 0.022	 9.818	     	KCat	Sloan	2M	Simbad	290.32461	+45.03717
+ 8832353	                	4665	13.133	 3.489	-0.891	10.926	     	KCat	Sloan	2M	Simbad	296.70641	+45.02272
+ 8838877	                	5102	13.062	 3.999	-0.067	 7.541	     	KCat	Sloan	2M	Simbad	298.40178	+45.00576
+ 8843859	                	4428	12.244	 3.705	-0.854	10.344	     	KCat	Sloan	2M	Simbad	299.81027	+45.06188
+ 8866038	                	5015	12.571	 4.209	 0.079	 8.952	     	KCat	Sloan	2M	Simbad	283.12737	+45.16463
+ 8867382	                	4689	12.600	 4.437	 0.074	10.633	     	KCat	Sloan	2M	Simbad	283.76019	+45.19784
+ 8867609	                	4161	12.238	 4.294	-0.541	 7.012	     	KCat	Sloan	2M	Simbad	283.86448	+45.15976
+ 8869186	                	4648	11.107	 4.336	-0.057	10.079	     	KCat	Sloan	2M	Simbad	284.63414	+45.12209
+ 8879105	                	4996	11.197	 3.298	-0.846	 9.912	     	KCat	Sloan	2M	Simbad	289.40697	+45.11919
+ 8950115	                	4929	12.005	 4.213	 0.019	 9.875	     	KCat	Sloan	2M	Simbad	290.80687	+45.22040
+ 8951873	                	5088	13.215	 3.992	-0.085	 9.372	     	KCat	Sloan	2M	Simbad	291.44751	+45.29591
+ 8960179	                	4916	13.107	 4.184	-0.019	 9.817	     	KCat	Sloan	2M	Simbad	294.36920	+45.24587
+ 8962915	                	4784	11.644	 4.138	-0.158	 9.949	     	KCat	Sloan	2M	Simbad	295.23360	+45.23775
+ 9009229	                	4786	12.807	 4.009	-0.286	 8.981	     	KCat	Sloan	2M	Simbad	286.63560	+45.38951
+ 9030716	                	4600	12.357	 3.561	-0.866	 9.247	     	KCat	Sloan	2M	Simbad	294.88738	+45.30391
+ 9030931	                	5238	13.251	 3.745	-0.215	 8.211	     	KCat	Sloan	2M	Simbad	294.95727	+45.33252
+ 9034599	                	4724	13.036	 4.199	-0.139	 9.702	     	KCat	Sloan	2M	Simbad	296.06484	+45.39176
+ 9044831	                	5187	12.837	 3.768	-0.234	 7.498	     	KCat	Sloan	2M	Simbad	298.48425	+45.39181
+ 9048551	19580115+4518060	4116	10.466	 4.959	 0.056	 8.553	 0.06	KCat	Sloan	2M	Simbad	299.50482	+45.30167
+ 9071321	                	5081	11.139	 3.238	-0.845	 9.516	     	KCat	Sloan	2M	Simbad	283.13913	+45.49993
+ 9073565	18571988+4529355	4999	10.741	 4.224	 0.082	 9.041	 0.10	KCat	Sloan	2M	Simbad	284.33286	+45.49321
+ 9094521	                	4596	12.931	 3.921	-0.510	 9.972	     	KCat	Sloan	2M	Simbad	293.90423	+45.45960
+ 9116193	                	4837	12.402	 3.490	-0.768	 9.730	     	KCat	Sloan	2M	Simbad	300.00347	+45.47175
+ 9141761	                	4547	13.051	 4.285	-0.182	10.157	     	KCat	Sloan	2M	Simbad	285.56000	+45.59102
+ 9145697	                	5006	12.395	 4.103	-0.034	 8.105	     	KCat	Sloan	2M	Simbad	287.74250	+45.58390
+ 9214598	                	4931	11.762	 3.489	-0.704	 9.474	     	KCat	Sloan	2M	Simbad	290.33851	+45.68085
+ 9243051	                	4620	12.195	 4.438	 0.024	 9.782	     	KCat	Sloan	2M	Simbad	299.91597	+45.65511
+ 9268128	                	4775	12.621	 4.290	-0.012	10.423	     	KCat	Sloan	2M	Simbad	285.30563	+45.70449
+ 9284819	                	4447	13.000	 4.322	-0.221	10.908	     	KCat	Sloan	2M	Simbad	293.44942	+45.77728
+ 9286118	                	4212	12.637	 4.286	-0.487	 9.682	     	KCat	Sloan	2M	Simbad	293.94821	+45.77433
+ 9302601	                	5124	12.463	 3.978	-0.072	 7.320	     	KCat	Sloan	2M	Simbad	299.10142	+45.74874
+ 9303842	                	4897	13.773	 3.163	-1.053	 7.881	     	KCat	Sloan	2M	Simbad	299.47648	+45.73711
+ 9305231	                	5061	12.598	 3.853	-0.244	 7.824	     	KCat	Sloan	2M	Simbad	299.91676	+45.76198
+ 9340958	                	5067	12.370	 3.257	-0.835	 7.793	     	KCat	Sloan	2M	Simbad	291.27120	+45.89605
+ 9365561	                	5137	13.528	 3.856	-0.185	10.303	     	KCat	Sloan	2M	Simbad	299.53343	+45.89524
+ 9405504	                	5179	12.861	 3.149	-0.859	 9.732	     	KCat	Sloan	2M	Simbad	292.42493	+45.95089
+ 9409238	                	5094	10.968	 3.957	-0.116	 8.053	     	KCat	Sloan	2M	Simbad	293.90709	+45.95157
+ 9409548	                	5061	13.289	 3.221	-0.876	 7.277	     	KCat	Sloan	2M	Simbad	294.02963	+45.92072
+ 9418499	                	5058	13.301	 3.861	-0.238	 7.768	     	KCat	Sloan	2M	Simbad	297.14225	+45.92499
+ 9427378	                	5149	12.631	 2.959	-1.072	 7.008	     	KCat	Sloan	2M	Simbad	299.66883	+45.95270
+ 9429955	                	5047	13.271	 3.174	-0.933	 7.630	     	KCat	Sloan	2M	Simbad	300.47387	+45.98754
+ 9515223	                	4941	12.578	 4.275	 0.090	10.532	     	KCat	Sloan	2M	Simbad	286.16116	+46.10158
+ 9519853	                	5186	12.760	 3.064	-0.939	10.984	     	KCat	Sloan	2M	Simbad	288.88162	+46.15821
+ 9527692	                	5238	13.024	 4.017	 0.058	 9.898	     	KCat	Sloan	2M	Simbad	292.39918	+46.11858
+ 9530263	                	4255	12.566	 4.783	 0.060	 8.101	     	KCat	Sloan	2M	Simbad	293.43386	+46.14743
+ 9550612	                	5061	13.455	 3.411	-0.686	 8.035	     	KCat	Sloan	2M	Simbad	299.94427	+46.11578
+ 9579266	                	5151	13.932	 3.739	-0.291	10.623	     	KCat	Sloan	2M	Simbad	287.66949	+46.27329
+ 9583255	                	5036	12.204	 4.057	-0.058	 8.609	     	KCat	Sloan	2M	Simbad	289.83115	+46.20640
+ 9652255	                	4960	13.239	 4.227	 0.056	10.644	     	KCat	Sloan	2M	Simbad	293.08947	+46.30004
+ 9674595	                	5195	12.699	 3.063	-0.934	10.448	     	KCat	Sloan	2M	Simbad	300.41320	+46.32912
+ 9723992	                	4636	12.738	 4.285	-0.117	10.114	     	KCat	Sloan	2M	Simbad	297.01515	+46.41215
+ 9773847	                	5207	13.758	 4.110	 0.123	10.836	     	KCat	Sloan	2M	Simbad	293.22717	+46.52931
+ 9776327	                	5249	14.378	 4.231	 0.281	10.740	     	KCat	Sloan	2M	Simbad	294.19903	+46.54593
+ 9782956	                	4894	13.521	 3.680	-0.538	10.306	     	KCat	Sloan	2M	Simbad	296.59068	+46.58058
+ 9812511	18463735+4637506	5187	10.896	 4.043	 0.040	 8.836	 0.11	KCat	Sloan	2M	Simbad	281.65564	+46.63073
+ 9832382	                	4684	10.936	 4.329	-0.038	 9.251	     	KCat	Sloan	2M	Simbad	292.38852	+46.64190
+ 9837556	                	5010	11.298	 4.025	-0.110	10.272	     	KCat	Sloan	2M	Simbad	294.48952	+46.68004
+ 9843899	                	5134	13.508	 4.191	 0.148	 8.342	     	KCat	Sloan	2M	Simbad	296.78335	+46.69941
+ 9849014	                	5155	11.495	 3.993	-0.034	 9.065	     	KCat	Sloan	2M	Simbad	298.21994	+46.69152
+ 9850417	                	5159	12.948	 3.877	-0.147	 9.622	     	KCat	Sloan	2M	Simbad	298.60003	+46.64452
+ 9881857	19095615+4647030	5122	10.425	 4.023	-0.029	 7.648	 0.11	KCat	Sloan	2M	Simbad	287.48400	+46.78422
+ 9881928	                	4867	12.445	 4.275	 0.038	 9.518	     	KCat	Sloan	2M	Simbad	287.52442	+46.74384
+ 9898181	                	5025	12.548	 3.915	-0.208	 8.468	     	KCat	Sloan	2M	Simbad	294.75523	+46.71682
+ 9899153	                	4802	12.644	 4.240	-0.043	10.779	     	KCat	Sloan	2M	Simbad	295.14157	+46.79392
+ 9905352	                	5083	13.043	 4.085	 0.005	 8.815	     	KCat	Sloan	2M	Simbad	297.19815	+46.79804
+ 9932534	18450609+4651597	5213	11.654	 4.068	 0.087	 7.717	 0.15	KCat	Sloan	2M	Simbad	281.27543	+46.86660
+ 9943450	                	4578	11.552	 4.220	-0.224	10.760	     	KCat	Sloan	2M	Simbad	288.03923	+46.87629
+ 9967445	                	5152	13.595	 3.888	-0.142	10.392	     	KCat	Sloan	2M	Simbad	297.84108	+46.89555
+10001000	                	4965	13.090	 4.016	-0.151	 9.992	     	KCat	Sloan	2M	Simbad	286.85468	+46.96188
+10004453	                	4946	12.217	 3.381	-0.801	10.003	     	KCat	Sloan	2M	Simbad	288.70620	+46.93186
+10026782	                	5114	13.297	 6.122	 2.064	10.917	     	KCat	Sloan	2M	Simbad	297.35060	+46.91560
+10030731	                	4875	13.076	 4.015	-0.216	10.359	     	KCat	Sloan	2M	Simbad	298.48910	+46.96956
+10055337	                	4155	12.154	 4.526	-0.319	 8.901	     	KCat	Sloan	2M	Simbad	282.17409	+47.02430
+10070799	                	4606	13.249	 4.454	 0.031	10.647	     	KCat	Sloan	2M	Simbad	290.09771	+47.04399
+10080921	                	4835	 9.867	 4.254	-0.006	10.074	     	KCat	Sloan	2M	Simbad	294.10751	+47.02162
+10081993	19380020+4702214	5095	 9.965	 4.195	 0.123	 7.012	 0.10	KCat	Sloan	2M	Simbad	294.50086	+47.03929
+10094721	                	4683	13.462	 4.429	 0.061	10.288	     	KCat	Sloan	2M	Simbad	298.50767	+47.06561
+10098760	                	5046	11.670	 4.090	-0.018	 9.602	     	KCat	Sloan	2M	Simbad	299.65494	+47.00797
+10134498	                	4343	12.923	 4.366	-0.270	10.839	     	KCat	Sloan	2M	Simbad	289.22196	+47.10580
+10138882	                	4988	12.323	 4.125	-0.026	 8.538	     	KCat	Sloan	2M	Simbad	290.98266	+47.19832
+10149445	                	4575	12.544	 4.529	 0.083	10.487	     	KCat	Sloan	2M	Simbad	294.90808	+47.12036
+10158283	                	4878	13.733	 4.052	-0.177	10.730	     	KCat	Sloan	2M	Simbad	297.61076	+47.12835
+10185657	                	5076	12.336	 4.052	-0.034	10.888	     	KCat	Sloan	2M	Simbad	280.55744	+47.29603
+10185709	                	4955	13.127	 3.908	-0.267	 8.966	     	KCat	Sloan	2M	Simbad	280.59006	+47.28442
+10187494	                	5166	12.317	 3.939	-0.079	10.262	     	KCat	Sloan	2M	Simbad	281.82440	+47.24034
+10187510	                	5224	13.385	 3.121	-0.851	 8.950	     	KCat	Sloan	2M	Simbad	281.83617	+47.24175
+10191459	                	5064	13.072	 4.112	 0.018	10.700	     	KCat	Sloan	2M	Simbad	284.09728	+47.26906
+10208370	                	4750	12.649	 3.865	-0.456	10.902	     	KCat	Sloan	2M	Simbad	292.08117	+47.21897
+10208470	                	5073	12.351	 4.002	-0.086	10.741	     	KCat	Sloan	2M	Simbad	292.12260	+47.29320
+10225820	                	5159	12.466	 3.849	-0.175	 9.578	     	KCat	Sloan	2M	Simbad	298.00588	+47.20948
+10271703	                	4991	13.618	 4.241	 0.093	10.485	     	KCat	Sloan	2M	Simbad	290.89030	+47.36204
+10279828	                	5181	12.951	 3.349	-0.658	 8.202	     	KCat	Sloan	2M	Simbad	294.12522	+47.33620
+10280926	                	4988	12.999	 4.348	 0.198	10.799	     	KCat	Sloan	2M	Simbad	294.49946	+47.35308
+10330818	19121132+4727192	4594	10.706	 4.194	-0.238	 8.544	 0.07	KCat	Sloan	2M	Simbad	288.04721	+47.45535
+10334773	                	4874	12.871	 3.680	-0.552	10.464	     	KCat	Sloan	2M	Simbad	289.93840	+47.41373
+10352426	                	5017	11.484	 4.002	-0.127	10.383	     	KCat	Sloan	2M	Simbad	296.53167	+47.43571
+10354027	                	5046	13.312	 4.159	 0.051	10.538	     	KCat	Sloan	2M	Simbad	297.00825	+47.44270
+10355941	                	4579	13.270	 4.394	-0.049	10.720	     	KCat	Sloan	2M	Simbad	297.58196	+47.45444
+10361699	                	5038	12.776	 4.099	-0.014	 9.040	     	KCat	Sloan	2M	Simbad	299.17110	+47.43137
+10362937	                	4991	12.020	 4.131	-0.017	 9.212	     	KCat	Sloan	2M	Simbad	299.53527	+47.47620
+10412037	                	5131	12.967	 2.767	-1.278	 8.350	     	KCat	Sloan	2M	Simbad	294.69793	+47.51369
+10424985	                	4741	13.140	 4.400	 0.073	10.405	     	KCat	Sloan	2M	Simbad	298.66729	+47.57720
+10450108	                	4886	13.657	 4.006	-0.218	10.800	     	KCat	Sloan	2M	Simbad	281.89484	+47.64307
+10460793	                	5036	12.568	 4.224	 0.109	 8.953	     	KCat	Sloan	2M	Simbad	287.67371	+47.64746
+10468547	                	4554	12.712	 4.778	 0.316	 9.735	     	KCat	Sloan	2M	Simbad	291.12720	+47.66227
+10487955	                	5188	11.303	 3.669	-0.332	10.753	     	KCat	Sloan	2M	Simbad	297.90584	+47.62631
+10515183	                	4875	13.027	 4.090	-0.142	10.660	     	KCat	Sloan	2M	Simbad	281.81531	+47.73980
+10515924	                	4583	13.512	 3.761	-0.680	10.490	     	KCat	Sloan	2M	Simbad	282.28374	+47.71699
+10545804	                	5209	13.603	 3.098	-0.887	 8.616	     	KCat	Sloan	2M	Simbad	295.94079	+47.78371
+10590040	                	4596	11.772	 3.520	-0.911	10.915	     	KCat	Sloan	2M	Simbad	287.47975	+47.81736
+10611897	                	5223	12.919	 4.031	 0.058	 8.837	     	KCat	Sloan	2M	Simbad	296.26270	+47.81373
+10614845	                	5053	11.884	 3.100	-1.003	 7.550	     	KCat	Sloan	2M	Simbad	297.16839	+47.82113
+10618456	                	4991	13.349	 3.956	-0.192	 9.179	     	KCat	Sloan	2M	Simbad	298.18352	+47.84033
+10621910	                	4967	13.196	 3.819	-0.347	 8.441	     	KCat	Sloan	2M	Simbad	299.14877	+47.81010
+10622558	                	4481	13.070	 4.151	-0.366	 9.765	     	KCat	Sloan	2M	Simbad	299.33423	+47.86801
+10657441	                	4525	13.086	 3.599	-0.885	10.618	     	KCat	Sloan	2M	Simbad	288.39002	+47.97737
+10679030	                	4463	11.206	 4.580	 0.049	10.782	     	KCat	Sloan	2M	Simbad	296.78474	+47.95594
+10682594	                	5187	12.172	 3.996	-0.006	10.243	     	KCat	Sloan	2M	Simbad	297.82145	+47.90068
+10711756	                	5230	11.690	 3.975	 0.009	 7.560	     	KCat	Sloan	2M	Simbad	282.49345	+48.09740
+10718791	                	4916	12.766	 4.291	 0.087	 8.532	     	KCat	Sloan	2M	Simbad	286.29655	+48.09437
+10779266	                	4792	13.062	 3.962	-0.329	 7.512	     	KCat	Sloan	2M	Simbad	283.13105	+48.12989
+10815990	                	4779	12.496	 4.416	 0.116	10.133	     	KCat	Sloan	2M	Simbad	298.25991	+48.16436
+10881151	                	4965	13.502	 3.198	-0.969	 9.168	     	KCat	Sloan	2M	Simbad	298.85808	+48.23392
+10904491	                	5143	11.907	 3.771	-0.265	 8.921	     	KCat	Sloan	2M	Simbad	282.67739	+48.37860
+10905173	                	5187	11.160	 3.987	-0.015	 7.495	     	KCat	Sloan	2M	Simbad	283.21065	+48.33464
+10910440	                	4946	12.973	 3.480	-0.701	 9.474	     	KCat	Sloan	2M	Simbad	286.72295	+48.32082
+10924400	19351820+4820396	5136	10.414	 4.088	 0.047	 7.484	 0.09	KCat	Sloan	2M	Simbad	293.82584	+48.34433
+10936008	                	5181	13.885	 3.916	-0.091	 9.325	     	KCat	Sloan	2M	Simbad	298.19671	+48.32773
+10936285	                	5110	11.380	 3.932	-0.128	10.415	     	KCat	Sloan	2M	Simbad	298.29109	+48.33279
+10938122	                	5159	12.314	 4.034	 0.010	 8.446	     	KCat	Sloan	2M	Simbad	298.91377	+48.38678
+10964141	                	5215	13.846	 2.985	-0.995	 8.893	     	KCat	Sloan	2M	Simbad	285.46550	+48.42597
+10972788	                	5181	12.934	 3.248	-0.758	 9.013	     	KCat	Sloan	2M	Simbad	290.36794	+48.43306
+10976796	                	4853	13.433	 4.307	 0.060	10.734	     	KCat	Sloan	2M	Simbad	292.40205	+48.42181
+10978694	                	5050	13.320	 4.317	 0.212	 9.453	     	KCat	Sloan	2M	Simbad	293.31781	+48.41961
+10982958	                	4894	13.442	 3.393	-0.826	10.712	     	KCat	Sloan	2M	Simbad	295.15547	+48.47315
+10991774	                	4540	11.782	 4.359	-0.113	10.459	     	KCat	Sloan	2M	Simbad	298.44362	+48.48202
+11017443	18595992+4830349	5181	10.228	 3.172	-0.835	 7.406	 0.13	KCat	Sloan	2M	Simbad	284.99967	+48.50973
+11018376	                	5148	12.104	 4.086	 0.054	10.807	     	KCat	Sloan	2M	Simbad	285.53884	+48.52549
+11018441	                	5126	13.177	 3.726	-0.323	 8.384	     	KCat	Sloan	2M	Simbad	285.57952	+48.58475
+11026269	                	5032	13.724	 4.013	-0.106	 9.540	     	KCat	Sloan	2M	Simbad	290.08996	+48.52043
+11027590	                	5197	12.131	 4.001	 0.006	 9.774	     	KCat	Sloan	2M	Simbad	290.83314	+48.53337
+11028080	                	4863	13.501	 4.130	-0.110	10.366	     	KCat	Sloan	2M	Simbad	291.09305	+48.59916
+11028278	                	4917	11.664	 3.707	-0.495	 9.093	     	KCat	Sloan	2M	Simbad	291.19362	+48.59061
+11032289	                	4926	12.997	 4.122	-0.074	10.850	     	KCat	Sloan	2M	Simbad	293.11127	+48.55178
+11033086	                	5236	12.757	 3.930	-0.031	10.343	     	KCat	Sloan	2M	Simbad	293.48560	+48.55111
+11033504	                	5119	11.087	 3.976	-0.078	 8.597	     	KCat	Sloan	2M	Simbad	293.67479	+48.51134
+11037498	                	4097	11.841	 4.223	-0.708	10.526	     	KCat	Sloan	2M	Simbad	295.35130	+48.55694
+11075383	                	5070	11.600	 4.140	 0.050	 9.616	     	KCat	Sloan	2M	Simbad	287.09638	+48.67809
+11075410	                	5058	11.324	 4.164	 0.065	 7.588	     	KCat	Sloan	2M	Simbad	287.11769	+48.66518
+11087984	                	4526	13.144	 4.534	 0.052	10.779	     	KCat	Sloan	2M	Simbad	293.74988	+48.63696
+11129171	                	5046	11.892	 3.362	-0.746	10.877	     	KCat	Sloan	2M	Simbad	287.48154	+48.78945
+11140022	                	4931	13.305	 4.045	-0.147	 9.525	     	KCat	Sloan	2M	Simbad	293.12759	+48.79564
+11152491	                	4382	12.546	 4.193	-0.407	10.679	     	KCat	Sloan	2M	Simbad	298.05585	+48.74916
+11186618	                	4843	12.307	 3.137	-1.117	 9.247	     	KCat	Sloan	2M	Simbad	289.74378	+48.89009
+11234537	                	4542	13.209	 3.723	-0.748	 9.997	     	KCat	Sloan	2M	Simbad	286.52112	+48.93450
+11235555	                	4912	12.779	 4.137	-0.069	10.746	     	KCat	Sloan	2M	Simbad	287.19226	+48.95289
+11236185	                	5152	13.840	 4.035	 0.006	10.711	     	KCat	Sloan	2M	Simbad	287.61420	+48.99686
+11241285	                	4869	11.611	 4.188	-0.048	 8.999	     	KCat	Sloan	2M	Simbad	290.28992	+48.96754
+11260083	                	4975	13.568	 4.123	-0.036	10.222	     	KCat	Sloan	2M	Simbad	298.42375	+48.94209
+11347722	                	5240	13.561	 3.581	-0.376	 9.491	     	KCat	Sloan	2M	Simbad	290.37640	+49.13246
+11358095	                	4507	12.621	 4.456	-0.041	10.646	     	KCat	Sloan	2M	Simbad	295.50027	+49.19581
+11391371	19002907+4917103	4355	10.558	 4.606	-0.018	 9.613	 0.17	KCat	Sloan	2M	Simbad	285.12113	+49.28619
+11394789	                	4425	12.793	 4.494	-0.068	10.533	     	KCat	Sloan	2M	Simbad	287.34360	+49.25743
+11401038	                	5113	13.276	 3.926	-0.133	10.766	     	KCat	Sloan	2M	Simbad	290.86787	+49.25557
+11407896	                	4929	13.515	 4.250	 0.056	10.460	     	KCat	Sloan	2M	Simbad	294.32181	+49.22403
+11462036	                	4873	13.291	 4.363	 0.130	10.857	     	KCat	Sloan	2M	Simbad	295.14327	+49.38366
+11465372	                	5231	13.879	 3.388	-0.577	 8.800	     	KCat	Sloan	2M	Simbad	296.51287	+49.39827
+11465772	                	4907	11.923	 4.144	-0.065	 8.845	     	KCat	Sloan	2M	Simbad	296.67922	+49.37021
+11468976	                	4879	12.789	 4.206	-0.023	 9.958	     	KCat	Sloan	2M	Simbad	297.92992	+49.39499
+11496122	                	5207	12.608	 4.067	 0.081	 8.208	     	KCat	Sloan	2M	Simbad	285.45368	+49.43395
+11553712	                	5187	13.408	 3.151	-0.852	10.699	     	KCat	Sloan	2M	Simbad	288.80734	+49.58997
+11568945	                	4904	12.965	 3.830	-0.381	10.452	     	KCat	Sloan	2M	Simbad	296.40222	+49.54592
+11569291	                	4606	13.003	 4.234	-0.189	 7.559	     	KCat	Sloan	2M	Simbad	296.53893	+49.55494
+11617858	                	5121	13.144	 3.195	-0.858	10.873	     	KCat	Sloan	2M	Simbad	295.28588	+49.66140
+11619788	19440650+4937257	5134	10.682	 4.119	 0.076	 8.267	 0.10	KCat	Sloan	2M	Simbad	296.02708	+49.62383
+11652400	                	4641	13.375	 4.693	 0.295	10.259	     	KCat	Sloan	2M	Simbad	286.14809	+49.70857
+11669423	                	5010	12.740	 3.407	-0.728	10.422	     	KCat	Sloan	2M	Simbad	295.65379	+49.75869
+11672815	                	5099	12.966	 3.935	-0.134	 9.153	     	KCat	Sloan	2M	Simbad	296.99377	+49.74483
+11702078	                	4341	11.585	 5.056	 0.419	 9.328	     	KCat	Sloan	2M	Simbad	285.57994	+49.88153
+11706667	                	4727	11.408	 3.408	-0.929	 9.571	     	KCat	Sloan	2M	Simbad	288.51753	+49.81810
+11717648	                	4166	11.502	 4.808	-0.020	 9.044	     	KCat	Sloan	2M	Simbad	294.31113	+49.83824
+11719384	                	4615	13.544	 3.751	-0.665	10.537	     	KCat	Sloan	2M	Simbad	295.06406	+49.85594
+11767587	                	5126	12.232	 4.131	 0.082	10.740	     	KCat	Sloan	2M	Simbad	294.13648	+49.95240
+11769853	                	4991	13.167	 4.164	 0.016	10.971	     	KCat	Sloan	2M	Simbad	295.16635	+49.90809
+11771330	                	4923	12.660	 4.292	 0.094	 9.405	     	KCat	Sloan	2M	Simbad	295.80637	+49.91162
+11817056	                	5245	13.383	 3.226	-0.727	 9.724	     	KCat	Sloan	2M	Simbad	293.51755	+50.09403
+11818470	                	5175	12.574	 4.050	 0.039	 7.278	     	KCat	Sloan	2M	Simbad	294.16319	+50.01627
+11861817	                	4256	12.426	 3.731	-0.991	 9.421	     	KCat	Sloan	2M	Simbad	290.55633	+50.18187
+11903835	                	5215	12.768	 3.963	-0.017	10.803	     	KCat	Sloan	2M	Simbad	285.49035	+50.23754
+11905815	                	5142	13.207	 3.357	-0.679	10.055	     	KCat	Sloan	2M	Simbad	286.77112	+50.21796
+11909259	                	4735	12.575	 4.528	 0.198	10.910	     	KCat	Sloan	2M	Simbad	288.90519	+50.21965
+11924786	                	4918	12.260	 4.285	 0.083	 9.442	     	KCat	Sloan	2M	Simbad	296.83325	+50.28426
+11958955	                	4941	12.223	 4.227	 0.042	 8.127	     	KCat	Sloan	2M	Simbad	289.02689	+50.35543
+12073568	                	5166	12.582	 4.027	 0.009	 7.485	     	KCat	Sloan	2M	Simbad	297.13043	+50.50232
+12119255	                	5171	13.201	 3.852	-0.162	10.366	     	KCat	Sloan	2M	Simbad	295.85162	+50.61681
+12159044	                	4547	11.556	 4.498	 0.032	10.516	     	KCat	Sloan	2M	Simbad	291.33321	+50.77493
+12166913	19414029+5047283	4588	10.620	 3.841	-0.596	 9.993	 0.25	KCat	Sloan	2M	Simbad	295.41789	+50.79124
+12167442	                	5180	12.660	 4.056	 0.049	 9.898	     	KCat	Sloan	2M	Simbad	295.63223	+50.79572
+12216701	                	4931	12.088	 3.990	-0.203	 8.345	     	KCat	Sloan	2M	Simbad	295.74216	+50.80825
+12257237	                	4518	13.209	 3.676	-0.813	10.377	     	KCat	Sloan	2M	Simbad	290.82217	+50.99457
+12302918	                	4690	11.334	 4.279	-0.083	 9.387	     	KCat	Sloan	2M	Simbad	288.73712	+51.07436
+12317612	                	5134	13.453	 3.650	-0.393	10.415	     	KCat	Sloan	2M	Simbad	296.62719	+51.04717
+12366305	                	4894	12.254	 4.234	 0.016	10.873	     	KCat	Sloan	2M	Simbad	295.91196	+51.17867
+12506434	                	5231	10.710	 4.060	 0.095	 7.941	     	KCat	Sloan	2M	Simbad	289.09263	+51.40564
+12556897	                	5152	11.864	 4.126	 0.097	 8.686	     	KCat	Sloan	2M	Simbad	290.54191	+51.53084
+12557553	                	4530	12.563	 4.163	-0.316	 8.683	     	KCat	Sloan	2M	Simbad	290.96904	+51.54369
+12647412	                	4747	13.561	 5.248	 0.926	 8.811	     	KCat	Sloan	2M	Simbad	290.65588	+51.73111
+12647418	                	5119	13.523	 4.151	 0.096	 7.945	     	KCat	Sloan	2M	Simbad	290.65807	+51.76809
+12647815	                	5249	12.371	 3.910	-0.040	10.437	     	KCat	Sloan	2M	Simbad	290.90106	+51.72974
+12735710	                	4735	11.934	 4.277	-0.054	 9.490	     	KCat	Sloan	2M	Simbad	289.74462	+51.99675
+12736731	                	5040	11.118	 4.234	 0.122	10.757	     	KCat	Sloan	2M	Simbad	290.31550	+51.94625                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
