@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 cache_id = "hist_field_gyro_ages_McQ14_20240613" # McQ14 only
 datestr = 'McQ14_20240613'
 
-cache_id = "hist_field_gyro_ages_20240530" # Santos++
-datestr = '20240530'
+cache_id = "hist_field_gyro_ages_20240821" # Santos++
+datestr = '20240821'
 
 outdir = os.path.join(RESULTSDIR, cache_id)
 if not os.path.exists(outdir): os.mkdir(outdir)

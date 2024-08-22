@@ -62,7 +62,7 @@ def get_gyro_data(sampleid, koisampleid='cumulative-KOI',
         # made by construct_field_star_gyro_quality_flags.py driver
         csvpath = join(
             TABLEDIR,
-            'field_gyro_posteriors_20240530_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
+            'field_gyro_posteriors_20240821_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
         )
         fdf = pd.read_csv(
             csvpath, dtype={
@@ -581,7 +581,7 @@ def get_kicstar_data(sampleid):
 
         "Santos19_Santos21_dquality" imposes a posteriori cuts on the returned
         dataframe (not the computed one).  This specifically just returns
-        field_gyro_posteriors_20240530_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv
+        field_gyro_posteriors_20240821_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv
 
         "allKIC_Berger20_dquality" which is the KIC/Berger20 stars, without any
         parsing of whether rotation is reported, with quality flags calculated.
@@ -616,7 +616,7 @@ def get_kicstar_data(sampleid):
     if sampleid == 'allKIC_Berger20_dquality':
         csvpath = join(
             TABLEDIR,
-            'allKIC_20240530_X_GDR3_B20_with_qualityflags.csv'
+            'allKIC_20240821_X_GDR3_B20_with_qualityflags.csv'
         )
         assert os.path.exists(csvpath)
         df = pd.read_csv(
@@ -630,7 +630,7 @@ def get_kicstar_data(sampleid):
         # made by construct_field_star_gyro_quality_flags.py driver
         csvpath = join(
             TABLEDIR,
-            'field_gyro_posteriors_20240530_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
+            'field_gyro_posteriors_20240821_gyro_ages_X_GDR3_S19_S21_B20_with_qualityflags.csv'
         )
         assert os.path.exists(csvpath)
         df = pd.read_csv(
