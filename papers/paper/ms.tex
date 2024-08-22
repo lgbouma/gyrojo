@@ -845,7 +845,7 @@ as a way of flagging unresolved binaries, as well as evolved
 late-F and early-G stars.  While the exact details of how this locus
 is constructed are arbitrary (see Appendix~\ref{app:linemethod}), the
 general aim is to flag stars for which there is evidence based on
-their location in the \replaced{HR}{Kiel} diagram that our gyrochronology model may not
+their location in the \replaced{HR}{HR or Kiel} diagram\added{s} that our gyrochronology model may not
 be reliable.  While the $\log g$--$T_{\rm eff}$ cut flags about half
 of Kepler stars with rotation periods as potentially not being
 suitable for gyrochronology, a few outliers in $M_{\rm G}$ vs.~$G_{\rm
@@ -1701,17 +1701,18 @@ Writing – review \& editing: all authors.
   Bit 7: RUWE$>$1.4?
   Bit 8: Crowded?
   Bit 9: Far from main sequence?
-  Bit 10: \citetalias{Santos_2021} CP/CB?
-  Bit 11: $P_{\rm rot}$ not in the homogeneous
+  Bit 10: Spectroscopic $|[{\rm Fe/H}]|$$>$0.3?
+  Bit 11: \citetalias{Santos_2021} CP/CB?
+  Bit 12: $P_{\rm rot}$ not in the homogeneous
   \citetalias{Santos_2019} \citetalias{Santos_2021} sample?
-  As an example, Kepler-1627 has $Q_{\rm star}$ flagged with bit 10 and bit 7.
+  As an example, Kepler-1627 has $Q_{\rm star}$ flagged with bit 11 and bit 7.
   The analogous planet quality bitmask, $Q_{\rm planet}$, has the
   following meaning.
   Bit 0: Candidate not reliable?
   Bit 1: MES$<$10?
   Bit 2: Grazing?
   For a star to have a high likelihood of being ``reliable for
-  gyrochronology'' we suggest a $Q_{\rm star}$ bitmask with bits 0--9
+  gyrochronology'' we suggest a $Q_{\rm star}$ bitmask with bits 0--10
   not raised, and for a planet to be ``reliable'', we suggest
   $Q_{\rm planet}$ to be zero.
   }
