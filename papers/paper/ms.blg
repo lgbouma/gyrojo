@@ -4,26 +4,26 @@ The top-level auxiliary file: ms.aux
 The style file: aasjournal.bst
 Database file #1: bibliography.bib
 Warning--entry type for "claude2024anthropic" isn't style-file defined
---line 217 of file bibliography.bib
-Repeated entry---line 712 of file bibliography.bib
+--line 238 of file bibliography.bib
+Repeated entry---line 733 of file bibliography.bib
  : @article{2021AJ....161..189L
  :                             ,
 I'm skipping whatever remains of this entry
-You're missing a field name---line 2164 of file bibliography.bib
+You're missing a field name---line 2185 of file bibliography.bib
  :  
  :  %series = {SPIE Conference Series},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
 Reallocated str_pool (elt_size=1) to 130000 items from 65000.
-Repeated entry---line 3260 of file bibliography.bib
+Repeated entry---line 3281 of file bibliography.bib
  : @article{Epstein_2014
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 19903 of file bibliography.bib
+Repeated entry---line 19924 of file bibliography.bib
  : @article{David_2019
  :                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 24566 of file bibliography.bib
+Repeated entry---line 24587 of file bibliography.bib
  : @article{Mamajek_2008
  :                      ,
 I'm skipping whatever remains of this entry
@@ -33,34 +33,34 @@ Warning--empty publisher in vogt_hires_1994
 Warning--empty pages in vogt_hires_1994
 You've used 170 entries,
             3222 wiz_defined-function locations,
-            1978 strings with 104047 characters,
-and the built_in function-call counts, 113458 in all, are:
-= -- 6410
-> -- 13986
-< -- 42
-+ -- 4652
-- -- 4890
-* -- 12189
-:= -- 22431
+            1979 strings with 104175 characters,
+and the built_in function-call counts, 113665 in all, are:
+= -- 6426
+> -- 14020
+< -- 41
++ -- 4664
+- -- 4906
+* -- 12217
+:= -- 22467
 add.period$ -- 171
 call.type$ -- 170
-change.case$ -- 946
+change.case$ -- 950
 chr.to.int$ -- 166
 cite$ -- 173
-duplicate$ -- 3065
+duplicate$ -- 3067
 empty$ -- 4849
-format.name$ -- 5070
-if$ -- 21270
+format.name$ -- 5084
+if$ -- 21307
 int.to.chr$ -- 5
 int.to.str$ -- 0
 missing$ -- 166
 newline$ -- 516
 num.names$ -- 683
-pop$ -- 1331
+pop$ -- 1337
 preamble$ -- 1
-purify$ -- 946
+purify$ -- 950
 quote$ -- 0
-skip$ -- 2428
+skip$ -- 2427
 stack$ -- 0
 substring$ -- 3016
 swap$ -- 40

@@ -221,9 +221,6 @@
 {Curtis}, J.~L., {Ag{\"u}eros}, M.~A., {Matt}, S.~P., {et~al.} 2020, \apj, 904,
   140
 
-\bibitem[{{Dahm}(2015)}]{Dahm_2015}
-{Dahm}, S.~E. 2015, \apj, 813, 108
-
 \bibitem[{{David} {et~al.}(2022){David}, {Angus}, {Curtis}, {van Saders},
   {Colman}, {Contardo}, {Lu}, \& {Zinn}}]{David_2022}
 {David}, T.~J., {Angus}, R., {Curtis}, J.~L., {et~al.} 2022, \apj, 933, 114
@@ -643,6 +640,11 @@ Hunter, J.~D., {et~al.} 2007, Computing in science and engineering, 9, 90
   {Kiman}}]{2021AJ....161..189L}
 {Lu}, Y.~L., {Angus}, R., {Curtis}, J.~L., {David}, T.~J., \& {Kiman}, R. 2021,
   \aj, 161, 189
+
+\bibitem[{{Lu} {et~al.}(2022){Lu}, {Curtis}, {Angus}, {David}, \&
+  {Hattori}}]{Lu2022}
+{Lu}, Y.~L., {Curtis}, J.~L., {Angus}, R., {David}, T.~J., \& {Hattori}, S.
+  2022, \aj, 164, 251
 
 \bibitem[{{Mamajek} \& {Hillenbrand}(2008)}]{Mamajek_2008}
 {Mamajek}, E.~E., \& {Hillenbrand}, L.~A. 2008, \apj, 687, 1264

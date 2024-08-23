@@ -1,6 +1,6 @@
 % upon AAS submission
-%\documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
-\documentclass[11pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
+\documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
+%\documentclass[11pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 % drafting / arxiv
 %\documentclass[11pt,twocolumn,tighten]{aastex63}
 \turnoffedit
@@ -832,7 +832,9 @@ for stars within 1 Kepler pixel (4$''$) of every target star.  While
 such companions may not not be physically associated with the target
 star, their presence can confuse rotation period measurements.  We
 therefore flagged any stars with neighbors down to 1/10$^{\rm th}$ the
-brightness of the target star within this region ($\Delta G < 2.5$).
+brightness of the target star within this region ($\Delta G$$<$2.5).\added{ We also
+considered a deeper cut ($\Delta G$$<$5), and found it had negligible impact
+on our conclusions.}
 
 {\it Near the main sequence (bit 9)}---Figure~\ref{fig:stellarprops} shows
 that many stars observed by Kepler
@@ -2015,7 +2017,7 @@ deficit between 5500--6000\,K.
 A second deficit is also visible from 3800--5000\,K;
 it is associated with the ``intermediate period gap'', which may be
 associated with a transition from spot-dominated to faculae-dominated
-light curves \citep[e.g.][]{Reinhold2019}.
+light curves \citep[e.g.][]{Reinhold2019}\added{, or with rapid spin-down at Rossby numbers near 0.5 \citep{Lu2022}}.
 At $\approx$1\,Gyr, stalled spin-down yields larger uncertainties for
 K dwarfs.
 The pile-up near $\approx$5\,Gyr is imposed by our choice of prior;
@@ -2081,7 +2083,7 @@ This analysis is particularly interesting in relation to the question
 of how fast stars $\gtrsim$4\,Gyr old spin down.  If we lived in a
 universe in which stellar rotation rates and spot-induced photometric
 amplitudes remained {\it constant} after $\approx$3\,Gyr, then older
-stars \replaced{would tend to }{could }contaminate the 2.5-3\,Gyr peaks in
+stars \replaced{would tend to }{could }contaminate the 2.3-3\,Gyr peaks in
 Figures~\ref{fig:hist_tgyro} and~\ref{fig:hist_tgyro_mcq}.  This
 scenario deserves consideration, given\replaced{ evidence from asteroseismic
 rotation periods that has pointed to}{ {\it i)} asteroseismic evidence for} slowed spin-down rates after
@@ -2090,13 +2092,20 @@ $\approx$4\,Gyr for Sun-like stars
 in the $P_{\rm rot}$-$T_{\rm eff}$ distribution which
 may pile up over similar timescales \citep{David_2022}}.  However, \replaced{because
 the \citeauthor{McQuillan_2014} sample does not include many stars
-older than $\approx$4\,Gyr \citep{2022ApJ...937...94M}, this analysis}{the analysis
-by \citet{2022ApJ...937...94M} fitted isochrones to a high-quality subset of Kepler data,
-and found that the
-sample of detected rotators from \citeauthor{McQuillan_2014} does not include many
-stars older than $\approx$\,4\,Gyr.}
-\replaced{would argue}{This suggests} that the 2.5-3\,Gyr peak \replaced{cannot}{is unlikely to} be caused by a pile-up of
-much older stars with especially lethargic spin-down rates.
+older than $\approx$4\,Gyr \citep{2022ApJ...937...94M}, this
+analysis}{this pileup is thought to happen at $>$5\,Gyr for
+late-G dwarfs and early K dwarfs \citep[see Figure~4
+by][]{2024ApJ...962..138S}.  This means that it cannot affect the
+2.3\,Gyr peak in the age distribution that we see for 4400-5400\,K stars.   
+Moreover, while some contamination by older stars may be present in the peaks,
+the analysis by \citet{2022ApJ...937...94M} fitted
+isochrones to a high-quality subset of Kepler data, and found that the
+\citeauthor{McQuillan_2014} sample does not
+include many stars older than $\approx$\,4\,Gyr.}
+\replaced{would argue}{These lines of evidence suggest} that the peak
+\replaced{cannot be}{in the age distribution is not} caused by a pile-up of
+much older stars with especially lethargic spin-down rates\added{, but that it could be
+contaminated by them, especially for stars hotter than the Sun}.
 
 
 
