@@ -21,6 +21,10 @@ maxages = [4000]
 require_santosonly = [False]
 
 ap.plot_hist_field_gyro_ages(
+    outdir, cache_id, MAXAGE=4000, s19s21only=False,
+    datestr=datestr, dropfracshortrot=1
+)
+ap.plot_hist_field_gyro_ages(
     outdir, cache_id, MAXAGE=4000, s19s21only=0, preciseagesonly=1,
     datestr=datestr
 )
