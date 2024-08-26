@@ -1460,16 +1460,21 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     if dropfracshortrot:
         N_before = len(skdf)
-        # Randomly drop 5% of total star count, from the subset with Prot<10.
-        N_to_drop = int(0.05 * N_before)
-        filtered_skdf = skdf[skdf['Prot'] < 10]
-        print(N_before, N_to_drop, len(filtered_skdf))
-        frac = N_to_drop / len(filtered_skdf)
-        drop_indices = filtered_skdf.sample(frac=frac, random_state=42).index
-        skdf = skdf.drop(drop_indices).reset_index(drop=True)
-        N_after = len(skdf)
-        print(f'Droping {N_to_drop} stars, after reuqiring Prot<10days... N_after={N_after}')
 
+        # Randomly drop 5%, 0.66*5%, 0.33*% of total star count, from the subset with Prot<10.
+        drop_fracs = [0.05]#, 0.05/2]
+
+        skdfs = []
+        for ix, drop_frac in enumerate(drop_fracs):
+            N_to_drop = int(drop_frac * N_before)
+            filtered_skdf = skdf[skdf['Prot'] < 10]
+            print(N_before, N_to_drop, len(filtered_skdf))
+            frac = N_to_drop / len(filtered_skdf)
+            drop_indices = filtered_skdf.sample(frac=frac, random_state=ix).index
+            _skdf = skdf.drop(drop_indices).reset_index(drop=True)
+            N_after = len(_skdf)
+            skdfs.append(_skdf)
+            print(f'Dropping {N_to_drop} stars, after reuqiring Prot<10days... N_after={N_after}')
 
     skdf['KIC'] = skdf.KIC.astype(str)
     mdf['KIC'] = mdf.KIC.astype(str)
@@ -1530,6 +1535,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     sel_gyro_ok = mdf.KIC.isin(skdf.KIC)
     if flag_mcq14_comp:
         sel_gyro_ok1 = mdf1.KIC.astype(str).isin(skdf1.KIC.astype(str))
+    if dropfracshortrot:
+        sel_gyro_oks = [mdf.KIC.isin(_skdf.KIC) for _skdf in skdfs]
 
     ax.hist(mdf[sel_gyro_ok].age, bins=bins, color='k',
             density=False, zorder=2, label='gyro applicable')
@@ -1581,24 +1588,55 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     N = int(len(mdf[sel_gyro_ok])/10)
     l0_1 = f'Gyro applicable ({N})'
+    lw = 1 if not dropfracshortrot else 0.75
     heights, bin_edges, _  = axs[0].hist(
         mdf[sel_gyro_ok].age/1e3, bins=bins, color='C0', histtype='step',
         weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=-3,
-        alpha=1, label=l0_1
+        alpha=1, label=l0_1, linewidth=lw
     )
+    if dropfracshortrot:
+        colors = ['C0', 'C0', 'C0']
+        linewidths = [1, 0.5, 0.5]
+        linestyles = ['-', ':', '-.']
+        alphas = [1, 0.4, 0.4]
+        droplabels = [
+            f"{int(_df*100)}% binary contam. ({int(len(mdf[_sel_gyro_ok])/10)})"
+            for _df, _sel_gyro_ok in zip(drop_fracs, sel_gyro_oks)
+        ]
+        for _sel_gyro_ok, dropfrac, c, lw, ls, a, dl in zip(
+            sel_gyro_oks, drop_fracs, colors, linewidths, linestyles, alphas,
+            droplabels
+        ):
+            heights, _, _  = axs[0].hist(
+                mdf[_sel_gyro_ok].age/1e3, bins=bins, color=c, histtype='step',
+                weights=np.ones(len(mdf[_sel_gyro_ok]))/len(mdf[_sel_gyro_ok]), zorder=-3,
+                alpha=a, label=dl, linewidth=lw, linestyle=ls
+            )
 
     ynorm = heights[0]
     l2_1 = f'Kepler stars ({N})'
     if flag_mcq14_comp:
         l2_1 = 'Santos P$_{\mathrm{rot}}$' + f' ({N})'
-    _  = axs[2].hist(
-        mdf[sel_gyro_ok].age/1e3, bins=bins, color='C0', histtype='step',
-        weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=-1,
-        alpha=1, label=l2_1
-    )
+    if not dropfracshortrot:
+        _  = axs[2].hist(
+            mdf[sel_gyro_ok].age/1e3, bins=bins, color='C0', histtype='step',
+            weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=-1,
+            alpha=1, label=l2_1
+        )
+    else:
+        l2_1 = f"Kepler stars ({int(len(mdf[_sel_gyro_ok])/10)})"
+        _  = axs[2].hist(
+            mdf[_sel_gyro_ok].age/1e3, bins=bins, color='C0', histtype='step',
+            weights=np.ones(len(mdf[_sel_gyro_ok]))/len(mdf[_sel_gyro_ok]), zorder=-1,
+            alpha=1, label=l2_1
+        )
 
     bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
-    poisson_uncertainties = get_poisson_uncertainties(mdf[sel_gyro_ok], bins)
+    if not dropfracshortrot:
+        poisson_uncertainties = get_poisson_uncertainties(mdf[sel_gyro_ok], bins)
+    else:
+        poisson_uncertainties = get_poisson_uncertainties(mdf[_sel_gyro_ok], bins)
+
     axs[0].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
         elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='C0', markersize=0,
@@ -1611,15 +1649,16 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     )
     fit_line_and_print_results(bin_centers, heights, poisson_uncertainties)
 
-    axs[0].errorbar(
-        [1,2,3], [0.0165,0.0165,0.0165], xerr=np.array(mean_pms).T/1e3, marker='o',
-        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='C0', markersize=0,
-        zorder=999, alpha=1
-    )
-    axs[0].text(3, 0.0195, 'stat.\nuncert.', ha='center', va='bottom',
-                fontsize='xx-small', zorder=5,
-                transform=axs[0].transData,
-                fontdict={'fontstyle':'normal'}, color='C0')
+    if not dropfracshortrot:
+        axs[0].errorbar(
+            [1,2,3], [0.0165,0.0165,0.0165], xerr=np.array(mean_pms).T/1e3, marker='o',
+            elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='C0', markersize=0,
+            zorder=999, alpha=1
+        )
+        axs[0].text(3, 0.0195, 'stat.\nuncert.', ha='center', va='bottom',
+                    fontsize='xx-small', zorder=5,
+                    transform=axs[0].transData,
+                    fontdict={'fontstyle':'normal'}, color='C0')
 
 
     ##########################################
@@ -1753,7 +1792,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     # completeness gradient
     for ax in axs:
-        add_gradient_patch(ax, 3.1, 4.1, 0, 0.1)
+        add_gradient_patch(ax, 3.15, 4.1, 0, 0.1)
 
     xmin = 0
     xmax = MAXAGE-20 if MAXAGE < 4000 else MAXAGE
@@ -1801,7 +1840,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     if not flag_mcq14_comp:
         txt = 'KOI hosts'
         if dropfracshortrot:
-            txt += ',\n  - estm. binaries'
+            txt += '\n  (no extra correction)'
         axs[1].text(.05, .95, txt, ha='left', va='top',
                     fontsize='small', zorder=5, transform=axs[1].transAxes,
                     fontdict={'fontstyle':'normal'}, color='sienna')
@@ -1880,11 +1919,21 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
             ax.xaxis.set_ticks_position('bottom')
 
     from matplotlib.lines import Line2D
-    custom_lines = [Line2D([0], [0], color='C0', lw=0.5, alpha=0.4),
-                    Line2D([0], [0], color='C0', lw=1, alpha=1.0 ) ]
-    axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='xx-small',
-                  borderaxespad=0.9, borderpad=0.5, framealpha=0,
-                  loc='lower right')
+    if not dropfracshortrot:
+        custom_lines = [Line2D([0], [0], color='C0', lw=0.5, alpha=0.4),
+                        Line2D([0], [0], color='C0', lw=1, alpha=1.0 ) ]
+        axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='xx-small',
+                      borderaxespad=0.9, borderpad=0.5, framealpha=0,
+                      loc='lower right')
+    else:
+        custom_lines = [Line2D([0], [0], color='C0', lw=0.5, alpha=0.4),
+                        Line2D([0], [0], color='C0', lw=0.75, alpha=1.0),
+                        Line2D([0], [0], color='C0', lw=1, alpha=1.0)
+                        ]
+        axs[0].legend(custom_lines, [l0_0, l0_1, droplabels[0]], fontsize='xx-small',
+                      borderaxespad=0.9, borderpad=0.5, framealpha=0,
+                      loc='lower right')
+
     _c = 'sienna' if not flag_mcq14_comp else 'darkorange'
     custom_lines = [Line2D([0], [0], color=_c, lw=0.5, alpha=0.4),
                     Line2D([0], [0], color=_c, lw=1, alpha=1.0 ) ]
