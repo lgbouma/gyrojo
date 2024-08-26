@@ -1096,13 +1096,18 @@ sub-gigayear stars of a fixed mass and age.
   \begin{center}
     \leavevmode
     \subfloat{
-        \includegraphics[width=.98\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240530_maxage4000.pdf}
+        \includegraphics[width=.98\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240821_maxage4000.pdf}
     }
 
 	\vspace{-0.35cm}
     \subfloat{
-        \includegraphics[width=.98\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240530_maxage4000_preciseagesonly.pdf}
+        \includegraphics[width=.98\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240821_maxage4000_preciseagesonly.pdf}
     }
+%
+%	\vspace{-0.35cm}
+%	\subfloat{
+%		\includegraphics[width=.98\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240821_maxage4000_dropfracshortrot.pdf}
+%	}
   \end{center}
   \vspace{-0.6cm}
   \caption{{\bf Kepler's demographic cliff,} visible in the
@@ -1110,11 +1115,13 @@ sub-gigayear stars of a fixed mass and age.
   hosts (middle).  The top row shows all stars with temperatures of
   3800--6200\,K for which we calculated rotational ages.  Opaque lines
   impose quality cuts on binarity, \added{metallicity, }crowding, and the star's
-  evolutionary state; transparent lines do not.  The bottom row shows
+  evolutionary state; transparent lines do not\added{ (see
+  Section~\ref{subsec:flags})}.  The \replaced{bottom}{middle} row shows
   stars with temperatures of 4400--5400\,K, which \replaced{have more precise
   ages due to their fast spin-down}{often have more precise ages}.  The statistical uncertainty for a
   mean star at 1, 2, and 3\,Gyr is shown, and is identical across each
-  row.  Finally, the right panel compares the rotation-derived ages
+  row.  
+  Finally, the right panel compares the rotation-derived ages
   against star formation histories derived using CMD fitting (dashed
   and dotted lines).  Completeness in Kepler's $P$$_{\rm rot}$
   detection sensitivity is near unity until $t$$\lesssim$3\,Gyr
@@ -1124,7 +1131,9 @@ sub-gigayear stars of a fixed mass and age.
 \end{figure*}
 
 
-\subsection{A Paucity Of Young Stars And Planets}
+\subsection{Rotation-Based Age Distribution}
+
+\subsubsection{A Paucity Of Young Stars And Planets}
 
 The stellar ages are given in Table~\ref{tab:planets} for the known
 planet hosts, and in Table~\ref{tab:stars} for all Kepler stars.
@@ -1156,22 +1165,13 @@ may be present, they are not drastic.
 The similarity of the KOI host and Kepler star age distributions adds
 some nuance to the argument that young transiting planets are hard to
 detect due to the photometric variability of their host stars.  If
-true, this statement seems to hold only for the very youngest
+true, this statement \replaced{seems to}{might} hold only for the very youngest
 ($\lesssim$0.4\,Gyr) stars, where there is a marginal deficit in the
 KOI host age distribution relative to the parent stellar sample.
 Examining scatter plots of the planet properties as a function of
 age, we similarly find that fewer systems at $t_{\rm
 gyro}$$<$0.4\,Gyr are detected with $P_{\rm orb}$$\gtrsim$30\,days
 than at $t_{\rm gyro}$$>$0.4\,Gyr.
-
-An important separate selection effect concerns Kepler's ability to
-detect the rotation signals.  \citet{2022ApJ...937...94M} studied this
-issue, and found for Sun-like stars that the fraction of rotation
-signals detectable by Kepler is near unity up to $\approx$3\,Gyr, and
-that it drops to almost zero by $\approx$5\,Gyr.  This trend is
-opposite in functional form to our derived age distributions\replaced{.}{and
-	most of the stars in our sample are indeed G dwarfs (see e.g.,~the $t_{\rm gyro}$--$T_{\rm eff}$ distributions 
-	in Appendix~\ref{app:age_diagnostic}).}
 
 We can quantify the relative counts of stars as a function of age by
 labelling stars between 0-1\,Gyr, 1-2\,Gyr, and 2-3\,Gyr as ``young'',
@@ -1190,6 +1190,35 @@ of new stars forming in the Galaxy will reach zero.
 In terms of detected planet counts, our rotation-based ages for the
 Kepler sample yield \{\nplyounggyro, \nplmidgyro, \nploldgyro\}
 detected planets in the 0-1\,Gyr, 1-2\,Gyr, and 2-3\,Gyr bins.  
+
+
+\subsubsection{Nuances in the Age Distribution}
+
+\added{{\it Completeness}---Figure~\ref{fig:hist_tgyro} has a gray
+overlay beyond $\gtrsim$3\,Gyr because Kepler's sensitivity to
+rotation signals diminishes at old ages.} \citet{2022ApJ...937...94M}
+studied \deleted{this issue}\added{Kepler's completeness to rotation
+signals using MIST-derived isochrone ages}, and found for Sun-like
+stars that the fraction of rotation signals \added{that are
+}detectable \deleted{by Kepler }is near unity up to $\approx$3\,Gyr,
+and that it drops to almost zero by $\approx$5\,Gyr.  \deleted{This trend is
+opposite in functional form to our derived age
+distributions.}\added{This estimate suggests that while aspects of
+Figure~\ref{fig:hist_tgyro} might be interpretable in terms of the Galaxy's star
+formation history at $\lesssim$3\,Gyr, at older ages incompleteness
+likely precludes any such interpretation.}
+
+\added{{\it Temperature sensitivity}---There are quantitative differences
+in Figure~\ref{fig:hist_tgyro} between the
+K dwarfs (4400--5400\,K) and the FGK stars (3800--6200\,K).  For instance,
+the distribution peaks at 2.3\,Gyr for K dwarfs, and at 2.9\,Gyr for
+the FGK sample.  The peak is also sharper for the K dwarfs;
+its decrease from 2.3-3\,Gyr is in an age range in which we believe the
+rotation period catalog completeness to be near unity.  We
+discuss further details of the $t_{\rm gyro}$--$T_{\rm eff}$
+distributions in Appendix~\ref{app:age_diagnostic}, and propose possible
+explanations for these differences in Section~\ref{subsec:caveats}. }
+
 
 
 \subsection{Planets Younger Than One Billion Years}
@@ -1301,7 +1330,7 @@ constraint can only be provided for G and K dwarfs $\lesssim$2\,Gyr
 old, and Kepler should have been sensitive to the rotation periods of
 such stars.
 
-In the entire planet sample (i.e.~without imposing any quality cuts)
+In the entire planet sample (i.e.,~without imposing any quality cuts)
 this yielded \allagesyesconsistent\ consistent cases,
 \allagesmaybeconsistent\ maybe consistent cases, and
 \allagesnoconsistent\ inconsistent cases.  Rephrased, in the overall
@@ -1316,7 +1345,7 @@ else unresolved binaries, and are automatically flagged as such.  The
 more interesting of the two is Kepler-786, an early K dwarf with
 $t_{\rm Li}$=\kepseveneightsix\,Myr, but with a $\approx$33\,day
 rotation period that implies $t_{\rm
-gyro}$$\approx$4.4,Gyr.  Other age indicators in the
+gyro}$$\approx$4.4\,Gyr.  Other age indicators in the
 spectrum similarly suggest that the star is not young.  It 
 therefore appears to be anomalously lithium-rich. 
 
@@ -1429,10 +1458,112 @@ those studies is their improved accuracy at $<$1\,Gyr.
 \label{subsec:caveats}
 
 Our most constraining ages tend to come from one source of
-information: rotation.  Factors other than stellar age and mass can
-influence stellar rotation rates.  Binarity is one example: even
-intermediate-separation ($\sim$10\,AU) binaries are biased toward
-rapid rotation \citep[e.g.][and many studies thereafter]{Meibom_2007}.
+information: rotation.  Factors other than \deleted{stellar }age and mass can
+influence \deleted{stellar }rotation rates.  \added{Astrophysical factors include
+metallicity, differential rotation, and tidal spin-up, while observational
+challenges include the difficulty of measuring small-amplitude,
+long-period signals that are only quasi-coherent due to the starspot
+lifetime approaching the stellar rotation period.  In the following, we attempt to
+quantify the importance of these effects in our analysis, ordered by
+what we perceive to be their descending importance.}
+
+\begin{figure*}[!t]
+	\begin{center}
+		\leavevmode
+%		\subfloat{
+%			\includegraphics[width=.98\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240821_maxage4000.pdf}
+%		}
+%		
+%		\vspace{-0.35cm}
+%		\subfloat{
+%			\includegraphics[width=.98\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240821_maxage4000_preciseagesonly.pdf}
+%		}
+		%
+		%	\vspace{-0.35cm}
+			\subfloat{
+				\includegraphics[width=.98\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240821_maxage4000_dropfracshortrot.pdf}
+			}
+	\end{center}
+	\vspace{-0.6cm}
+	\caption{{\bf Variant of Figure~\ref{fig:hist_tgyro}}, with rotation-derived age distributions that
+			correct for the estimated (estm.) effect of unresolved $\lesssim$0.5\,AU binaries. 
+		Even after applying our quality cuts (Section~\ref{subsec:flags}), up to
+		\fivepctnuniqstarsantosrotgyroappl\ out of \ngyroappllttendays\ ``clean'' rotators with
+		$P_{\rm rot}$$<$10\,days could be unresolved binaries.
+		These distributions correct for this possibility by randomly removing
+		what we expect to be the maximum possible number of such systems; the actual
+		correction relative to Figure~\ref{fig:hist_tgyro} might be smaller.
+		\label{fig:hist_tgyro_corr}
+	}
+\end{figure*}
+
+{\it Binaries}:
+\replaced{Even intermediate-separation ($\sim$10\,AU) binaries
+are biased toward rapid rotation \citep[e.g.][and many studies
+thereafter]{Meibom_2007}.}{Binaries are often biased
+toward rapid rotation, even at intermediate separations of $\lesssim$10\,AU \citep[e.g.][]{Meibom_2007,Gruner_2023}.}
+\added{\citet{2019ApJ...871..174S} for instance found that 59\% of
+Kepler stars with rotation periods between 1.5 and 7\,days lie
+0.3\,mag above the main sequence, compared with 28\% of their full
+rotation sample.
+We attempted to mitigate the effects of binarity with five distinct
+quality flags (Section~\ref{subsec:flags}), and this attempt was at least
+somewhat effective, based on the peak near zero in the raw
+distributions of Figure~\ref{fig:hist_tgyro} being flattened in the
+cleaned distributions.
+However, the sensitivity of our quality flags is hard to assess.  One specific concern is that these
+quality flags might have minimal sensitivity to binaries with
+separations of 0.05-0.5\,AU, for all but the highest mass ratios.  This inner limit is set by the onset
+of detectable ellipsoidal variations in \citet{2016AJ....151...68K}; the outer limit is set by the typical 
+orbital periods of astrometric binaries in Gaia DR3 \citep{GaiaCollaboration2023}.  }
+
+\added{ If we were not at all sensitive to
+binaries with separations of 0.05-0.5\,AU, then based on
+the binary fraction and separation distribution from
+\citet{Raghavan2010}, as much as $\approx$5\% of our ``gyro
+applicable'' sample
+(\fivepctnuniqstarsantosrotgyroappl/\nuniqstarsantosrotgyroappl\
+stars) might be contaminated.  In a worst case scenario, all of
+these unidentified binaries might be able to induce $P_{\rm rot}$$<$10
+days, which would then be mixed in with the bona fide young, single stars.
+In our actual sample of apparently clean stars,
+\ngyroappllttendays/\nuniqstarsantosrotgyroappl\ had $P_{\rm
+rot}$$<$10\,days. 
+
+Figure~\ref{fig:hist_tgyro_corr} shows the rotation-based age distribution
+calculated by randomly dropping \fivepctnuniqstarsantosrotgyroappl\ of the
+$P_{\rm rot}$$<$10\,day stars.
+There are three important aspects of this result, relative to the original
+distributions in Figure~\ref{fig:hist_tgyro}.
+The first is that it would imply a much larger drop in the star formation rate,
+by a factor of 4.81$\pm$0.26, rather than \ratiosfr$\pm$\uncratiosfr,
+over the past three gigayears.
+The second is that it allows for a constant rate of decline in star formation
+since $\approx$2.8\,Gyr ago, rather than having a ``kink'' at 1.5\,Gyr,
+as in Figure~\ref{fig:hist_tgyro}.
+And finally, these corrected distributions show closer agreement with SFHs
+derived from CMD fitting.
+We caution however that this correction assumes that {\it none} of our
+quality flags were able to identify any of these unresolved binaries.
+Since we did in fact include flags based on e.g.~location in the HR diagram,
+this correction is best interpreted as an upper limit on the possible impact of binarity.}
+
+
+%TODO TODO TODO
+\added{{\it Erroneous period measurements:} }
+
+\added{
+{\it Metallicity:}
+}
+
+\added{
+{\it Differential rotation:}
+}
+
+%TODO TODO TODO
+%TODO TODO TODO
+%TODO TODO TODO
+
 Metallicity may also be relevant
 \citep{2020MNRAS.499.3481A,2024arXiv240500779S}.  An additional caveat
 is that our rotation-based ages used photometric effective
@@ -1487,17 +1618,6 @@ incorporate these indicators into this study due to concerns regarding
 sensitivity, homogeneity, and the question of whether they in fact
 provide age information that is truly independent from rotation.
 
-A broader question, beyond the scope of this work, concerns the ages
-of stars $\gtrsim$4\,Gyr old.  For age-dating models based only on
-rotation rates, an important challenge is that the detectability of
-the rotation signals for 3-10\,Gyr stars, especially Sun-like stars,
-is at the limits of the Kepler data \citep{2022ApJ...937...94M}.  In
-the ``old star'' regime, methods that leverage either asteroseismology
-\citep{vanSaders_2016,2024ApJ...962..138S}, or else that combine both the
-evolution of stellar luminosity and stellar rotation
-\citep{Angus_2019,Claytor2020,2023ApJ...952..131M} seem the most capable of
-providing useful age constraints for single stars over the full
-span of their main-sequence lifetimes.
 %Incorporating
 %kinematics \citep{2021AJ....161..189L} seems likely to remain most
 %useful for stellar ensembles, due to the stochasticity of kinematic
@@ -1506,7 +1626,22 @@ span of their main-sequence lifetimes.
 
 \subsection{Future Directions}
 
-{\it Occurrence Rates}:
+\added{{\it Ages of stars older than the Sun}: }\deleted{A broader question, beyond
+the scope of this work, concerns the ages of stars $\gtrsim$4\,Gyr
+old.}\added{This work was limited to stars younger than 4\,Gyr}. For
+age-dating models based only on rotation rates, an important challenge
+is that the detectability of the rotation signals for 3-10\,Gyr stars,
+especially Sun-like stars, is at the limits of the Kepler data
+\citep{2022ApJ...937...94M}.  In the ``old star'' regime, methods that
+leverage either asteroseismology
+\citep{vanSaders_2016,2024ApJ...962..138S}, or else that combine both
+the evolution of stellar luminosity and stellar rotation
+\citep{Angus_2019,Claytor2020,2023ApJ...952..131M} seem the most
+capable of providing useful age constraints for single stars over the
+full span of their main-sequence lifetimes.
+
+
+{\it \added{Planet} occurrence Rates}:
 The age-dependent trends predicted for exoplanet populations, such as
 the Kelvin-Helmholtz cooling of mini-Neptunes \citep{Gupta_2019},
 time-dependent carving of the photoevaporation desert
