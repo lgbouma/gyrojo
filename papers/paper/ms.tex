@@ -155,7 +155,7 @@ Mellon University, Pittsburgh, PA 15213, USA}
   This is about half the number expected under the classic assumption
   of a uniform star formation history.  We find that the scarcity of
   sub-gigayear systems can be attributed to the star formation rate in
-  the Kepler field \replaced{dropping}{smoothly decreasing} by a factor of \ratiosfr$\pm$\uncratiosfr\
+  the Kepler field \replaced{dropping}{smoothly decreasing} by a factor of \replaced{\ratiosfr$\pm$\uncratiosfr}{a few}
   over the past 3\,Gyr.  We observe this trend both in known planet
   hosts and in the parent stellar sample.
   %
@@ -386,10 +386,10 @@ provides a visualization of the various samples.
 \begin{figure*}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.47\textwidth]{prot_teff_Santos19_Santos21_dquality.pdf}
+			\includegraphics[width=0.49\textwidth]{prot_teff_Santos19_Santos21_dquality.png}
 		}
 		\subfloat{
-			\includegraphics[width=0.47\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf}
+			\includegraphics[width=0.49\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.png}
 		}
 	\end{center}
 	\vspace{-0.5cm}
@@ -440,11 +440,11 @@ agree for 99.0\% of the 31{,}038 period detections in common between
 the two studies.  \citetalias{Santos_2021} classified the 2{,}992
 remaining stars from \citetalias{McQuillan_2014} as not showing
 rotation periods based on updated knowledge of contaminants
-(e.g.~giant stars and eclipsing binaries) and visual inspection.  In
+(such as giant stars and eclipsing binaries) and visual inspection.  In
 addition, \citetalias{Santos_2021} reported rotation periods for
 24{,}182 main-sequence and subgiant FGKM stars that were not reported
 as periodic by \citetalias{McQuillan_2014}.  Many of these reported
-detections have lower variability amplitudes and longer periods than
+signals have lower variability amplitudes and longer periods than
 those reported by \citetalias{McQuillan_2014}. 
 
 Analyzing the compilation of \citetalias{Santos_2019} and
@@ -1008,7 +1008,8 @@ quote the 3$\sigma$ (99.7$^{\rm th}$ percentile) limits.
 		{\bf Reported ages of individual stars in benchmark open clusters.}
     Each point denotes a star's reported age, normalized by the age of
     a stellar ensemble in which the star is a candidate member.
-    Cluster membership was evaluated without knowledge of rotation.
+    Cluster membership was evaluated without knowledge of rotation\added{, and for this plot,
+    no attempt was made to exclude known binaries}.
     Although some field interlopers may be present in the membership
     lists, outliers can be compared between different methods on a
     relative basis.  Each study was cross-matched against the same
@@ -1031,7 +1032,7 @@ Specifically in the Kepler field,
 NGC6811 (1\,Gyr; \citealt{Curtis_2019_ngc6811}) and NGC6819 (2.5\,Gyr; \citealt{Meibom_2015}) 
 have been known for centuries,
 while 
-Theia~520 ($\approx$300\,Myr; \citealt{2019AJ....158..122K}), Melange-3 ($\approx$150\,Myr; \citealt{Barber_2022}), and Cep-Her ($\approx$40\,Myr; \citealt{Bouma_2022b} and Kerr et al.~2024 submitted) are more recent discoveries.
+Theia~520 ($\approx$300\,Myr; \citealt{2019AJ....158..122K}), Melange-3 ($\approx$150\,Myr; \citealt{Barber_2022}), and Cep-Her ($\approx$40\,Myr; \citealt{Bouma_2022b} and \citealt{Kerr2024}) are more recent discoveries.
 
 In Figure~\ref{fig:agescalecompone}, we compare our rotation-based
 ages, and available ages from the literature, against the ages of
@@ -1112,19 +1113,19 @@ sub-gigayear stars of a fixed mass and age.
   \vspace{-0.6cm}
   \caption{{\bf Kepler's demographic cliff,} visible in the
   rotation-derived age distributions of its stars (left) and planet
-  hosts (middle).  The top row shows all stars with temperatures of
-  3800--6200\,K for which we calculated rotational ages.  Opaque lines
+  hosts (middle).  The top row shows \replaced{all stars with temperatures of
+  3800--6200\,K for which we calculated rotational ages}{stars with temperatures of 3800--6200\,K}.  Opaque lines
   impose quality cuts on binarity, \added{metallicity, }crowding, and the star's
   evolutionary state; transparent lines do not\added{ (see
-  Section~\ref{subsec:flags})}.  The \replaced{bottom}{middle} row shows
+  Section~\ref{subsec:flags})}.  The bottom row shows
   stars with temperatures of 4400--5400\,K, which \replaced{have more precise
-  ages due to their fast spin-down}{often have more precise ages}.  The statistical uncertainty for a
+  ages due to their fast spin-down}{usually have more precise ages}.  The statistical uncertainty for a
   mean star at 1, 2, and 3\,Gyr is shown, and is identical across each
   row.  
   Finally, the right panel compares the rotation-derived ages
   against star formation histories derived using CMD fitting (dashed
   and dotted lines).  Completeness in Kepler's $P$$_{\rm rot}$
-  detection sensitivity is near unity until $t$$\lesssim$3\,Gyr
+  detection sensitivity is near unity until $t$$\lesssim$3\,Gyr\added{, and decreases rapidly at older ages}
   \citep{2022ApJ...937...94M}.
   \label{fig:hist_tgyro}
   }
@@ -1304,7 +1305,7 @@ this time, enabling its rotation period to be diagnostic of its age.
     select for precise ages ($t/\sigma_{\rm t}>3$), this would hide
     $\approx$ten $<$0.5\,Gyr planets, and add $\approx$fifteen
     0.5-1\,Gyr planets.  For this plot, we require our Kepler stellar
-    hosts to not have $Q_{\rm star}$ bits 0--9 raised, and for the
+    hosts to not have $Q_{\rm star}$ bits 0--\replaced{9}{10} raised, and for the
     planets to similarly no have quality flags raised. 
     \label{fig:rp_period_age_results}
   }
@@ -1444,9 +1445,9 @@ Regarding the episodic star formation bursts reported by
 star sample (top row).  However, rotation-based ages are most precise
 for $\approx$G8V-K4V dwarfs older than $\approx$1.5\,Gyr
 \citep{Bouma_2023}.  The lower row of Figure~\ref{fig:hist_tgyro}
-selects these stars with a temperature cut, and may show a hint of the
-$\approx$2\,Gyr spike reported by \citet{2020NatAs...4..965R}.  The
-$\approx$1\,Gyr spike however is not recovered.  This
+selects these stars with a temperature cut, and may show a \added{weak }hint of the
+\added{$\approx$1\,Gyr and }$\approx$2\,Gyr spike\added{s} reported by \citet{2020NatAs...4..965R}.  \deleted{The
+$\approx$1\,Gyr spike however is not recovered. } This
 $\approx$2.5\,Gyr local maximum is similarly present in the isochrone
 ages derived by \citet{Berger_2020a_catalog} for the Kepler field, and
 in the red giant asteroseismic ages derived by
@@ -1512,7 +1513,7 @@ However, the completeness of our quality flags is hard to assess.  One specific 
 flags might have minimal sensitivity to binaries with
 separations of $\approx$0.05-0.5\,AU, for all but the highest mass ratios.  This inner limit is set by the onset
 of detectable ellipsoidal variations in \citet{2016AJ....151...68K}; the outer limit is set by the typical 
-orbital periods of astrometric binaries in Gaia DR3 \citep[see Figure~3 of][]{GaiaCollaboration2023}.  }
+orbital periods of astrometric binaries in Gaia DR3 \citep[see Figure~3 of][]{GaiaCollaboration2023}.}
 
 \added{ If we were not at all sensitive to
 binaries with separations of 0.05-0.5\,AU, then based on
@@ -1536,8 +1537,9 @@ There is a much larger drop in the star formation rate over the past three gigay
 by a factor of 4.81$\pm$0.26, rather than \ratiosfr$\pm$\uncratiosfr.
 The rate of decline in star formation
 since $\approx$2.8\,Gyr ago is also constant, rather than having a ``kink'' at 1.5\,Gyr.
-And finally, the corrected distributions show closer agreement with SFHs
-derived from CMD fitting.
+And finally, the corrected distributions show closer agreement with both the SFHs
+derived from CMD fitting, and also with the KOI host distribution,
+which is almost devoid of close binaries within 1\,AU \citep[e.g.][and references therein]{Moe2021}.
 We caution however that this correction assumes that {\it none} of our
 quality flags were able to identify any of these unresolved binaries.
 Since we did in fact include flags based on e.g.,~location in the HR diagram,
@@ -1610,9 +1612,9 @@ $\approx$4\,Gyr for Sun-like stars
 	isochrones to a high-quality subset of Kepler data, and found that the
 	\citet{McQuillan_2014} sample, discussed in Appendix~\ref{app:mcqonly}, does not
 	include many stars older than $\approx$\,4\,Gyr.
-These lines of evidence suggest that the peak
-in the observed age distribution is not caused by a pile-up of
-much older stars with especially lethargic spin-down rates, but that it could be
+These arguments suggest that the peak
+in the age distribution is not caused by a pile-up of
+much older stars with lethargic spin-down rates, but that it could be
 	contaminated by them beyond $\approx$3\,Gyr, especially for stars hotter than the Sun.
 }
 
@@ -1773,7 +1775,7 @@ Figure~\ref{fig:rp_period_age_results}.   While the new young planets
 are mostly mini-Neptunes, some are near the lower boundary of the
 ``sub-Jovian desert'' \citep{Owen2018}, which could have an
 evolutionary connection to their youth.  Other discoveries include
-Earth-sized planets \added{such as Kepler-1312~c and Kepler-1561~b }with new ages of only a few hundred million years.  
+Earth-sized planets \added{(e.g.~Kepler-1312~c and Kepler-1561~b) }with \deleted{new }ages of only a few hundred million years.  
 
 Our main conclusions with respect to our original questions are as
 follows.
@@ -1785,10 +1787,10 @@ follows.
     demographic cliff.  There are \added{at least }twice as many ``old'' (2-3\,Gyr)
     stars in the Kepler field as ``young'' (0-1\,Gyr) stars.  The star
     formation rate today is\added{ at least} \ratiosfr$\pm$\uncratiosfr\ times lower
-    than it was three billion years ago\added{.  The statistical uncertainty on this figure is far smaller than the systematic uncertainty caused by the potential presence of unresolved photometric binaries (Section~\ref{subsec:caveats}); the star formation rate could have decreased by a factor of as much as 4.81$\pm$0.26}.  \replaced{This}{Either} result \deleted{from
-    rotation-based ages }broadly agrees with recent reports of a
+    than it was three billion years ago\added{.  The statistical uncertainty on this figure is far smaller than the systematic uncertainty caused by the potential presence of unresolved photometric binaries (Section~\ref{subsec:caveats}); the star formation rate could have decreased by a factor of as much as 4.81$\pm$0.26}.  \replaced{This}{Either} result \replaced{from
+    rotation-based ages broadly agrees}{is generally consistent} with recent reports of a
     declining star-formation rate from CMD fitting and white-dwarf
-    chronology, though with the \added{potential }advantage of better sensitivity for
+    chronology, though with the \added{potential }advantage of better \replaced{sensitivity}{accuracy} for
     FGK stars at $t$$<$1\,Gyr (e.g.~Figure~\ref{fig:agescalecompone}).
   %
   \item Rather than expecting $\approx$500 exoplanets younger than one
@@ -1806,7 +1808,8 @@ follows.
 
 \acknowledgements
 \added{We thank the reviewer for their suggestions, which significantly improved the 
-quality of the manuscript.} This work was supported by the Heising-Simons 51~Pegasi~b Fellowship
+quality of the manuscript.}
+This work was supported by the Heising-Simons 51~Pegasi~b Fellowship
 (LGB, EKP) and the Arthur R.~Adams SURF Fellowship (EKP).
 The HIRES data were obtained at the Keck Observatory.
 We recognize the importance that the summit of Maunakea has always had
@@ -2123,8 +2126,8 @@ lithium content.  The spectrum is single-lined, with
 eff}$=4769$\pm$100\,K, $\log g$=4.5$\pm$0.1, [Fe/H]=0.11$\pm$0.06, and
 $v\sin i$=2.4$\pm$0.6\kms.  Yet with EW$_{\rm
 Li}^{\ast}$=83$\pm$6\,m\AA, the lithium age of \kepseveneightsix\,Myr
-would predict an obvious rotation signal.  None is present in the
-Kepler light curve, consistent with the low $v\sin i$.  Out of all
+would predict \replaced{an obvious}{a short-period} rotation signal.  \replaced{None is present in the
+Kepler light curve}{The actual signal that is present has an amplitude of $\approx$0.1-0.3\% and a period of $\approx$33\,days}, consistent with the low $v\sin i$.  Out of all
 ``apparently discrepant'' lithium and rotation measurements discussed
 in this appendix, this is the only one that seems to remain discrepant
 after scrutiny.  The  \ion{Ca}{2} doublet is in emission, with
@@ -2287,13 +2290,13 @@ rotation detection pipeline.
 \begin{figure*}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.43\textwidth]{prot_teff_Santos19_Santos21_dquality.pdf}
+			\includegraphics[width=0.44\textwidth]{prot_teff_Santos19_Santos21_dquality.png}
 		}
 		\subfloat{
-			\includegraphics[width=0.43\textwidth]{prot_teff_McQuillan2014only_dquality.pdf}
+			\includegraphics[width=0.44\textwidth]{prot_teff_McQuillan2014only_dquality.png}
 		}
 	\end{center}
-	\vspace{-0.5cm}
+	\vspace{-0.6cm}
 	\caption{
     {\bf Variant of Figure~\ref{fig:prot_vs_teff}}, comparing the default
     rotation periods ({\it left}) from \citet{Santos_2019,Santos_2021}
@@ -2319,8 +2322,8 @@ rotation detection pipeline.
   \end{center}
   \vspace{-0.66cm}
   \caption{{\bf Variant of Figure~\ref{fig:hist_tgyro},} comparing
-  our default adopted catalog of \citet{Santos_2019,Santos_2021}
-  rotation periods against the rotation periods
+  our default adopted age distribution (left) based on the \citet{Santos_2019,Santos_2021}
+  rotation periods against the age distribution (middle) based only on rotation periods
   reported by \citet{McQuillan_2014}.
   \label{fig:hist_tgyro_mcq}
   }
