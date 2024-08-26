@@ -232,11 +232,13 @@ def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality',
     else:
         s += "keepgrazing"
     outpath = os.path.join(outdir, f'koi_mean_prot_teff_{sampleid}_{s}.png')
-    savefig(fig, outpath)
+    savefig(fig, outpath, dpi=1000)
 
 
 def plot_star_Prot_Teff(outdir, sampleid):
     # For KIC / all Santos stars
+
+    #mpl.use("cairo")
 
     assert sampleid in [
         'Santos19_Santos21_all', 'teff_age_prot_seed42_nstar20000',
@@ -366,6 +368,11 @@ def plot_star_Prot_Teff(outdir, sampleid):
 
             cb = fig.colorbar(im, cax=axins1, orientation="horizontal",
                               extend="max", norm=norm)
+
+            cb.solids.set_edgecolor("face")  # Prevents white lines in PDF
+            cb.solids.set_rasterized(True)
+            #cb.ax.set_rasterized(True)
+
             #cb.set_ticks([1,4,7,10])
             cb.set_ticks(np.arange(1,8))
             cb.set_ticklabels([1,None,3,None,5,None,7])
@@ -389,7 +396,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
     ax.set_ylim([ -1, 46 ])
 
     outpath = os.path.join(outdir, f'prot_teff_{sampleid}.png')
-    savefig(fig, outpath)
+    savefig(fig, outpath, dpi=1000)
 
 
 def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
@@ -1340,7 +1347,7 @@ def add_gradient_patch(ax, xmin, xmax, ymin, ymax, resolution=100):
         cmap=cmap,
         aspect="auto",
         extent=(xmin, xmax, ymin, ymax),
-        alpha=0.5,
+        alpha=0.3,
         zorder=0,
     )
 
@@ -1708,7 +1715,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     l1_0 = 'P$_{\mathrm{rot}}$ '+f'({N})'
     if not flag_mcq14_comp:
-        axs[1].hist(mdf[sel_planets].age/1e3, bins=bins, color='sienna',
+        axs[1].hist(mdf[sel_planets].age/1e3, bins=bins, color='darkorange', #color='sienna',
                     histtype='step',
                     weights=np.ones(len(mdf[sel_planets]))/len(mdf[sel_planets]),
                     zorder=-5,
@@ -1729,8 +1736,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     if not flag_mcq14_comp:
         heights, _, _ = axs[1].hist(
             mdf[psel].age/1e3, bins=bins, histtype='step',
-            weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='sienna', alpha=0.9,
-            zorder=-3, label=l1_1
+            weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='darkorange', #color='sienna',
+            alpha=0.9, zorder=-3, label=l1_1
         )
     else:
         heights, _, _ = axs[1].hist(
@@ -1746,8 +1753,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     if not flag_mcq14_comp:
         heights, _, _ = axs[2].hist(
             mdf[psel].age/1e3, bins=bins, histtype='step',
-            weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='sienna', alpha=0.9,
-            zorder=-2, label=l2_2
+            weights=np.ones(len(mdf[psel]))/len(mdf[psel]), color='darkorange', #color='sienna',
+            alpha=0.9, zorder=-2, label=l2_2
         )
         poisson_uncertainties = get_poisson_uncertainties(mdf[psel], bins)
     else:
@@ -1758,7 +1765,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         )
         poisson_uncertainties = get_poisson_uncertainties(mdf1[sel_gyro_ok1], bins)
 
-    _c = 'sienna' if not flag_mcq14_comp else 'darkorange'
+    #_c = 'sienna' if not flag_mcq14_comp else 'darkorange'
+    _c = 'darkorange' if not flag_mcq14_comp else 'darkorange'
     axs[1].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
         elinewidth=0.7, capsize=1, lw=0, mew=0.5, color=_c, markersize=0,
@@ -1843,7 +1851,10 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
             txt += '\n  (no extra correction)'
         axs[1].text(.05, .95, txt, ha='left', va='top',
                     fontsize='small', zorder=5, transform=axs[1].transAxes,
-                    fontdict={'fontstyle':'normal'}, color='sienna')
+                    fontdict={'fontstyle':'normal'},
+                    #color='sienna'
+                    color='darkorange'
+                   )
     else:
         txt = 'McQuillan P$_{\mathrm{rot}}$'
         axs[1].text(.05, .95, txt, ha='left', va='top',
@@ -1934,7 +1945,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
                       borderaxespad=0.9, borderpad=0.5, framealpha=0,
                       loc='lower right')
 
-    _c = 'sienna' if not flag_mcq14_comp else 'darkorange'
+    #_c = 'sienna' if not flag_mcq14_comp else 'darkorange'
+    _c = 'darkorange' if not flag_mcq14_comp else 'darkorange'
     custom_lines = [Line2D([0], [0], color=_c, lw=0.5, alpha=0.4),
                     Line2D([0], [0], color=_c, lw=1, alpha=1.0 ) ]
     axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='xx-small',
@@ -2380,7 +2392,8 @@ def plot_gyroage_vs_teff(outdir, yscale='linear', showerrs=0, showplanets=0):
 
     ax.update({
         'xlabel': 'Effective Temperature [K]',
-        'ylabel': r't$_{\rm gyro}$ [Myr]',
+        #'ylabel': r't$_{\rm gyro}$ [Myr]',
+        'ylabel': 'Age [Myr]',
         'yscale': yscale,
         'xlim': ax.get_xlim()[::-1]
     })
