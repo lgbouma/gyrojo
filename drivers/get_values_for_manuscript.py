@@ -72,8 +72,11 @@ sel = select_by_quality_bits(
 )
 N = len(df[sel])
 M = len(df[df.flag_is_gyro_applicable])
+N1 = len(df[sel & (df.Prot < 10)])
 assert N == M
 ulkvp('nuniqstarsantosrotgyroappl', N)
+ulkvp('fivepctnuniqstarsantosrotgyroappl', int(N*0.05))
+ulkvp('ngyroappllttendays', N1)
 
 ##########################################
 # get PLANET numbers!
