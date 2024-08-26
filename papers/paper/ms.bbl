@@ -438,6 +438,12 @@
 {Gaia Collaboration}, {Vallenari}, A., {Brown}, A.~G.~A., {et~al.} 2022, arXiv
   e-prints, arXiv:2208.00211
 
+\bibitem[{{Gaia Collaboration} {et~al.}(2023){Gaia Collaboration}, {Arenou},
+  {Babusiaux}, {Barstow}, {Faigler}, {Jorissen}, {Kervella}, {Mazeh},
+  {Mowlavi}, {Panuzzo}, \& et~al.}]{GaiaCollaboration2023}
+{Gaia Collaboration}, {Arenou}, F., {Babusiaux}, C., {et~al.} 2023, \aap, 674,
+  A34
+
 \bibitem[{{Gallet} \& {Bouvier}(2015)}]{Gallet_Bouvier_2015}
 {Gallet}, F., \& {Bouvier}, J. 2015, \aap, 577, A98
 
@@ -847,6 +853,11 @@ Mann, A.~W., Gaidos, E., Mace, G.~N., {et~al.} 2016, ApJ, 818
   {Stefanik}}]{2012ApJ...756L..33Q}
 {Quinn}, S.~N., {White}, R.~J., {Latham}, D.~W., {et~al.} 2012, \apjl, 756, L33
 
+\bibitem[{{Raghavan} {et~al.}(2010){Raghavan}, {McAlister}, {Henry}, {Latham},
+  {Marcy}, {Mason}, {Gies}, {White}, \& {ten Brummelaar}}]{Raghavan2010}
+{Raghavan}, D., {McAlister}, H.~A., {Henry}, T.~J., {et~al.} 2010, \apjs, 190,
+  1
+
 \bibitem[{{Rampalli} {et~al.}(2021){Rampalli}, {Ag{\"u}eros}, {Curtis},
   {Douglas}, {N{\'u}{\~n}ez}, {Cargile}, {Covey}, {Gosnell}, {Kraus}, {Law}, \&
   {Mann}}]{Rampalli_2021}
@@ -973,6 +984,11 @@ Mann, A.~W., Gaidos, E., Mace, G.~N., {et~al.} 2016, ApJ, 818
   {Sch{\"o}nrich}, {Sahlholdt}, {Trick}, \& {Yu}}]{SilvaAguirre2018}
 {Silva Aguirre}, V., {Bojsen-Hansen}, M., {Slumstrup}, D., {et~al.} 2018,
   \mnras, 475, 5487
+
+\bibitem[{{Simonian} {et~al.}(2019){Simonian}, {Pinsonneault}, \&
+  {Terndrup}}]{2019ApJ...871..174S}
+{Simonian}, G. V.~A., {Pinsonneault}, M.~H., \& {Terndrup}, D.~M. 2019, \apj,
+  871, 174
 
 \bibitem[{{Skrutskie} {et~al.}(2006){Skrutskie}, {Cutri}, {Stiening},
   {Weinberg}, {Schneider}, {Carpenter}, {Beichman}, {Capps}, {Chester},
