@@ -27,8 +27,7 @@
   {Georgy}, {Lagarde}, \& {Siess}}]{Amard2019}
 {Amard}, L., {Palacios}, A., {Charbonnel}, C., {et~al.} 2019, \aap, 631, A77
 
-\bibitem[{{Amard} {et~al.}(2020){Amard}, {Roquette}, \&
-  {Matt}}]{2020MNRAS.499.3481A}
+\bibitem[{{Amard} {et~al.}(2020){Amard}, {Roquette}, \& {Matt}}]{Amard2020b}
 {Amard}, L., {Roquette}, J., \& {Matt}, S.~P. 2020, \mnras, 499, 3481
 
 \bibitem[{{Angus} {et~al.}(2015){Angus}, {Aigrain}, {Foreman-Mackey}, \&
@@ -498,6 +497,12 @@
 
 \bibitem[{{Gupta} \& {Schlichting}(2019)}]{Gupta_2019}
 {Gupta}, A., \& {Schlichting}, H.~E. 2019, \mnras, 487, 24
+
+\bibitem[{{Hall} {et~al.}(2021){Hall}, {Davies}, {van Saders}, {Nielsen},
+  {Lund}, {Chaplin}, {Garc{\'\i}a}, {Amard}, {Breimann}, {Khan}, {See}, \&
+  {Tayar}}]{Hall2021}
+{Hall}, O.~J., {Davies}, G.~R., {van Saders}, J., {et~al.} 2021, Nature
+  Astronomy, 5, 707
 
 \bibitem[{{Heavens} {et~al.}(2004){Heavens}, {Panter}, {Jimenez}, \&
   {Dunlop}}]{2004Natur.428..625H}
@@ -1001,6 +1006,9 @@ Mann, A.~W., Gaidos, E., Mace, G.~N., {et~al.} 2016, ApJ, 818
 
 \bibitem[{{Skumanich}(1972)}]{Skumanich_1972}
 {Skumanich}, A. 1972, \apj, 171, 565
+
+\bibitem[{{Snodgrass} \& {Ulrich}(1990)}]{Snodgrass1990}
+{Snodgrass}, H.~B., \& {Ulrich}, R.~K. 1990, \apj, 351, 309
 
 \bibitem[{{Soderblom}(2010)}]{Soderblom_2010}
 {Soderblom}, D.~R. 2010, \araa, 48, 581
