@@ -1612,9 +1612,9 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     fit_line_and_print_results(bin_centers, heights, poisson_uncertainties)
 
     axs[0].errorbar(
-        [1,2,3], [0.018,0.018,0.018], xerr=np.array(mean_pms).T/1e3, marker='o',
+        [1,2,3], [0.0165,0.0165,0.0165], xerr=np.array(mean_pms).T/1e3, marker='o',
         elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='C0', markersize=0,
-        zorder=-3, alpha=1
+        zorder=999, alpha=1
     )
     axs[0].text(3, 0.0195, 'stat.\nuncert.', ha='center', va='bottom',
                 fontsize='xx-small', zorder=5,
@@ -1753,7 +1753,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     # completeness gradient
     for ax in axs:
-        add_gradient_patch(ax, 3.3, 4.1, 0, 0.1)
+        add_gradient_patch(ax, 3.1, 4.1, 0, 0.1)
 
     xmin = 0
     xmax = MAXAGE-20 if MAXAGE < 4000 else MAXAGE
@@ -1790,6 +1790,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
             ax.set_xticks([0, 1, 2, 3, 4])
 
     txt = 'Kepler stars'
+    if dropfracshortrot:
+        txt += ',\n - estm. binaries'
     if flag_mcq14_comp:
         txt = 'Santos P$_{\mathrm{rot}}$'
     axs[0].text(.05, .95, txt, ha='left', va='top',
@@ -1798,6 +1800,8 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     if not flag_mcq14_comp:
         txt = 'KOI hosts'
+        if dropfracshortrot:
+            txt += ',\n  - estm. binaries'
         axs[1].text(.05, .95, txt, ha='left', va='top',
                     fontsize='small', zorder=5, transform=axs[1].transAxes,
                     fontdict={'fontstyle':'normal'}, color='sienna')
