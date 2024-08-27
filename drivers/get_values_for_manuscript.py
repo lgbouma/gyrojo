@@ -209,8 +209,8 @@ ulkvp('nplhostsoldgyro', N)
 
 # Number of planets with a gyro age, including grazing & high ruwe cases, below 1Gyr at 2sigma
 sel = (df['gyro_median'] + df['gyro_+2sigma']  <= 1000)
-N = len(df[sel])
-ulkvp('nplyounggyrotwosigma', N)
+Nplyoungtwosig = len(df[sel])
+ulkvp('nplyounggyrotwosigma', Nplyoungtwosig)
 N = len(np.unique(df[sel].kepid))
 ulkvp('nplhostsyounggyrotwosigma', N)
 
@@ -239,8 +239,14 @@ df, _, _ = get_age_results(
 )
 # Planets <1 Gyr at 2-sigma with a gyro age, no grazing, no ruwe.
 sel = (df['gyro_median'] + df['gyro_+2sigma']  <= 1000)
+Nyoungnograzenoruwe = len(df[sel])
+ulkvp('nplyounggyrotwosigmanograzingnoruwe', int_to_string(Nyoungnograzenoruwe))
+sel = (df['gyro_median'] <= 1000)
 N = len(df[sel])
-ulkvp('nplyounggyrotwosigmanograzingnoruwe', int_to_string(N))
+ulkvp('nplyounggyromediannograzingnoruwe', int_to_string(N))
+Ngrazeruwe = Nplyoungtwosig - Nyoungnograzenoruwe
+ulkvp('nplyounggrazingorhighruwe', int_to_string(Ngrazeruwe))
+
 
 sel = (
 	(df['gyro_median'] + df['gyro_+2sigma']  <= 1000)
