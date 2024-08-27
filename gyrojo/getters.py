@@ -1243,7 +1243,7 @@ def select_by_quality_bits(df, bit_positions, target_values):
 
     Example 2:
         # Select data points where bit 4 is False (0) and bit 5 is False (0)
-        mask = select_data_by_bits(df, [4, 5], [0, 0])
+        mask = select_by_quality_bits(df, [4, 5], [0, 0])
         selected_df = df[mask]
     """
     if len(bit_positions) != len(target_values):
