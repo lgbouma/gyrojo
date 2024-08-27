@@ -27,8 +27,14 @@
   {Georgy}, {Lagarde}, \& {Siess}}]{Amard2019}
 {Amard}, L., {Palacios}, A., {Charbonnel}, C., {et~al.} 2019, \aap, 631, A77
 
-\bibitem[{{Amard} {et~al.}(2020){Amard}, {Roquette}, \& {Matt}}]{Amard2020b}
-{Amard}, L., {Roquette}, J., \& {Matt}, S.~P. 2020, \mnras, 499, 3481
+\bibitem[{{Amard} {et~al.}(2020{\natexlab{a}}){Amard}, {Roquette}, \&
+  {Matt}}]{Amard2020b}
+{Amard}, L., {Roquette}, J., \& {Matt}, S.~P. 2020{\natexlab{a}}, \mnras, 499,
+  3481
+
+\bibitem[{{Amard} {et~al.}(2020{\natexlab{b}}){Amard}, {Roquette}, \&
+  {Matt}}]{2020MNRAS.499.3481A}
+---. 2020{\natexlab{b}}, \mnras, 499, 3481
 
 \bibitem[{{Angus} {et~al.}(2015){Angus}, {Aigrain}, {Foreman-Mackey}, \&
   {McQuillan}}]{Angus_2015}

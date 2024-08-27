@@ -32,7 +32,7 @@ cp $r/li_vs_teff/li_vs_teff_koi_X_S19S21dquality_eagles_showpoints_nodata.pdf .
 
 # planets
 r="/Users/luke/Dropbox/proj/NEA_age_plots/results/rp_vs_period_scatter"
-cp $r/rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung.pdf .
+cp $r/rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung_allowsgrazingandhighruwe.pdf .
 
 
 ########## 
