@@ -1,6 +1,10 @@
 """
 Contents:
     get_trilegal
+
+helpers:
+    random_skycoords_within_area
+    galactic_to_xyz
 """
 import pandas as pd, numpy as np, matplotlib.pyplot as plt
 from astropy.io import fits, ascii
@@ -72,16 +76,20 @@ def get_trilegal(kepfield=1, const_sfr=1):
     df = pd.concat((pd.read_csv(f, sep='\s+') for f in datpaths))
 
     # log10age grid has resolution of +/- 0.02.
+    np.random.seed(3141)
     eps = np.random.normal(loc=0, scale=0.02, size=len(df))
     df['logAge'] += eps
     df['Age'] = 10**df.logAge / 1e9
 
+    # m-M0 has scale of 0.05 dex.
+    eps = np.random.normal(loc=0, scale=0.03, size=len(df))
+    df['m-M0'] += eps
     df['distance_pc'] = 10 * 10**(df['m-M0']/5)
 
     sel = (
         (df.Mact < 1.2) &
         (df.Mact > 0.5) &
-        (df.distance_pc < 4000) &
+        (df.distance_pc < 3000) &
         (df.Age < 5)
     )
 
@@ -130,6 +138,7 @@ def random_skycoords_within_area(
     # Calculate the radius in degrees for the specified area (10 square degrees)
     radius_deg = np.sqrt(area_deg2 / np.pi)
 
+    np.random.seed(42)
     # Randomly sample l and b offsets within the specified area
     l_offset = np.random.uniform(-radius_deg, radius_deg, size=N)
     b_offset = np.random.uniform(-radius_deg, radius_deg, size=N)
@@ -156,5 +165,21 @@ def galactic_to_xyz(l, b, distance):
 
     return x, y, z
 
+
+def _get_realdata():
+
+    # Bouma 2024 gyro ages...
+    csvpath = join(TABLEDIR, "table_star_gyro_allcols.csv")
+    bdf = pd.read_csv(csvpath)
+    bdf = bdf[bdf.dr3_parallax > 0]
+    from earhart.physicalpositions import calculate_XYZ_given_RADECPLX
+    bdf['x'], bdf['y'], bdf['z'] = calculate_XYZ_given_RADECPLX(
+        nparr(bdf.dr3_ra), nparr(bdf.dr3_dec), nparr(bdf.dr3_parallax)
+    )
+    bdf['galx'] = (bdf['x'] - sun_x_pc)/1e3
+    bdf['galy'] = bdf['y']/1e3
+    bdf['galz'] = bdf['z']/1e3
+
+    return bdf
 
 
