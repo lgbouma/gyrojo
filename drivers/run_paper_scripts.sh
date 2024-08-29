@@ -7,6 +7,7 @@ python plot_koi_mean_prot_teff.py
 python plot_li_vs_teff.py
 python plot_st_params.py
 python compare_literature_ages_to_cluster_ages.py
+python plot_trilegal_comparison.py
 
 # appendix plots
 python plot_perioddiff_vs_period.py

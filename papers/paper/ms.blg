@@ -2,29 +2,29 @@ This is BibTeX, Version 0.99d (TeX Live 2021)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: ms.aux
 The style file: aasjournal.bst
-Reallocated field_info (elt_size=4) to 10162 items from 5000.
+Reallocated field_info (elt_size=4) to 10191 items from 5000.
 Database file #1: bibliography.bib
 Warning--entry type for "claude2024anthropic" isn't style-file defined
---line 366 of file bibliography.bib
-Repeated entry---line 861 of file bibliography.bib
+--line 453 of file bibliography.bib
+Repeated entry---line 948 of file bibliography.bib
  : @article{2021AJ....161..189L
  :                             ,
 I'm skipping whatever remains of this entry
-You're missing a field name---line 2313 of file bibliography.bib
+You're missing a field name---line 2400 of file bibliography.bib
  :  
  :  %series = {SPIE Conference Series},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
 Reallocated str_pool (elt_size=1) to 130000 items from 65000.
-Repeated entry---line 3409 of file bibliography.bib
+Repeated entry---line 3496 of file bibliography.bib
  : @article{Epstein_2014
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 20052 of file bibliography.bib
+Repeated entry---line 20139 of file bibliography.bib
  : @article{David_2019
  :                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 24715 of file bibliography.bib
+Repeated entry---line 24802 of file bibliography.bib
  : @article{Mamajek_2008
  :                      ,
 I'm skipping whatever remains of this entry
@@ -32,45 +32,45 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--can't use both author and editor fields in vogt_hires_1994
 Warning--empty publisher in vogt_hires_1994
 Warning--empty pages in vogt_hires_1994
-You've used 178 entries,
+You've used 179 entries,
             3222 wiz_defined-function locations,
-            2035 strings with 106162 characters,
-and the built_in function-call counts, 117528 in all, are:
-= -- 6735
-> -- 14317
-< -- 43
-+ -- 4762
-- -- 5014
-* -- 12562
-:= -- 23162
-add.period$ -- 179
-call.type$ -- 178
-change.case$ -- 992
-chr.to.int$ -- 173
-cite$ -- 181
-duplicate$ -- 3211
-empty$ -- 5086
-format.name$ -- 5204
-if$ -- 22095
-int.to.chr$ -- 6
+            2046 strings with 97694 characters,
+and the built_in function-call counts, 111900 in all, are:
+= -- 6755
+> -- 12965
+< -- 45
++ -- 4311
+- -- 4560
+* -- 11662
+:= -- 21857
+add.period$ -- 180
+call.type$ -- 179
+change.case$ -- 996
+chr.to.int$ -- 175
+cite$ -- 182
+duplicate$ -- 3225
+empty$ -- 5113
+format.name$ -- 4751
+if$ -- 21243
+int.to.chr$ -- 5
 int.to.str$ -- 0
-missing$ -- 174
-newline$ -- 540
-num.names$ -- 715
-pop$ -- 1401
+missing$ -- 175
+newline$ -- 543
+num.names$ -- 719
+pop$ -- 1404
 preamble$ -- 1
-purify$ -- 992
+purify$ -- 996
 quote$ -- 0
-skip$ -- 2546
+skip$ -- 2563
 stack$ -- 0
-substring$ -- 3191
-swap$ -- 42
+substring$ -- 3205
+swap$ -- 40
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1599
+type$ -- 1608
 warning$ -- 3
-while$ -- 640
+while$ -- 645
 width$ -- 0
-write$ -- 1781
+write$ -- 1791
 (There were 5 error messages)

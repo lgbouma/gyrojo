@@ -30,6 +30,9 @@ cp $r/hist_field_gyro_ages_20240821/comp_hist_samples_koi_gyro_ages_hist_field_g
 cp $r/li_vs_teff/li_vs_teff_koi_X_JUMP_eagles.pdf .
 cp $r/li_vs_teff/li_vs_teff_koi_X_S19S21dquality_eagles_showpoints_nodata.pdf .
 
+# trilegal
+cp $r/trilegal_comparison/threepanel_trilegal_comparison_twostepsfr.pdf .
+
 # planets
 r="/Users/luke/Dropbox/proj/NEA_age_plots/results/rp_vs_period_scatter"
 cp $r/rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung_allowsgrazingandhighruwe.pdf .
