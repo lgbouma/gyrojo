@@ -1,8 +1,8 @@
 % upon AAS submission
-\documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
+%\documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
 %\documentclass[11pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 % drafting / arxiv
-%\documentclass[11pt,twocolumn,tighten]{aastex63}
+\documentclass[11pt,twocolumn,tighten]{aastex63}
 \turnoffedit
 
 \usepackage{apjfonts}
@@ -153,16 +153,27 @@ Mellon University, Pittsburgh, PA 15213, USA}
   1\,Gyr.
   %
   This is about half the number expected under the classic assumption
-  of a uniform star formation history.  We find that the scarcity of
-  sub-gigayear systems can be attributed to the star formation rate in
-  the Kepler field \replaced{dropping}{smoothly decreasing} by a factor of \replaced{\ratiosfr$\pm$\uncratiosfr}{3-5}
-  over the past 3\,Gyr.  We observe this trend both for known planet
-  hosts and for the parent stellar sample.
+  of a uniform star formation history.
   %
-  This ``demographic cliff'' in the Galaxy's star formation history
-  has been previously reported, and its confirmation helps clarify the
-  age distribution of the known transiting exoplanets.
+  \deleted{We find that the scarcity of sub-gigayear systems can be
+  attributed to the star formation rate in the Kepler field dropping
+  by a factor of \ratiosfr$\pm$\uncratiosfr over the past 3\,Gyr.  We
+  observe this trend both for known planet hosts and for the parent
+  stellar sample.  This ``demographic cliff'' in the Galaxy's star
+  formation history has been previously reported, and its confirmation
+  helps clarify the age distribution of the known transiting
+  exoplanets.}
   %
+  \added{The age distribution that we observe, rather than being uniform,
+  shows that the youngest stars in the Kepler field are 3-5 times
+  rarer than stars 3\,Gyr old.
+  This trend holds for both known planet hosts and for the parent
+  stellar sample.
+  We attribute the existence of this ``demographic cliff'' to a
+  combination of kinematic heating and a declining star formation rate
+  in the Galaxy's thin disk, and highlight its impact on the age
+  distribution of known transiting exoplanets.
+  }
 \end{abstract}
 
 \keywords{Stellar ages (1581), Planet hosting stars (1242), Field
@@ -186,7 +197,7 @@ processes have run their course.
 
 Young ($<$1\,Gyr) exoplanets represent one means of building the
 timeline for exoplanet evolution.  Informative individual exemplars
-include HIP~67522b, a Jupiter-sized planet with a sub-Neptunian mass
+include HIP~67522\,b, a Jupiter-sized planet with a sub-Neptunian mass
 (\citealt{Rizzuto_2020}; Thao et al.~submitted), and V1298~Tau, a
 resonant chain of puffy planets that is a likely precusor to the
 compact multiplanet systems \citep{David_2019}.  Population-level
@@ -291,8 +302,9 @@ stars.   These factors are as follows.
     accuracy of uncertainty propagation relative to previous
     calibrations.
   %
-  \item We can identify binary stars \added{and high-metallicity outliers }with greater fidelity than
-    in the past, which can clarify otherwise problematic estimates of
+  \item We can identify \replaced{binary stars}{stars that are
+    binaries and that have high metallicity} with greater fidelity\deleted{ than
+    in the past}, which can clarify otherwise problematic estimates of
     rotation-based ages.
   %
   \item New open clusters in various stages of dissolution have been
@@ -1207,7 +1219,7 @@ opposite in functional form to our derived age
 distributions.}\added{This estimate suggests that while aspects of
 Figure~\ref{fig:hist_tgyro} might be interpretable in terms of the Galaxy's star
 formation history at $\lesssim$3\,Gyr, at older ages incompleteness
-likely precludes any such interpretation.}
+precludes any such interpretation.}
 
 \added{{\it Temperature sensitivity}---There are quantitative differences
 in Figure~\ref{fig:hist_tgyro} between the
@@ -1224,16 +1236,21 @@ explanations for these differences in Section~\ref{subsec:caveats}. }
 
 \subsection{Planets Younger Than One Billion Years}
 
-Sub-gigayear planets can be particularly informative for studies of
-planet evolution.  Our catalog has \nplyounggyro\ confirmed and
-candidate planets with median ages below 1\,Gyr.  Requiring $t_{\rm
-gyro}$$<$1\,Gyr at 2$\sigma$ yields \nplyounggyrotwosigma\ planets
-orbiting \nplhostsyounggyrotwosigma\ stars.  The youth claim is most
-secure for the systems that are either in clusters (Section~\ref{subsec:clusterplanets}), or that have
-independent rotation and lithium-based ages (Section~\ref{subsec:rotnlithiumcomp}).
-These samples provide broader context for the planets around field
-stars that push the boundaries of the current young exoplanet census
-(Section~\ref{subsec:notables}).
+\deleted{Sub-gigayear planets
+can be particularly informative for studies of planet
+evolution.}
+\added{This analysis provides an important path toward expanding the population
+of young and evolving exoplanets.}
+Our catalog has \nplyounggyro\ confirmed
+and candidate planets with median ages below 1\,Gyr.  Requiring
+$t_{\rm gyro}$$<$1\,Gyr at 2$\sigma$ yields \nplyounggyrotwosigma\
+planets orbiting \nplhostsyounggyrotwosigma\ stars.  The youth claim
+is most secure for the systems that are either in clusters
+(Section~\ref{subsec:clusterplanets}), or that have independent
+rotation and lithium-based ages
+(Section~\ref{subsec:rotnlithiumcomp}).  These samples provide broader
+context for the planets around field stars that push the boundaries of
+the current young exoplanet census (Section~\ref{subsec:notables}).
 
 \subsubsection{Planets in Clusters}
 \label{subsec:clusterplanets}
@@ -1387,18 +1404,18 @@ are on orbital periods below 50\,days, \nlongperiodhighq\ are on more
 distant orbits.
 
 Among these systems, four highlights are Kepler-1529, Kepler-1565,
-Kepler-1312, and Kepler-1629.  Kepler-1529b is a
+Kepler-1312, and Kepler-1629.  Kepler-1529\,b is a
 $\approx$100$\pm$50\,Myr mini-Neptune with well-measured rotation and
-lithium ages.  Kepler-1565b is an analogous $\approx$170-230\,Myr
+lithium ages.  Kepler-1565\,b is an analogous $\approx$170-230\,Myr
 super-Earth.  Kepler-1312 is a $t_{\rm gyro}$=\kepthirteentwelve\,Myr
 near-Solar analog with an Earth-sized planet on a one-day orbit, and a
 mini-Neptune on a five-day orbit.  The Earth-sized planet,
-Kepler-1312~c, along with the near-identical Kepler-1561~b ($t_{\rm
+Kepler-1312\,c, along with the near-identical Kepler-1561\,b ($t_{\rm
 gyro}$=\kepfifteensixone\,Myr), rank among the youngest Earth-sized
-planets currently known, comparable to planets such as HD~63433d
+planets currently known, comparable to planets such as HD~63433\,d
 \citep[1.1\,$R_\oplus$, $414$$\pm$$23$\,Myr;][]{2024AJ....167...54C}
-and TOI-1807~b \citep[1.3\,$R_\oplus$,
-180$\pm$40\,Myr;][]{2021AJ....162...54H}.  Kepler-1629~b, with a size
+and TOI-1807\,b \citep[1.3\,$R_\oplus$,
+180$\pm$40\,Myr;][]{2021AJ....162...54H}.  Kepler-1629\,b, with a size
 just two-thirds that of Earth (0.67$\pm$0.05\,$R_\oplus$), is
 marginally older, also based on rotation (\kepsixteentwonine\,Myr).
 The lithium age from a reconnaissance TRES spectrum confirms the
@@ -1408,36 +1425,110 @@ point.
 \section{Discussion}
 \label{sec:disc}
 
-\subsection{The Thin Disk's Star Formation History}
 
-Most \deleted{of the }stars observed by Kepler are in the thin disk.  This can
-be verified by following \citet{Gaia_2018}, and labeling stars with 2D
-tangential velocities $v_{\rm T}$$<$40\,\kms\ as thin disk members,
-and those with 60$<$$v_{\rm T}$$<$150\,\kms\ as thick disk members.
-\replaced{For all stars in the KIC, this yields }{These criteria yield }95{,}694 thin and 54{,}039 thick
-disk stars \replaced{respectively}{observed by Kepler}.  The thin disk stars have a threefold larger
-detected rotation period fraction: 35{,}675 rotators are in the thin
-disk, while 7{,}312 are in the thick disk.  Further imposing the
-\deleted{gyrochronology }quality flags discussed in Section~\ref{subsec:flags}
-yields 17{,}755 thin disk stars for which gyrochronology is
-applicable, and 2{,}462 thick disk stars.
 
-Classifying Kepler stars as thin vs.\ thick disk members helps connect
+\begin{figure*}[!t]
+	\begin{center}
+		\leavevmode
+		\subfloat{
+			\includegraphics[width=.99\textwidth]{threepanel_trilegal_comparison_twostepsfr.pdf}
+		}
+	\end{center}
+	\vspace{-0.5cm}
+	\caption{{\bf Impact of star formation rate (SFR) and kinematic heating on age distribution.}   
+		Most Kepler stars are a few hundred parsecs above the Galactic plane ($\hat{Z}$ points to the north galactic pole;  $\hat{Y}$ is the direction of
+		galactic rotation).  This is comparable to the $\approx$300\,pc mass-weighted scale height.
+		The dotted gray and solid orange lines show synthetic age distributions
+		from TRILEGAL assuming a constant SFR (middle) and a two-step
+		SFR (right), described in the text.
+		A combination of both kinematic heating and
+		a decreasing SFR qualitatively match the observed paucity of the youngest stars.
+		\label{fig:trilegal}
+	}
+\end{figure*}
+
+%\subsection{The Thin Disk's Star Formation History}
+\subsection{Kinematic Heating and Star Formation in the Thin Disk}
+\label{subsec:trilegal}
+
+\added{Two separate astrophysical effects might explain our observed 
+age distribution (Figure~\ref{fig:hist_tgyro}): a declining star formation
+rate (SFR), and kinematic heating.   Kinematic heating is associated with an
+increase in stellar velocity dispersions and the disk's vertical 
+scale height over time \citep[e.g.][]{Villumsen1983,Schmidt2024}.
+The Kepler field points toward $(l,b)$=(76.3$^\circ$,13.5$^\circ$).
+A typical Kepler star at 1\,kpc is therefore $\approx$230\,pc
+above the galactic plane, a significant fraction of the thin disk's 
+mass-weighted $\approx$300\,pc scale height \citep{Bland-Hawthorn2016}.
+}
+
+\added{We assessed the relative importance of these two effects
+	using the TRILEGAL Monte Carlo population synthesis tool }\citep[v1.6;][]{Girardi2005}.
+\added{TRILEGAL treats the Galaxy as a linear combination of a thin disk, thick disk,
+	halo, and bulge, and allows for two possible SFRs: constant, and a ``two-step''
+	SFR in which the thin disk SFR is 50\% larger from 1-4\,Gyr than at other ages.
+	This two-step SFR was introduced to improve the model's ability to
+	match star counts from Hipparcos and 2MASS }\citep[see Section~5.1 of][]{Girardi2005}.
+\added{For kinematic heating, TRILEGAL assumes that
+	the disk scale height grows as
+$h_{\rm z} = z_0 (1 + t/t_0)^\alpha$, for $\alpha$=5/3, $z_0$=94.7\,pc,
+	and $t_0$=5.55\,Gyr, similar to \citet{Rana1991}.
+	We queried the web interface toward the
+	Kepler field, and toward the galactic plane (at $l$=76.3$^\circ$) to
+	negate the effects of kinematic heating.
+	We limited the output to stars with apparent Kepler magnitudes brighter than 16,
+	and set the field of view to 10 ${\rm deg}^2$, the maximum
+	possible through the web interface.
+%	and set the Sun at $z_\odot$=20.8\,pc, $r$=8122\,pc from the Galactic center.
+}
+
+\added{Figure~\ref{fig:trilegal} compares the simulation results against
+	our observed age distribution.
+	The middle panel shows that assuming a constant SFR,
+	kinematic heating alone can yield a two-fold difference
+	in the abundance of the youngest stars relative to those $\approx$3\,Gyr old.
+	The right-most panel
+	shows that additionally including 
+	the time-variable SFR yields the best agreement with the slope of
+	our observed age distribution.
+%	An important note is that the previously noted parameters
+%	that were fine-tuned to fit different datasets, primarily photometric star counts
+%	along various sight-lines.  The exercise appears to have been predictive.
+}
+
+\deleted{Most stars observed by Kepler are in the thin disk.
+This can be verified by following \citet{Gaia_2018}, and labeling
+stars with 2D tangential velocities $v_{\rm T}$$<$40\,\kms\ as thin
+disk members, and those with 60$<$$v_{\rm T}$$<$150\,\kms\ as thick
+disk members.  These
+criteria yield 95{,}694 thin and 54{,}039 thick disk stars
+observed by Kepler.  The thin disk stars have
+a threefold larger detected rotation period fraction: 35{,}675
+rotators are in the thin disk, while 7{,}312 are in the thick disk.
+Further imposing the quality flags discussed
+in Section~\ref{subsec:flags} yields 17{,}755 thin disk stars for
+which gyrochronology is applicable, and 2{,}462 thick disk stars.}
+
+\deleted{Classifying Kepler stars as thin vs.\ thick disk members helps connect
 them to previous work on the Galaxy's star formation history.  On
 extragalactic scales, the star formation rate in spiral galaxies with
 mass similar to the Milky Way peaked $\approx$10\,Gyr ago, and has
 since decreased by an order of magnitude
-\citep[e.g.][]{2004Natur.428..625H,2006ApJ...651..142H}.  In our own
-galaxy, previous studies have measured star formation histories
+\citep[e.g.][]{2004Natur.428..625H,2006ApJ...651..142H}.}
+\added{Despite the expected differences between pencil-beam surveys
+and volume-complete samples, our observed age distribution qualitatively
+agrees with a number of previous studies.}
+\replaced{In our own
+galaxy, previous studies have}{Previous work has} measured star formation histories
 through CMD fitting of resolved stellar populations
-\citep[][]{2019A&A...624L...1M,2020NatAs...4..965R,2021MNRAS.501..302A,2022Natur.603..599X}
+\citep[][]{2019A&A...624L...1M,2020NatAs...4..965R,2021MNRAS.501..302A,2022Natur.603..599X},
 and by modeling the local white dwarf luminosity function
 \citep[e.g.][]{2019ApJ...878L..11I}.  \citet{2019A&A...624L...1M} and
 \citet{2019ApJ...878L..11I} for instance focused on stars (and white
 dwarfs) within a few hundred parsecs, and both found a peak in the
 local star formation rate 2-3\,Gyr ago.  \citet{2020NatAs...4..965R}
 focused on stars in a wider 2\,kpc bubble, and additionally reported
-three local maxima in the galactic star formation rate, which they
+three local maxima in the SFR, which they
 associated with pericenter passages of the Sagittarius satellite
 galaxy.
 
@@ -1460,7 +1551,7 @@ $\approx$2.5\,Gyr local maximum is similarly present in the isochrone
 ages derived by \citet{Berger_2020a_catalog} for the Kepler field, and
 in the red giant asteroseismic ages derived by
 \citet{SilvaAguirre2018}.  The main novelty of our ages relative to
-\replaced{those studies is their improved accuracy}{previous work is that they are demonstrably accurate} at $<$1\,Gyr\added{ (see Figure~\ref{fig:agescalecompone})}.
+\replaced{those studies is their improved accuracy}{these previous studies is their accuracy} at $<$1\,Gyr\added{ (see Figure~\ref{fig:agescalecompone})}.
 
 
 \subsection{Caveats \& Limitations}
@@ -1492,7 +1583,7 @@ in the red giant asteroseismic ages derived by
 Our most constraining ages tend to come from one source of
 information: rotation.  Factors other than \deleted{stellar }age and mass can
 influence \deleted{stellar }rotation rates.  \added{Astrophysical factors include
-metallicity, differential rotation, mergers, and tidal spin-up.  Observational
+metallicity, latitudinal differential rotation, mergers, and tidal spin-up.  Observational
 limitations include the difficulty of measuring small-amplitude,
 long-period signals that are only quasi-coherent due to the starspot
 lifetime approaching the stellar rotation period.  There is also the issue that
@@ -1776,31 +1867,32 @@ Figure~\ref{fig:rp_period_age_results}.   While the new young planets
 are mostly mini-Neptunes, some are near the lower boundary of the
 ``sub-Jovian desert'' \citep{Owen2018}, which could have an
 evolutionary connection to their youth.  Other discoveries include
-Earth-sized planets \added{(e.g.~Kepler-1312~c and Kepler-1561~b) }with \deleted{new }ages of only a few hundred million years.  
+Earth-sized planets \added{(e.g.~Kepler-1312\,c and Kepler-1561\,b) }with \deleted{new }ages of only a few hundred million years.  
 
 Our main conclusions with respect to our original questions are as
 follows.
 
-\begin{enumerate}[leftmargin=*,topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
+\begin{enumerate}[leftmargin=*,topsep=0pt,itemsep=-0.5ex,partopsep=1ex,parsep=1ex]
   %
   \item Rather than being uniform, the age distributions of both the
     Kepler target stars and the known Kepler planet hosts show a
     demographic cliff.  There are \added{at least }twice as many ``old'' (2-3\,Gyr)
-    stars in the Kepler field as ``young'' (0-1\,Gyr) stars.  The star
+    stars in the Kepler field as ``young'' (0-1\,Gyr) stars.  \deleted{The star
     formation rate today is\added{ at least} \ratiosfr$\pm$\uncratiosfr\ times lower
-    than it was three billion years ago\added{.  The statistical
+    than it was three billion years ago.}
+\item \added{The youngest stars in the Kepler field (0-0.3\,Gyr)
+    are at least  \ratiosfr$\pm$\uncratiosfr\ times rarer than stars 3\,Gyr old. The statistical
     uncertainty on this value is dwarfed by the systematic
-    uncertainty caused by the potential presence of unresolved
-    photometric binaries (Section~\ref{subsec:caveats}); the star
-    formation rate could have decreased by a factor of as much as
-    4.81$\pm$0.26 over this time interval}.  \replaced{This}{Either} result \replaced{from
-    rotation-based ages broadly agrees}{is generally consistent} with recent reports of a
-    declining star-formation rate from CMD fitting and white-dwarf
-    chronology, though with the \added{potential }advantage of better \replaced{sensitivity}{accuracy} for
+    uncertainty in the contamination rate of unresolved
+    photometric binaries, which could push it as high as 4.81$\pm$0.26 (Section~\ref{subsec:caveats})}.
+     \replaced{This}{Either} result \replaced{from
+    rotation-based ages broadly agrees}{is broadly consistent} with \replaced{recent reports of a
+    declining star-formation rate}{modeling expectations (Section~\ref{subsec:trilegal}), and with age distributions derived from} from CMD fitting and white-dwarf
+    chronology\replaced{, though with the}{.  The }advantage of \added{rotation-based ages however is their }\replaced{sensitivity}{accuracy} for
     FGK stars at $t$$<$1\,Gyr (e.g.~Figure~\ref{fig:agescalecompone}).
   %
   \item Rather than expecting $\approx$500 exoplanets younger than one
-    billion years, this age distribution of stars in the Kepler field
+    billion years, the age distribution of stars in the Kepler field
     \replaced{implies}{suggests} that we should instead expect $\approx$250.
   %
   \item We have derived rotation-based ages for \nplyounggyrotwosigma\
@@ -1813,8 +1905,8 @@ follows.
 
 
 \acknowledgements
-We thank the reviewer for their suggestions, which significantly improved the 
-quality of the manuscript.
+We thank Kevin Schlaufman and the reviewer for suggestions which significantly improved the 
+manuscript.
 This work was supported by the Heising-Simons 51~Pegasi~b Fellowship
 (LGB, EKP) and the Arthur R.~Adams SURF Fellowship (EKP).
 The HIRES data were obtained at the Keck Observatory.
