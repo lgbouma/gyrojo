@@ -40,6 +40,7 @@ import os, sys
 from os.path import join
 from glob import glob
 from datetime import datetime
+from copy import deepcopy
 
 import numpy as np, pandas as pd, matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -1383,6 +1384,15 @@ def fit_line_and_print_results(bin_centers, heights, poisson_uncertainties):
     print(f"X-intercept 1-sigma uncertainty: {x_intercept_se:.3f}")
 
 
+def get_poisson_uncertainties(df, bins):
+    bin_counts, _ = np.histogram(df.age/1e3, bins=bins)
+    # correction for 10x sample/overcount per star
+    bin_counts = bin_counts / 10
+    total_counts = len(df) / 10
+    poisson_uncertainties = np.sqrt(bin_counts) / total_counts
+    return poisson_uncertainties
+
+
 def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
                               datestr='20240821', s19s21only=0,
                               preciseagesonly=0, cache_id1=None, datestr1=None,
@@ -1566,14 +1576,6 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     #################################################
     # ok... now how about the subset that are good? #
     #################################################
-    def get_poisson_uncertainties(df, bins):
-        bin_counts, _ = np.histogram(df.age/1e3, bins=bins)
-        # correction for 10x sample/overcount per star
-        bin_counts = bin_counts / 10
-        total_counts = len(df) / 10
-        poisson_uncertainties = np.sqrt(bin_counts) / total_counts
-        return poisson_uncertainties
-
     plt.close("all")
     set_style('science')
     factor = 0.9
@@ -3009,3 +3011,184 @@ def plot_perioddiff_vs_period(outdir, xkey='Prot', ykey=None, ylim=None,
 
     outpath = join(outdir, f'perioddiff_vs_period_diff{xkey}-{ykey}_vs_{xkey}.png')
     savefig(fig, outpath)
+
+
+def plot_trilegal_comparison(outdir):
+
+    from gyrojo.trilegal import get_trilegal, _get_realdata
+
+    ###################
+    # data collection #
+    ###################
+    t_kcdf = get_trilegal(kepfield=1, const_sfr=1)
+    t_pcdf = get_trilegal(kepfield=0, const_sfr=1)
+
+    bdf = _get_realdata()
+    fullbdf = deepcopy(bdf)
+    fullbdf = fullbdf[~fullbdf.Prot.isna()]
+    bdf = bdf[bdf.flag_is_gyro_applicable]
+
+    cache_id = "hist_field_gyro_ages_20240821" # Santos++
+    datestr = '20240821'
+    from gyrointerp.paths import CACHEDIR
+    csvdir = join(CACHEDIR, f"samples_field_gyro_posteriors_{datestr}")
+    mergedcsv = join(csvdir, f'merged_{cache_id}_samples_{datestr}.csv')
+    mdf = pd.read_csv(mergedcsv)
+    N_post_samples = len(mdf)
+
+    kdf = get_gyro_data("Santos19_Santos21_dquality", grazing_is_ok=1)
+    skdf = kdf[(kdf.flag_is_gyro_applicable)]
+    skdf['KIC'] = skdf.KIC.astype(str)
+    mdf['KIC'] = mdf.KIC.astype(str)
+    sel_gyro_ok = mdf.KIC.isin(skdf.KIC)
+
+    ###############
+    # plot making #
+    ###############
+
+    set_style("science")
+
+    fig, axs = plt.subplots(
+        ncols=2, figsize=(4,2), constrained_layout=True
+    )
+
+    #
+    # Z vs Y
+    #
+    ax = axs[0]
+
+    y_key = 'galy'
+    z_key = 'galz'
+
+    dfs = [fullbdf, bdf, t_kcdf, t_pcdf]
+    labels = ['Kepler $P_{\mathrm{rot}}$ detected',
+              'Kepler gyro applicable', 'TRILEGAL, $b$=$13^{\!\circ}$',
+              'TRILEGAL, $b$=$0^{\!\circ}$']
+    colors = ['C0', 'C0', 'C1', 'darkgray']
+    alphas = [0.2, 0.6, 0.6, 0.6]
+    sizes = [0.25, 0.5, 0.5, 0.5]
+    for ix, (df, l, c, a, s) in enumerate(zip(
+        dfs, labels, colors, alphas, sizes)
+    ):
+        if ix == 0:
+            ax.scatter(df[y_key], df[z_key], c=c, s=s, alpha=a,
+                       linewidths=0, label=l)
+        else:
+            _df = df.sample(frac=0.3)
+            ax.scatter(_df[y_key], _df[z_key], c=c, s=s, alpha=a,
+                       linewidths=0, label=l)
+
+
+    # show scale height
+    ax.errorbar(
+        -0.5, 0.15, yerr=0.15, fmt='o', color='k', elinewidth=0.5, capsize=1,
+        lw=0, mew=0.5, markersize=0, zorder=9999
+    )
+    ax.text(
+        -0.5, 0.32, r'$\langle h_\mathrm{z} \rangle$', ha='center', va='bottom',
+        fontsize='medium'
+    )
+
+    # show sun
+    show_sun = 1
+    if show_sun:
+        sun = {
+            'x_pc':-8122+8122,
+            'y_pc':0,
+            'z_pc':20.8/1e3
+        }
+        ax.scatter(
+            sun['y_pc'], sun['z_pc'], c='k', alpha=1, zorder=10, s=2,
+            edgecolors='k', marker='.'
+        )
+        ax.plot(
+            sun['y_pc'], sun['z_pc'], c='k', alpha=1, zorder=10, ms=3,
+            marker='o', markerfacecolor="None", markeredgecolor='k',
+            markeredgewidth=0.3
+        )
+
+    ax.set_xlabel('Y (kpc)')
+    ax.set_ylabel('Z (kpc)')
+    ax.set_xlim([-1.1, 3.6])
+    ax.set_xticks([0, 1, 2, 3])
+    ax.set_ylim([-.18, 1.1])
+
+    legend = ax.legend(fontsize='xx-small', markerscale=3, framealpha=0,
+                       borderaxespad=1.0, borderpad=0.1, handletextpad=0.,
+                       loc='upper left')
+    for ix, handle in enumerate(legend.legend_handles):
+        if ix >= 1:
+            handle.set_alpha(1.0)  # Set high alpha for legend
+        else:
+            handle.set_alpha(0.4)
+
+    #
+    # histogram
+    #
+    ax = axs[1]
+
+    # data
+    bw = 200
+    MAXAGE = 4000
+    bins = np.arange(0, (MAXAGE+2*bw)/1e3, bw/1e3)
+
+    ages = [
+        mdf[sel_gyro_ok].age/1e3,
+        t_kcdf.Age,
+        t_pcdf.Age
+    ]
+    dfs = [
+        mdf[sel_gyro_ok],
+        t_kcdf,
+        t_pcdf
+    ]
+
+    N = int(len(mdf[sel_gyro_ok])/10)
+    l0_1 = f'Kepler gyro applicable ({N})'
+    labels = [
+        l0_1,
+        'TRILEGAL, const SFR, $b$=13$^{\!\circ}$',
+        'TRILEGAL, const SFR, $b$=0$^{\!\circ}$'
+    ]
+
+    lws = [1, 1, 0.5]
+    colors = ['C0', 'C1', 'darkgray']
+
+    for ix, (a, df, l, c, lw) in enumerate(zip(ages, dfs, labels, colors, lws)):
+
+        heights, bin_edges, _  = ax.hist(
+            a, bins=bins, color=c, histtype='step',
+            weights=np.ones(len(df))/len(df), zorder=3-ix,
+            alpha=1, label=l, linewidth=lw
+        )
+        if ix == 0:
+            bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
+            poisson_uncertainties = get_poisson_uncertainties(df, bins)
+            ax.errorbar(
+                bin_centers, heights, yerr=poisson_uncertainties, marker='o',
+                elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='C0', markersize=0,
+                zorder=5, alpha=0.8
+            )
+
+    from matplotlib.lines import Line2D
+    custom_lines = []
+    for c,lw in zip(colors, lws):
+        custom_lines.append(Line2D([0], [0], color=c, lw=lw))
+
+    ax.legend(custom_lines, labels, fontsize='xx-small',
+              borderaxespad=1.0, borderpad=0.8, framealpha=0,
+              loc='lower right')
+
+    ax.set_xlim([0, 4])
+    #ax.set_ylim([0, 0.086])
+    ax.set_ylim([0, 0.065])
+
+    ax.set_xlabel('Age [Gyr]')
+    ax.set_ylabel('Probability Density')
+
+    add_gradient_patch(ax, 3.15, 4.1, 0, 0.1)
+
+    fig.tight_layout()
+
+    outpath = join(outdir, f'trilegal_comparison.png')
+    savefig(fig, outpath, dpi=999)
