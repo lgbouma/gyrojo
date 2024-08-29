@@ -31,7 +31,7 @@ _ = coord.galactocentric_frame_defaults.set('v4.0')
 # Sun's position in the galactic cartesian frame
 sun_x_pc =  - 8122  # pc
 
-def get_trilegal(kepfield=1, const_sfr=1):
+def get_trilegal(kepfield=1, const_sfr=1, age_scale=0.02):
     """
     Args:
 
@@ -51,11 +51,23 @@ def get_trilegal(kepfield=1, const_sfr=1):
     """
     litdir = join(DATADIR, 'literature')
     if not const_sfr:
-        # "SFR given by 2 step SFR + Fuhrman's AMR + alpha-enh" "see paper" with with age(yr) = 0.735*t + 0
-        datpaths = [
-            join(litdir, 'trilegal_kepler_output842802126267.dat'),
-            join(litdir, 'trilegal_kepler_output680553906670.dat')
-        ]
+
+        if kepfield:
+            # "SFR given by 2 step SFR + Fuhrman's AMR + alpha-enh" "see paper" with with age(yr) = 0.735*t + 0
+            datpaths = [
+                join(litdir, 'trilegal_kepler_output842802126267.dat'),
+                join(litdir, 'trilegal_kepler_output680553906670.dat')
+            ]
+
+        else:
+            # best way to see what the "2 step SFR" actually means is to look
+            # in the plane....
+            datpaths = [
+                join(litdir, 'trilegal_b0_2step_1sqdeg_output900538207338.dat'),
+                join(litdir, 'trilegal_b0_2step_1sqdeg_output736684026503.dat'),
+                join(litdir, 'trilegal_b0_2step_1sqdeg_output237029785829.dat'),
+                join(litdir, 'trilegal_b0_2step_1sqdeg_output228497039134.dat'),
+            ]
 
     elif const_sfr:
 
@@ -77,7 +89,7 @@ def get_trilegal(kepfield=1, const_sfr=1):
 
     # log10age grid has resolution of +/- 0.02.
     np.random.seed(3141)
-    eps = np.random.normal(loc=0, scale=0.02, size=len(df))
+    eps = np.random.normal(loc=0, scale=age_scale, size=len(df))
     df['logAge'] += eps
     df['Age'] = 10**df.logAge / 1e9
 
