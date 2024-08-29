@@ -56,7 +56,9 @@ def get_trilegal(kepfield=1, const_sfr=1, age_scale=0.02):
             # "SFR given by 2 step SFR + Fuhrman's AMR + alpha-enh" "see paper" with with age(yr) = 0.735*t + 0
             datpaths = [
                 join(litdir, 'trilegal_kepler_output842802126267.dat'),
-                join(litdir, 'trilegal_kepler_output680553906670.dat')
+                join(litdir, 'trilegal_kepler_output680553906670.dat'),
+                join(litdir, 'trilegal_kepler_output204292233874.dat'),
+                join(litdir, 'trilegal_kepler_output756168768349.dat')
             ]
 
         else:
