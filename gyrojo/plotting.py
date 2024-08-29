@@ -3046,6 +3046,7 @@ def plot_trilegal_comparison(outdir, const_sfr=1):
     # plot making #
     ###############
 
+    mpl.use('Agg')
     set_style("science")
 
     fig, axs = plt.subplots(
@@ -3061,7 +3062,7 @@ def plot_trilegal_comparison(outdir, const_sfr=1):
     z_key = 'galz'
 
     dfs = [fullbdf, bdf, t_kcdf, t_pcdf]
-    labels = ['Kepler $P_{\mathrm{rot}}$ detected',
+    labels = ['Kepler rotation detected',
               'Kepler gyro applicable', 'TRILEGAL, $b$=$13^{\!\circ}$',
               'TRILEGAL, $b$=$0^{\!\circ}$']
     colors = ['C0', 'C0', 'C1', 'darkgray']
@@ -3072,11 +3073,11 @@ def plot_trilegal_comparison(outdir, const_sfr=1):
     ):
         if ix == 0:
             ax.scatter(df[y_key], df[z_key], c=c, s=s, alpha=a,
-                       linewidths=0, label=l)
+                       linewidths=0, label=l, rasterized=True)
         else:
             _df = df.sample(frac=0.3)
             ax.scatter(_df[y_key], _df[z_key], c=c, s=s, alpha=a,
-                       linewidths=0, label=l)
+                       linewidths=0, label=l, rasterized=True)
 
 
     # show scale height
@@ -3113,14 +3114,22 @@ def plot_trilegal_comparison(outdir, const_sfr=1):
     ax.set_xticks([0, 1, 2, 3])
     ax.set_ylim([-.18, 1.1])
 
-    legend = ax.legend(fontsize='xx-small', markerscale=3, framealpha=0,
+    legend = ax.legend(fontsize='xx-small', markerscale=4, framealpha=0,
                        borderaxespad=1.0, borderpad=0.1, handletextpad=0.,
-                       loc='upper left')
+                       loc='upper left', handleheight=2)
     for ix, handle in enumerate(legend.legend_handles):
         if ix >= 1:
             handle.set_alpha(1.0)  # Set high alpha for legend
         else:
             handle.set_alpha(0.4)
+    #for t in legend.get_texts():
+        #t.set_va('bottom')
+        #t.set_va('center_baseline')
+
+    #l = legend(scatterpoints=1,scatteryoffsets=[0],handletextpad=-0.5)
+
+    # pdf rendering is messed up
+    #legend.set_rasterized(True)
 
     #
     # histogram
@@ -3152,7 +3161,7 @@ def plot_trilegal_comparison(outdir, const_sfr=1):
         'TRILEGAL, '+_s+', $b$=0$^{\!\circ}$',
     ]
 
-    lws = [1, 1, 0.5]
+    lws = [1, 1, 1]
     colors = ['C0', 'C1', 'darkgray']
 
     for ix, (a, df, l, c, lw) in enumerate(zip(ages, dfs, labels, colors, lws)):
@@ -3236,8 +3245,9 @@ def plot_threepanel_trilegal_comparison(outdir):
 
     set_style("science")
 
+    f = 0.9
     fig, axs = plt.subplots(
-        ncols=3, figsize=(6,2), constrained_layout=True
+        ncols=3, figsize=(f*6,f*2), constrained_layout=True
     )
 
     #
@@ -3295,20 +3305,24 @@ def plot_threepanel_trilegal_comparison(outdir):
             markeredgewidth=0.3
         )
 
-    ax.set_xlabel('Y (kpc)')
-    ax.set_ylabel('Z (kpc)')
+    ax.set_xlabel('Y [kpc]')
+    ax.set_ylabel('Z [kpc]')
     ax.set_xlim([-1.1, 3.6])
     ax.set_xticks([0, 1, 2, 3])
     ax.set_ylim([-.18, 1.1])
 
     legend = ax.legend(fontsize='xx-small', markerscale=3, framealpha=0,
-                       borderaxespad=1.0, borderpad=0.1, handletextpad=0.,
-                       loc='upper left')
+                       borderaxespad=1.0, borderpad=0.1, handletextpad=-0.2,
+                       loc='upper left', scatteryoffsets=[0])
     for ix, handle in enumerate(legend.legend_handles):
         if ix >= 1:
             handle.set_alpha(1.0)  # Set high alpha for legend
         else:
             handle.set_alpha(0.4)
+    for t in legend.get_texts():
+        t.set_va('center_baseline')
+        #t.set_va('bottom')
+
 
     #
     # histogram 1 (constant SFR)
@@ -3332,7 +3346,7 @@ def plot_threepanel_trilegal_comparison(outdir):
     ]
 
     N = int(len(mdf[sel_gyro_ok])/10)
-    l0_1 = f'Kepler gyro applicable ({N})'
+    l0_1 = f'Kepler gyro applicable'# ({N})'
     const_sfr = 1
     _s = 'const SFR' if const_sfr else 'two-step SFR'
     labels = [
@@ -3364,12 +3378,12 @@ def plot_threepanel_trilegal_comparison(outdir):
 
     from matplotlib.lines import Line2D
     custom_lines = []
-    for c,lw in zip(colors, lws):
-        custom_lines.append(Line2D([0], [0], color=c, lw=lw))
+    for c,lw,ls in zip(colors, lws, linestyles):
+        custom_lines.append(Line2D([0], [0], color=c, lw=lw, ls=ls))
 
-    ax.legend(custom_lines, labels, fontsize='xx-small',
-              borderaxespad=1.0, borderpad=0.8, framealpha=0,
-              loc='lower right')
+    legend = ax.legend(custom_lines, labels, fontsize='xx-small',
+                       borderaxespad=0.4, borderpad=0.4, framealpha=0,
+                       loc='lower right', handletextpad=0.5)
 
     ax.set_xlim([0, 4])
     #ax.set_ylim([0, 0.086])
@@ -3402,7 +3416,7 @@ def plot_threepanel_trilegal_comparison(outdir):
     ]
 
     N = int(len(mdf[sel_gyro_ok])/10)
-    l0_1 = f'Kepler gyro applicable ({N})'
+    l0_1 = f'Kepler gyro applicable'# ({N})'
     const_sfr = 0
     _s = 'const SFR' if const_sfr else 'two-step SFR'
     labels = [
@@ -3411,7 +3425,7 @@ def plot_threepanel_trilegal_comparison(outdir):
         'TRILEGAL, '+_s+', $b$=0$^{\!\circ}$',
     ]
 
-    lws = [1, 1, 0.5]
+    lws = [1, 1, 0.8]
     colors = ['C0', 'C1', 'darkgray']
     linestyles = ['-', '-', ':']
 
@@ -3435,12 +3449,12 @@ def plot_threepanel_trilegal_comparison(outdir):
 
     from matplotlib.lines import Line2D
     custom_lines = []
-    for c,lw in zip(colors, lws):
-        custom_lines.append(Line2D([0], [0], color=c, lw=lw))
+    for c,lw,ls in zip(colors, lws, linestyles):
+        custom_lines.append(Line2D([0], [0], color=c, lw=lw, ls=ls))
 
-    ax.legend(custom_lines, labels, fontsize='xx-small',
-              borderaxespad=1.0, borderpad=0.8, framealpha=0,
-              loc='lower right')
+    legend = ax.legend(custom_lines, labels, fontsize='xx-small',
+                       borderaxespad=0.4, borderpad=0.4, framealpha=0,
+                       loc='lower right', handletextpad=0.5)
 
     ax.set_xlim([0, 4])
     #ax.set_ylim([0, 0.086])
