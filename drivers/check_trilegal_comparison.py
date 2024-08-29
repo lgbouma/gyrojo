@@ -29,7 +29,7 @@ _ = coord.galactocentric_frame_defaults.set('v4.0')
 sun_x_pc =  - 8122  # pc
 
 from gyrojo.trilegal import (
-    random_skycoords_within_area, galactic_to_xyz
+    random_skycoords_within_area, galactic_to_xyz, get_trilegal
 )
 
 def plot_projections(
@@ -114,7 +114,7 @@ def plot_age_histogram(df, const_sfr=1, kepfield=1):
         #weights=np.ones(len(df))/len(df)
     )
     ax.set_xlabel('age [gyr]')
-    ax.set_xlim([0, 4.1])
+    ax.set_xlim([0, 5.1])
     #ax.set_ylim([0, 0.05])
     ax.set_ylabel('rel. count')
 
@@ -152,7 +152,11 @@ def _get_realdata():
 
 def run_viz(kepfield=1, const_sfr=1):
 
-    df = get_trilegal(kepfield=kepfield, const_sfr=const_sfr)
+    age_scale = 0.02
+    if not kepfield and not const_sfr:
+        age_scale = 0.015
+    df = get_trilegal(kepfield=kepfield, const_sfr=const_sfr,
+                      age_scale=age_scale)
     bdf = _get_realdata()
 
     plot_age_histogram(df, const_sfr=const_sfr, kepfield=kepfield)
@@ -163,6 +167,7 @@ def run_viz(kepfield=1, const_sfr=1):
 
 
 if __name__ == "__main__":
+    run_viz(const_sfr=0, kepfield=0)
     run_viz(const_sfr=1, kepfield=0)
     run_viz(const_sfr=0, kepfield=1)
     run_viz(const_sfr=1, kepfield=1)
