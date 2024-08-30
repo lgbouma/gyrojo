@@ -3112,6 +3112,7 @@ def plot_trilegal_comparison(outdir, const_sfr=1):
     ax.set_ylabel('Z (kpc)')
     ax.set_xlim([-1.1, 3.6])
     ax.set_xticks([0, 1, 2, 3])
+    ax.set_yticks([0, 0.5, 1])
     ax.set_ylim([-.18, 1.1])
 
     legend = ax.legend(fontsize='xx-small', markerscale=4, framealpha=0,
@@ -3279,11 +3280,11 @@ def plot_threepanel_trilegal_comparison(outdir):
 
     # show scale height
     ax.errorbar(
-        -0.5, 0.15, yerr=0.15, fmt='o', color='k', elinewidth=0.5, capsize=1,
+        -0.3, 0.15, yerr=0.15, fmt='o', color='k', elinewidth=0.5, capsize=1,
         lw=0, mew=0.5, markersize=0, zorder=9999
     )
     ax.text(
-        -0.5, 0.32, r'$\langle h_\mathrm{z} \rangle$', ha='center', va='bottom',
+        -0.3, 0.32, r'$\langle h_\mathrm{z} \rangle$', ha='center', va='bottom',
         fontsize='medium'
     )
 
@@ -3307,8 +3308,9 @@ def plot_threepanel_trilegal_comparison(outdir):
 
     ax.set_xlabel('Y [kpc]')
     ax.set_ylabel('Z [kpc]')
-    ax.set_xlim([-1.1, 3.6])
+    ax.set_xlim([-0.9, 3.6])
     ax.set_xticks([0, 1, 2, 3])
+    ax.set_yticks([0, 0.5, 1])
     ax.set_ylim([-.18, 1.1])
 
     legend = ax.legend(fontsize='xx-small', markerscale=3, framealpha=0,
