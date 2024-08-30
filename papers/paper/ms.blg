@@ -2,7 +2,7 @@ This is BibTeX, Version 0.99d (TeX Live 2021)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: ms.aux
 The style file: aasjournal.bst
-Reallocated field_info (elt_size=4) to 10191 items from 5000.
+Reallocated field_info (elt_size=4) to 10249 items from 5000.
 Database file #1: bibliography.bib
 Warning--entry type for "claude2024anthropic" isn't style-file defined
 --line 453 of file bibliography.bib
@@ -32,45 +32,45 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--can't use both author and editor fields in vogt_hires_1994
 Warning--empty publisher in vogt_hires_1994
 Warning--empty pages in vogt_hires_1994
-You've used 179 entries,
+You've used 181 entries,
             3222 wiz_defined-function locations,
-            2046 strings with 97694 characters,
-and the built_in function-call counts, 111900 in all, are:
-= -- 6755
-> -- 12965
+            2056 strings with 106677 characters,
+and the built_in function-call counts, 118610 in all, are:
+= -- 6829
+> -- 14371
 < -- 45
-+ -- 4311
-- -- 4560
-* -- 11662
-:= -- 21857
-add.period$ -- 180
-call.type$ -- 179
-change.case$ -- 996
-chr.to.int$ -- 175
-cite$ -- 182
-duplicate$ -- 3225
-empty$ -- 5113
-format.name$ -- 4751
-if$ -- 21243
-int.to.chr$ -- 5
++ -- 4780
+- -- 5031
+* -- 12638
+:= -- 23360
+add.period$ -- 182
+call.type$ -- 181
+change.case$ -- 1006
+chr.to.int$ -- 176
+cite$ -- 184
+duplicate$ -- 3261
+empty$ -- 5170
+format.name$ -- 5224
+if$ -- 22320
+int.to.chr$ -- 6
 int.to.str$ -- 0
-missing$ -- 175
-newline$ -- 543
-num.names$ -- 719
-pop$ -- 1404
+missing$ -- 177
+newline$ -- 549
+num.names$ -- 727
+pop$ -- 1419
 preamble$ -- 1
-purify$ -- 996
+purify$ -- 1006
 quote$ -- 0
-skip$ -- 2563
+skip$ -- 2588
 stack$ -- 0
-substring$ -- 3205
-swap$ -- 40
+substring$ -- 3242
+swap$ -- 42
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1608
+type$ -- 1626
 warning$ -- 3
-while$ -- 645
+while$ -- 652
 width$ -- 0
-write$ -- 1791
+write$ -- 1811
 (There were 5 error messages)

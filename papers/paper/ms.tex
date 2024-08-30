@@ -1,8 +1,8 @@
 % upon AAS submission
 %\documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
-%\documentclass[11pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
+\documentclass[11pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 % drafting / arxiv
-\documentclass[11pt,twocolumn,tighten]{aastex63}
+%\documentclass[11pt,twocolumn,tighten]{aastex63}
 \turnoffedit
 
 \usepackage{apjfonts}
@@ -144,7 +144,7 @@ Mellon University, Pittsburgh, PA 15213, USA}
   (harboring \nplwgyroagenograzing\ known planets) for which our method is
   applicable.
   %
-  We find that our rotational ages accurately recover the ages of
+  We find that our rotational ages \deleted{accurately }recover the ages of
   stars in open clusters spanning 0.04-2.5\,Gyr; they also agree with
   $\gtrsim$90\% of the independent lithium ages.
   %
@@ -311,7 +311,7 @@ stars.   These factors are as follows.
     found in the Kepler field
     \cite[e.g.][]{2019AJ....158..122K,Kerr_2021,Barber_2022}.
     These clusters offer stars that we can use to test
-    the reliability of the available single-star age-dating methods.
+    the reliability of \replaced{the available single-star}{our} age-dating methods.
 \end{enumerate}
 
 Recent years have also yielded improvements in the
@@ -334,7 +334,7 @@ this regime are now in the range of 0.3-0.5~dex.
 We discuss our method for selecting the star and planet samples in
 Section~\ref{sec:selection}, and describe the origin of our adopted
 stellar parameters other than ages in Section~\ref{sec:stellarprops}.
-We describe our age-dating methods in Sections~\ref{sec:rotage}
+We present our age-dating methods in Sections~\ref{sec:rotage}
 and~\ref{sec:liage}, and test them in
 Section~\ref{sec:litagecomparison} using clusters in the Kepler field.
 We discuss population-level trends in Sections~\ref{sec:results}
@@ -1131,7 +1131,7 @@ sub-gigayear stars of a fixed mass and age.
   evolutionary state; transparent lines do not\added{ (see
   Section~\ref{subsec:flags})}.  The bottom row shows
   stars with temperatures of 4400--5400\,K, which \replaced{have more precise
-  ages due to their fast spin-down}{usually have more precise ages}.  The statistical uncertainty for a
+  ages due to their fast spin-down}{have more precise ages}.  The statistical uncertainty for a
   mean star at 1, 2, and 3\,Gyr is shown, and is identical across each
   row.  
   Finally, the right panel compares the rotation-derived ages
@@ -1262,7 +1262,7 @@ the youth of all of these planets.
 {\it Cep-Her}---The Cep-Her complex ($\approx$40\,Myr) contains
 Kepler-1627Ab, Kepler-1643b, Kepler-1974b and Kepler-1975\,Ab
 \citep{Bouma_2022a,Bouma_2022b}.  Different sub-groups of the complex
-vary in age by $\approx$50\% (Kerr~et al.,~submitted).  The planets
+vary in age by $\approx$50\% \citep{Kerr2024}.  The planets
 themselves are all on close-in orbits (5-25\,days), with sizes from
 2-4\,$R_\oplus$.  Our rotation and lithium ages agree with the cluster
 age for Kepler-1627A, Kepler-1974, and Kepler-1975A.  For Kepler-1643,
@@ -1324,7 +1324,7 @@ this time, enabling its rotation period to be diagnostic of its age.
     0.5-1\,Gyr planets.  For this plot, we require our Kepler stellar
     hosts to not have $Q_{\rm star}$ bits 0--9 raised,
     and for the planets to similarly no have quality flags
-    raised.}{Transiting systems are selected to have $t$<1\,Gyr at $2$$\sigma$.
+    raised.}{Systems are selected to have $t$<1\,Gyr at $2$$\sigma$.
     Star symbols denote \nplyounggyrotwosigmanograzingnoruwe\ planets
     characterized in this work to have such ages at the highest
     confidence, meaning that none of $Q_{\rm star}$ bits 0--10 are raised,
@@ -1400,7 +1400,7 @@ super-Neptunes (4--10\,$R_\oplus$), \nminineptuneshighq\ mini-Neptunes
 above the radius valley as parametrized by
 \citealt{2018MNRAS.479.4786V}, and \nsuperearthshighq\ super-Earth
 sized planets below the radius valley.  While most of these planets
-are on orbital periods below 50\,days, \nlongperiodhighq\ are on more
+have orbital periods below 50\,days, \nlongperiodhighq\ are on more
 distant orbits.
 
 Among these systems, four highlights are Kepler-1529, Kepler-1565,
@@ -1436,13 +1436,13 @@ point.
 	\end{center}
 	\vspace{-0.5cm}
 	\caption{{\bf Impact of star formation rate (SFR) and kinematic heating on age distribution.}   
-		Most Kepler stars are a few hundred parsecs above the Galactic plane ($\hat{Z}$ points to the north galactic pole;  $\hat{Y}$ is the direction of
+		Most Kepler stars are a few hundred parsecs above the Galactic plane ($\hat{Z}$ points to the north galactic pole;  $\hat{Y}$ toward the direction of
 		galactic rotation).  This is comparable to the $\approx$300\,pc mass-weighted scale height.
 		The dotted gray and solid orange lines show synthetic age distributions
 		from TRILEGAL assuming a constant SFR (middle) and a two-step
 		SFR (right), described in the text.
 		A combination of both kinematic heating and
-		a decreasing SFR qualitatively match the observed paucity of the youngest stars.
+		a decreasing SFR are needed to qualitatively match the observed paucity of the youngest stars.
 		\label{fig:trilegal}
 	}
 \end{figure*}
@@ -1454,7 +1454,7 @@ point.
 \added{Two separate astrophysical effects might explain our observed 
 age distribution (Figure~\ref{fig:hist_tgyro}): a declining star formation
 rate (SFR), and kinematic heating.   Kinematic heating is associated with an
-increase in stellar velocity dispersions and the disk's vertical 
+increase in both stellar velocity dispersions and the disk's vertical 
 scale height over time \citep[e.g.][]{Villumsen1983,Schmidt2024}.
 The Kepler field points toward $(l,b)$=(76.3$^\circ$,13.5$^\circ$).
 A typical Kepler star at 1\,kpc is therefore $\approx$230\,pc
@@ -1477,12 +1477,12 @@ $h_{\rm z} = z_0 (1 + t/t_0)^\alpha$, for $\alpha$=5/3, $z_0$=94.7\,pc,
 	Kepler field, and toward the galactic plane (at $l$=76.3$^\circ$) to
 	negate the effects of kinematic heating.
 	We limited the output to stars with apparent Kepler magnitudes brighter than 16,
-	and set the field of view to 10 ${\rm deg}^2$, the maximum
-	possible through the web interface.
+	and set the field of view to 10\,${\rm deg}^2$, the maximum
+	available through the web interface.
 %	and set the Sun at $z_\odot$=20.8\,pc, $r$=8122\,pc from the Galactic center.
 }
 
-\added{Figure~\ref{fig:trilegal} compares the simulation results against
+\added{Figure~\ref{fig:trilegal} compares the results against
 	our observed age distribution.
 	The middle panel shows that assuming a constant SFR,
 	kinematic heating alone can yield a two-fold difference
@@ -1513,8 +1513,8 @@ which gyrochronology is applicable, and 2{,}462 thick disk stars.}
 them to previous work on the Galaxy's star formation history.  On
 extragalactic scales, the star formation rate in spiral galaxies with
 mass similar to the Milky Way peaked $\approx$10\,Gyr ago, and has
-since decreased by an order of magnitude
-\citep[e.g.][]{2004Natur.428..625H,2006ApJ...651..142H}.}
+since decreased by an order of magnitude. }
+%\citep[e.g.][]{2004Natur.428..625H,2006ApJ...651..142H}.}
 \added{Despite the expected differences between pencil-beam surveys
 and volume-complete samples, our observed age distribution qualitatively
 agrees with a number of previous studies.}
@@ -1570,7 +1570,7 @@ in the red giant asteroseismic ages derived by
 		the same raw (thin blue line) and quality-flag cleaned (``gyro applicable'') distributions
 		as in Figure~\ref{fig:hist_tgyro}.
 		However, even after applying our quality cuts, up to
-		\fivepctnuniqstarsantosrotgyroappl\ out of \ngyroappllttendays\ ``clean'' rotators with
+		\fivepctnuniqstarsantosrotgyroappl\ of \ngyroappllttendays\ ``clean'' rotators with
 		$P_{\rm rot}$$<$10\,days could be unresolved $\lesssim$0.5\,AU  binaries (see Section~\ref{subsec:caveats}).
 		The thick blue ``5\% binary contamination'' distribution corrects for this possibility by randomly removing
 		what we estimate (estm.) to be the maximum possible number of such systems; the true
@@ -1827,7 +1827,7 @@ and~\ref{tab:stars} have been linked to their birth clusters.
 Others have not. A systematic search for the birth clusters of the
 youngest ``field stars'' could combine positions and velocities from
 Gaia with rotation measurements from TESS. Given the $\sim$100\,Myr
-decoherence time of young clusters, the youngest ``field stars'' may
+decoherence time of young clusters, \replaced{the youngest ``field stars''}{these young stars} may
 have easily identifiable young neighbors.
 
 
@@ -1853,11 +1853,11 @@ planets and stars, respectively.  Our recovered ages are accurate for
 all 14 known Kepler planets in clusters.  While lithium provided
 minimal added information for most of the sample\added{ due to its astrophysical
 depletion rate}, $t_{\rm Li}$ and
-$t_{\rm gyro}$ agreed in $\gtrsim$90\% of cases for which comparison
+$t_{\rm gyro}$ agreed in over 90\% of cases for which comparison
 was possible.  Our \replaced{resulting ages}{results} included two-sided $t_{\rm gyro}$
 and $t_{\rm Li}$ for \ltonegyrhighqconfirmedtwosided\ sub-gigayear
 confirmed planets, and two-sided $t_{\rm gyro}$ with one-sided $t_{\rm
-Li}$ for \ltonegyrhighqconfirmedonesided\ sub-gigayear confirmed
+Li}$ for \ltonegyrhighqconfirmedonesided\ \replaced{sub-gigayear confirmed}{such}
 planets.  Allowing for ``candidate'' planets, grazing transit
 geometries, and stars with RUWE far from unity expands the counts by a
 factor of two.
@@ -1878,14 +1878,14 @@ follows.
     Kepler target stars and the known Kepler planet hosts show a
     demographic cliff.  There are \added{at least }twice as many ``old'' (2-3\,Gyr)
     stars in the Kepler field as ``young'' (0-1\,Gyr) stars.  \deleted{The star
-    formation rate today is\added{ at least} \ratiosfr$\pm$\uncratiosfr\ times lower
+    formation rate today is \ratiosfr$\pm$\uncratiosfr\ times lower
     than it was three billion years ago.}
 \item \added{The youngest stars in the Kepler field (0-0.3\,Gyr)
     are at least  \ratiosfr$\pm$\uncratiosfr\ times rarer than stars 3\,Gyr old. The statistical
     uncertainty on this value is dwarfed by the systematic
     uncertainty in the contamination rate of unresolved
     photometric binaries, which could push it as high as 4.81$\pm$0.26 (Section~\ref{subsec:caveats})}.
-     \replaced{This}{Either} result \replaced{from
+     \replaced{This result}{This range of values} \replaced{from
     rotation-based ages broadly agrees}{is broadly consistent} with \replaced{recent reports of a
     declining star-formation rate}{modeling expectations (Section~\ref{subsec:trilegal}), and with age distributions derived from} from CMD fitting and white-dwarf
     chronology\replaced{, though with the}{.  The }advantage of \added{rotation-based ages however is their }\replaced{sensitivity}{accuracy} for
@@ -1895,7 +1895,7 @@ follows.
     billion years, the age distribution of stars in the Kepler field
     \replaced{implies}{suggests} that we should instead expect $\approx$250.
   %
-  \item We have derived rotation-based ages for \nplyounggyrotwosigma\
+  \item We have \replaced{derived}{reported} rotation-based ages for \nplyounggyrotwosigma\
     Kepler planets younger than 1\,Gyr at 2$\sigma$, and
     \nplyounggyro\ planets with median ages below 1\,Gyr.
     Concatenating these planets against the existing literature yields
