@@ -12,13 +12,10 @@ cp $r/st_params/st_params_adopted_logg_vs_adopted_Teff.pdf .
 # ...G vs Teff
 #cp $r/st_params/st_params_dr3_phot_g_mean_mag_vs_adopted_Teff.pdf .
 
-# mpl>3.6 plot_star_Prot_Teff (pdf rendering failing)
-#cp $r/star_Prot_Teff/prot_teff_Santos19_Santos21_dquality.pdf .
-cp $r/star_Prot_Teff/prot_teff_Santos19_Santos21_dquality.png .
+cp $r/star_Prot_Teff/prot_teff_Santos19_Santos21_dquality.pdf .
 
-# plot_koi_mean_prot_teff (to match pdf compat...)
-#cp $r/koi_mean_prot_teff/koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf .
-cp $r/koi_mean_prot_teff/koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.png .
+# plot_koi_mean_prot_teff
+cp $r/koi_mean_prot_teff/koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf .
 
 # plot_hist_field_gyro_ages 
 cp $r/hist_field_gyro_ages_20240821/comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240821_maxage4000.pdf .
@@ -50,8 +47,7 @@ cp $r/lit_ages_vs_cluster_ages/olympic_merged_lit_ages_vs_cluster_ages.pdf .
 #cp $r/perioddiff_vs_period/perioddiff_vs_period_diffProt-m14_Prot_vs_Prot.pdf .
 #cp $r/perioddiff_vs_period/perioddiff_vs_period_diffProt-r23_ProtGPS_vs_Prot.pdf .
 
-#cp $r/star_Prot_Teff/prot_teff_McQuillan2014only_dquality.pdf .
-cp $r/star_Prot_Teff/prot_teff_McQuillan2014only_dquality.png .
+cp $r/star_Prot_Teff/prot_teff_McQuillan2014only_dquality.pdf .
 
 
 cp $r/mcq14_vs_santos_age_histograms_Santos20240821_vs_McQMcQ14_20240613/comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240821_maxage4000.pdf mcq_santos_comp_top.pdf
