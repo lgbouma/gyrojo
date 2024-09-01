@@ -1605,13 +1605,14 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     N = int(len(mdf[sel_gyro_ok])/10)
     l0_1 = f'Gyro applicable ({N})'
     lw = 1 if not dropfracshortrot else 0.75
+    cc = 'darkviolet' if dropfracshortrot else 'C0'
     heights, bin_edges, _  = axs[0].hist(
         mdf[sel_gyro_ok].age/1e3, bins=bins, color='C0', histtype='step',
         weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=-3,
         alpha=1, label=l0_1, linewidth=lw
     )
     if dropfracshortrot:
-        colors = ['C0', 'C0', 'C0']
+        colors = ['darkviolet', 'C0', 'C0']
         linewidths = [1, 0.5, 0.5]
         linestyles = ['-', ':', '-.']
         alphas = [1, 0.4, 0.4]
@@ -1642,7 +1643,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     else:
         l2_1 = f"Kepler stars ({int(len(mdf[_sel_gyro_ok])/10)})"
         _  = axs[2].hist(
-            mdf[_sel_gyro_ok].age/1e3, bins=bins, color='C0', histtype='step',
+            mdf[_sel_gyro_ok].age/1e3, bins=bins, color=cc, histtype='step',
             weights=np.ones(len(mdf[_sel_gyro_ok]))/len(mdf[_sel_gyro_ok]), zorder=-1,
             alpha=1, label=l2_1
         )
@@ -1650,17 +1651,19 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
     if not dropfracshortrot:
         poisson_uncertainties = get_poisson_uncertainties(mdf[sel_gyro_ok], bins)
+        c = 'C0'
     else:
         poisson_uncertainties = get_poisson_uncertainties(mdf[_sel_gyro_ok], bins)
+        c = 'darkviolet'
 
     axs[0].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
-        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='C0', markersize=0,
+        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color=c, markersize=0,
         zorder=-3, alpha=0.8
     )
     axs[2].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
-        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color='C0', markersize=0,
+        elinewidth=0.7, capsize=1, lw=0, mew=0.5, color=c, markersize=0,
         zorder=-1, alpha=0.8
     )
     fit_line_and_print_results(bin_centers, heights, poisson_uncertainties)
@@ -1847,12 +1850,14 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
 
     txt = 'Kepler stars'
     if dropfracshortrot:
-        txt += ',\n - estm. binaries'
+        txt += ',\n − estm. binaries'
+        c = 'darkviolet'
     if flag_mcq14_comp:
         txt = 'Santos P$_{\mathrm{rot}}$'
+        c = 'C0'
     axs[0].text(.05, .95, txt, ha='left', va='top',
                 fontsize='small', zorder=5, transform=axs[0].transAxes,
-                fontdict={'fontstyle':'normal'}, color='C0')
+                fontdict={'fontstyle':'normal'}, color=c)
 
     if not flag_mcq14_comp:
         txt = 'KOI hosts'
@@ -1942,34 +1947,45 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     if not dropfracshortrot:
         custom_lines = [Line2D([0], [0], color='C0', lw=0.5, alpha=0.4),
                         Line2D([0], [0], color='C0', lw=1, alpha=1.0 ) ]
-        axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='xx-small',
-                      borderaxespad=0.9, borderpad=0.5, framealpha=0,
-                      loc='lower right')
+        legend = axs[0].legend(custom_lines, [l0_0, l0_1], fontsize='xx-small',
+                               borderaxespad=0.9, borderpad=0.5, framealpha=0,
+                               loc='lower right')
+        #for t in legend.get_texts():
+        #    t.set_va('center_baseline')
+
     else:
         custom_lines = [Line2D([0], [0], color='C0', lw=0.5, alpha=0.4),
                         Line2D([0], [0], color='C0', lw=0.75, alpha=1.0),
-                        Line2D([0], [0], color='C0', lw=1, alpha=1.0)
+                        Line2D([0], [0], color='darkviolet', lw=1, alpha=1.0)
                         ]
-        axs[0].legend(custom_lines, [l0_0, l0_1, droplabels[0]], fontsize='xx-small',
-                      borderaxespad=0.9, borderpad=0.5, framealpha=0,
-                      loc='lower right')
+        legend = axs[0].legend(custom_lines, [l0_0, l0_1, droplabels[0]],
+                               fontsize='xx-small', borderaxespad=0.9,
+                               borderpad=0.5, framealpha=0, loc='lower right')
+        #for t in legend.get_texts():
+        #    t.set_va('center_baseline')
 
     #_c = 'sienna' if not flag_mcq14_comp else 'darkorange'
     _c = 'darkorange' if not flag_mcq14_comp else 'darkorange'
     custom_lines = [Line2D([0], [0], color=_c, lw=0.5, alpha=0.4),
                     Line2D([0], [0], color=_c, lw=1, alpha=1.0 ) ]
-    axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='xx-small',
-                  borderaxespad=0.9, borderpad=0.5, framealpha=0,
-                  loc='lower right')
+    legend = axs[1].legend(custom_lines, [l1_0, l1_1], fontsize='xx-small',
+                           borderaxespad=0.9, borderpad=0.5, framealpha=0,
+                           loc='lower right')
+    #for t in legend.get_texts():
+    #    t.set_va('center_baseline')
+
+    cc = 'darkviolet' if dropfracshortrot else 'C0'
     custom_lines = [
-        Line2D([0], [0], color='C0', lw=1, alpha=1.0),
+        Line2D([0], [0], color=cc, lw=1, alpha=1.0),
         Line2D([0], [0], color=_c, lw=1, alpha=1.0),
         Line2D([0], [0], color='k', lw=0.5, alpha=1.0, ls='--'),
         Line2D([0], [0], color='k', lw=0.5, alpha=0.7, ls=':'),
     ]
-    axs[2].legend(custom_lines, [l2_1, l2_2, l2_3, l2_4], fontsize='xx-small',
-                  borderaxespad=0.9, borderpad=0.5, framealpha=0,
-                  loc='lower right')
+    legend = axs[2].legend(custom_lines, [l2_1, l2_2, l2_3, l2_4],
+                           fontsize='xx-small', borderaxespad=0.9,
+                           borderpad=0.5, framealpha=0, loc='lower right')
+    #for t in legend.get_texts():
+    #    t.set_va('center_baseline')
 
     s = ''
     if preciseagesonly:
