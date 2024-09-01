@@ -1523,9 +1523,9 @@ galaxy, previous studies have}{Previous work has} measured star formation histor
 through CMD fitting of resolved stellar populations
 \citep[][]{2019A&A...624L...1M,2020NatAs...4..965R,2021MNRAS.501..302A,2022Natur.603..599X},
 and by modeling the local white dwarf luminosity function
-\citep[e.g.][]{2019ApJ...878L..11I}.  \citet{2019A&A...624L...1M} and
+\citep[e.g.][]{2019ApJ...878L..11I}.  \citet{2019A&A...624L...1M} \replaced{and
 \citet{2019ApJ...878L..11I} for instance focused on stars (and white
-dwarfs) within a few hundred parsecs, and both found a peak in the
+dwarfs)}{and \citet{Mazzi2024} for instance focused on stars} within a few hundred parsecs, and both found a peak in the
 local star formation rate 2-3\,Gyr ago.  \citet{2020NatAs...4..965R}
 focused on stars in a wider 2\,kpc bubble, and additionally reported
 three local maxima in the SFR, which they
@@ -1839,7 +1839,7 @@ We began this work with two questions: how wrong is the assumption of
 a uniform age distribution for stars in the galactic thin disk?  And
 why are only $\approx$50 sub-gigayear transiting planets known, rather
 than the $\approx$500 that would be expected under the assumption of a
-uniform star formation history for the $\approx$5{,}000 known planets?
+uniform star formation \replaced{history}{rate} for the $\approx$5{,}000 known planets?
 
 Our approach to answering these questions was to curate a sample of
 stellar rotation periods, lithium equivalent widths, and temperatures
@@ -1869,7 +1869,18 @@ are mostly mini-Neptunes, some are near the lower boundary of the
 evolutionary connection to their youth.  Other discoveries include
 Earth-sized planets \added{(e.g.~Kepler-1312\,c and Kepler-1561\,b) }with \deleted{new }ages of only a few hundred million years.  
 
-Our main conclusions with respect to our original questions are as
+\added{Significant care is 
+needed when assessing not only the reliability of rotational ages, but also any implications of measured age distributions.
+Despite a slew of stellar quality flags, including on metallicity, evolutionary state,
+and binarity, we expect that up to a third of the ``apparently clean'' 
+Kepler stars with $P_{\rm rot}$$<$10\,days
+could potentially be influenced by unresolved binaries (Figure~\ref{fig:hist_tgyro_corr}).
+A separate nuance is in understanding that the observed age distribution does not 
+directly map onto a star formation history: the kinematic heating of stars in the
+disk in particular produces a major bias in the age distribution of stars, and therefore of planets,
+observed by pencil-beam surveys such as Kepler.}
+
+Our \deleted{main }conclusions with respect to our original \added{two }questions\added{ -- what is the age distribution in the thin disk, and where are the missing young transiting exoplanets -- }are as
 follows.
 
 \begin{enumerate}[leftmargin=*,topsep=0pt,itemsep=-0.5ex,partopsep=1ex,parsep=1ex]
@@ -1887,13 +1898,13 @@ follows.
     photometric binaries, which could push it as high as 4.81$\pm$0.26 (Section~\ref{subsec:caveats})}.
      \replaced{This result}{This range of values} \replaced{from
     rotation-based ages broadly agrees}{is broadly consistent} with \replaced{recent reports of a
-    declining star-formation rate}{modeling expectations (Section~\ref{subsec:trilegal}), and with age distributions derived from} from CMD fitting and white-dwarf
+    declining star-formation rate}{modeling expectations (Section~\ref{subsec:trilegal}), and with age distributions derived from} CMD fitting and white-dwarf
     chronology\replaced{, though with the}{.  The }advantage of \added{rotation-based ages however is their }\replaced{sensitivity}{accuracy} for
     FGK stars at $t$$<$1\,Gyr (e.g.~Figure~\ref{fig:agescalecompone}).
   %
   \item Rather than expecting $\approx$500 exoplanets younger than one
     billion years, the age distribution of stars in the Kepler field
-    \replaced{implies}{suggests} that we should instead expect $\approx$250.
+    \replaced{implies}{suggests} that we \replaced{should}{might} instead expect $\approx$250.
   %
   \item We have \replaced{derived}{reported} rotation-based ages for \nplyounggyrotwosigma\
     Kepler planets younger than 1\,Gyr at 2$\sigma$, and
@@ -2013,7 +2024,7 @@ Writing – review \& editing: all authors.
   As an example, Kepler-1627 has $Q_{\rm star}$ flagged with bit 11 and bit 7.
   The analogous planet quality bitmask, $Q_{\rm planet}$, has the
   following meaning.
-  Bit 0: Candidate not reliable?
+  Bit 0: Candidate disposition not reliable?
   Bit 1: MES$<$10?
   Bit 2: Grazing?
   For a star to have a high likelihood of being ``reliable for
