@@ -1,6 +1,6 @@
 % upon AAS submission
-%\documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
-\documentclass[11pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
+\documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
+%\documentclass[11pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 % drafting / arxiv
 %\documentclass[11pt,twocolumn,tighten]{aastex63}
 \turnoffedit
@@ -226,7 +226,7 @@ of the galactic star formation rate.
 Despite this and other observational challenges, young close-in planet
 discovery has matured over the past decade, primarily due to Kepler,
 K2, TESS, and Gaia
-\citep[e.g.][]{Meibom_2013,Mann_K2_25_2016,Curtis_2018,Livingston_2018,David_2019,Bouma_2020_toi837,Rizzuto_2020,Plavchan_2020,Newton_2021,Nardiello_2022,Barber_2022,Zhou_2022,Zakhozhay_2022,Wood_2023}.
+\citep[e.g.][]{Meibom_2013,Mann_K2_25_2016,Curtis_2018,Livingston_2018,Bouma_2020_toi837,Plavchan_2020,Newton_2021,Nardiello_2022,Barber_2022,Zhou_2022,Zakhozhay_2022,Wood_2023}.
 The strategy pursued by most groups during the 2010s was to focus on
 stars with known ages---obvious members of open clusters---and to
 search them for transiting planets.  The resulting stellar, and
@@ -266,7 +266,7 @@ isochrone ages are therefore limited.
 
 Stellar rotation periods offer a promising alternative.  The idea of
 using a star's spin-down as a clock has a rich history
-\citep{Skumanich_1972,Noyes_1984,Kawaler_1989,Barnes03,Mamajek_2008,Angus_2015}.
+\citep{Skumanich_1972,Noyes_1984,Kawaler_1989,Barnes03,Mamajek_2008,Angus_2015,2023ApJ...954L..50E}.
 Empirical models now yield ages precise to $\lesssim$30\% for FGK
 stars between 1-4\,Gyr, and constraining age posteriors for younger
 ages \citep{Bouma_2023}.  Physics-based models
@@ -349,12 +349,12 @@ Section~\ref{sec:conclusions}.
 \begin{figure}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.43\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
+			\includegraphics[width=0.45\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
 		}
 	
 		\vspace{-0.3cm}
 		\subfloat{
-			\includegraphics[width=0.43\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
+			\includegraphics[width=0.45\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
@@ -398,10 +398,10 @@ provides a visualization of the various samples.
 \begin{figure*}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.49\textwidth]{prot_teff_Santos19_Santos21_dquality.png}
+			\includegraphics[width=0.49\textwidth]{prot_teff_Santos19_Santos21_dquality.pdf}
 		}
 		\subfloat{
-			\includegraphics[width=0.49\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.png}
+			\includegraphics[width=0.49\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
@@ -415,7 +415,7 @@ provides a visualization of the various samples.
     temperatures of 3800--6200\,K.  The planet hosts (right) require
     the same stellar cuts, and include only the confirmed and
     candidate planets described in Section~\ref{subsec:plflags}.  The
-    number of stars $N_{\rm s}$ and planets $N_{\rm p}$ are noted in
+    total number of stars $N_{\rm s}$ and planets $N_{\rm p}$ are noted in
     the relevant panels.  A simple estimate for the number of young
     planets discovered by Kepler follows by counting points below the
     \deleted{mean }rotational isochrones.
@@ -435,8 +435,8 @@ all Kepler target stars irrespective of KOI status.  Out of these
 studies, the most homogeneous \deleted{and precise }analyses of both Kepler
 targets and KOIs appear to be those by
 \citet{Santos_2019,Santos_2021}, hereafter \citetalias{Santos_2019}
-and \citetalias{Santos_2021}.  For a discussion of the work by
-\citet{Reinhold2023}, please see Appendix~\ref{app:reinhold23}.
+and \citetalias{Santos_2021}.  For discussion of the work by
+\citet{Reinhold2023}, see Appendix~\ref{app:reinhold23}.
 \citetalias{Santos_2019} and \citetalias{Santos_2021} combined a
 wavelet analysis and autocorrelation-based approach, and cumulatively
 reported rotation periods for 55{,}232 main-sequence and subgiant FGKM
@@ -694,7 +694,7 @@ sequences.
     around the mean, which is what the models fit, sets the
     theoretical precision floor for the age-dating methods.
     Additional sources of uncertainty, including measurement
-    uncertainty, impose further limits on achievable precision.  These
+    uncertainty, impose further limits\deleted{ on achievable precision}.  These
     models are calibrated using data from open clusters.  The sizes of
     the points are the same in each panel, so that low apparent
     density signifies greater dispersion around the mean.
@@ -1132,7 +1132,7 @@ sub-gigayear stars of a fixed mass and age.
   Section~\ref{subsec:flags})}.  The bottom row shows
   stars with temperatures of 4400--5400\,K, which \replaced{have more precise
   ages due to their fast spin-down}{have more precise ages}.  The statistical uncertainty for a
-  mean star at 1, 2, and 3\,Gyr is shown, and is identical across each
+  single average star at 1, 2, and 3\,Gyr is shown, and is identical across each
   row.  
   Finally, the right panel compares the rotation-derived ages
   against star formation histories derived using CMD fitting (dashed
@@ -1567,12 +1567,12 @@ in the red giant asteroseismic ages derived by
 	\end{center}
 	\vspace{-0.6cm}
 	\caption{{\bf Potential impact of unresolved binaries.}   This figure shows
-		the same raw (thin blue line) and quality-flag cleaned (``gyro applicable'') distributions
+		the same raw (thinnest line) and quality-flag cleaned (``gyro applicable'') distributions
 		as in Figure~\ref{fig:hist_tgyro}.
 		However, even after applying our quality cuts, up to
 		\fivepctnuniqstarsantosrotgyroappl\ of \ngyroappllttendays\ ``clean'' rotators with
 		$P_{\rm rot}$$<$10\,days could be unresolved $\lesssim$0.5\,AU  binaries (see Section~\ref{subsec:caveats}).
-		The thick blue ``5\% binary contamination'' distribution corrects for this possibility by randomly removing
+		The thick violet ``5\% binary contamination'' distribution corrects for this possibility by randomly removing
 		what we estimate (estm.) to be the maximum possible number of such systems; the true
 		correction might be smaller.  We expect such a correction to be more important in
 		the sample of all Kepler stars than in the KOI host sample.
@@ -1881,7 +1881,7 @@ follows.
     formation rate today is \ratiosfr$\pm$\uncratiosfr\ times lower
     than it was three billion years ago.}
 \item \added{The youngest stars in the Kepler field (0-0.3\,Gyr)
-    are at least  \ratiosfr$\pm$\uncratiosfr\ times rarer than stars 3\,Gyr old. The statistical
+    are at least  \ratiosfr$\pm$\uncratiosfr\ times rarer than stars 2.7-3\,Gyr old. The statistical
     uncertainty on this value is dwarfed by the systematic
     uncertainty in the contamination rate of unresolved
     photometric binaries, which could push it as high as 4.81$\pm$0.26 (Section~\ref{subsec:caveats})}.
@@ -1935,13 +1935,13 @@ Writing – review \& editing: all authors.
 \facilities{
   Gaia \citep{Gaia_DR3_2022},
   Kepler \citep{Borucki10},
-  Keck:I (HIRES) \citep{Vogt94},
+  Keck:I (HIRES) \citep{vogt_hires_1994},
 	2MASS \citep{Skrutskie06},
 	SDSS \citep{2000AJ....120.1579Y}.
 }
 
 \software{
-  astropy \citep{Astropy18},
+  astropy \citep{astropy:2013,astropy:2018,astropy:2022},
   claude \citep{claude2024anthropic},
   eagles \citep{Jeffries_2023},
   gyro-interp \citep{Bouma_2023},
@@ -2388,10 +2388,10 @@ rotation detection pipeline.
 \begin{figure*}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.44\textwidth]{prot_teff_Santos19_Santos21_dquality.png}
+			\includegraphics[width=0.44\textwidth]{prot_teff_Santos19_Santos21_dquality.pdf}
 		}
 		\subfloat{
-			\includegraphics[width=0.44\textwidth]{prot_teff_McQuillan2014only_dquality.png}
+			\includegraphics[width=0.44\textwidth]{prot_teff_McQuillan2014only_dquality.pdf}
 		}
 	\end{center}
 	\vspace{-0.6cm}
