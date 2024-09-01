@@ -142,7 +142,9 @@ def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality',
                             grazing_is_ok=0):
     # For KOIs
 
-    df = get_gyro_data(sampleid, grazing_is_ok=grazing_is_ok, drop_highruwe=1)
+    df = get_gyro_data(
+        sampleid, grazing_is_ok=grazing_is_ok, drop_highruwe=0
+    )
 
     if 'deprecated' not in sampleid:
         assert len(df) == df['flag_is_gyro_applicable'].sum()
@@ -382,7 +384,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
                         pad=0.1)
             cb.set_ticklabels( [0,None,2,None,4,None,6], bbox=bbox)
 
-            cb.ax.tick_params(labelsize='small', pad=1.)
+            cb.ax.tick_params(labelsize='small', pad=1.2)
             cb.ax.tick_params(size=1, which='both') # remove the ticks
             #cb.ax.yaxis.set_ticks_position('left')
             cb.ax.xaxis.set_label_position('top')
@@ -2466,8 +2468,10 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
     kicdf = get_kicstar_data(sampleid)
 
     # planets (for gyro)
-    koidf, _, _ = get_age_results(whichtype='gyro_li', COMPARE_AGE_UNCS=0,
-                                  grazing_is_ok=1, drop_highruwe=0)
+    #koidf, _, _ = get_age_results(whichtype='gyro_li', COMPARE_AGE_UNCS=0,
+    #                              grazing_is_ok=1, drop_highruwe=0)
+    sampleid = 'koi_X_S19S21dquality'
+    koidf = get_gyro_data(sampleid, grazing_is_ok=1, drop_highruwe=1)
 
     # get KIC target stars
     from gyrojo.getters import (
@@ -2620,7 +2624,7 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
         ]
         csvpaths = [join(DATADIR, "literature", n) for n in csvnames]
         for ix, (csvpath, c, ls) in enumerate(zip(csvpaths, colors, linestyles)):
-            mistdf = pd.read_csv(csvpath, delim_whitespace=True, comment='#')
+            mistdf = pd.read_csv(csvpath, sep='\s+', comment='#')
             mist_teff = 10**mistdf.log_Teff
             mist_logg = mistdf.log_g
             sel = (mist_teff > 4000)
@@ -2636,9 +2640,6 @@ def plot_st_params(outdir, xkey='dr3_bp_rp', ykey='M_G', vtangcut=None):
             elif ix == 2:
                 ax.text(5400, 3.8, '10 Gyr', ha='left', va='center',
                         fontsize='x-small', bbox=bbox, zorder=49, color=c)
-
-
-        #print(constrained_polynomial_function(np.array([5070]), coeffs))
 
     if xkey == 'dr3_bp_rp':
         xlabel = '$G_\mathrm{BP}-G_{\mathrm{RP}}$ [mag]'
