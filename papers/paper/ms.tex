@@ -34,7 +34,8 @@
 %%%%%%%%%%%%%%%%
 % INSTITUTIONS %
 %%%%%%%%%%%%%%%%
-\newcommand{\caltech}{Department of Astronomy, MC 249-17, California Institute of Technology, Pasadena, CA 91125, USA}
+\newcommand{\caltech}{Department of Astronomy, California Institute of Technology, Pasadena, CA 91125, USA}
+\newcommand{\carnegie}{Observatories of the Carnegie Institution for Science, Pasadena, CA 91101, USA}
 \newcommand{\mitkavli}{MIT Kavli Institute and Department of Physics,
 77 Massachusetts Avenue, Cambridge, MA 02139, USA}
 \newcommand{\berkeley}{Astronomy Department, University of California,
@@ -102,7 +103,7 @@ Mellon University, Pittsburgh, PA 15213, USA}
 \email{bouma.luke@gmail.com}
 
 \received{2024 June 21}
-\revised{---}
+\revised{2024 September 5}
 \accepted{---}
 \shorttitle{Kepler's Demographic Cliff} 
 
@@ -111,6 +112,7 @@ Mellon University, Pittsburgh, PA 15213, USA}
 \author[0000-0002-0514-5538]{Luke~G.~Bouma}
 \altaffiliation{51 Pegasi b Fellow}
 \affiliation{\caltech}
+\affiliation{\carnegie}
 
 \author{Lynne~A.~Hillenbrand}
 \affiliation{\caltech}
@@ -349,12 +351,12 @@ Section~\ref{sec:conclusions}.
 \begin{figure}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.45\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
+			\includegraphics[width=0.42\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
 		}
 	
 		\vspace{-0.3cm}
 		\subfloat{
-			\includegraphics[width=0.45\textwidth]{st_params_adopted_logg_vs_adopted_Teff.pdf}
+			\includegraphics[width=0.42\textwidth]{st_params_M_G_vs_dr3_bp_rp.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
@@ -364,12 +366,12 @@ Section~\ref{sec:conclusions}.
   \citet{Santos_2019,Santos_2021}.  About half of the stars with
   rotation periods are suitable for gyrochronology (dark gray points),
   based on factors including their non-binarity and proximity to the
-  main sequence (orange line in lower panel; see
+  main sequence (orange line in \replaced{lower}{upper} panel; see
   Section~\ref{subsec:flags}).  Some host ``confirmed'' or
   ``candidate'' KOIs that meet additional planetary quality criteria
   (yellow points; Section~\ref{subsec:plflags}).  Surface gravities
   and effective temperatures were derived photometrically by
-  \citet{Berger_2020a_catalog}.  Isochrones in the lower panel are
+  \citet{Berger_2020a_catalog}.  Isochrones in the \replaced{lower}{upper} panel are
   from MIST \citep{Choi_2016}.
 	}
 	\label{fig:stellarprops}
@@ -398,19 +400,19 @@ provides a visualization of the various samples.
 \begin{figure*}[!t]
 	\begin{center}
 		\subfloat{
-			\includegraphics[width=0.49\textwidth]{prot_teff_Santos19_Santos21_dquality.pdf}
+			\includegraphics[width=0.46\textwidth]{prot_teff_Santos19_Santos21_dquality.pdf}
 		}
 		\subfloat{
-			\includegraphics[width=0.49\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf}
+			\includegraphics[width=0.46\textwidth]{koi_mean_prot_teff_koi_X_S19S21dquality_keepgrazing.pdf}
 		}
 	\end{center}
 	\vspace{-0.5cm}
 	\caption{
     {\bf Rotation periods for Kepler target stars (left) and known
     planet hosts (right)}.  The gray lines are \replaced{``mean fits'' to the
-    rotation sequences of open clusters}{seventh-order polynomials
-    fitted to the slow rotation sequences of open clusters \citep[see Section~3.3 of][]{Bouma_2023}}.  The 2-D histogram of the
-    stellar sample (left) includes only apparently single stars near
+    rotation sequences of open clusters}{polynomials
+    fitted to the slow rotation sequences of open clusters}.  The 2-D histogram of the
+    stellar sample (left) shows only apparently single stars near
     the main sequence with $\log g$$>$4.2, RUWE$<$1.4, and
     temperatures of 3800--6200\,K.  The planet hosts (right) require
     the same stellar cuts, and include only the confirmed and
@@ -498,7 +500,7 @@ rot}$$\approx$35\,days.  Figure~\ref{fig:prot_vs_teff} shows a subset
 of the resulting \nuniqstarsantosrot\ Kepler stars with rotation
 periods compiled from \citetalias{Santos_2019},
 \citetalias{Santos_2021}, and our extended KOI list.\added{  The gray
-lines in this figure are the polynomials described by \citet{Bouma_2023}
+lines in this figure are the seventh-order polynomials described by \citet{Bouma_2023}
 that 
 fit the slow rotation sequences of the Pleiades \citep{Rebull_2016},
 Praesepe \citep{Rampalli_2021}, NGC-6811 \citep{Curtis_2019_ngc6811}, NGC-6819 \citep{Meibom_2015},
@@ -613,9 +615,9 @@ for calibration clusters at any given age
 \begin{figure}[!t]
 	\begin{center}
 		\leavevmode
-		\includegraphics[width=0.49\textwidth]{li_vs_teff_koi_X_JUMP_eagles.pdf}
+		\includegraphics[width=0.47\textwidth]{li_vs_teff_koi_X_JUMP_eagles.pdf}
 	\end{center}
-	\vspace{-0.25cm}
+	\vspace{-0.5cm}
 	\caption{{\bf Equivalent widths (EW) of the \ion{Li}{1} 6708\,\AA\ doublet
     for planet-hosting stars.} These measurements were made from
     Keck/HIRES spectra collected from 2009--2024.  Lines are the ``mean''
@@ -1835,7 +1837,7 @@ have easily identifiable young neighbors.
 \section{Conclusions}
 \label{sec:conclusions}
 
-We began this work with two questions: how wrong is the assumption of
+We began \deleted{this work }with two questions: how wrong is the assumption of
 a uniform age distribution for stars in the galactic thin disk?  And
 why are only $\approx$50 sub-gigayear transiting planets known, rather
 than the $\approx$500 that would be expected under the assumption of a
@@ -1870,15 +1872,17 @@ evolutionary connection to their youth.  Other discoveries include
 Earth-sized planets \added{(e.g.~Kepler-1312\,c and Kepler-1561\,b) }with \deleted{new }ages of only a few hundred million years.  
 
 \added{Significant care is 
-needed when assessing not only the reliability of rotational ages, but also any implications of measured age distributions.
+needed not only when assessing the reliability of individual rotational ages, but also when interpreting distributions of rotational ages inferred from many stars.
 Despite a slew of stellar quality flags, including on metallicity, evolutionary state,
-and binarity, we expect that up to a third of the ``apparently clean'' 
+and binarity, we expect that up to a third of our ``apparently clean'' 
 Kepler stars with $P_{\rm rot}$$<$10\,days
 could potentially be influenced by unresolved binaries (Figure~\ref{fig:hist_tgyro_corr}).
-A separate nuance is in understanding that the observed age distribution does not 
-directly map onto a star formation history: the kinematic heating of stars in the
-disk in particular produces a major bias in the age distribution of stars, and therefore of planets,
-observed by pencil-beam surveys such as Kepler.}
+An additional nuance is that even after correcting for effects
+that can bias rotational ages, our observed age distribution does not 
+directly yield a star formation history: 
+particularly for pencil-beam surveys such as Kepler,
+kinematic heating of stars in the
+thin disk significantly sculpts the stellar (and therefore planetary) age distribution.}
 
 Our \deleted{main }conclusions with respect to our original \added{two }questions\added{ -- what is the age distribution in the thin disk, and where are the missing young transiting exoplanets -- }are as
 follows.
