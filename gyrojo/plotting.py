@@ -239,6 +239,10 @@ def plot_koi_mean_prot_teff(outdir, sampleid='koi_X_S19S21dquality',
 def plot_star_Prot_Teff(outdir, sampleid):
     # For KIC / all Santos stars
 
+    # py311: nothing!
+
+    #mpl.use("pdf") # trying with py37...
+    #mpl.use("Agg")
     #mpl.use("cairo")
 
     assert sampleid in [
@@ -340,48 +344,51 @@ def plot_star_Prot_Teff(outdir, sampleid):
         dTeff = 100/5
         dProt = 1/4
 
+        # Define the colormap with white for zero counts and 7 other colors
+        # NOTE: this kind of segmenting is REQUIRED bc matplotlib has rendering
+        # problems if you assume a continuous color bar.
+
+        from matplotlib.colors import ListedColormap
+
+        cmap = plt.cm.get_cmap("GnBu", 8)
+        cmaplist = [cmap(i) for i in list(range(cmap.N))[1:-1]]
+        cmaplist[0] = (1.0, 1.0, 1.0, 1.0)  # Set the color for zero values to white
+        N = 7
+        cmap = mcolors.LinearSegmentedColormap.from_list('Custom', cmaplist, N)
+
+        norm = mcolors.Normalize(vmin=-0.5, vmax=6.5)
+
         # Create the 2D histogram
-        hist, xedges, yedges, im = plt.hist2d(
+        hist, xedges, yedges, im = ax.hist2d(
             Teffs, Prots,
             bins=[np.arange(3700, 6300, dTeff),
-                  np.arange(-1, 46, dProt)]
+                  np.arange(-1, 46, dProt)],
+            cmap=cmap,
+            norm=norm
         )
-
-        # Create a custom colormap with white color for zero values
-        cmap = plt.cm.YlGnBu
-        cmaplist = [cmap(i) for i in list(range(cmap.N))[20:-60]]
-        #cmaplist = [cmap(i) for i in range(cmap.N)]
-        cmaplist[0] = (1.0, 1.0, 1.0, 1.0)  # Set the color for zero values to white
-        cmap = mcolors.LinearSegmentedColormap.from_list('Custom YlGnBu', cmaplist, cmap.N)
-
-        ## Apply log scaling to the colorbar
-        #norm = mcolors.LogNorm(vmin=1, vmax=np.max(hist))
-        norm = mcolors.Normalize(vmin=0.5, vmax=7.2)
-        im.set_norm(norm)
-
-        # Update the colormap of the plot
-        im.set_cmap(cmap)
 
         show_colorbar = 1
         if show_colorbar:
             axins1 = inset_axes(ax, width="20%", height="2%", loc='upper right',
-                                borderpad=1.0)
+                                borderpad=1.)
 
             cb = fig.colorbar(im, cax=axins1, orientation="horizontal",
                               extend="max", norm=norm)
 
             cb.solids.set_edgecolor("face")  # Prevents white lines in PDF
-            cb.solids.set_rasterized(True)
-            #cb.ax.set_rasterized(True)
 
-            #cb.set_ticks([1,4,7,10])
-            cb.set_ticks(np.arange(1,8))
-            cb.set_ticklabels([1,None,3,None,5,None,7])
-            cb.ax.tick_params(labelsize='small')
+            cb.set_ticks(np.arange(0,7))
+            bbox = dict(facecolor='white', edgecolor='none', alpha=1,
+                        pad=0.1)
+            cb.set_ticklabels( [0,None,2,None,4,None,6], bbox=bbox)
+
+            cb.ax.tick_params(labelsize='small', pad=1.)
             cb.ax.tick_params(size=1, which='both') # remove the ticks
             #cb.ax.yaxis.set_ticks_position('left')
             cb.ax.xaxis.set_label_position('top')
-            cb.set_label("$N_\mathrm{stars}$", fontsize='small', weight='normal')
+            txt = "$N_\mathrm{stars}$"
+            cb.set_label(txt, fontsize='small',
+                         weight='normal', labelpad=2., bbox=bbox)
 
 
     txt = (
@@ -397,7 +404,7 @@ def plot_star_Prot_Teff(outdir, sampleid):
     ax.set_ylim([ -1, 46 ])
 
     outpath = os.path.join(outdir, f'prot_teff_{sampleid}.png')
-    savefig(fig, outpath, dpi=1000)
+    savefig(fig, outpath)
 
 
 def plot_li_vs_teff(outdir, sampleid=None, yscale=None,
