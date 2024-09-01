@@ -287,6 +287,10 @@ def make_table(
         if k not in COMMENTDICT:
             COMMENTDICT[k] = '\checkmark \checkmark'
 
+    closeperiods = np.abs(pdf.Prot - pdf.adopted_period) < 0.1
+    for k in pdf[closeperiods].kepoi_name:
+        COMMENTDICT[k] = '$|P_\mathrm{rot}$-$P_\mathrm{orb}|$$<$0.1$\,\mathrm{days}$'
+
     _sel1 = (
         (pdf.min_age < 1000) &
         sel_gyro_quality &
