@@ -23,7 +23,7 @@ python make_star_table.py
 # generate rp vs period vs age
 python make_gyroonly_table.py
 cwd=$(pwd)
-cd ~/Dropbox/proj/NEA_age_plots/drivers
+cd extcache
 python plot_rp_vs_period_scatter.py
 cd "$cwd"
 

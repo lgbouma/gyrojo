@@ -31,13 +31,11 @@ cp $r/li_vs_teff/li_vs_teff_koi_X_S19S21dquality_eagles_showpoints_nodata.pdf .
 cp $r/trilegal_comparison/threepanel_trilegal_comparison_twostepsfr.pdf .
 
 # planets
-r="/Users/luke/Dropbox/proj/NEA_age_plots/results/rp_vs_period_scatter"
-cp $r/rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung_allowsgrazingandhighruwe.pdf .
+cp $r/rp_vs_period_scatter/rp_vs_period_scatter_20240415_colorbyage_showaux-gyro_anyyoung_anyyoung_allowsgrazingandhighruwe.pdf .
 
 
 ########## 
 # appendices (probably omit)
-r="/Users/luke/Dropbox/proj/gyrojo/results"
 cp $r/gyroage_vs_teff/gyroage_vs_teff_errs_showplanets_linear.png .
 cp $r/gyroage_vs_teff/gyroage_vs_teff_errs_linear.png .
 
