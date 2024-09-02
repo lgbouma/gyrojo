@@ -205,7 +205,7 @@ resonant chain of puffy planets that is a likely precusor to the
 compact multiplanet systems \citep{David_2019}.  Population-level
 analyses have similarly suggested differences in the size distribution
 of young exoplanets relative to their older counterparts
-\citep{Berger_2020b_rpage,David_2021,Sandoval_2021,2023AJ....166..248C,2024arXiv240303261V}.
+\citep{Berger_2020b_rpage,David_2021,Sandoval_2021,2023AJ....166..248C,Vach2024}.
 
 Discovering a young planet requires solving two problems: finding the
 planet and measuring the star's age.  Each problem admits a range of
@@ -1723,7 +1723,7 @@ times, which may slow their rate of spin-down
 	\citep{Amard2020}.
 While recent observational work has empirically confirmed that such an effect is
 present in the Kepler data
-\citep[][]{2024arXiv240500779S},
+\citep[][]{See2024},
 the anti-correlation between close,
 unresolved binaries and stellar metallicity \citep{Moe2019} could be a complicating factor.
 Nonetheless, based on these studies, we flagged stars with known
@@ -1765,7 +1765,7 @@ of a few billion years; the statistical uncertainties in Table~\ref{tab:stars} s
 treated with appropriate caution.}
 
 \deleted{Metallicity may also be relevant
-\citep{2020MNRAS.499.3481A,2024arXiv240500779S}.  An additional caveat
+\citep{2020MNRAS.499.3481A,See2024}.  An additional caveat
 is that our rotation-based ages used photometric effective
 temperatures (Section~\ref{sec:stellarprops}), even though
 spectroscopic temperatures are available for the planet-hosting
@@ -1798,7 +1798,7 @@ is that the detectability of the rotation signals for 3-10\,Gyr stars,
 especially Sun-like stars, is at the limits of the Kepler data
 \citep{2022ApJ...937...94M}.  In the ``old star'' regime, methods that
 leverage either asteroseismology
-\citep{vanSaders_2016,2024ApJ...962..138S}, kinematics \citep{2021AJ....161..189L,2024arXiv240500779S},
+\citep{vanSaders_2016,2024ApJ...962..138S}, kinematics \citep{2021AJ....161..189L,See2024},
 or else that combine both
 the evolution of stellar luminosity and stellar rotation
 \citep{Angus_2019,Claytor2020,2023ApJ...952..131M} seem the most
@@ -1952,7 +1952,7 @@ Writing – original draft: LGB.
 Writing – review \& editing: all authors.
 
 \facilities{
-  Gaia \citep{Gaia_DR3_2022},
+  Gaia \citep{GaiaCollaboration2023},
   Kepler \citep{Borucki10},
   Keck:I (HIRES) \citep{vogt_hires_1994},
 	2MASS \citep{Skrutskie06},
@@ -2051,7 +2051,8 @@ Writing – review \& editing: all authors.
   \nuniqstarfinitegyroage\ stars with
   finite reported gyrochrone ages.  The quality
   bitmask is as in Table~\ref{tab:planets}; requiring bits zero to
-  ten to be null yields \nuniqstarsantosrotgyroappl\ stars for
+	ten to be null (e.g.~using the suggested {\bf
+\href{https://gist.github.com/lgbouma/87ad8bde42625e766a5a8857cc5a183a}{python script}}) yields \nuniqstarsantosrotgyroappl\ stars for
   which gyrochronology is likely to be valid.  \label{tab:stars}}
   %\toprule
   %\midrule

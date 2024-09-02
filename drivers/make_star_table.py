@@ -144,7 +144,7 @@ def make_star_table(
     # format ages
     sel = sdf.gyro_median.astype(float) > 4000
     _sdf.loc[sel, 't_gyro'] = '$> 4000$'
-    _sdf.sample(n=5).to_latex(
+    _sdf.sample(n=10).to_latex(
         latexpath, index=False, na_rep='--', escape=False, formatters=formatters
     )
 
