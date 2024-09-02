@@ -1607,14 +1607,14 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     N = int(len(mdf[sel_gyro_ok])/10)
     l0_1 = f'Gyro applicable ({N})'
     lw = 1 if not dropfracshortrot else 0.75
-    cc = 'darkviolet' if dropfracshortrot else 'C0'
+    cc = 'black' if dropfracshortrot else 'C0'
     heights, bin_edges, _  = axs[0].hist(
         mdf[sel_gyro_ok].age/1e3, bins=bins, color='C0', histtype='step',
         weights=np.ones(len(mdf[sel_gyro_ok]))/len(mdf[sel_gyro_ok]), zorder=-3,
         alpha=1, label=l0_1, linewidth=lw
     )
     if dropfracshortrot:
-        colors = ['darkviolet', 'C0', 'C0']
+        colors = ['black', 'C0', 'C0']
         linewidths = [1, 0.5, 0.5]
         linestyles = ['-', ':', '-.']
         alphas = [1, 0.4, 0.4]
@@ -1656,7 +1656,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
         c = 'C0'
     else:
         poisson_uncertainties = get_poisson_uncertainties(mdf[_sel_gyro_ok], bins)
-        c = 'darkviolet'
+        c = 'black'
 
     axs[0].errorbar(
         bin_centers, heights, yerr=poisson_uncertainties, marker='o',
@@ -1853,7 +1853,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     txt = 'Kepler stars'
     if dropfracshortrot:
         txt += ',\n − estm. binaries'
-        c = 'darkviolet'
+        c = 'black'
     if flag_mcq14_comp:
         txt = 'Santos P$_{\mathrm{rot}}$'
         c = 'C0'
@@ -1958,7 +1958,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     else:
         custom_lines = [Line2D([0], [0], color='C0', lw=0.5, alpha=0.4),
                         Line2D([0], [0], color='C0', lw=0.75, alpha=1.0),
-                        Line2D([0], [0], color='darkviolet', lw=1, alpha=1.0)
+                        Line2D([0], [0], color='black', lw=1, alpha=1.0)
                         ]
         legend = axs[0].legend(custom_lines, [l0_0, l0_1, droplabels[0]],
                                fontsize='xx-small', borderaxespad=0.9,
@@ -1976,7 +1976,7 @@ def plot_hist_field_gyro_ages(outdir, cache_id, MAXAGE=4000,
     #for t in legend.get_texts():
     #    t.set_va('center_baseline')
 
-    cc = 'darkviolet' if dropfracshortrot else 'C0'
+    cc = 'black' if dropfracshortrot else 'C0'
     custom_lines = [
         Line2D([0], [0], color=cc, lw=1, alpha=1.0),
         Line2D([0], [0], color=_c, lw=1, alpha=1.0),
@@ -3381,7 +3381,7 @@ def plot_threepanel_trilegal_comparison(outdir):
         'TRILEGAL, '+_s+', $b$=0$^{\!\circ}$',
     ]
 
-    lws = [1, 1, 0.5]
+    lws = [1, 1, 0.75]
     colors = ['C0', 'C1', 'darkgray']
     linestyles = ['-', '-', ':']
 
@@ -3451,7 +3451,7 @@ def plot_threepanel_trilegal_comparison(outdir):
         'TRILEGAL, '+_s+', $b$=0$^{\!\circ}$',
     ]
 
-    lws = [1, 1, 0.8]
+    lws = [1, 1, 0.75]
     colors = ['C0', 'C1', 'darkgray']
     linestyles = ['-', '-', ':']
 
