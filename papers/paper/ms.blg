@@ -5,30 +5,30 @@ The style file: aasjournal.bst
 Reallocated field_info (elt_size=4) to 10249 items from 5000.
 Database file #1: bibliography.bib
 Warning--entry type for "claude2024anthropic" isn't style-file defined
---line 572 of file bibliography.bib
-Repeated entry---line 1067 of file bibliography.bib
+--line 592 of file bibliography.bib
+Repeated entry---line 1087 of file bibliography.bib
  : @article{2021AJ....161..189L
  :                             ,
 I'm skipping whatever remains of this entry
-You're missing a field name---line 2519 of file bibliography.bib
+You're missing a field name---line 2539 of file bibliography.bib
  :  
  :  %series = {SPIE Conference Series},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
 Reallocated str_pool (elt_size=1) to 130000 items from 65000.
-Repeated entry---line 3615 of file bibliography.bib
+Repeated entry---line 3635 of file bibliography.bib
  : @article{Epstein_2014
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 4975 of file bibliography.bib
+Repeated entry---line 4995 of file bibliography.bib
  : @article{astropy:2013
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 20258 of file bibliography.bib
+Repeated entry---line 20278 of file bibliography.bib
  : @article{David_2019
  :                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 24921 of file bibliography.bib
+Repeated entry---line 24941 of file bibliography.bib
  : @article{Mamajek_2008
  :                      ,
 I'm skipping whatever remains of this entry
@@ -38,36 +38,36 @@ Warning--empty publisher in vogt_hires_1994
 Warning--empty pages in vogt_hires_1994
 You've used 181 entries,
             3222 wiz_defined-function locations,
-            2061 strings with 102281 characters,
-and the built_in function-call counts, 114725 in all, are:
-= -- 6819
+            2062 strings with 102299 characters,
+and the built_in function-call counts, 114703 in all, are:
+= -- 6817
 > -- 13496
 < -- 44
 + -- 4486
 - -- 4740
-* -- 12044
-:= -- 22485
+* -- 12042
+:= -- 22483
 add.period$ -- 182
 call.type$ -- 181
 change.case$ -- 1004
 chr.to.int$ -- 178
 cite$ -- 184
 duplicate$ -- 3251
-empty$ -- 5161
+empty$ -- 5159
 format.name$ -- 4932
-if$ -- 21714
+if$ -- 21708
 int.to.chr$ -- 4
 int.to.str$ -- 0
 missing$ -- 178
 newline$ -- 549
 num.names$ -- 726
-pop$ -- 1412
+pop$ -- 1411
 preamble$ -- 1
 purify$ -- 1004
 quote$ -- 0
-skip$ -- 2585
+skip$ -- 2584
 stack$ -- 0
-substring$ -- 3243
+substring$ -- 3237
 swap$ -- 30
 text.length$ -- 2
 text.prefix$ -- 0

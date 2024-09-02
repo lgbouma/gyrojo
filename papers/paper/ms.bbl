@@ -27,9 +27,6 @@
   {Georgy}, {Lagarde}, \& {Siess}}]{Amard2019}
 {Amard}, L., {Palacios}, A., {Charbonnel}, C., {et~al.} 2019, \aap, 631, A77
 
-\bibitem[{{Amard} {et~al.}(2020){Amard}, {Roquette}, \& {Matt}}]{Amard2020b}
-{Amard}, L., {Roquette}, J., \& {Matt}, S.~P. 2020, \mnras, 499, 3481
-
 \bibitem[{{Angus} {et~al.}(2015){Angus}, {Aigrain}, {Foreman-Mackey}, \&
   {McQuillan}}]{Angus_2015}
 {Angus}, R., {Aigrain}, S., {Foreman-Mackey}, D., \& {McQuillan}, A. 2015,
@@ -727,6 +724,9 @@ Mann, A.~W., Gaidos, E., Mace, G.~N., {et~al.} 2016, ApJ, 818
 
 \bibitem[{{Moe} \& {Kratter}(2021)}]{Moe2021}
 {Moe}, M., \& {Kratter}, K.~M. 2021, \mnras, 507, 3593
+
+\bibitem[{{Moe} {et~al.}(2019){Moe}, {Kratter}, \& {Badenes}}]{Moe2019}
+{Moe}, M., {Kratter}, K.~M., \& {Badenes}, C. 2019, \apj, 875, 61
 
 \bibitem[{{Mor} {et~al.}(2019){Mor}, {Robin}, {Figueras}, {Roca-F{\`a}brega},
   \& {Luri}}]{2019A&A...624L...1M}
