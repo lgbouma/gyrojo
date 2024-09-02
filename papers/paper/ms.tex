@@ -1,8 +1,8 @@
 % upon AAS submission
-\documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
+%\documentclass[11pt,twocolumn,tighten,linenumbers]{aastex63}
 %\documentclass[11pt,twocolumn,tighten,linenumbers,trackchanges]{aastex63}
 % drafting / arxiv
-%\documentclass[11pt,twocolumn,tighten]{aastex63}
+\documentclass[11pt,twocolumn,tighten]{aastex63}
 \turnoffedit
 
 \usepackage{apjfonts}
@@ -103,14 +103,14 @@ Mellon University, Pittsburgh, PA 15213, USA}
 \email{bouma.luke@gmail.com}
 
 \received{2024 June 21}
-\revised{2024 September 5}
+\revised{2024 September 4}
 \accepted{---}
 \shorttitle{Kepler's Demographic Cliff} 
 
 \shortauthors{Bouma et al.}
 
 \author[0000-0002-0514-5538]{Luke~G.~Bouma}
-\altaffiliation{51 Pegasi b Fellow}
+\altaffiliation{51 Pegasi b Fellow;  Carnegie Fellow}
 \affiliation{\caltech}
 \affiliation{\carnegie}
 
@@ -1572,9 +1572,9 @@ in the red giant asteroseismic ages derived by
 		the same raw (thinnest line) and quality-flag cleaned (``gyro applicable'') distributions
 		as in Figure~\ref{fig:hist_tgyro}.
 		However, even after applying our quality cuts, up to
-		\fivepctnuniqstarsantosrotgyroappl\ of \ngyroappllttendays\ ``clean'' rotators with
+		\fivepctnuniqstarsantosrotgyroappl\ of \ngyroappllttendays\ apparently clean rotators with
 		$P_{\rm rot}$$<$10\,days could be unresolved $\lesssim$0.5\,AU  binaries (see Section~\ref{subsec:caveats}).
-		The thick violet ``5\% binary contamination'' distribution corrects for this possibility by randomly removing
+		The black ``5\% binary contamination'' distribution corrects for this possibility by randomly removing
 		what we estimate (estm.) to be the maximum possible number of such systems; the true
 		correction might be smaller.  We expect such a correction to be more important in
 		the sample of all Kepler stars than in the KOI host sample.
@@ -1648,14 +1648,14 @@ this correction is best interpreted as an upper limit on the possible impact of 
 \added{{\it Rotational outliers:} }
 We were interested in not only the overall age distribution of the
 Kepler field, but also in the reliability of individual ages for \replaced{young
-stars known to host planets}{each star in our sample}.  We attempted to assess this reliability using
+stars known to host planets}{each star}.  We attempted to assess this reliability using
 quality bitmasks (Table~\ref{tab:planets}), a comparison against \deleted{open }cluster ages (Section~\ref{sec:litagecomparison}), and a comparison
 between rotation and lithium ages.  The \deleted{open }cluster comparison
-suggested that our ages were generally accurate at $\ll$0.5\,dex
+suggested that our ages were mostly accurate at $\ll$0.5\,dex
 across 0.04--2.5\,Gyr, similar to their quoted precision.
 Nonetheless, the upper-left panel of Figure~\ref{fig:agescalecompone}
 does show outliers, typically $\lesssim$10\% of the population
-in any cluster.  \added{While most of these outliers are known to have bad quality flags, some do not.} 
+in any cluster.  \added{While most of these outliers have known bad quality flags, some do not.} 
 These stars could be either field star contaminants,
 or else anomalous stars whose physical rotation histories were altered
 by processes not captured by our statistical uncertainties.
@@ -1679,17 +1679,17 @@ across a large number of elements.
 	that our analysis would overestimate the
 	degree by which the SFR in the Kepler field has decreased, by 7-14\%. }
 
-\added{Other age indicators may help in verifying the ages of the
-$\lesssim$3\,Gyr stars that are the main focus of this work.  Specifically,
-chromospheric emission in the X-ray, \ion{Ca}{2} HK line, and the UV
-can serve as an age tracer
-\citep{Mamajek_2008,2014MNRAS.441.2361V,2024ApJ...960...62E}.
-However, these age indicators are all in a sense ``rotation-powered''.
-The dynamo converts kinetic energy into magnetic energy, which is
-emitted through these chromospheric pathways.  We did not attempt to
-incorporate these indicators into this study due to concerns regarding
-sensitivity, homogeneity, and the question of whether they in fact
-provide age information that is truly independent from rotation.}
+%\added{Other age indicators may help in verifying the ages of the
+%$\lesssim$3\,Gyr stars that are the main focus of this work.  Specifically,
+%chromospheric emission in the X-ray, \ion{Ca}{2} HK line, and the UV
+%can serve as an age tracer
+%\citep{Mamajek_2008,2014MNRAS.441.2361V,2024ApJ...960...62E}.
+%However, these age indicators are all in a sense ``rotation-powered''.
+%The dynamo converts kinetic energy into magnetic energy, which is
+%emitted through these chromospheric pathways.  We did not attempt to
+%incorporate these indicators into this study due to concerns regarding
+%sensitivity, homogeneity, and the question of whether they in fact
+%provide age information that is truly independent from rotation.}
 
 \added{{\it Weakened magnetic braking:} 
 If we lived in a
@@ -1718,30 +1718,33 @@ much older stars with lethargic spin-down rates, but that it could be
 }
 
 \added{{\it Metallicity:}  
-Stars with higher metallicity are thought to have longer convective turnover
+Stars with higher metallicity are predicted to have longer convective turnover
 times, which may slow their rate of spin-down
 	\citep{Amard2020}.
-While observational studies of this effect have been suggestive, further work
-remains to definitively establish the importance of the effect \citep[e.g.][]{Amard2020b,2024arXiv240500779S}
-Nonetheless, based on the theoretical predictions, we flagged stars with known
-	spectroscopic $|[{\rm Fe/H}]|$$>$0.3, based on either LAMOST or Keck/HIRES
+While recent observational work has empirically confirmed that such an effect is
+present in the Kepler data
+\citep[][]{2024arXiv240500779S},
+the anti-correlation between close,
+unresolved binaries and stellar metallicity \citep{Moe2019} could be a complicating factor.
+Nonetheless, based on these studies, we flagged stars with known
+	spectroscopic $|[{\rm Fe/H}]|$$>$0.3, using either LAMOST or Keck/HIRES
 	spectra \citep{Zong2018,Petigura_2022}.
 The main limitation of this approach is that only 53.3\% of the stars in Table~\ref{tab:stars} with
 $t_{\rm gyro}$$<$4\,Gyr had such spectra available.
-For the rest of the sample, primarily composed of fainter stars,
-this means that our quality flags were not sensitive to metallicity outliers.
-Based on the metallicity distribution of stars for which we do have spectra,
-this 
-implies that at most $\approx$5\% of stars in our sample might have $|[{\rm Fe/H}]|$$>$0.3,
+For the remainder of our sample,
+our quality flags were not sensitive to metallicity outliers.
+The metallicity distribution of stars for which we do have spectra suggests that
+at most $\approx$5\% of stars in our apparently clean sample might have $|[{\rm Fe/H}]|$$>$0.3 and not
+be flagged,
 with a slight bias toward lower metallicity stars over higher metallicity.
-Based on the results by \citet{Claytor2020},  this will be most important
+Based on the study by \citet{Claytor2020},  this will be most important
 for stars near the Kraft break, which could have ages over-estimated
 by $\approx$50-100\% if they are in fact metal-poor, and under-estimated in the converse case.
 }
 
 \added{{\it Differential rotation:}
 The Sun's surface rotates once per $\approx$25-30\,days at latitudes between the equator
-and $\approx$$\pm$60$^\circ$ \citep{Snodgrass1990}.
+and $\approx$$\pm$60$^\circ$ \citep[e.g.][]{Snodgrass1990}.
 This latitudinal surface differential rotation yields two separate limitations on rotational ages.
 The first is
 on the accuracy with which any one star's rotation period can be measured over a few-year mission like Kepler;
@@ -1750,17 +1753,16 @@ In this study, we accounted for the latter intrinsic scatter based on available 
 from Ruprecht-147 \citep{Curtis_2020} and M67 data
 \citep{Barnes2016,Dungee_2022,Gruner_2023}.
 This means that irrespective of the assumed $P_{\rm rot}$ measurement precision,
-our model imposed a $\approx$5-10\% level of intrinsic $P_{\rm rot}$ scatter (perhaps differential-rotation induced)
+our model imposed a $\approx$5-10\% level of intrinsic $P_{\rm rot}$ scatter
 at old ages.
 While this accounts for the statistical impact of differential rotation on the inferred
 age distribution,
 the accuracy issue remains;
 any one individual star's observed rotation period might be faster
 or slower than average stars of the same mass and age.  
-This effect can yield a $\approx$20\% age bias for individual Sun-like stars with ages
+This effect can yield a $\approx$20\% age error for individual Sun-like stars with ages
 of a few billion years; the statistical uncertainties in Table~\ref{tab:stars} should be
-treated with appropriate caution.
-}
+treated with appropriate caution.}
 
 \deleted{Metallicity may also be relevant
 \citep{2020MNRAS.499.3481A,2024arXiv240500779S}.  An additional caveat
@@ -1796,13 +1798,14 @@ is that the detectability of the rotation signals for 3-10\,Gyr stars,
 especially Sun-like stars, is at the limits of the Kepler data
 \citep{2022ApJ...937...94M}.  In the ``old star'' regime, methods that
 leverage either asteroseismology
-\citep{vanSaders_2016,2024ApJ...962..138S}, or else that combine both
+\citep{vanSaders_2016,2024ApJ...962..138S}, kinematics \citep{2021AJ....161..189L,2024arXiv240500779S},
+or else that combine both
 the evolution of stellar luminosity and stellar rotation
 \citep{Angus_2019,Claytor2020,2023ApJ...952..131M} seem the most
 capable of providing useful age constraints for single stars over the
 full span of their main-sequence lifetimes.
 
-{\it \added{Planet} occurrence Rates}:
+{\it \added{Planet} occurrence rates}:
 The age-dependent trends predicted for exoplanet populations, such as
 the Kelvin-Helmholtz cooling of mini-Neptunes \citep{Gupta_2019},
 time-dependent carving of the photoevaporation desert
@@ -1818,10 +1821,11 @@ While this study focused on Kepler, other photometric surveys
 age-dating a far broader set of stars and planets.  Future prospects
 also include PLATO \citep{Rauer14}, Earth 2.0
 \citep{2022arXiv220606693G}, and the Roman Galactic Bulge Time Domain
-Survey \citep{Wilson2023}.  Rotation-based age-dating from these surveys could
+Survey \citep{Wilson2023}.  Rotation-based ages from these surveys could
 yield new insight
-into whether the star formation history that we see in the Kepler field is
-universal across the thin disk.
+into \replaced{whether the star formation history that we see in the Kepler field is
+universal across the thin disk.}{the relative importance of star formation and
+kinematic heating across different components of the Galaxy.}
 
 {\it Searches for new associations}:
 Some of the youngest stars in Tables~\ref{tab:planets}
@@ -1877,12 +1881,12 @@ Despite a slew of stellar quality flags, including on metallicity, evolutionary 
 and binarity, we expect that up to a third of our ``apparently clean'' 
 Kepler stars with $P_{\rm rot}$$<$10\,days
 could potentially be influenced by unresolved binaries (Figure~\ref{fig:hist_tgyro_corr}).
-An additional nuance is that even after correcting for effects
-that can bias rotational ages, our observed age distribution does not 
-directly yield a star formation history: 
+An additional nuance is that even after correcting for such effects,
+the star formation history does not directly trace
+the observed age distribution: 
 particularly for pencil-beam surveys such as Kepler,
 kinematic heating of stars in the
-thin disk significantly sculpts the stellar (and therefore planetary) age distribution.}
+thin disk significantly sculpts the observed stellar (and therefore planetary) age distribution.}
 
 Our \deleted{main }conclusions with respect to our original \added{two }questions\added{ -- what is the age distribution in the thin disk, and where are the missing young transiting exoplanets -- }are as
 follows.
@@ -1895,7 +1899,7 @@ follows.
     stars in the Kepler field as ``young'' (0-1\,Gyr) stars.  \deleted{The star
     formation rate today is \ratiosfr$\pm$\uncratiosfr\ times lower
     than it was three billion years ago.}
-\item \added{The youngest stars in the Kepler field (0-0.3\,Gyr)
+\item \added{The youngest Kepler stars (0-0.3\,Gyr)
     are at least  \ratiosfr$\pm$\uncratiosfr\ times rarer than stars 2.7-3\,Gyr old. The statistical
     uncertainty on this value is dwarfed by the systematic
     uncertainty in the contamination rate of unresolved
@@ -1904,10 +1908,10 @@ follows.
     rotation-based ages broadly agrees}{is broadly consistent} with \replaced{recent reports of a
     declining star-formation rate}{modeling expectations (Section~\ref{subsec:trilegal}), and with age distributions derived from} CMD fitting and white-dwarf
     chronology\replaced{, though with the}{.  The }advantage of \added{rotation-based ages however is their }\replaced{sensitivity}{accuracy} for
-    FGK stars at $t$$<$1\,Gyr (e.g.~Figure~\ref{fig:agescalecompone}).
+    individual FGK stars at $t$$<$1\,Gyr (e.g.~Figure~\ref{fig:agescalecompone}).
   %
-  \item Rather than expecting $\approx$500 exoplanets younger than one
-    billion years, the age distribution of stars in the Kepler field
+  \item Rather than expecting $\approx$500 cumulative exoplanets younger than one
+    billion years, the age distribution of the Kepler field
     \replaced{implies}{suggests} that we \replaced{should}{might} instead expect $\approx$250.
   %
   \item We have \replaced{derived}{reported} rotation-based ages for \nplyounggyrotwosigma\
