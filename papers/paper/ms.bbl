@@ -301,6 +301,12 @@
 {Denissenkov}, P.~A., {Pinsonneault}, M., {Terndrup}, D.~M., \& {Newsham}, G.
   2010, \apj, 716, 1269
 
+\bibitem[{{do Nascimento} {et~al.}(2020){do Nascimento}, {de Almeida},
+  {Velloso}, {Anthony}, {Barnes}, {Saar}, {Meibom}, {da Costa}, {Castro},
+  {Galarza}, {Lorenzo-Oliveira}, {Beck}, \& {Mel{\'e}ndez}}]{doNascimento2020}
+{do Nascimento}, J.~D., J., {de Almeida}, L., {Velloso}, E.~N., {et~al.} 2020,
+  \apj, 898, 173
+
 \bibitem[{{Dotter}(2016)}]{2016ApJS..222....8D}
 {Dotter}, A. 2016, \apjs, 222, 8
 
@@ -543,6 +549,17 @@ Hunter, J.~D., {et~al.} 2007, Computing in science and engineering, 9, 90
   {Smith}, {Tamura}, {Tanaka}, {Van Eylen}, {Watanabe}, \&
   {Winn}}]{Livingston_2018}
 {Livingston}, J.~H., {Dai}, F., {Hirano}, T., {et~al.} 2018, \aj, 155, 115
+
+\bibitem[{{Lorenzo-Oliveira} {et~al.}(2020){Lorenzo-Oliveira}, {Mel{\'e}ndez},
+  {Ponte}, \& {Galarza}}]{LorenzoOliveira2020}
+{Lorenzo-Oliveira}, D., {Mel{\'e}ndez}, J., {Ponte}, G., \& {Galarza}, J.~Y.
+  2020, \mnras, 495, L61
+
+\bibitem[{{Lorenzo-Oliveira} {et~al.}(2019){Lorenzo-Oliveira}, {Mel{\'e}ndez},
+  {Yana Galarza}, {Ponte}, {dos Santos}, {Spina}, {Bedell}, {Ram{\'\i}rez},
+  {Bean}, \& {Asplund}}]{LorenzoOliveira2019}
+{Lorenzo-Oliveira}, D., {Mel{\'e}ndez}, J., {Yana Galarza}, J., {et~al.} 2019,
+  \mnras, 485, L68
 
 \bibitem[{{Lu} {et~al.}(2024){Lu}, {Angus}, {Foreman-Mackey}, \&
   {Hattori}}]{2024AJ....167..159L}

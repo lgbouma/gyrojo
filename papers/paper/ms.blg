@@ -2,37 +2,37 @@ This is BibTeX, Version 0.99d (TeX Live 2021)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: ms.aux
 The style file: aasjournal.bst
-Reallocated field_info (elt_size=4) to 10162 items from 5000.
+Reallocated field_info (elt_size=4) to 10249 items from 5000.
 Database file #1: bibliography.bib
 Warning--entry type for "claude2024anthropic" isn't style-file defined
---line 592 of file bibliography.bib
-Repeated entry---line 1089 of file bibliography.bib
+--line 650 of file bibliography.bib
+Repeated entry---line 1147 of file bibliography.bib
  : @article{2021AJ....161..189L
  :                             ,
 I'm skipping whatever remains of this entry
-You're missing a field name---line 2543 of file bibliography.bib
+You're missing a field name---line 2601 of file bibliography.bib
  :  
  :  %series = {SPIE Conference Series},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
 Reallocated str_pool (elt_size=1) to 130000 items from 65000.
-Repeated entry---line 3509 of file bibliography.bib
+Repeated entry---line 3567 of file bibliography.bib
  : @article{GaiaCollaboration2023
  :                               ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 3642 of file bibliography.bib
+Repeated entry---line 3700 of file bibliography.bib
  : @article{Epstein_2014
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 5002 of file bibliography.bib
+Repeated entry---line 5060 of file bibliography.bib
  : @article{astropy:2013
  :                      ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 20285 of file bibliography.bib
+Repeated entry---line 20343 of file bibliography.bib
  : @article{David_2019
  :                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 24948 of file bibliography.bib
+Repeated entry---line 25006 of file bibliography.bib
  : @article{Mamajek_2008
  :                      ,
 I'm skipping whatever remains of this entry
@@ -40,45 +40,45 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--can't use both author and editor fields in vogt_hires_1994
 Warning--empty publisher in vogt_hires_1994
 Warning--empty pages in vogt_hires_1994
-You've used 178 entries,
+You've used 181 entries,
             3222 wiz_defined-function locations,
-            2042 strings with 92524 characters,
-and the built_in function-call counts, 107062 in all, are:
-= -- 6681
-> -- 12029
+            2064 strings with 93582 characters,
+and the built_in function-call counts, 108586 in all, are:
+= -- 6792
+> -- 12170
 < -- 43
-+ -- 3998
-- -- 4248
-* -- 10981
-:= -- 20834
-add.period$ -- 179
-call.type$ -- 178
-change.case$ -- 991
-chr.to.int$ -- 175
-cite$ -- 181
-duplicate$ -- 3199
-empty$ -- 5037
-format.name$ -- 4438
-if$ -- 20421
++ -- 4044
+- -- 4300
+* -- 11127
+:= -- 21122
+add.period$ -- 182
+call.type$ -- 181
+change.case$ -- 1006
+chr.to.int$ -- 178
+cite$ -- 184
+duplicate$ -- 3253
+empty$ -- 5121
+format.name$ -- 4492
+if$ -- 20722
 int.to.chr$ -- 4
 int.to.str$ -- 0
-missing$ -- 175
-newline$ -- 540
-num.names$ -- 714
-pop$ -- 1388
+missing$ -- 178
+newline$ -- 549
+num.names$ -- 726
+pop$ -- 1411
 preamble$ -- 1
-purify$ -- 991
+purify$ -- 1006
 quote$ -- 0
-skip$ -- 2506
+skip$ -- 2546
 stack$ -- 0
-substring$ -- 3072
+substring$ -- 3123
 swap$ -- 30
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1599
+type$ -- 1626
 warning$ -- 3
-while$ -- 640
+while$ -- 650
 width$ -- 0
-write$ -- 1784
+write$ -- 1814
 (There were 7 error messages)
