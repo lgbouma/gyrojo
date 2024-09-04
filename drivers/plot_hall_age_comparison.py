@@ -8,7 +8,7 @@ from astropy.io import fits
 from astropy.table import Table
 from gyrojo.getters import select_by_quality_bits
 
-def plot_hall_age_comparison(smalllim=0):
+def get_merge():
 
     litdir = join(DATADIR, "literature")
     fitspath = join(litdir, "Hall_2021_asteroseismic.fits")
@@ -30,6 +30,13 @@ def plot_hall_age_comparison(smalllim=0):
     sel = ~pd.isnull(mdf.gyro_median)
     mdf = mdf[sel]
 
+    return mdf
+
+
+def plot_hall_age_comparison(smalllim=0):
+
+    mdf = get_merge()
+
     set_style('science')
     plt.close("all")
 
@@ -38,10 +45,13 @@ def plot_hall_age_comparison(smalllim=0):
     sdf = mdf
 
     mask = select_by_quality_bits(
-        sdf, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        sdf, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     )
     sdf['flag_is_gyro_applicable'] = mask
+
+    cols = 'KIC,adopted_Teff,gyro_median,gyro_-1sigma,gyro_+1sigma,Prot,Age,e_age_lc,e_Age,P,__Fe_H_'.split(",")
+    print(sdf[sdf['flag_is_gyro_applicable']][cols].sort_values(by='gyro_median'))
 
     yerr = 1e3*np.array(
         [sdf['e_age_lc'], sdf['e_Age']]
