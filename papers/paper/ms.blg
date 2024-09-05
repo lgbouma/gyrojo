@@ -2,7 +2,7 @@ This is BibTeX, Version 0.99d (TeX Live 2021)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: ms.aux
 The style file: aasjournal.bst
-Reallocated field_info (elt_size=4) to 10249 items from 5000.
+Reallocated field_info (elt_size=4) to 10365 items from 5000.
 Database file #1: bibliography.bib
 Warning--entry type for "claude2024anthropic" isn't style-file defined
 --line 650 of file bibliography.bib
@@ -40,45 +40,45 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--can't use both author and editor fields in vogt_hires_1994
 Warning--empty publisher in vogt_hires_1994
 Warning--empty pages in vogt_hires_1994
-You've used 181 entries,
+You've used 185 entries,
             3222 wiz_defined-function locations,
-            2064 strings with 93582 characters,
-and the built_in function-call counts, 108586 in all, are:
-= -- 6792
-> -- 12170
-< -- 43
-+ -- 4044
-- -- 4300
-* -- 11127
-:= -- 21122
-add.period$ -- 182
-call.type$ -- 181
-change.case$ -- 1006
-chr.to.int$ -- 178
-cite$ -- 184
-duplicate$ -- 3253
-empty$ -- 5121
-format.name$ -- 4492
-if$ -- 20722
+            2094 strings with 103330 characters,
+and the built_in function-call counts, 116182 in all, are:
+= -- 6929
+> -- 13650
+< -- 44
++ -- 4536
+- -- 4796
+* -- 12178
+:= -- 22797
+add.period$ -- 186
+call.type$ -- 185
+change.case$ -- 1024
+chr.to.int$ -- 182
+cite$ -- 188
+duplicate$ -- 3323
+empty$ -- 5234
+format.name$ -- 4992
+if$ -- 21976
 int.to.chr$ -- 4
 int.to.str$ -- 0
-missing$ -- 178
-newline$ -- 549
-num.names$ -- 726
-pop$ -- 1411
+missing$ -- 182
+newline$ -- 561
+num.names$ -- 742
+pop$ -- 1437
 preamble$ -- 1
-purify$ -- 1006
+purify$ -- 1024
 quote$ -- 0
-skip$ -- 2546
+skip$ -- 2602
 stack$ -- 0
-substring$ -- 3123
+substring$ -- 3194
 swap$ -- 30
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1626
+type$ -- 1662
 warning$ -- 3
-while$ -- 650
+while$ -- 664
 width$ -- 0
-write$ -- 1814
+write$ -- 1854
 (There were 7 error messages)
