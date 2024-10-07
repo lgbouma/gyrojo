@@ -488,7 +488,7 @@ def make_table(
         outdf.to_csv(csvpath, index=False)
         print(f'Wrote {csvpath}')
 
-        # format ages
+        # Format ages
         sel = outdf['t_li'].str.contains(">")
         outdf.loc[sel, 'li_median'] = np.nan
         outdf.loc[sel, 'li_+1sigma'] = np.nan
@@ -499,6 +499,23 @@ def make_table(
         outdf.loc[sel, 'gyro_median'] = np.nan
         outdf.loc[sel, 'gyro_+1sigma'] = np.nan
         outdf.loc[sel, 'gyro_-1sigma'] = np.nan
+
+        # Remove "t_li" and "t_gyro" latex columns (which have the redunant
+        # values), and  instead report "t_li_lowerlimit" and "t_gyro_lowerlimit"
+        # columns
+        outdf['t_gyro_lowerlimit'] = ''
+        sel = outdf['t_gyro'].str.contains(">")
+        outdf.loc[sel, 't_gyro_lowerlimit'] = (
+            outdf.loc[sel, 't_gyro'].str.lstrip("$").str.rstrip("$")
+        )
+        outdf = outdf.drop(columns=['t_gyro'])
+
+        outdf['t_li_lowerlimit'] = ''
+        sel = outdf['t_li'].str.contains(">")
+        outdf.loc[sel, 't_li_lowerlimit'] = (
+            outdf.loc[sel, 't_li'].str.lstrip("$").str.rstrip("$")
+        )
+        outdf = outdf.drop(columns=['t_li'])
 
         csvpath = join(PAPERDIR, 'table_allageinfo_agesformatted.csv')
         outdf.to_csv(csvpath, index=False)

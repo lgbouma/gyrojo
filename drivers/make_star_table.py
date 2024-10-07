@@ -175,12 +175,24 @@ def make_star_table(
     print(f'Wrote {csvpath}')
 
     csvpath = join(PAPERDIR, 'table_star_gyro_agesformatted.csv')
-    # format ages
+    # Format ages
     sel = sdf.gyro_median.astype(float) > 4000
     sdf.loc[sel, 't_gyro'] = '$> 4000$'
     sdf.loc[sel, 'gyro_median'] = np.nan
     sdf.loc[sel, 'gyro_+1sigma'] = np.nan
     sdf.loc[sel, 'gyro_-1sigma'] = np.nan
+
+    # Remove "t_li" and "t_gyro" latex columns (which have the redunant
+    # values), and  instead report "t_li_lowerlimit" and "t_gyro_lowerlimit"
+    # columns
+    sdf['t_gyro_lowerlimit'] = ''
+    sel = sdf['t_gyro'].str.contains(">")
+    sdf.loc[sel, 't_gyro_lowerlimit'] = (
+        sdf.loc[sel, 't_gyro'].str.lstrip("$").str.rstrip("$")
+    )
+    sdf = sdf.drop(columns=['t_gyro'])
+
+    # Write
     sdf.to_csv(csvpath, index=False, na_rep='')
     print(f'Wrote {csvpath}')
 
