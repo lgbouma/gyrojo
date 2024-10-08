@@ -74,9 +74,6 @@ Mellon University, Pittsburgh, PA 15213, USA}
 \defcitealias{Berger_2020a_catalog}{B20}
 
 % Redefine footnote command to not have indent
-%\makeatletter
-%\long\def@makefntext#1{\noindent\footnotesize@makefnmark#1}
-%\makeatother
 \setlength{\footnotesep}{0pt}
 
 
@@ -86,21 +83,10 @@ Mellon University, Pittsburgh, PA 15213, USA}
 
 \begin{document}
 
-%\title{Kepler's Demographic Cliff: Ages of Young Stars and Planets in the Kepler Field}
-%\title{A Cliff In The Age Distribution of Young Stars and Planets in the Kepler Field}
-%\title{A Paucity of Young Stars and Planets in the Kepler Field}
-%\title{A Non-Uniform Age Distribution of Stars and Planets in the Kepler Field}
-%\title{}
-% Rotational and Lithium-Based Ages of Stars and Planets in the Kepler Field
-% Stars And Planets Younger Than Four Billion Years In The Kepler Field
-%\title{Sub-Solar Aged Stars and Planets in the Kepler Field}
-%From Youth to Maturity: Ages of Stars and Planets in the Kepler Field
-%Ages of Stars and Planets in the Kepler Field Over The First Four Billion Years
-
-\title{Ages of Stars and Planets in the Kepler Field Over the First Four Billion Years}
+\title{Ages of Stars and Planets in the Kepler Field Younger Than Four Billion Years}
 
 \correspondingauthor{Luke G. Bouma}
-\email{bouma.luke@gmail.com}
+\email{lbouma@carnegiescience.edu}
 
 \received{2024 June 21}
 \revised{2024 September 4}
@@ -199,7 +185,7 @@ processes have run their course.
 Young ($<$1\,Gyr) exoplanets represent one means of building the
 timeline for exoplanet evolution.  Informative individual exemplars
 include HIP~67522\,b, a Jupiter-sized planet with a sub-Neptunian mass
-(\citealt{Rizzuto_2020}; Thao et al.~submitted), and V1298~Tau, a
+(\citealt{Rizzuto_2020}; \citealt{Thao2024}), and V1298~Tau, a
 resonant chain of puffy planets that is a likely precusor to the
 compact multiplanet systems \citep{David_2019}.  Population-level
 analyses have similarly suggested differences in the size distribution
@@ -217,7 +203,7 @@ using rotation and lithium.
 To begin, imagine that the ages of nearby stars in the Galaxy are
 uniformly distributed from 0--10\,Gyr
 \citep[][]{2000MNRAS.318..658B,Nordstrom_2004}.  This approximation
-suggests that $\approx$1\% of nearby stars have $t$$<$100\,Myr, and
+suggests that $\approx$1\% of nearby stars have ages $t$$<$100\,Myr, and
 $\approx$10\% have $t$$<$1\,Gyr.  Studies of currently forming
 protoplanets \citep{2018A&A...617A..44K}, and of exoplanets evolving
 just after disk dispersal \citep[e.g.][]{2022MNRAS.512.5067K}, are
@@ -968,43 +954,6 @@ the lithium model, and by the prior.  In these instances, we
 quote the 3$\sigma$ (99.7$^{\rm th}$ percentile) limits.
 
 
-%\subsection{Sample Summary}
-%\label{subsec:tally}
-%
-%The rotation periods for the star and planet samples are shown in
-%Figure~\ref{fig:prot_vs_teff}.  Out of the \nkeplerstars\ stars
-%observed by Kepler, requiring reported rotation periods and a reliable
-%DR3 crossmatch yields \nuniqstarsantosrot\ stars.  Further requiring
-%these stars to have temperatures of 3800--6200\,K yields
-%\nuniqstarsantosrotteffcut\ stars.  Further requiring the stars to be
-%apparently single, near the main sequence, with $\log g$$>$4.2,
-%$M_{\rm G}>3.9$, and not flagged as eclipsing binaries yielded
-%\nuniqstarsantosallbutruwe\ rotators.
-%Finally, imposing the full set of quality cuts,
-%i.e.~further requiring RUWE$<$1.4 and requiring no
-%resolved blends ($\Delta G$<2.5) within 4$''$ leaves
-%\nuniqstarsantosrotgyroappl\ stars for which we expect rotation-based
-%age dating to be secure.
-%
-%
-%In the planet sample, the cumulative KOI table included
-%\nnonfpcumkois\ confirmed and candidate planets, orbiting
-%\nnonfpcumkoihosts\ stars.  Assume that we apply all the same stellar
-%cuts, save for that on RUWE.  We can then require these confirmed and
-%candidate planets to have MES$>$10.  This combination of selection
-%criteria yield \nplwgyroagewithgrazingandhighruwe\ planets with
-%rotation-based ages orbiting
-%\nplhoststarwgyroagewithgrazingandhighruwe\ stars
-%(\nplhoststarwgyroagejusthighruwe\ of these stars with ``high'' RUWE).
-%If we additionally require the planets to be non-grazing ($b<0.8$), we
-%are left with \nplwgyroagenograzing\ planets orbiting
-%\nplhoststarwgyroagenograzing\ stars with rotatio-based ages.
-%This cut drops $\approx$41 more planets than one would expect if the initial sample
-%of \nplwgyroagewithgrazingandhighruwe\ planets had zero false positives.
-%The binomial probability that this could happen by coincidence is 0.1\%.
-
-
-
 
 \section{Cluster Age Comparison}
 \label{sec:litagecomparison}
@@ -1116,11 +1065,6 @@ sub-gigayear stars of a fixed mass and age.
     \subfloat{
         \includegraphics[width=.98\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240821_maxage4000_preciseagesonly.pdf}
     }
-%
-%	\vspace{-0.35cm}
-%	\subfloat{
-%		\includegraphics[width=.98\textwidth]{comp_hist_samples_koi_gyro_ages_hist_field_gyro_ages_20240821_maxage4000_dropfracshortrot.pdf}
-%	}
   \end{center}
   \vspace{-0.6cm}
   \caption{{\bf Kepler's demographic cliff,} visible in the
@@ -1681,18 +1625,6 @@ across a large number of elements.
 	that our analysis would overestimate the
 	degree by which the SFR in the Kepler field has decreased, by 7-14\%. }
 
-%\added{Other age indicators may help in verifying the ages of the
-%$\lesssim$3\,Gyr stars that are the main focus of this work.  Specifically,
-%chromospheric emission in the X-ray, \ion{Ca}{2} HK line, and the UV
-%can serve as an age tracer
-%\citep{Mamajek_2008,2014MNRAS.441.2361V,2024ApJ...960...62E}.
-%However, these age indicators are all in a sense ``rotation-powered''.
-%The dynamo converts kinetic energy into magnetic energy, which is
-%emitted through these chromospheric pathways.  We did not attempt to
-%incorporate these indicators into this study due to concerns regarding
-%sensitivity, homogeneity, and the question of whether they in fact
-%provide age information that is truly independent from rotation.}
-
 \added{{\it Weakened magnetic braking:} 
 If stellar rotation rates and spot-induced photometric amplitudes
 remained {\it constant} after $\approx$3\,Gyr, then older stars could
@@ -1932,7 +1864,8 @@ follows.
 We thank Kevin Schlaufman and the reviewer for suggestions which significantly improved the 
 manuscript.
 This work was supported by the Heising-Simons 51~Pegasi~b Fellowship
-(LGB, EKP) and the Arthur R.~Adams SURF Fellowship (EKP).
+(LGB, EKP), the Carnegie Institution for Science's Carnegie Fellowship (LGB),
+and the Arthur R.~Adams SURF Fellowship (EKP).
 The HIRES data were obtained at the Keck Observatory.
 We recognize the importance that the summit of Maunakea has always had
 within the indigenous Hawaiian community, and we are deeply grateful 
