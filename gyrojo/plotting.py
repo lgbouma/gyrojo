@@ -1333,10 +1333,13 @@ def get_sigma_range(result, median_age_range):
     return mean_plus_sigma, mean_minus_sigma
 
 
-def add_gradient_patch(ax, xmin, xmax, ymin, ymax, resolution=100):
+def add_gradient_patch(ax, xmin, xmax, ymin, ymax, resolution=100,
+                       color0='white', color1='black', alpha=0.3):
 
     # Create a grayscale gradient colormap
-    cmap = mcolors.LinearSegmentedColormap.from_list("", ["white", "black"])
+    cmap = mcolors.LinearSegmentedColormap.from_list(
+        "", [color0, color1]
+    )
 
     # Create a rectangle patch with the specified coordinates
     rect = patches.Rectangle((xmin, ymin), xmax - xmin, ymax - ymin, facecolor="none", edgecolor="none")
@@ -1357,7 +1360,7 @@ def add_gradient_patch(ax, xmin, xmax, ymin, ymax, resolution=100):
         cmap=cmap,
         aspect="auto",
         extent=(xmin, xmax, ymin, ymax),
-        alpha=0.3,
+        alpha=alpha,
         zorder=0,
     )
 
